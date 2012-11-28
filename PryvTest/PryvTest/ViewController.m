@@ -67,7 +67,7 @@
     
     NSMutableURLRequest *request =
     [[NSMutableURLRequest alloc] initWithURL:
-     [NSURL URLWithString:@"https://maninder.rec.la/admin/channels"]];
+     [NSURL URLWithString:@"https://maninder.rec.la/channels"]];
     
     
     
@@ -83,7 +83,7 @@
     //NSLog(@"%d",success);
     NSLog(@"sessionId = %@",sessionId);
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                          @"maninder", @"userName", @"password", @"password",@"pryv-notes-mobile", @"appId",sessionId, @"Authorization", nil];
+                          @"maninder", @"username", @"password", @"password",@"pryv-notes-mobile", @"appId",sessionId, @"Authorization", nil];
     [request setAllHTTPHeaderFields:dict];
     
     
