@@ -104,15 +104,14 @@
      [NSURL URLWithString:@"https://maninder.rec.la/admin/get-app-token"]];
     
     
-    
     [request setHTTPMethod:@"POST"];
     
     
     // Parse the string into JSON
     SBJsonParser *jsonParser = [SBJsonParser new];
-    //NSLog(@"response = %@",self.responseTextView.text);
+    
     NSDictionary *jsonData = (NSDictionary *) [jsonParser objectWithString:self.responseTextView.text error:nil];
-    //NSLog(@"%@",jsonData);
+    
     NSString *sessionId = (NSString*)[jsonData objectForKey:@"sessionID"];
     
     
@@ -120,25 +119,13 @@
                           sessionId, @"Authorization", nil];
     
     
-    //NSString *postString = [NSString stringWithFormat:@"Authorization%@",sessionId];
-    
-    //NSLog(@"postString = %@",postString);
-    
     [request setAllHTTPHeaderFields:dict];
-    
-    //[request setValue:[NSString stringWithFormat:@"Authorization%d", [sessionId length]] forHTTPHeaderField:sessionId];
-    //[request setHTTPBody:[postString
-      //                  dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //NSLog(@"request -- %@",request);
     
     [[NSURLConnection alloc]
      initWithRequest:request delegate:self];
     
     
     self.invokedUrlTextView.text=request.URL.absoluteString;
-    //NSLog(@"response = %@",request.URL.absoluteString);
-    
     
 }
 
