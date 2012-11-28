@@ -10,7 +10,7 @@
 //#import "NSString+SBJson.h"
 #import "SBJson.h"
 
-@interface ViewController ()
+@interface ViewController()
 
 @end
 
@@ -42,7 +42,7 @@
     [request setHTTPMethod:@"POST"];
     
     
-    NSString *postString = @"userName=maninder&password=password&appId=pryv-notes-mobile";
+    NSString *postString = @"username=maninder&password=password&appId=pryv-notes-mobile";
     
     [request setValue:[NSString stringWithFormat:@"%d", [postString length]] forHTTPHeaderField:@"Content-length"];
     
