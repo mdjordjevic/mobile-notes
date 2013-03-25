@@ -1,11 +1,24 @@
-Mobile Notes constraints
+Mobile Notes 
 ===================
-Goal: Take node the most quickly possible.
+Goal: Take note the most quickly possible.
+
+# Functionalities
+
+- Record notes, upload pictures and audio, or save a numerical value (distance, weight, ...) in any channel/folder and in a very easy way.
+- Have a shortcuts to the latest used event-type & folders to save an event more quickly.
+- Browse through channels/folders and view the events and eventually edit them.
+
+
+# Constraints
+
+## Use Pryv API
+
+see [http://dev.pryv.com](http://dev.pryv.com)
 
 
 ## Platform support
 
-The app must support iOS 4.3+. Target is iPhone-only but developped as _Universal_ (iPad & iPhone). 
+The app must support iOS 4.3+ (to be discussed). Target is iPhone-only but developped as _Universal_ (iPad & iPhone). 
 This does mean that there is no need to have a different layout for the iPad but it musn't be an iPhone only app that scales with the (2x) button. This is to be sure both viewPorts are considered from start.
 
 
@@ -26,7 +39,7 @@ French translations will be done by Pryv Team.
 
 ## Code reuse
 
-- Code must be properly componentized so that common functionality (at least basic interaction with the API) is written as a reusable library into an separate independant folder).
+- Code must be properly componentized so that common functionality (at least basic interaction with the API) is written as a reusable library into an separate independant git submodule.
 - Use Core Data ?
 
 # Design infos
