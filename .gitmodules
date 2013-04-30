@@ -1,0 +1,3 @@
+[submodule "PryvSDK"]
+	path = PryvSDK
+	url = https://github.com/pryv/sdk-objectivec-apple.git

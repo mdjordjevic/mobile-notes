@@ -1,0 +1,13 @@
+PODS:
+  - AwesomeMenu (1.0.0)
+  - PSTCollectionView (0.0.1)
+
+DEPENDENCIES:
+  - AwesomeMenu (= 1.0.0)
+  - PSTCollectionView (= 0.0.1)
+
+SPEC CHECKSUMS:
+  AwesomeMenu: c2014d6d6f4a2b6bbb91ca2f67183bc2674a9cff
+  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
+
+COCOAPODS: 0.18.0
