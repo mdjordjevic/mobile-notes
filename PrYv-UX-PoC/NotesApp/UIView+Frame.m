@@ -1,9 +1,9 @@
 //
 //  UIView+Frame.m
-//  Beat
+//  NotesApp
 //
 //  Created by Mladen Djordjevic on 3/9/13.
-//  Copyright (c) 2013 Monkey Bits. All rights reserved.
+//  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
 #import "UIView+Frame.h"

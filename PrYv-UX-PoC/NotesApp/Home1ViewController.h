@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
+#import "GroupCell.h"
 
-@interface Home1ViewController : PSTCollectionViewController
+@interface Home1ViewController : PSTCollectionViewController <GroupCellDataSource>
 
 @end

@@ -49,7 +49,7 @@
     AwesomeMenu *menu = [[AwesomeMenu alloc] initWithFrame:self.view.bounds menus:itemsList];
     
 	// customize menu
-	menu.startPoint = CGPointMake(160.0, 370.0);
+	menu.startPoint = isiPhone5 ? CGPointMake(160.0, 460.0) : CGPointMake(160.0, 360.0);
 	menu.rotateAngle = -M_PI_2;
 	menu.menuWholeAngle = M_PI + M_PI/(itemsList.count - 1);
 	menu.timeOffset = 0.05f;

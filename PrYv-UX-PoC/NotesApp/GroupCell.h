@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
 
-@interface GroupCell : PSUICollectionViewCell
+@protocol GroupCellDataSource <NSObject>
 
+- (NSInteger)numberOfItemsInGroupAtIndex:(NSInteger)groupIndex;
+- (NSString*)titleForItemInGroupAtIndex:(NSInteger)groupIndex andItemIndex:(NSInteger)itemIndex;
+
+@end
+
+@interface GroupCell : PSTCollectionViewCell
+
+@property (nonatomic) NSInteger cellIndex;
 @property (nonatomic, strong) NSString *cellTitle;
+@property (nonatomic, weak) id<GroupCellDataSource> dataSource;
+
+- (void)updateItems;
 
 @end

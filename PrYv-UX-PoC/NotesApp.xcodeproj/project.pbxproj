@@ -25,6 +25,14 @@
 		B6BA3E6D1732E35A00464C2F /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E6B1732E35A00464C2F /* menubar.png */; };
 		B6BA3E6E1732E35A00464C2F /* menubar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E6C1732E35A00464C2F /* menubar@2x.png */; };
 		B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E711732E91000464C2F /* UIView+Frame.m */; };
+		B6BA3E7E1733CBF200464C2F /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E7D1733CBF200464C2F /* AddEventViewController.m */; };
+		B6BA3E811733CCBC00464C2F /* AddEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E801733CCBC00464C2F /* AddEventCell.m */; };
+		B6BA3E851733CD1400464C2F /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E841733CD1400464C2F /* Event.m */; };
+		B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */; };
+		B6BA3E8B1733E23D00464C2F /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E8A1733E23D00464C2F /* Channel.m */; };
+		B6BA3E8E1733E24800464C2F /* Folder.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E8D1733E24800464C2F /* Folder.m */; };
+		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
+		B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */; };
 		B6F5AFFF17326321000BC60A /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5AFFE17326321000BC60A /* GroupCell.m */; };
 		B6F5B0BF1732A650000BC60A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0BE1732A650000BC60A /* MobileCoreServices.framework */; };
 		B6F5B0C21732A780000BC60A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0C01732A748000BC60A /* CoreLocation.framework */; };
@@ -113,6 +121,22 @@
 		B6BA3E6C1732E35A00464C2F /* menubar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar@2x.png"; sourceTree = "<group>"; };
 		B6BA3E701732E91000464C2F /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		B6BA3E711732E91000464C2F /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		B6BA3E7C1733CBF200464C2F /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
+		B6BA3E7D1733CBF200464C2F /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
+		B6BA3E7F1733CCBC00464C2F /* AddEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventCell.h; sourceTree = "<group>"; };
+		B6BA3E801733CCBC00464C2F /* AddEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventCell.m; sourceTree = "<group>"; };
+		B6BA3E831733CD1400464C2F /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		B6BA3E841733CD1400464C2F /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Main.h"; sourceTree = "<group>"; };
+		B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Main.m"; sourceTree = "<group>"; };
+		B6BA3E891733E23D00464C2F /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		B6BA3E8A1733E23D00464C2F /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		B6BA3E8C1733E24800464C2F /* Folder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folder.h; sourceTree = "<group>"; };
+		B6BA3E8D1733E24800464C2F /* Folder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Folder.m; sourceTree = "<group>"; };
+		B6BA3E901733E30800464C2F /* DataGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGroupingManager.h; sourceTree = "<group>"; };
+		B6BA3E911733E30800464C2F /* DataGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGroupingManager.m; sourceTree = "<group>"; };
+		B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelGroupingManager.h; sourceTree = "<group>"; };
+		B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelGroupingManager.m; sourceTree = "<group>"; };
 		B6F5AFFD17326321000BC60A /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		B6F5AFFE17326321000BC60A /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		B6F5B0A717329B10000BC60A /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
@@ -224,10 +248,44 @@
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */,
+				B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */,
 				B6BA3E701732E91000464C2F /* UIView+Frame.h */,
 				B6BA3E711732E91000464C2F /* UIView+Frame.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		B6BA3E821733CD0400464C2F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6BA3E831733CD1400464C2F /* Event.h */,
+				B6BA3E841733CD1400464C2F /* Event.m */,
+				B6BA3E891733E23D00464C2F /* Channel.h */,
+				B6BA3E8A1733E23D00464C2F /* Channel.m */,
+				B6BA3E8C1733E24800464C2F /* Folder.h */,
+				B6BA3E8D1733E24800464C2F /* Folder.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B6BA3E8F1733E2F400464C2F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6BA3E931733E44A00464C2F /* DataGrouping */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B6BA3E931733E44A00464C2F /* DataGrouping */ = {
+			isa = PBXGroup;
+			children = (
+				B6BA3E901733E30800464C2F /* DataGroupingManager.h */,
+				B6BA3E911733E30800464C2F /* DataGroupingManager.m */,
+				B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */,
+				B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */,
+			);
+			name = DataGrouping;
 			sourceTree = "<group>";
 		};
 		B6F5AFFB173260E0000BC60A /* View */ = {
@@ -243,6 +301,8 @@
 			children = (
 				B6F5AFFD17326321000BC60A /* GroupCell.h */,
 				B6F5AFFE17326321000BC60A /* GroupCell.m */,
+				B6BA3E7F1733CCBC00464C2F /* AddEventCell.h */,
+				B6BA3E801733CCBC00464C2F /* AddEventCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -267,6 +327,8 @@
 				B6F9A24E1729C02A009C8BAA /* Home1ViewController.m */,
 				B6F9A2501729C039009C8BAA /* Home2ViewController.h */,
 				B6F9A2511729C039009C8BAA /* Home2ViewController.m */,
+				B6BA3E7C1733CBF200464C2F /* AddEventViewController.h */,
+				B6BA3E7D1733CBF200464C2F /* AddEventViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -283,6 +345,8 @@
 		B6F9A24B1729BF87009C8BAA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B6BA3E8F1733E2F400464C2F /* Controller */,
+				B6BA3E821733CD0400464C2F /* Model */,
 				B6BA3E6F1732E8E300464C2F /* Category */,
 				B6F5AFFB173260E0000BC60A /* View */,
 				B6F9A2491729BF55009C8BAA /* ViewController */,
@@ -486,6 +550,14 @@
 				B6F9A2521729C039009C8BAA /* Home2ViewController.m in Sources */,
 				B6F5AFFF17326321000BC60A /* GroupCell.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
+				B6BA3E7E1733CBF200464C2F /* AddEventViewController.m in Sources */,
+				B6BA3E811733CCBC00464C2F /* AddEventCell.m in Sources */,
+				B6BA3E851733CD1400464C2F /* Event.m in Sources */,
+				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
+				B6BA3E8B1733E23D00464C2F /* Channel.m in Sources */,
+				B6BA3E8E1733E24800464C2F /* Folder.m in Sources */,
+				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
+				B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
