@@ -1,12 +1,15 @@
 PODS:
+  - AMSlideOutController (1.3)
   - AwesomeMenu (1.0.0)
   - PSTCollectionView (0.0.1)
 
 DEPENDENCIES:
+  - AMSlideOutController (= 1.3)
   - AwesomeMenu (= 1.0.0)
   - PSTCollectionView (= 0.0.1)
 
 SPEC CHECKSUMS:
+  AMSlideOutController: 0b3c562c791698ad663eeeca4bae7f3dada7b0fb
   AwesomeMenu: c2014d6d6f4a2b6bbb91ca2f67183bc2674a9cff
   PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
 

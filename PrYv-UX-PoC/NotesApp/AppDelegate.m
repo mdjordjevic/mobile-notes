@@ -7,13 +7,57 @@
 //
 
 #import "AppDelegate.h"
+#import "AMSlideOutNavigationController.h"
+
+@interface AppDelegate ()
+
+- (void)initViewControllers;
+- (void)setupUI;
+
+@end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [self initViewControllers];
+    [self setupUI];
+    
     return YES;
+}
+
+- (void)initViewControllers {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    
+	UIViewController* controller;
+	
+	self.slideoutController = [AMSlideOutNavigationController slideOutNavigation];
+	
+	[self.slideoutController addSectionWithTitle:@""];
+	
+	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home1ViewController_ID"];
+	[self.slideoutController addViewControllerToLastSection:controller tagged:1 withTitle:@"Collection Add" andIcon:@""];
+	
+	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home2ViewController_ID"];
+	[self.slideoutController addViewControllerToLastSection:controller tagged:2 withTitle:@"Circle Add" andIcon:@""];
+	
+//	[self.slideoutController addActionToLastSection:^{
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Some action"
+//                                                        message:@"Some message."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//		[alert show];
+//	}
+//											 tagged:3
+//										  withTitle:@"Action"
+//											andIcon:@""];
+	
+    [self.window setRootViewController:self.slideoutController];
+}
+
+- (void)setupUI {
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"menubar"] forBarMetrics:UIBarMetricsDefault];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

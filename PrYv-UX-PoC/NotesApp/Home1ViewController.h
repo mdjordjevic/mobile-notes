@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTCollectionView.h"
 
-@interface Home1ViewController : UIViewController
+@interface Home1ViewController : PSTCollectionViewController
 
 @end

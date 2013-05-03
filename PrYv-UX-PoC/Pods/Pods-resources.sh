@@ -25,6 +25,8 @@ install_resource()
       ;;
   esac
 }
+install_resource 'AMSlideOutController/AMSlideOut/iconSlide.png'
+install_resource 'AMSlideOutController/AMSlideOut/iconSlide@2x.png'
 install_resource 'AwesomeMenu/AwesomeMenu/Images/bg-addbutton-highlighted.png'
 install_resource 'AwesomeMenu/AwesomeMenu/Images/bg-addbutton-highlighted@2x.png'
 install_resource 'AwesomeMenu/AwesomeMenu/Images/bg-addbutton.png'
