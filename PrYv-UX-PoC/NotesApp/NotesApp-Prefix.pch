@@ -13,6 +13,12 @@
     #import <Foundation/Foundation.h>
     #import "UIView+Frame.h"
     #import "UIStoryboard+Main.h"
+    #import "NotesAppController.h"
+    #import "AppDelegate.h"
+    #import "ViewController.h"
 #endif
 
 #define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)
+
+#define kAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
+#define kSlidingController [kAppDelegate slideoutController]
