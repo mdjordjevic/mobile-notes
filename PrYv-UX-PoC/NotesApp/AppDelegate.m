@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "AMSlideOutNavigationController.h"
+#import "SettingsViewController.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +32,7 @@
     
 	UIViewController* controller;
 	
-	self.slideoutController = [AMSlideOutNavigationController slideOutNavigation];
+	self.slideoutController = [[ViewController alloc] init];
 	
 	[self.slideoutController addSectionWithTitle:@""];
 	
@@ -40,6 +41,9 @@
 	
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home2ViewController_ID"];
 	[self.slideoutController addViewControllerToLastSection:controller tagged:2 withTitle:@"Circle Add" andIcon:@""];
+    
+    controller = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
+    [self.slideoutController addViewControllerToLastSection:controller tagged:3 withTitle:@"Settings" andIcon:@""];
 	
 //	[self.slideoutController addActionToLastSection:^{
 //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Some action"

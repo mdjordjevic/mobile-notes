@@ -19,7 +19,7 @@
 
 - (void)setupUI;
 - (void)addButtonTouched:(id)sender;
-
+- (void)appDidReceiveAccessTokenNotification:(NSNotification*)notification;
 - (void)showAddEventView:(BOOL)show;
 
 @end
@@ -30,15 +30,28 @@
 {
 	[super viewDidLoad];
     self.groupingManager = [DataGroupingManager channelGroupingManager];
-    [_groupingManager performGroupingWithCompletionBlock:^{
-        [[self collectionView] reloadData];
-    }];
     [self.collectionView registerClass:[GroupCell class] forCellWithReuseIdentifier:@"GroupCell_ID"];
     [self.collectionView setHeight:self.view.bounds.size.height - 100];
     [self setupUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appDidReceiveAccessTokenNotification:)
+                                                 name:kAppDidReceiveAccessTokenNotification
+                                               object:nil];
 }
 
-- (void)setupUI {
+- (void)viewDidUnload
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [kSlidingController initSignIn];
+}
+
+- (void)setupUI
+{
     self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_addButton setWidth:52];
     [_addButton setHeight:52];
@@ -49,7 +62,9 @@
     _plusIcon.center = CGPointMake(26, 26);
     [_addButton setImage:backgroundImage forState:UIControlStateNormal];
     [_addButton addSubview:_plusIcon];
-    [_addButton addTarget:self action:@selector(addButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [_addButton addTarget:self
+                   action:@selector(addButtonTouched:)
+         forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_addButton];
 }
 
@@ -67,7 +82,9 @@
         [_addEventVC.view setFrame:self.view.bounds];
         [_addEventVC.view setY:self.view.bounds.size.height];
         [self.view addSubview:_addEventVC.view];
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.3f delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
             _plusIcon.transform = CGAffineTransformMakeRotation(-M_PI_4);
             _addButton.center = CGPointMake(160, 60);
             [_addEventVC.view setY:100];
@@ -77,7 +94,9 @@
             
         }];
     } else {
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.3f delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
             _plusIcon.transform = CGAffineTransformIdentity;
             _addButton.center = isiPhone5 ? CGPointMake(160, 460) : CGPointMake(160, 360);
             [_addEventVC.view setY:self.view.bounds.size.height];
@@ -134,5 +153,14 @@
 - (NSString*)titleForItemInGroupAtIndex:(NSInteger)groupIndex andItemIndex:(NSInteger)itemIndex {
     return [_groupingManager titleForItemInGroupAtIndex:groupIndex andItemIndex:itemIndex];
 }
+
+#pragma mark - Notifications
+
+- (void)appDidReceiveAccessTokenNotification:(NSNotification *)notification {
+    [_groupingManager performGroupingWithCompletionBlock:^{
+        [[self collectionView] reloadData];
+    }];
+}
+
 
 @end
