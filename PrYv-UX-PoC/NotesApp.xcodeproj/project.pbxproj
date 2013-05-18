@@ -20,6 +20,7 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
+		B61F38A317477BB300B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38A217477BB300B94960 /* SettingsViewController.m */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
 		B6BA3E661732E06400464C2F /* iconSlide.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E641732E06400464C2F /* iconSlide.png */; };
@@ -36,7 +37,6 @@
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
 		B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */; };
 		B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA3EA21734075100464C2F /* libPryvApiKit.a */; };
-		B6E92D761746B1140045E643 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E92D751746B1140045E643 /* SettingsViewController.m */; };
 		B6F5AFFF17326321000BC60A /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5AFFE17326321000BC60A /* GroupCell.m */; };
 		B6F5B0BF1732A650000BC60A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0BE1732A650000BC60A /* MobileCoreServices.framework */; };
 		B6F5B0C21732A780000BC60A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0C01732A748000BC60A /* CoreLocation.framework */; };
@@ -118,6 +118,8 @@
 		B6016BCC172873D40056CD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B6016BCE172873D40056CD3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B61F38A117477BB300B94960 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		B61F38A217477BB300B94960 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B6783A3B174178FB0083AE50 /* NotesAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAppController.h; sourceTree = "<group>"; };
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
@@ -144,8 +146,6 @@
 		B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelGroupingManager.h; sourceTree = "<group>"; };
 		B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelGroupingManager.m; sourceTree = "<group>"; };
 		B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
-		B6E92D741746B1140045E643 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = "../../../../../../../../../../Users/mladen/Documents/Development SSD/Swisscom/UMA/UMA/trunk/SwisscomTV/Resources/UMAAssetStore/iPad/12_NAVIGATION/SettingsViewController.h"; sourceTree = "<group>"; };
-		B6E92D751746B1140045E643 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = "../../../../../../../../../../Users/mladen/Documents/Development SSD/Swisscom/UMA/UMA/trunk/SwisscomTV/Resources/UMAAssetStore/iPad/12_NAVIGATION/SettingsViewController.m"; sourceTree = "<group>"; };
 		B6F5AFFD17326321000BC60A /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		B6F5AFFE17326321000BC60A /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		B6F5B0BE1732A650000BC60A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -333,6 +333,8 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B61F38A117477BB300B94960 /* SettingsViewController.h */,
+				B61F38A217477BB300B94960 /* SettingsViewController.m */,
 				B6016BCE172873D40056CD3F /* ViewController.h */,
 				B6016BCF172873D40056CD3F /* ViewController.m */,
 				B6F9A24D1729C02A009C8BAA /* Home1ViewController.h */,
@@ -341,8 +343,6 @@
 				B6F9A2511729C039009C8BAA /* Home2ViewController.m */,
 				B6BA3E7C1733CBF200464C2F /* AddEventViewController.h */,
 				B6BA3E7D1733CBF200464C2F /* AddEventViewController.m */,
-				B6E92D741746B1140045E643 /* SettingsViewController.h */,
-				B6E92D751746B1140045E643 /* SettingsViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -573,7 +573,7 @@
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
 				B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
-				B6E92D761746B1140045E643 /* SettingsViewController.m in Sources */,
+				B61F38A317477BB300B94960 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
