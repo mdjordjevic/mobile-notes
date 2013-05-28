@@ -42,12 +42,14 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [kSlidingController initSignIn];
+    [super viewDidAppear:animated];
+//    [kSlidingController initSignIn];
 }
 
 - (void)setupUI

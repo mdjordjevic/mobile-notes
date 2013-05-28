@@ -8,6 +8,7 @@
 
 #import "NotesAppController.h"
 #import <PryvApiKit/PryvApiKit.h>
+#import "DataService.h"
 
 NSString *const kAppDidReceiveAccessTokenNotification = @"kAppDidReceiveAccessTokenNotification";
 NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kLocalizedKey NSLocalizedString(@"MeasurementSetLocalizedKey", nil)
+
 extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
 
