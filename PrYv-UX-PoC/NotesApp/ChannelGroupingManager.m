@@ -44,8 +44,12 @@
 }
 
 - (void)performGroupingWithCompletionBlock:(void (^)(void))completionHandler {
+    PYAccess *access = [[NotesAppController sharedInstance] access];
+    if(!access)
+    {
+        return;
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYAccess *access = [PYClient createAccessWithUsername:@"perkikiki" andAccessToken:@"Ve69mGqqX5"];
         [access getChannelsWithRequestType:PYRequestTypeSync filterParams:nil successHandler:^(NSArray *channelList) {
             for (PYChannel *pyChannel in channelList)
             {

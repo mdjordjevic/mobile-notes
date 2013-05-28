@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMSlideOutNavigationController.h"
+#import <PryvApiKit/PryvApiKit.h>
+#import <PryvApiKit/PYWebLoginViewController.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : AMSlideOutNavigationController <PYWebLoginDelegate>
+
+- (void)initSignIn;
 
 @end

@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class AMSlideOutNavigationController;
+@class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) AMSlideOutNavigationController*   slideoutController;
+@property (strong, nonatomic) ViewController *slideoutController;
 
 @end
