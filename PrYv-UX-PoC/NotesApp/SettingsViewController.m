@@ -10,10 +10,6 @@
 
 @interface SettingsViewController ()
 
-@property (nonatomic, strong) IBOutlet UIButton *logoutButton;
-
-- (IBAction)logoutButtonTouched:(id)sender;
-
 @end
 
 @implementation SettingsViewController
@@ -39,9 +35,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)logoutButtonTouched:(id)sender
+#pragma mark - UITableViewDelegate and UITableViewDataSource
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[NotesAppController sharedInstance] setAccess:nil];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(indexPath.section == 1 && indexPath.row == 0)
+    {
+        [[NotesAppController sharedInstance] setAccess:nil];
+    }
 }
 
 @end

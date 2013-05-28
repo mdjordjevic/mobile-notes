@@ -21,6 +21,18 @@
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
 		B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38AF17477DC700B94960 /* SettingsViewController.m */; };
+		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
+		B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */; };
+		B64ACAC21750F1A500E2F6F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAC11750F1A500E2F6F7 /* Localizable.strings */; };
+		B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC51750F21900E2F6F7 /* DataService.m */; };
+		B64ACACA1752901400E2F6F7 /* MeasurementType.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC91752901400E2F6F7 /* MeasurementType.m */; };
+		B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */; };
+		B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */; };
+		B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD91753F76500E2F6F7 /* MeasurementController.m */; };
+		B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */; };
+		B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */; };
+		B64ACAEE1755454400E2F6F7 /* keyboard_bgr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAEC1755454400E2F6F7 /* keyboard_bgr@2x.png */; };
+		B64ACAEF1755454400E2F6F7 /* keyboard_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAED1755454400E2F6F7 /* keyboard_btn@2x.png */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
 		B6BA3E661732E06400464C2F /* iconSlide.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E641732E06400464C2F /* iconSlide.png */; };
@@ -120,6 +132,26 @@
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B61F38AE17477DC700B94960 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B61F38AF17477DC700B94960 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		B61F38CD17496A2800B94960 /* AddNumericalValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueViewController.h; sourceTree = "<group>"; };
+		B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueViewController.m; sourceTree = "<group>"; };
+		B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSet.h; sourceTree = "<group>"; };
+		B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSet.m; sourceTree = "<group>"; };
+		B64ACAC11750F1A500E2F6F7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		B64ACAC41750F21900E2F6F7 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
+		B64ACAC51750F21900E2F6F7 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
+		B64ACAC81752901400E2F6F7 /* MeasurementType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementType.h; sourceTree = "<group>"; };
+		B64ACAC91752901400E2F6F7 /* MeasurementType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementType.m; sourceTree = "<group>"; };
+		B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementGroup.h; sourceTree = "<group>"; };
+		B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementGroup.m; sourceTree = "<group>"; };
+		B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSettingsViewController.h; sourceTree = "<group>"; };
+		B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSettingsViewController.m; sourceTree = "<group>"; };
+		B64ACAD81753F76500E2F6F7 /* MeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementController.h; sourceTree = "<group>"; };
+		B64ACAD91753F76500E2F6F7 /* MeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementController.m; sourceTree = "<group>"; };
+		B64ACAE7175544E100E2F6F7 /* CustomNumericalKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNumericalKeyboard.h; sourceTree = "<group>"; };
+		B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNumericalKeyboard.m; sourceTree = "<group>"; };
+		B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNumericalKeyboard.xib; sourceTree = "<group>"; };
+		B64ACAEC1755454400E2F6F7 /* keyboard_bgr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_bgr@2x.png"; sourceTree = "<group>"; };
+		B64ACAED1755454400E2F6F7 /* keyboard_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard_btn@2x.png"; sourceTree = "<group>"; };
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B6783A3B174178FB0083AE50 /* NotesAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAppController.h; sourceTree = "<group>"; };
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
@@ -251,8 +283,61 @@
 				B6016BC2172873D40056CD3F /* Default.png */,
 				B6016BC4172873D40056CD3F /* Default@2x.png */,
 				B6016BC6172873D40056CD3F /* Default-568h@2x.png */,
+				B64ACAC11750F1A500E2F6F7 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B61F38C917496A0400B94960 /* NumericalValues */ = {
+			isa = PBXGroup;
+			children = (
+				B61F38CD17496A2800B94960 /* AddNumericalValueViewController.h */,
+				B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */,
+			);
+			name = NumericalValues;
+			sourceTree = "<group>";
+		};
+		B64ACAC31750F20700E2F6F7 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				B64ACAC41750F21900E2F6F7 /* DataService.h */,
+				B64ACAC51750F21900E2F6F7 /* DataService.m */,
+			);
+			name = DataService;
+			sourceTree = "<group>";
+		};
+		B64ACAC717528B3F00E2F6F7 /* Measurement */ = {
+			isa = PBXGroup;
+			children = (
+				B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */,
+				B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */,
+				B64ACAC81752901400E2F6F7 /* MeasurementType.h */,
+				B64ACAC91752901400E2F6F7 /* MeasurementType.m */,
+				B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */,
+				B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */,
+			);
+			name = Measurement;
+			sourceTree = "<group>";
+		};
+		B64ACAD11753F24100E2F6F7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B61F38AE17477DC700B94960 /* SettingsViewController.h */,
+				B61F38AF17477DC700B94960 /* SettingsViewController.m */,
+				B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */,
+				B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		B64ACAE3175544BF00E2F6F7 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B64ACAE7175544E100E2F6F7 /* CustomNumericalKeyboard.h */,
+				B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */,
+				B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */,
+			);
+			name = Keyboard;
 			sourceTree = "<group>";
 		};
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
@@ -269,6 +354,7 @@
 		B6BA3E821733CD0400464C2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B64ACAC717528B3F00E2F6F7 /* Measurement */,
 				B6BA3E831733CD1400464C2F /* Event.h */,
 				B6BA3E841733CD1400464C2F /* Event.m */,
 				B6BA3E891733E23D00464C2F /* Channel.h */,
@@ -282,8 +368,11 @@
 		B6BA3E8F1733E2F400464C2F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B64ACAC31750F20700E2F6F7 /* DataService */,
 				B6783A3B174178FB0083AE50 /* NotesAppController.h */,
 				B6783A3C174178FB0083AE50 /* NotesAppController.m */,
+				B64ACAD81753F76500E2F6F7 /* MeasurementController.h */,
+				B64ACAD91753F76500E2F6F7 /* MeasurementController.m */,
 				B6BA3E931733E44A00464C2F /* DataGrouping */,
 			);
 			name = Controller;
@@ -314,6 +403,7 @@
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B64ACAE3175544BF00E2F6F7 /* Keyboard */,
 				B6F5AFFC173260E5000BC60A /* Cell */,
 			);
 			name = View;
@@ -333,8 +423,8 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B61F38AE17477DC700B94960 /* SettingsViewController.h */,
-				B61F38AF17477DC700B94960 /* SettingsViewController.m */,
+				B64ACAD11753F24100E2F6F7 /* Settings */,
+				B61F38C917496A0400B94960 /* NumericalValues */,
 				B6016BCE172873D40056CD3F /* ViewController.h */,
 				B6016BCF172873D40056CD3F /* ViewController.m */,
 				B6F9A24D1729C02A009C8BAA /* Home1ViewController.h */,
@@ -371,6 +461,8 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B64ACAEC1755454400E2F6F7 /* keyboard_bgr@2x.png */,
+				B64ACAED1755454400E2F6F7 /* keyboard_btn@2x.png */,
 				B6BA3E6B1732E35A00464C2F /* menubar.png */,
 				B6BA3E6C1732E35A00464C2F /* menubar@2x.png */,
 				B6BA3E641732E06400464C2F /* iconSlide.png */,
@@ -516,6 +608,10 @@
 				B6BA3E671732E06400464C2F /* iconSlide@2x.png in Resources */,
 				B6BA3E6D1732E35A00464C2F /* menubar.png in Resources */,
 				B6BA3E6E1732E35A00464C2F /* menubar@2x.png in Resources */,
+				B64ACAC21750F1A500E2F6F7 /* Localizable.strings in Resources */,
+				B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */,
+				B64ACAEE1755454400E2F6F7 /* keyboard_bgr@2x.png in Resources */,
+				B64ACAEF1755454400E2F6F7 /* keyboard_btn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +670,14 @@
 				B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,
+				B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */,
+				B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */,
+				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
+				B64ACACA1752901400E2F6F7 /* MeasurementType.m in Sources */,
+				B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */,
+				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
+				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
+				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +744,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -665,7 +769,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
