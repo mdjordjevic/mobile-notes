@@ -14,14 +14,42 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+#pragma mark - Sign In
+
+- (void)initSignIn
 {
-    [super viewDidLoad];
+//    return;
+    NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
+    
+    [PYClient setDefaultDomainStaging];
+    [PYWebLoginViewController requesAccessWithAppId:@"pryv-sdk-ios-example"
+                                     andPermissions:permissions
+                                           delegate:self];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - PYWebLoginDelegate
+
+- (UIViewController*)pyWebLoginGetController
 {
-    [super didReceiveMemoryWarning];
+    return self;
 }
+
+- (void)pyWebLoginSuccess:(PYAccess*)pyAccess
+{
+    [pyAccess synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
+    [[NotesAppController sharedInstance] setAccess:pyAccess];
+}
+
+- (void)pyWebLoginAborded:(NSString*)reason
+{
+    NSLog(@"Login aborted with reason: %@",reason);
+}
+
+- (void)pyWebLoginError:(NSError *)error
+{
+    NSLog(@"Login error: %@",error);
+}
+
+
 
 @end
