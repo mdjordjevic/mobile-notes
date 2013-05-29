@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) IBOutlet UITextField *valueField;
 @property (nonatomic, strong) IBOutlet UIPickerView *typePicker;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *addButton;
 
 @end

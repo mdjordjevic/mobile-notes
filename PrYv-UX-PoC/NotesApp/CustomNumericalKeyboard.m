@@ -66,6 +66,7 @@
             }
             break;
     }
+    [_delegate textFieldValueChangedForCustomNumericalKeyboard:self];
 }
 
 - (BOOL)canBecomeFirstResponder
