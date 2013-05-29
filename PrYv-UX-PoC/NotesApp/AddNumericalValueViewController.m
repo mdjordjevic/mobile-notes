@@ -9,13 +9,21 @@
 #import "AddNumericalValueViewController.h"
 #import "MeasurementSet.h"
 #import "MeasurementController.h"
+#import "EditEventViewController.h"
+#import "MeasurementPreviewElement.h"
+
+#define kEditEventSegueID @"EditEventSegue_ID"
 
 @interface AddNumericalValueViewController ()
 
 @property (nonatomic, strong) CustomNumericalKeyboard *customKeyborad;
 @property (nonatomic, strong) NSMutableArray *measurementGroups;
+@property (nonatomic, strong) IBOutlet UITextField *typeTextField;
 
-- (void)updateView:(UIView*)view forRow:(NSInteger)row;
+- (void)updateView:(UIImageView*)view forRow:(NSInteger)row;
+- (void)selectFirstTypeAnimated:(BOOL)animated;
+- (MeasurementPreviewElement*)previewElement;
+- (NSNumber*)valueAsNumber;
 
 @end
 
@@ -41,6 +49,7 @@
     
     self.customKeyborad = [[CustomNumericalKeyboard alloc] initWithFrame:CGRectMake(0, 200, 320, 316)];
     _customKeyborad.delegate = self;
+    [self textFieldValueChangedForCustomNumericalKeyboard:_customKeyborad];
     [self.view addSubview:_customKeyborad];
 }
 
@@ -71,7 +80,13 @@
     }
     [_typePicker reloadAllComponents];
     [_typePicker selectRow:0 inComponent:0 animated:NO];
-    [_typePicker selectRow:0 inComponent:1 animated:NO];
+    [self selectFirstTypeAnimated:NO];
+}
+
+- (void)selectFirstTypeAnimated:(BOOL)animated
+{
+    [_typePicker selectRow:0 inComponent:1 animated:animated];
+    [self pickerView:_typePicker didSelectRow:0 inComponent:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,22 +95,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateView:(UIView *)view forRow:(NSInteger)row
+- (void)updateView:(UIImageView *)view forRow:(NSInteger)row
 {
-    switch (row) {
-        case 0:
-            [view setBackgroundColor:[UIColor redColor]];
-            break;
-        case 1:
-            [view setBackgroundColor:[UIColor greenColor]];
-            break;
-        case 2:
-            [view setBackgroundColor:[UIColor blueColor]];
-            break;
-            
-        default:
-            break;
-    }
+    MeasurementGroup *group = _measurementGroups[row];
+    [view setImage:[UIImage imageNamed:[group name]]];
+}
+
+- (NSNumber*)valueAsNumber
+{
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *number = [nf numberFromString:_valueField.text];
+    return number;
+}
+
+- (MeasurementPreviewElement*)previewElement
+{
+    MeasurementPreviewElement *element = [[MeasurementPreviewElement alloc] init];
+    NSNumber *value = [self valueAsNumber];
+    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+    NSInteger selectedType = [_typePicker selectedRowInComponent:1];
+    MeasurementGroup *group = _measurementGroups[selectedGroup];
+    MeasurementType *type = group.types[selectedType];
+    element.klass = [group name];
+    element.format = [type mark];
+    element.value = value;
+    
+    return element;
 }
 
 #pragma mark - UIPickerViewDelegate UIPickerViewDataSource
@@ -134,20 +160,20 @@
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-//    if(component == 0)
-//    {
-//        UIView *viewToReturn = nil;
-//        if(!view)
-//        {
-//            viewToReturn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-//        }
-//        else
-//        {
-//            viewToReturn = view;
-//        }
-//        [self updateView:viewToReturn forRow:row];
-//        return viewToReturn;
-//    }
+    if(component == 0)
+    {
+        UIImageView *viewToReturn = nil;
+        if(!view)
+        {
+            viewToReturn = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        }
+        else
+        {
+            viewToReturn = (UIImageView*)view;
+        }
+        [self updateView:viewToReturn forRow:row];
+        return viewToReturn;
+    }
     UILabel *label = nil;
     if(!view)
     {
@@ -160,18 +186,10 @@
     {
         label = (UILabel*)view;
     }
-    if(component == 0)
-    {
-        MeasurementGroup *group = _measurementGroups[row];
-        [label setText:[group name]];
-    }
-    else
-    {
-        NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        MeasurementGroup *group = _measurementGroups[selectedGroup];
-        MeasurementType *type = group.types[row];
-        [label setText:[type localizedName]];
-    }
+    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+    MeasurementGroup *group = _measurementGroups[selectedGroup];
+    MeasurementType *type = group.types[row];
+    [label setText:[type localizedName]];
     
     return label;
 }
@@ -181,6 +199,14 @@
     if(component == 0)
     {
         [_typePicker reloadComponent:1];
+        [self selectFirstTypeAnimated:YES];
+    }
+    else if(component == 1)
+    {
+        NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+        MeasurementGroup *group = _measurementGroups[selectedGroup];
+        MeasurementType *type = group.types[row];
+        [_typeTextField setText:[type mark]];
     }
 }
 
@@ -189,6 +215,23 @@
 - (UITextField*)textFieldForCustomkeyboard:(CustomNumericalKeyboard *)customKeybord
 {
     return _valueField;
+}
+
+- (void)textFieldValueChangedForCustomNumericalKeyboard:(CustomNumericalKeyboard *)customKeyboard
+{
+    _addButton.enabled = _valueField.text.length > 0;
+}
+
+#pragma mark - Segues
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:kEditEventSegueID])
+    {
+        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
+        MeasurementPreviewElement *previewElement = [self previewElement];
+        editEventVC.eventElement = previewElement;
+    }
 }
 
 @end
