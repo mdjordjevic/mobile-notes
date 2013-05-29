@@ -4,25 +4,51 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Add Numerical Value View Controller-->
+        <!--Add Numerical Value View Controller - Measurement-->
         <scene sceneID="f8M-8U-kft">
             <objects>
                 <viewController storyboardIdentifier="AddNumericalValueViewController_ID" id="Erg-Yp-Yvx" customClass="AddNumericalValueViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="boW-yb-cex">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="right" minimumFontSize="17" id="pkk-II-rWH">
-                                <rect key="frame" x="0.0" y="165" width="320" height="30"/>
+                            <view contentMode="scaleToFill" id="PU9-Tc-Cze">
+                                <rect key="frame" x="0.0" y="160" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.79215686269999996" green="0.79215686269999996" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                            </textField>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="pkk-II-rWH">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="9H5-Np-c1O">
+                                        <rect key="frame" x="285" y="0.0" width="35" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Measurement" id="8kr-iy-uJ9">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wc3-z5-Hkz">
+                            <connections>
+                                <segue destination="DKB-Vj-e0S" kind="push" identifier="EditEventSegue_ID" id="tgH-3m-7ei"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="addButton" destination="wc3-z5-Hkz" id="kTB-xo-pep"/>
+                        <outlet property="typeTextField" destination="9H5-Np-c1O" id="ksd-PJ-rF5"/>
                         <outlet property="valueField" destination="pkk-II-rWH" id="IQK-PB-O0t"/>
                         <outlet property="view" destination="boW-yb-cex" id="WMi-eL-fwB"/>
                     </connections>
@@ -30,6 +56,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ziP-k8-lq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="520" y="-842"/>
+        </scene>
+        <!--Edit Event View Controller-->
+        <scene sceneID="4tv-AZ-Jjb">
+            <objects>
+                <viewController id="DKB-Vj-e0S" customClass="EditEventViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8YJ-Z8-nG3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="TXH-gg-ic3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.89532960766423364" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nEf-po-1Cd"/>
+                    <connections>
+                        <outlet property="eventPreviewContainer" destination="TXH-gg-ic3" id="xxw-MB-1ZA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="npd-nK-9J9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1120" y="-1271"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="KWY-EL-Wpf">
@@ -211,8 +262,16 @@
         <class className="AddNumericalValueViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNumericalValueViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="addButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="typePicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="typeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="valueField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="EditEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditEventViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventPreviewContainer" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="Home1ViewController" superclassName="PSTCollectionViewController">
