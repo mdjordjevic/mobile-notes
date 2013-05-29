@@ -13,6 +13,7 @@
 @protocol CustomKeyboardDelegate <NSObject>
 
 - (UITextField*)textFieldForCustomkeyboard:(CustomNumericalKeyboard*)customKeybord;
+- (void)textFieldValueChangedForCustomNumericalKeyboard:(CustomNumericalKeyboard*)customKeyboard;
 
 @end
 
