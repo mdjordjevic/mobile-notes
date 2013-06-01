@@ -60,8 +60,8 @@
             self.measurementSets = (NSMutableArray*)object;
             if([_userMeasurementSets count] < 1)
             {
-                MeasurementSet *set = _measurementSets[0];
-                _userMeasurementSets[0] = [set key];
+                MeasurementSet *set = [_measurementSets objectAtIndex:0];
+                [_userMeasurementSets insertObject:[set key] atIndex:0];
             }
         }
         else

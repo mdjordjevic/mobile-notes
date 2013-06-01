@@ -13,6 +13,12 @@
 #import "MeasurementPreviewElement.h"
 
 #define kEditEventSegueID @"EditEventSegue_ID"
+#define kGroupComponentIndex 0
+#define kTypeComponentIndex 1
+#define kGroupComponentWidth 100
+#define kTypeComponentWidth 150
+#define kGroupComponentHeight 100
+#define kTypeComponentHeight 44
 
 @interface AddNumericalValueViewController ()
 
@@ -24,6 +30,7 @@
 - (void)selectFirstTypeAnimated:(BOOL)animated;
 - (MeasurementPreviewElement*)previewElement;
 - (NSNumber*)valueAsNumber;
+- (void)updateMeasurementSets;
 
 @end
 
@@ -57,6 +64,20 @@
 {
     [super viewDidAppear:animated];
     
+    NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
+    [self updateMeasurementSets];
+    
+    [_typePicker reloadAllComponents];
+    
+    if(groupsCountBeforeUpdate == [_measurementGroups count])
+    {
+        [_typePicker selectRow:0 inComponent:0 animated:NO];
+    }
+    [self selectFirstTypeAnimated:NO];
+}
+
+- (void)updateMeasurementSets
+{
     if(self.measurementGroups)
     {
         [self.measurementGroups removeAllObjects];
@@ -78,9 +99,6 @@
         }
         
     }
-    [_typePicker reloadAllComponents];
-    [_typePicker selectRow:0 inComponent:0 animated:NO];
-    [self selectFirstTypeAnimated:NO];
 }
 
 - (void)selectFirstTypeAnimated:(BOOL)animated
@@ -97,7 +115,7 @@
 
 - (void)updateView:(UIImageView *)view forRow:(NSInteger)row
 {
-    MeasurementGroup *group = _measurementGroups[row];
+    MeasurementGroup *group = [_measurementGroups objectAtIndex:row];
     [view setImage:[UIImage imageNamed:[group name]]];
 }
 
@@ -115,8 +133,8 @@
     NSNumber *value = [self valueAsNumber];
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-    MeasurementGroup *group = _measurementGroups[selectedGroup];
-    MeasurementType *type = group.types[selectedType];
+    MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    MeasurementType *type = [group.types objectAtIndex:selectedType];
     element.klass = [group name];
     element.format = [type mark];
     element.value = value;
@@ -133,29 +151,29 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if(component == 0)
+    if(component == kGroupComponentIndex)
     {
         return [_measurementGroups count];
     }
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-    return [[_measurementGroups[selectedGroup] types] count];
+    return [[[_measurementGroups objectAtIndex:selectedGroup] types] count];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
-    if(component == 0)
+    if(component == kGroupComponentIndex)
     {
-        return 100;
+        return kGroupComponentWidth;
     }
-    return 150;
+    return kTypeComponentWidth;
 }
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 {
-    if(component == 1)
+    if(component == kTypeComponentIndex)
     {
-        return 44;
+        return kTypeComponentHeight;
     }
-    return 100;
+    return kGroupComponentHeight;
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
@@ -187,8 +205,8 @@
         label = (UILabel*)view;
     }
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-    MeasurementGroup *group = _measurementGroups[selectedGroup];
-    MeasurementType *type = group.types[row];
+    MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    MeasurementType *type = [group.types objectAtIndex:row];
     [label setText:[type localizedName]];
     
     return label;
@@ -204,8 +222,8 @@
     else if(component == 1)
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        MeasurementGroup *group = _measurementGroups[selectedGroup];
-        MeasurementType *type = group.types[row];
+        MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        MeasurementType *type = [group.types objectAtIndex:row];
         [_typeTextField setText:[type mark]];
     }
 }
