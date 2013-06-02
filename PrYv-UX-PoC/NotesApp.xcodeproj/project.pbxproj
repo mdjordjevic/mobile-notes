@@ -55,6 +55,9 @@
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
 		B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */; };
 		B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA3EA21734075100464C2F /* libPryvApiKit.a */; };
+		B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */; };
+		B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */; };
+		B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */; };
 		B6F5AFFF17326321000BC60A /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5AFFE17326321000BC60A /* GroupCell.m */; };
 		B6F5B0BF1732A650000BC60A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0BE1732A650000BC60A /* MobileCoreServices.framework */; };
 		B6F5B0C21732A780000BC60A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5B0C01732A748000BC60A /* CoreLocation.framework */; };
@@ -193,6 +196,12 @@
 		B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelGroupingManager.h; sourceTree = "<group>"; };
 		B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelGroupingManager.m; sourceTree = "<group>"; };
 		B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
+		B6D8EAA3175A185A00A3AA8F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		B6D8EAA8175A18F000A3AA8F /* UIViewController+LoadingOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingOverlay.h"; sourceTree = "<group>"; };
+		B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingOverlay.m"; sourceTree = "<group>"; };
+		B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
+		B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
 		B6F5AFFD17326321000BC60A /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		B6F5AFFE17326321000BC60A /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		B6F5B0BE1732A650000BC60A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -401,6 +410,8 @@
 				B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */,
 				B6BA3E701732E91000464C2F /* UIView+Frame.h */,
 				B6BA3E711732E91000464C2F /* UIView+Frame.m */,
+				B6D8EAA8175A18F000A3AA8F /* UIViewController+LoadingOverlay.h */,
+				B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -455,6 +466,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B6D8EA9F175A182000A3AA8F /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				B6D8EAA3175A185A00A3AA8F /* MBProgressHUD.h */,
+				B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +491,8 @@
 				B6F5AFFE17326321000BC60A /* GroupCell.m */,
 				B6BA3E7F1733CCBC00464C2F /* AddEventCell.h */,
 				B6BA3E801733CCBC00464C2F /* AddEventCell.m */,
+				B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */,
+				B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -510,6 +532,7 @@
 				B6BA3E6F1732E8E300464C2F /* Category */,
 				B6F5AFFB173260E0000BC60A /* View */,
 				B6F9A2491729BF55009C8BAA /* ViewController */,
+				B6D8EA9F175A182000A3AA8F /* Vendor */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -740,6 +763,9 @@
 				B64ACB0E1756A93700E2F6F7 /* EditEventViewController.m in Sources */,
 				B64ACB131756AC1900E2F6F7 /* BaseEventPreviewElement.m in Sources */,
 				B64ACB161756AC5400E2F6F7 /* MeasurementPreviewElement.m in Sources */,
+				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
+				B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */,
+				B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

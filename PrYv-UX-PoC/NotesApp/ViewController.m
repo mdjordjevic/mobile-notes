@@ -18,7 +18,6 @@
 
 - (void)initSignIn
 {
-//    return;
     NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
     
     [PYClient setDefaultDomainStaging];
