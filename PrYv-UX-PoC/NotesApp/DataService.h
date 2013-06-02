@@ -13,5 +13,6 @@ typedef void (^FetchDataCompletionBlock)(id object, NSError *error);
 @interface DataService : NSObject
 
 + (void)fetchAllMeasurementSetsWithCompletionBlock:(FetchDataCompletionBlock)completionBlock;
++ (void)fetchAllChannelsWithCompletionBlock:(FetchDataCompletionBlock)completionBlock;
 
 @end

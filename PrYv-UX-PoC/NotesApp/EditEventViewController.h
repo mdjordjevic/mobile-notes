@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseEventPreviewElement.h"
+#import "Channel.h"
+#import "Folder.h"
 
-@interface EditEventViewController : UIViewController
+@interface EditEventViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) BaseEventPreviewElement *eventElement;
+@property (nonatomic, strong) Channel *channel;
+@property (nonatomic, strong) Folder *folder;
 
 @end
