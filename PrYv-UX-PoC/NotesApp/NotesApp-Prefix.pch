@@ -16,6 +16,7 @@
     #import "NotesAppController.h"
     #import "AppDelegate.h"
     #import "ViewController.h"
+    #import "UIViewController+LoadingOverlay.h"
 #endif
 
 #define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)

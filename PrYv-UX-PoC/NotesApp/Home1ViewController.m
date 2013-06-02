@@ -49,7 +49,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    [kSlidingController initSignIn];
+    [kSlidingController initSignIn];
 }
 
 - (void)setupUI
