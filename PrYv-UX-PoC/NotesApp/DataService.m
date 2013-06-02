@@ -9,6 +9,7 @@
 #import "DataService.h"
 #import <PryvApiKit/PYClient.h>
 #import "MeasurementSet.h"
+#import "Channel.h"
 
 #define kMeasurementSetsUrl @"http://pryv.github.io/event-types/event-types-extras.json"
 
@@ -33,6 +34,28 @@
             completionBlock(sets, nil);
         }
     } failure:^(NSError *error) {
+        if(completionBlock)
+        {
+            completionBlock(nil, error);
+        }
+    }];
+}
+
++ (void)fetchAllChannelsWithCompletionBlock:(FetchDataCompletionBlock)completionBlock
+{
+    PYAccess *access = [[NotesAppController sharedInstance] access];
+    [access getChannelsWithRequestType:PYRequestTypeAsync filterParams:nil successHandler:^(NSArray *channelList) {
+        NSMutableArray *channels = [NSMutableArray arrayWithCapacity:[channelList count]];
+        for(PYChannel *pyChannel in channelList)
+        {
+            Channel *channel = [[Channel alloc] initWithPYChannel:pyChannel];
+            [channels addObject:channel];
+        }
+        if(completionBlock)
+        {
+            completionBlock(channels, nil);
+        }
+    } errorHandler:^(NSError *error) {
         if(completionBlock)
         {
             completionBlock(nil, error);
