@@ -39,6 +39,9 @@
 		B64ACB0E1756A93700E2F6F7 /* EditEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB0D1756A93700E2F6F7 /* EditEventViewController.m */; };
 		B64ACB131756AC1900E2F6F7 /* BaseEventPreviewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB121756AC1900E2F6F7 /* BaseEventPreviewElement.m */; };
 		B64ACB161756AC5400E2F6F7 /* MeasurementPreviewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB151756AC5300E2F6F7 /* MeasurementPreviewElement.m */; };
+		B6556DDF175B7DB2008DFCC9 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = B6556DDC175B7DB2008DFCC9 /* SSKeychain.m */; };
+		B6556DE0175B7DB2008DFCC9 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = B6556DDE175B7DB2008DFCC9 /* SSKeychainQuery.m */; };
+		B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6556DE1175B7DC7008DFCC9 /* Security.framework */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
 		B6BA3E661732E06400464C2F /* iconSlide.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E641732E06400464C2F /* iconSlide.png */; };
@@ -170,6 +173,11 @@
 		B64ACB121756AC1900E2F6F7 /* BaseEventPreviewElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEventPreviewElement.m; sourceTree = "<group>"; };
 		B64ACB141756AC5300E2F6F7 /* MeasurementPreviewElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPreviewElement.h; sourceTree = "<group>"; };
 		B64ACB151756AC5300E2F6F7 /* MeasurementPreviewElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPreviewElement.m; sourceTree = "<group>"; };
+		B6556DDB175B7DB2008DFCC9 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		B6556DDC175B7DB2008DFCC9 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		B6556DDD175B7DB2008DFCC9 /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
+		B6556DDE175B7DB2008DFCC9 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
+		B6556DE1175B7DC7008DFCC9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B6783A3B174178FB0083AE50 /* NotesAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAppController.h; sourceTree = "<group>"; };
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
@@ -233,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */,
 				B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */,
 				B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */,
 				B6F5B0C51732A9C4000BC60A /* CoreImage.framework in Frameworks */,
@@ -271,6 +280,7 @@
 		B6016BAF172873D30056CD3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B6556DE1175B7DC7008DFCC9 /* Security.framework */,
 				B6783A36174168030083AE50 /* SystemConfiguration.framework */,
 				B6F5B0C41732A9C4000BC60A /* CoreImage.framework */,
 				B6F5B0C01732A748000BC60A /* CoreLocation.framework */,
@@ -403,6 +413,26 @@
 			name = EventPreview;
 			sourceTree = "<group>";
 		};
+		B6556DD6175B7D8B008DFCC9 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				B6D8EAA3175A185A00A3AA8F /* MBProgressHUD.h */,
+				B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		B6556DDA175B7D9B008DFCC9 /* SSKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				B6556DDB175B7DB2008DFCC9 /* SSKeychain.h */,
+				B6556DDC175B7DB2008DFCC9 /* SSKeychain.m */,
+				B6556DDD175B7DB2008DFCC9 /* SSKeychainQuery.h */,
+				B6556DDE175B7DB2008DFCC9 /* SSKeychainQuery.m */,
+			);
+			name = SSKeychain;
+			sourceTree = "<group>";
+		};
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,8 +499,8 @@
 		B6D8EA9F175A182000A3AA8F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				B6D8EAA3175A185A00A3AA8F /* MBProgressHUD.h */,
-				B6D8EAA4175A185A00A3AA8F /* MBProgressHUD.m */,
+				B6556DDA175B7D9B008DFCC9 /* SSKeychain */,
+				B6556DD6175B7D8B008DFCC9 /* MBProgressHUD */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -766,6 +796,8 @@
 				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
 				B6D8EAAA175A18F000A3AA8F /* UIViewController+LoadingOverlay.m in Sources */,
 				B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */,
+				B6556DDF175B7DB2008DFCC9 /* SSKeychain.m in Sources */,
+				B6556DE0175B7DB2008DFCC9 /* SSKeychainQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

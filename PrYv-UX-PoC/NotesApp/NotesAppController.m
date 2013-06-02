@@ -9,6 +9,10 @@
 #import "NotesAppController.h"
 #import <PryvApiKit/PryvApiKit.h>
 #import "DataService.h"
+#import "SSKeychain.h"
+
+#define kServiceName @"com.pryv.notesapp"
+#define kLastUsedUsernameKey @"lastUsedUsernameKey"
 
 NSString *const kAppDidReceiveAccessTokenNotification = @"kAppDidReceiveAccessTokenNotification";
 NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
@@ -17,6 +21,9 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 - (void)initObject;
 - (void)userDidLogout;
+- (void)loadSavedAccess;
+- (void)saveAccess:(PYAccess*)access;
+- (void)removeAccess:(PYAccess*)access;
 
 @end
 
@@ -35,23 +42,30 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 - (void)initObject
 {
-    
+    [self loadSavedAccess];
+}
+
+- (void)loadSavedAccess
+{
+    NSString *lastUsedUsername = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUsedUsernameKey];
+    if(lastUsedUsername)
+    {
+        NSString *accessToken = [SSKeychain passwordForService:kServiceName account:lastUsedUsername];
+        self.access = [[PYAccess alloc] initWithUsername:lastUsedUsername andAccessToken:accessToken];
+    }
 }
 
 - (void)setAccess:(PYAccess *)access
 {
     if(access != _access)
     {
+        [self removeAccess:_access];
         _access = access;
-        if(access)
-        {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
-        }
-        else
-        {
-            [self userDidLogout];
-        }
-        
+        [self saveAccess:access];
+    }
+    if(_access)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
     }
     else
     {
@@ -63,6 +77,18 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
     NSLog(@"USER DID LOGOUT");
+}
+
+- (void)saveAccess:(PYAccess *)access
+{
+    [[NSUserDefaults standardUserDefaults] setObject:access.userID forKey:kLastUsedUsernameKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [SSKeychain setPassword:access.accessToken forService:kServiceName account:access.userID];
+}
+
+- (void)removeAccess:(PYAccess *)access
+{
+    [SSKeychain deletePasswordForService:kServiceName account:access.userID];
 }
 
 @end
