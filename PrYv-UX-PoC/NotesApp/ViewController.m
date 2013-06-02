@@ -18,12 +18,19 @@
 
 - (void)initSignIn
 {
-    NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
-    
-    [PYClient setDefaultDomainStaging];
-    [PYWebLoginViewController requesAccessWithAppId:@"pryv-sdk-ios-example"
-                                     andPermissions:permissions
-                                           delegate:self];
+    if(![[NotesAppController sharedInstance] access])
+    {
+        NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
+        
+        [PYClient setDefaultDomainStaging];
+        [PYWebLoginViewController requesAccessWithAppId:@"pryv-sdk-ios-example"
+                                         andPermissions:permissions
+                                               delegate:self];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
+    }
 }
 
 #pragma mark - PYWebLoginDelegate
