@@ -31,18 +31,18 @@
         _view = [[MeasurementPreviewView alloc] initWithFrame:CGRectZero];
         _view.backgroundView.layer.cornerRadius = 6;
         _view.tagsContainer.layer.cornerRadius = 6;
-        _view.classImage.image = [UIImage imageNamed:_klass];
-        _view.titleLabel.text = [NSString stringWithFormat:@"%@ %@",_value,_format];
+        _view.classImage.image = [UIImage imageNamed:self.klass];
+        _view.titleLabel.text = [NSString stringWithFormat:@"%@ %@",self.value,self.format];
         NSString *descText = @"";
-        if(_channelName)
+        if(self.channelName)
         {
-            if(_folderName)
+            if(self.folderName)
             {
-                descText = [NSString stringWithFormat:@"%@, %@",_channelName,_folderName];
+                descText = [NSString stringWithFormat:@"%@, %@",self.channelName,self.folderName];
             }
             else
             {
-                descText = _channelName;
+                descText = self.channelName;
             }
         }
         _view.descriptionLabel.text = descText;

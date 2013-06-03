@@ -26,10 +26,12 @@ typedef NS_ENUM(NSInteger, EditEventListType)
 @property (nonatomic, strong) IBOutlet UILabel *selectedLocationLabel;
 @property (nonatomic, strong) IBOutlet UIButton *backButton;
 @property (nonatomic) EditEventListType listType;
+@property (nonatomic, strong) UIBarButtonItem *saveButton;
 
 @property (nonatomic, strong) NSArray *channels;
 
 - (IBAction)backButtonTouched:(id)sender;
+- (void)saveButtonTouched:(id)sender;
 - (void)updateUIElements;
 
 @end
@@ -48,6 +50,14 @@ typedef NS_ENUM(NSInteger, EditEventListType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save"
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(saveButtonTouched:)];
+    
+    [self.navigationItem setRightBarButtonItem:_saveButton];
+
 	self.eventPreviewContainer.frame = CGRectMake(0, 0, 320, 184);
     CGRect previewFrame = self.eventPreviewContainer.bounds;
     UIView *previewView = [_eventElement elementPreviewViewForFrame:previewFrame];
@@ -76,15 +86,18 @@ typedef NS_ENUM(NSInteger, EditEventListType)
 {
     NSString *selectedText = nil;
     NSString *descriptionText = nil;
+    BOOL saveButtonIsEnabled = NO;
     if(_folder)
     {
         selectedText = [NSString stringWithFormat:@"%@/%@",_channel.channelName,_folder.folderName];
         descriptionText = [NSString stringWithFormat:@"%@, %@",_channel.channelName,_folder.folderName];
+        saveButtonIsEnabled = YES;
     }
     else if(_channel)
     {
         selectedText = [_channel channelName];
         descriptionText = [_channel channelName];
+        saveButtonIsEnabled = YES;
     }
     else
     {
@@ -94,6 +107,7 @@ typedef NS_ENUM(NSInteger, EditEventListType)
     self.selectedLocationLabel.text = selectedText;
     self.backButton.hidden = IS_CHANNEL_LIST;
     [self.eventElement updateDescriptionWithText:descriptionText];
+    _saveButton.enabled = saveButtonIsEnabled;
 }
 
 #pragma mark - UITableViewDataSource and UITableViewDelegate
@@ -166,6 +180,25 @@ typedef NS_ENUM(NSInteger, EditEventListType)
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:NO];
         [self.tableView reloadData];
     }
+}
+
+- (void)saveButtonTouched:(id)sender
+{
+    PYEvent *event = [[PYEvent alloc] init];
+    event.folderId = _folder.folderId;
+    event.channelId = _channel.channelId;
+    event.tags = _tags;
+    event.value = _eventElement.value;
+    event.eventClass = _eventElement.klass;
+    event.eventFormat = _eventElement.format;
+    
+    [_channel.pyChannel createEvent:event requestType:PYRequestTypeAsync successHandler:^(NSString *newEventId, NSString *stoppedId) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved" message:@"Event is saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    } errorHandler:^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 #pragma mark - UITextFieldDelegate

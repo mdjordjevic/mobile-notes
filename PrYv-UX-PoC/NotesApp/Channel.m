@@ -14,6 +14,7 @@
 - (id)initWithPYChannel:(PYChannel *)pyChannel {
     self = [super init];
     if(self) {
+        self.pyChannel = pyChannel;
         self.channelId = [[pyChannel channelId] copy];
         self.channelName = [[pyChannel name] copy];
         self.folders = nil;

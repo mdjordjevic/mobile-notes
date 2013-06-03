@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *channelId;
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSArray *folders;
+@property (nonatomic, strong) PYChannel *pyChannel;
 
 - (id)initWithPYChannel:(PYChannel*)pyChannel;
 
