@@ -42,6 +42,7 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 - (void)initObject
 {
+    [PYClient setDefaultDomainStaging];
     [self loadSavedAccess];
 }
 
@@ -76,7 +77,6 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 - (void)userDidLogout
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
-    NSLog(@"USER DID LOGOUT");
 }
 
 - (void)saveAccess:(PYAccess *)access

@@ -10,9 +10,24 @@
 
 @interface ViewController ()
 
+- (void)userDidLogoutNotification:(NSNotification*)notification;
+
 @end
 
 @implementation ViewController
+
+- (id)init
+{
+    self = [super init];
+    if(self)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userDidLogoutNotification:)
+                                                     name:kUserDidLogoutNotification
+                                                   object:nil];
+    }
+    return self;
+}
 
 #pragma mark - Sign In
 
@@ -21,8 +36,6 @@
     if(![[NotesAppController sharedInstance] access])
     {
         NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
-        
-        [PYClient setDefaultDomainStaging];
         [PYWebLoginViewController requesAccessWithAppId:@"pryv-sdk-ios-example"
                                          andPermissions:permissions
                                                delegate:self];
@@ -56,6 +69,12 @@
     NSLog(@"Login error: %@",error);
 }
 
+#pragma mark - Notifications
+
+- (void)userDidLogoutNotification:(NSNotification *)notification
+{
+    [self initSignIn];
+}
 
 
 @end

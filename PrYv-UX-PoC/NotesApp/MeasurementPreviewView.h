@@ -10,4 +10,11 @@
 
 @interface MeasurementPreviewView : UIView
 
+@property (nonatomic, strong) IBOutlet UIImageView *classImage;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UIView *backgroundView;
+@property (nonatomic, strong) IBOutlet UITextField *tagsField;
+@property (nonatomic, strong) IBOutlet UIView *tagsContainer;
+
 @end

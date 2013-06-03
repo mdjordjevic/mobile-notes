@@ -11,6 +11,9 @@
 @protocol BaseEventPreviewElement <NSObject>
 
 - (UIView*)elementPreviewViewForFrame:(CGRect)frame;
+- (NSString*)elementTitle;
+- (void)updateDescriptionWithText:(NSString*)text;
+- (UITextField*)tagsLabel;
 
 @end
 

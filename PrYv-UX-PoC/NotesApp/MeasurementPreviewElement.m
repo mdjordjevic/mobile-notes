@@ -7,27 +7,62 @@
 //
 
 #import "MeasurementPreviewElement.h"
+#import "MeasurementPreviewView.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface MeasurementPreviewElement ()
+
+@property (nonatomic, strong) MeasurementPreviewView *view;
+
+@end
 
 @implementation MeasurementPreviewElement
 
 - (UIView*)elementPreviewViewForFrame:(CGRect)frame
 {
-    UIView *element = [[UIView alloc] initWithFrame:frame];
-    [element setBackgroundColor:[UIColor whiteColor]];
-    UIImageView *classImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
-    UIImage *classImage = [UIImage imageNamed:_klass];
-    [classImageView setImage:classImage];
-    [element addSubview:classImageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 190, 30)];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setFont:[UIFont systemFontOfSize:16]];
-    [label setTextAlignment:NSTextAlignmentRight];
-    [label setTextColor:[UIColor darkGrayColor]];
-    [label setText:[NSString stringWithFormat:@"%@ %@",_value,_format]];
-    [element addSubview:label];
-    
-    return element;
+    self.view.frame = frame;
+    return self.view;
+}
+
+- (MeasurementPreviewView*)view
+{
+    if(!_view)
+    {
+        _view = [[MeasurementPreviewView alloc] initWithFrame:CGRectZero];
+        _view.backgroundView.layer.cornerRadius = 6;
+        _view.tagsContainer.layer.cornerRadius = 6;
+        _view.classImage.image = [UIImage imageNamed:_klass];
+        _view.titleLabel.text = [NSString stringWithFormat:@"%@ %@",_value,_format];
+        NSString *descText = @"";
+        if(_channelName)
+        {
+            if(_folderName)
+            {
+                descText = [NSString stringWithFormat:@"%@, %@",_channelName,_folderName];
+            }
+            else
+            {
+                descText = _channelName;
+            }
+        }
+        _view.descriptionLabel.text = descText;
+    }
+    return _view;
+}
+
+- (NSString*)elementTitle
+{
+    return @"Numerical value";
+}
+
+- (void)updateDescriptionWithText:(NSString *)text
+{
+    self.view.descriptionLabel.text = text;
+}
+
+- (UITextField*)tagsLabel
+{
+    return self.view.tagsField;
 }
 
 

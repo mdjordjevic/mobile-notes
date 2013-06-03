@@ -249,6 +249,12 @@
         EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
         MeasurementPreviewElement *previewElement = [self previewElement];
         editEventVC.eventElement = previewElement;
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:nil
+                                                                      action:nil];
+        
+        [self.navigationItem setBackBarButtonItem:backButton];
     }
 }
 

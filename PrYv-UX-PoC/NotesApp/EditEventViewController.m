@@ -10,13 +10,27 @@
 #import "CategoryCell.h"
 #import "DataService.h"
 
+#define IS_CHANNEL_LIST (self.listType == EditEventListTypeChannel)
+#define IS_FOLDER_LIST (self.listType == EditEventListTypeFolder)
+
+typedef NS_ENUM(NSInteger, EditEventListType)
+{
+    EditEventListTypeChannel,
+    EditEventListTypeFolder
+};
+
 @interface EditEventViewController ()
 
 @property (nonatomic, strong) IBOutlet UIView *eventPreviewContainer;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UILabel *selectedLocationLabel;
+@property (nonatomic, strong) IBOutlet UIButton *backButton;
+@property (nonatomic) EditEventListType listType;
 
 @property (nonatomic, strong) NSArray *channels;
+
+- (IBAction)backButtonTouched:(id)sender;
+- (void)updateUIElements;
 
 @end
 
@@ -34,10 +48,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    CGRect previewFrame = CGRectMake(10, 10, 300, 100);
+	self.eventPreviewContainer.frame = CGRectMake(0, 0, 320, 184);
+    CGRect previewFrame = self.eventPreviewContainer.bounds;
     UIView *previewView = [_eventElement elementPreviewViewForFrame:previewFrame];
+    [[_eventElement tagsLabel] setDelegate:self];
     [self.eventPreviewContainer addSubview:previewView];
+    self.title = [_eventElement elementTitle];
+    
+    self.listType = EditEventListTypeChannel;
+    [self updateUIElements];
     
     [self showLoadingOverlay];
     [DataService fetchAllChannelsWithCompletionBlock:^(id object, NSError *error) {
@@ -53,20 +72,108 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateUIElements
+{
+    NSString *selectedText = nil;
+    NSString *descriptionText = nil;
+    if(_folder)
+    {
+        selectedText = [NSString stringWithFormat:@"%@/%@",_channel.channelName,_folder.folderName];
+        descriptionText = [NSString stringWithFormat:@"%@, %@",_channel.channelName,_folder.folderName];
+    }
+    else if(_channel)
+    {
+        selectedText = [_channel channelName];
+        descriptionText = [_channel channelName];
+    }
+    else
+    {
+        selectedText = @"Select channel";
+        descriptionText = @"";
+    }
+    self.selectedLocationLabel.text = selectedText;
+    self.backButton.hidden = IS_CHANNEL_LIST;
+    [self.eventElement updateDescriptionWithText:descriptionText];
+}
+
 #pragma mark - UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_channels count];
+    return IS_CHANNEL_LIST ? [_channels count] : [_channel.folders count];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"CategoryCell_ID";
     CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    Channel *channel = [_channels objectAtIndex:indexPath.row];
-    cell.titleLabel.text = channel.channelName;
+    if(IS_CHANNEL_LIST)
+    {
+        Channel *channel = [_channels objectAtIndex:indexPath.row];
+        if([channel.folders count] > 0)
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        else
+        {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        cell.titleLabel.text = channel.channelName;
+        BOOL isSelected = [channel.channelId isEqualToString:_channel.channelId];
+        [cell setSelected:isSelected animated:NO];
+    }
+    else
+    {
+        Folder *folder = [_channel.folders objectAtIndex:indexPath.row];
+        cell.titleLabel.text = folder.folderName;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        BOOL isSelected = [folder.folderId isEqualToString:_folder.folderId];
+        [cell setSelected:isSelected animated:NO];
+    }
+    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(IS_CHANNEL_LIST)
+    {
+        self.channel = [_channels objectAtIndex:indexPath.row];
+        if([_channel.folders count] > 0)
+        {
+            [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:NO];
+            self.listType = EditEventListTypeFolder;
+            [self.tableView reloadData];
+        }
+        [self updateUIElements];
+    }
+    else
+    {
+        self.folder = [_channel.folders objectAtIndex:indexPath.row];
+        [self updateUIElements];
+    }
+}
+
+#pragma mark - Actions
+
+- (void)backButtonTouched:(id)sender
+{
+    if(IS_FOLDER_LIST)
+    {
+        self.folder = nil;
+        self.listType = EditEventListTypeChannel;
+        [self updateUIElements];
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:NO];
+        [self.tableView reloadData];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    self.tags = [textField.text componentsSeparatedByString:@","];
+    [textField resignFirstResponder];
+    return NO;
 }
 
 @end

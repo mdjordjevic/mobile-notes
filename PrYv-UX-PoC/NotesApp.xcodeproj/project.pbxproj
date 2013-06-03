@@ -42,6 +42,8 @@
 		B6556DDF175B7DB2008DFCC9 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = B6556DDC175B7DB2008DFCC9 /* SSKeychain.m */; };
 		B6556DE0175B7DB2008DFCC9 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = B6556DDE175B7DB2008DFCC9 /* SSKeychainQuery.m */; };
 		B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6556DE1175B7DC7008DFCC9 /* Security.framework */; };
+		B6556DF8175D145C008DFCC9 /* MeasurementPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6556DF7175D145C008DFCC9 /* MeasurementPreviewView.xib */; };
+		B6556DFE175D151C008DFCC9 /* MeasurementPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6556DFD175D151B008DFCC9 /* MeasurementPreviewView.m */; };
 		B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6783A36174168030083AE50 /* SystemConfiguration.framework */; };
 		B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6783A3C174178FB0083AE50 /* NotesAppController.m */; };
 		B6BA3E661732E06400464C2F /* iconSlide.png in Resources */ = {isa = PBXBuildFile; fileRef = B6BA3E641732E06400464C2F /* iconSlide.png */; };
@@ -178,6 +180,9 @@
 		B6556DDD175B7DB2008DFCC9 /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
 		B6556DDE175B7DB2008DFCC9 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		B6556DE1175B7DC7008DFCC9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B6556DF7175D145C008DFCC9 /* MeasurementPreviewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementPreviewView.xib; sourceTree = "<group>"; };
+		B6556DFC175D151A008DFCC9 /* MeasurementPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPreviewView.h; sourceTree = "<group>"; };
+		B6556DFD175D151B008DFCC9 /* MeasurementPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPreviewView.m; sourceTree = "<group>"; };
 		B6783A36174168030083AE50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B6783A3B174178FB0083AE50 /* NotesAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAppController.h; sourceTree = "<group>"; };
 		B6783A3C174178FB0083AE50 /* NotesAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAppController.m; sourceTree = "<group>"; };
@@ -409,6 +414,9 @@
 				B64ACB121756AC1900E2F6F7 /* BaseEventPreviewElement.m */,
 				B64ACB141756AC5300E2F6F7 /* MeasurementPreviewElement.h */,
 				B64ACB151756AC5300E2F6F7 /* MeasurementPreviewElement.m */,
+				B6556DF7175D145C008DFCC9 /* MeasurementPreviewView.xib */,
+				B6556DFC175D151A008DFCC9 /* MeasurementPreviewView.h */,
+				B6556DFD175D151B008DFCC9 /* MeasurementPreviewView.m */,
 			);
 			name = EventPreview;
 			sourceTree = "<group>";
@@ -724,6 +732,7 @@
 				B64ACB0417568A8100E2F6F7 /* length@2x.png in Resources */,
 				B64ACB0517568A8100E2F6F7 /* mass@2x.png in Resources */,
 				B64ACB0617568A8100E2F6F7 /* money@2x.png in Resources */,
+				B6556DF8175D145C008DFCC9 /* MeasurementPreviewView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,6 +807,7 @@
 				B6D8EAAD175A2A4F00A3AA8F /* CategoryCell.m in Sources */,
 				B6556DDF175B7DB2008DFCC9 /* SSKeychain.m in Sources */,
 				B6556DE0175B7DB2008DFCC9 /* SSKeychainQuery.m in Sources */,
+				B6556DFE175D151C008DFCC9 /* MeasurementPreviewView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

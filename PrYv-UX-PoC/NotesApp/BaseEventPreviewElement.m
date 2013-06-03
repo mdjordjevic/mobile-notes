@@ -15,5 +15,19 @@
     return nil;
 }
 
+- (NSString*)elementTitle
+{
+    return nil;
+}
+
+- (void)updateDescriptionWithText:(NSString *)text
+{
+    
+}
+
+- (UITextField*)tagsLabel
+{
+    return nil;
+}
 
 @end

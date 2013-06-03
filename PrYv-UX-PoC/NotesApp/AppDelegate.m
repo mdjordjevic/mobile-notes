@@ -23,9 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //temporary - remove when login is finished
-//    PYAccess *access = [PYClient createAccessWithUsername:@"perkikiki" andAccessToken:@"PeySaPzMsM"];
-//    [[NotesAppController sharedInstance] setAccess:access];
     [NotesAppController sharedInstance];
     [MeasurementController sharedInstance];
     [self initViewControllers];
