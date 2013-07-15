@@ -54,7 +54,7 @@
     {
         self.userMeasurementSets = [NSMutableArray array];
     }
-    [DataService fetchAllMeasurementSetsWithCompletionBlock:^(id object, NSError *error) {
+    [[DataService sharedInstance] fetchAllMeasurementSetsWithCompletionBlock:^(id object, NSError *error) {
         if(!error)
         {
             self.measurementSets = (NSMutableArray*)object;

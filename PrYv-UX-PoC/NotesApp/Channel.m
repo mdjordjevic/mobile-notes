@@ -18,6 +18,7 @@
         self.channelId = [[pyChannel channelId] copy];
         self.channelName = [[pyChannel name] copy];
         self.folders = nil;
+        self.events = [NSMutableArray array];
     }
     return self;
 }

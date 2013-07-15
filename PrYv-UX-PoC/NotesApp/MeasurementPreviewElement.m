@@ -7,62 +7,26 @@
 //
 
 #import "MeasurementPreviewElement.h"
-#import "MeasurementPreviewView.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface MeasurementPreviewElement ()
-
-@property (nonatomic, strong) MeasurementPreviewView *view;
 
 @end
 
 @implementation MeasurementPreviewElement
 
-- (UIView*)elementPreviewViewForFrame:(CGRect)frame
+- (UIImage*)elementPreviewImage
 {
-    self.view.frame = frame;
-    return self.view;
-}
-
-- (MeasurementPreviewView*)view
-{
-    if(!_view)
-    {
-        _view = [[MeasurementPreviewView alloc] initWithFrame:CGRectZero];
-        _view.backgroundView.layer.cornerRadius = 6;
-        _view.tagsContainer.layer.cornerRadius = 6;
-        _view.classImage.image = [UIImage imageNamed:self.klass];
-        _view.titleLabel.text = [NSString stringWithFormat:@"%@ %@",self.value,self.format];
-        NSString *descText = @"";
-        if(self.channelName)
-        {
-            if(self.folderName)
-            {
-                descText = [NSString stringWithFormat:@"%@, %@",self.channelName,self.folderName];
-            }
-            else
-            {
-                descText = self.channelName;
-            }
-        }
-        _view.descriptionLabel.text = descText;
-    }
-    return _view;
+    return [UIImage imageNamed:self.klass];
 }
 
 - (NSString*)elementTitle
 {
-    return @"Numerical value";
+    return [NSString stringWithFormat:@"%@ %@",self.value,self.format];
 }
 
-- (void)updateDescriptionWithText:(NSString *)text
+- (NSString*)elementSubtitle
 {
-    self.view.descriptionLabel.text = text;
-}
-
-- (UITextField*)tagsLabel
-{
-    return self.view.tagsField;
+    return nil;
 }
 
 

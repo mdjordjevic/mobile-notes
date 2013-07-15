@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^FetchDataCompletionBlock)(id object, NSError *error);
+typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
 
 @interface DataService : NSObject
 
-+ (void)fetchAllMeasurementSetsWithCompletionBlock:(FetchDataCompletionBlock)completionBlock;
-+ (void)fetchAllChannelsWithCompletionBlock:(FetchDataCompletionBlock)completionBlock;
++ (DataService*)sharedInstance;
+- (void)fetchAllMeasurementSetsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)fetchAllChannelsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)saveEvent:(PYEvent*)event inChannel:(PYChannel*)channel withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+
 
 @end

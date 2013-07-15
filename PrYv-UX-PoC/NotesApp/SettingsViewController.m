@@ -10,6 +10,8 @@
 
 @interface SettingsViewController ()
 
+- (void)popVC:(id)sender;
+
 @end
 
 @implementation SettingsViewController
@@ -26,7 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	self.navigationItem.leftItemsSupplementBackButton = NO;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add_active"] target:self action:@selector(popVC:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,6 +48,11 @@
     {
         [[NotesAppController sharedInstance] setAccess:nil];
     }
+}
+
+- (void)popVC:(id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 @end

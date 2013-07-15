@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const kEventAddedNotification;
+
 @class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ViewController *slideoutController;
+@property (strong, nonatomic) ViewController *rootViewController;
 
 @end

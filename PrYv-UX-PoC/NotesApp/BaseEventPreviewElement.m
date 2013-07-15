@@ -10,7 +10,7 @@
 
 @implementation BaseEventPreviewElement
 
-- (UIView*)elementPreviewViewForFrame:(CGRect)frame
+- (UIImage*)elementPreviewImage
 {
     return nil;
 }
@@ -20,12 +20,7 @@
     return nil;
 }
 
-- (void)updateDescriptionWithText:(NSString *)text
-{
-    
-}
-
-- (UITextField*)tagsLabel
+- (NSString*)elementSubtitle
 {
     return nil;
 }

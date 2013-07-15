@@ -11,26 +11,31 @@
 #import "MeasurementController.h"
 #import "EditEventViewController.h"
 #import "MeasurementPreviewElement.h"
+#import "KSAdvancedPicker.h"
+#import "UserHistoryEntry.h"
+#import "CellStyleModel.h"
 
-#define kEditEventSegueID @"EditEventSegue_ID"
+#define kSaveMeasurementSegue @"SaveMeasurementSegue_ID"
 #define kGroupComponentIndex 0
 #define kTypeComponentIndex 1
-#define kGroupComponentWidth 100
-#define kTypeComponentWidth 150
-#define kGroupComponentHeight 100
-#define kTypeComponentHeight 44
+#define kGroupComponentWidth 120
+#define kTypeComponentWidth 200
+#define kGroupComponentHeight 77
 
-@interface AddNumericalValueViewController ()
+@interface AddNumericalValueViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate>
 
-@property (nonatomic, strong) CustomNumericalKeyboard *customKeyborad;
+@property (nonatomic, strong) IBOutlet CustomNumericalKeyboard *customKeyborad;
 @property (nonatomic, strong) NSMutableArray *measurementGroups;
 @property (nonatomic, strong) IBOutlet UITextField *typeTextField;
+@property (nonatomic, strong) IBOutlet KSAdvancedPicker *typePicker;
 
 - (void)updateView:(UIImageView*)view forRow:(NSInteger)row;
 - (void)selectFirstTypeAnimated:(BOOL)animated;
 - (MeasurementPreviewElement*)previewElement;
 - (NSNumber*)valueAsNumber;
 - (void)updateMeasurementSets;
+- (void)doneButtonTouched:(id)sender;
+- (void)selectRightMeasurementGroup;
 
 @end
 
@@ -48,32 +53,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.typePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 140)];
-    _typePicker.showsSelectionIndicator = NO;
-    _typePicker.dataSource = self;
-    _typePicker.delegate = self;
-    [self.view addSubview:_typePicker];
-    
-    self.customKeyborad = [[CustomNumericalKeyboard alloc] initWithFrame:CGRectMake(0, 200, 320, 316)];
-    _customKeyborad.delegate = self;
     [self textFieldValueChangedForCustomNumericalKeyboard:_customKeyborad];
-    [self.view addSubview:_customKeyborad];
+    self.typePicker.delegate = self;
+    self.typePicker.dataSource = self;
+    [self.typePicker reloadData];
+    UIButton *delBtn = (UIButton*)[self.customKeyborad viewWithTag:11];
+    [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
+    [self addCustomBackButton];
+    
+    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Done" target:self action:@selector(doneButtonTouched:)];
+    self.navigationItem.rightBarButtonItem = self.doneButton;
+    
+    if(self.entry)
+    {
+        [self updateMeasurementSets];
+        [self.typePicker reloadData];
+        [self selectRightMeasurementGroup];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
-    [self updateMeasurementSets];
-    
-    [_typePicker reloadAllComponents];
-    
-    if(groupsCountBeforeUpdate == [_measurementGroups count])
+    if(!self.entry)
     {
-        [_typePicker selectRow:0 inComponent:0 animated:NO];
+        NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
+        [self updateMeasurementSets];
+        
+        [self.typePicker reloadData];
+        
+        if(groupsCountBeforeUpdate == [_measurementGroups count])
+        {
+            [_typePicker selectRow:0 inComponent:0 animated:NO];
+        }
+        [self selectFirstTypeAnimated:NO];
     }
-    [self selectFirstTypeAnimated:NO];
 }
 
 - (void)updateMeasurementSets
@@ -101,10 +116,23 @@
     }
 }
 
+- (void)selectRightMeasurementGroup
+{
+    for(MeasurementGroup *mGroup in self.measurementGroups)
+    {
+        if(([mGroup.name isEqualToString:@"mass"] && self.entry.dataType == CellStyleTypeMass) ||
+           ([mGroup.name isEqualToString:@"length"] && self.entry.dataType == CellStyleTypeLength) ||
+           ([mGroup.name isEqualToString:@"money"] && self.entry.dataType == CellStyleTypeMoney))
+        {
+            [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
+            break;
+        }
+    }
+}
+
 - (void)selectFirstTypeAnimated:(BOOL)animated
 {
     [_typePicker selectRow:0 inComponent:1 animated:animated];
-    [self pickerView:_typePicker didSelectRow:0 inComponent:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -142,14 +170,44 @@
     return element;
 }
 
-#pragma mark - UIPickerViewDelegate UIPickerViewDataSource
+#pragma mark - CustomNumericalKeyboardDelegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (UITextField*)textFieldForCustomkeyboard:(CustomNumericalKeyboard *)customKeybord
+{
+    return _valueField;
+}
+
+- (void)textFieldValueChangedForCustomNumericalKeyboard:(CustomNumericalKeyboard *)customKeyboard
+{
+    _doneButton.enabled = _valueField.text.length > 0;
+}
+
+#pragma mark - Segues
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:kSaveMeasurementSegue])
+    {
+        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
+        MeasurementPreviewElement *previewElement = [self previewElement];
+        editEventVC.eventElement = previewElement;
+        editEventVC.entry = self.entry;
+    }
+}
+
+- (void)doneButtonTouched:(id)sender
+{
+    [self performSegueWithIdentifier:kSaveMeasurementSegue sender:self];
+}
+
+#pragma mark - KSAdvancedPickerDataSource and KSAdvancedDelegate methods
+
+- (NSInteger) numberOfComponentsInAdvancedPicker:(KSAdvancedPicker *)picker
 {
     return 2;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (NSInteger) advancedPicker:(KSAdvancedPicker *)picker numberOfRowsInComponent:(NSInteger)component
 {
     if(component == kGroupComponentIndex)
     {
@@ -159,7 +217,44 @@
     return [[[_measurementGroups objectAtIndex:selectedGroup] types] count];
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+- (UIView *) advancedPicker:(KSAdvancedPicker *)picker viewForComponent:(NSInteger)component inRect:(CGRect)rect
+{
+    if(component == kGroupComponentIndex)
+    {
+        UIImageView *viewToReturn = [[UIImageView alloc] initWithFrame:rect];
+        viewToReturn.contentMode = UIViewContentModeCenter;
+        return viewToReturn;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setFont:[UIFont boldSystemFontOfSize:24]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    return label;
+}
+
+- (void) advancedPicker:(KSAdvancedPicker *)picker setDataForView:(UIView *)view row:(NSInteger)row inComponent:(NSInteger)component
+{
+    if(component == kGroupComponentIndex)
+    {
+        UIImageView *imgView = (UIImageView*)view;
+        [self updateView:imgView forRow:row];
+    }
+    else
+    {
+        UILabel *label = (UILabel*)view;
+        NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+        MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        MeasurementType *type = [group.types objectAtIndex:row];
+        [label setText:[type localizedName]];
+    }
+}
+
+- (CGFloat)heightForRowInAdvancedPicker:(KSAdvancedPicker *)picker
+{
+    return kGroupComponentHeight;
+}
+
+- (CGFloat) advancedPicker:(KSAdvancedPicker *)picker widthForComponent:(NSInteger)component
 {
     if(component == kGroupComponentIndex)
     {
@@ -167,56 +262,12 @@
     }
     return kTypeComponentWidth;
 }
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    if(component == kTypeComponentIndex)
-    {
-        return kTypeComponentHeight;
-    }
-    return kGroupComponentHeight;
-}
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+- (void) advancedPicker:(KSAdvancedPicker *)picker didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if(component == 0)
     {
-        UIImageView *viewToReturn = nil;
-        if(!view)
-        {
-            viewToReturn = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        }
-        else
-        {
-            viewToReturn = (UIImageView*)view;
-        }
-        [self updateView:viewToReturn forRow:row];
-        return viewToReturn;
-    }
-    UILabel *label = nil;
-    if(!view)
-    {
-        label = [[UILabel alloc] init];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setFont:[UIFont boldSystemFontOfSize:16]];
-        [label setTextAlignment:NSTextAlignmentCenter];
-    }
-    else
-    {
-        label = (UILabel*)view;
-    }
-    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-    MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    MeasurementType *type = [group.types objectAtIndex:row];
-    [label setText:[type localizedName]];
-    
-    return label;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if(component == 0)
-    {
-        [_typePicker reloadComponent:1];
+        [self.typePicker reloadDataInComponent:1];
         [self selectFirstTypeAnimated:YES];
     }
     else if(component == 1)
@@ -228,34 +279,24 @@
     }
 }
 
-#pragma mark - CustomNumericalKeyboardDelegate
-
-- (UITextField*)textFieldForCustomkeyboard:(CustomNumericalKeyboard *)customKeybord
+- (UIColor *) backgroundColorForAdvancedPicker:(KSAdvancedPicker *)picker
 {
-    return _valueField;
+    return [UIColor clearColor];
 }
 
-- (void)textFieldValueChangedForCustomNumericalKeyboard:(CustomNumericalKeyboard *)customKeyboard
+- (UIColor *) advancedPicker:(KSAdvancedPicker *)picker backgroundColorForComponent:(NSInteger)component
 {
-    _addButton.enabled = _valueField.text.length > 0;
+    return [UIColor clearColor];
 }
 
-#pragma mark - Segues
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (UIColor *) overlayColorForAdvancedPickerSelector:(KSAdvancedPicker *)picker
 {
-    if([segue.identifier isEqualToString:kEditEventSegueID])
-    {
-        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
-        MeasurementPreviewElement *previewElement = [self previewElement];
-        editEventVC.eventElement = previewElement;
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                       style:UIBarButtonItemStyleBordered
-                                                                      target:nil
-                                                                      action:nil];
-        
-        [self.navigationItem setBackBarButtonItem:backButton];
-    }
+    return [UIColor clearColor];
+}
+
+- (UIColor *) viewColorForAdvancedPickerSelector:(KSAdvancedPicker *)picker
+{
+    return [UIColor clearColor];
 }
 
 @end

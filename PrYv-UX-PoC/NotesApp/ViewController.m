@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "BrowseEventsViewController.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) BrowseEventsViewController *browseEventsVC;
 
 - (void)userDidLogoutNotification:(NSNotification*)notification;
 
@@ -29,16 +32,28 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.browseEventsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"BrowseEventsViewController_ID"];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:self.browseEventsVC];
+    [self.navigationController presentViewController:navVC animated:NO completion:nil];
+    [self initSignIn];
+}
+
 #pragma mark - Sign In
 
 - (void)initSignIn
 {
     if(![[NotesAppController sharedInstance] access])
     {
-        NSArray *permissions = @[@{@"channelId": @"*", @"level": @"manage"}];
-        [PYWebLoginViewController requesAccessWithAppId:@"pryv-sdk-ios-example"
-                                         andPermissions:permissions
-                                               delegate:self];
+        NSArray *objects = [NSArray arrayWithObjects:@"*", @"manage", nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"channelId", @"level", nil];
+        
+        NSArray *permissions = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjects:objects forKeys:keys]];
+        [PYWebLoginViewController requestAccessWithAppId:@"pryv-sdk-ios-example"
+                                          andPermissions:permissions
+                                                delegate:self];
     }
     else
     {
@@ -50,7 +65,7 @@
 
 - (UIViewController*)pyWebLoginGetController
 {
-    return self;
+    return self.browseEventsVC;
 }
 
 - (void)pyWebLoginSuccess:(PYAccess*)pyAccess

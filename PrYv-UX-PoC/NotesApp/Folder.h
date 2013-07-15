@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSString *folderName;
 @property (nonatomic, strong) NSString *folderId;
+@property (nonatomic, strong) PYFolder *pyFolder;
 
 - (id)initWithPYFolder:(PYFolder*)pyFolder;
 

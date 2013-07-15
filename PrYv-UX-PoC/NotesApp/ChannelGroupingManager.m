@@ -50,20 +50,21 @@
         return;
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [access getChannelsWithRequestType:PYRequestTypeSync filterParams:nil successHandler:^(NSArray *channelList) {
-            for (PYChannel *pyChannel in channelList)
+        [access getAllChannelsWithRequestType:PYRequestTypeSync
+                            gotCachedChannels:^(NSArray *cachedChannelList) {
+            for (PYChannel *pyChannel in cachedChannelList)
             {
                 Channel *channel = [[Channel alloc] initWithPYChannel:pyChannel];
                 NSMutableArray *folders = [NSMutableArray array];
-                [pyChannel getFoldersWithRequestType:PYRequestTypeSync filterParams:nil successHandler:^(NSArray *folderList) {
-                    for(PYFolder *pyFolder in folderList) {
+                [pyChannel getFoldersWithRequestType:PYRequestTypeSync filterParams:nil successHandler:^(NSArray *foldersList) {
+                    for(PYFolder *pyFolder in foldersList) {
                         Folder *folder = [[Folder alloc] initWithPYFolder:pyFolder];
                         [folders addObject:folder];
                     }
                     channel.folders = [folders copy];
                 } errorHandler:^(NSError *error) {
                     
-                }];
+                } shouldSyncAndCache:YES];
                 
                 [_channels addObject:channel];
             }
@@ -72,6 +73,8 @@
                     completionHandler();
                 });
             }
+        } gotOnlineChannels:^(NSArray *onlineChannelList) {
+            
         } errorHandler:^(NSError *error) {
             if(completionHandler) {
                 dispatch_async(dispatch_get_main_queue(), ^{

@@ -18,22 +18,6 @@
 
 @implementation CustomNumericalKeyboard
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if(self)
-    {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"CustomNumericalKeyboard" owner:self options:nil] objectAtIndex:0];
-        self.frame = frame;
-    }
-    return self;
-}
-
-- (void)setDelegate:(id<CustomKeyboardDelegate>)delegate
-{
-    _delegate = delegate;
-}
-
 - (UITextField*)textField
 {
     if(!_textField)

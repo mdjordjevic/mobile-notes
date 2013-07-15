@@ -10,10 +10,9 @@
 
 @protocol BaseEventPreviewElement <NSObject>
 
-- (UIView*)elementPreviewViewForFrame:(CGRect)frame;
+- (UIImage*)elementPreviewImage;
 - (NSString*)elementTitle;
-- (void)updateDescriptionWithText:(NSString*)text;
-- (UITextField*)tagsLabel;
+- (NSString*)elementSubtitle;
 
 @end
 
@@ -25,5 +24,6 @@
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSString *folderName;
+@property (nonatomic, strong) NSString *textValue;
 
 @end

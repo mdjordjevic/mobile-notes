@@ -19,6 +19,6 @@
 
 @interface CustomNumericalKeyboard : UIView
 
-@property (nonatomic, weak) id<CustomKeyboardDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<CustomKeyboardDelegate> delegate;
 
 @end

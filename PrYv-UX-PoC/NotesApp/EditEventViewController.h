@@ -11,11 +11,14 @@
 #import "Channel.h"
 #import "Folder.h"
 
-@interface EditEventViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@class UserHistoryEntry;
+
+@interface EditEventViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) BaseEventPreviewElement *eventElement;
 @property (nonatomic, strong) Channel *channel;
 @property (nonatomic, strong) Folder *folder;
 @property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) UserHistoryEntry *entry;
 
 @end

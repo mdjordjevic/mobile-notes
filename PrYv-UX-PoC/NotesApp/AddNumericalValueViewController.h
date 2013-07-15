@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CustomNumericalKeyboard.h"
 
-@interface AddNumericalValueViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, CustomKeyboardDelegate>
+@class UserHistoryEntry;
+
+@interface AddNumericalValueViewController : BaseViewController <CustomKeyboardDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *valueField;
-@property (nonatomic, strong) IBOutlet UIPickerView *typePicker;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *addButton;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UserHistoryEntry *entry;
 
 @end

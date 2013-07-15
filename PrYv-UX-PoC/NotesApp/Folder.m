@@ -16,6 +16,7 @@
     if(self) {
         self.folderName = [[pyFolder name] copy];
         self.folderId = [[pyFolder folderId] copy];
+        self.pyFolder = pyFolder;
     }
     return self;
 }

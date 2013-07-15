@@ -11,6 +11,9 @@
 #import "ViewController.h"
 #import "NotesAppController.h"
 #import "MeasurementController.h"
+#import "TextNoteViewController.h"
+
+NSString *const kEventAddedNotification = @"kEventAddedNotification";
 
 @interface AppDelegate ()
 
@@ -32,25 +35,28 @@
 }
 
 - (void)initViewControllers {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    
-	UIViewController* controller;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+//    
+//	UIViewController* controller;
+//	
+//	self.slideoutController = [[ViewController alloc] init];
+//	
+//	[self.slideoutController addSectionWithTitle:@""];
 	
-	self.slideoutController = [[ViewController alloc] init];
-	
-	[self.slideoutController addSectionWithTitle:@""];
-	
-	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home1ViewController_ID"];
-	[self.slideoutController addViewControllerToLastSection:controller tagged:1 withTitle:@"Collection Add" andIcon:@""];
-	
-	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home2ViewController_ID"];
-	[self.slideoutController addViewControllerToLastSection:controller tagged:2 withTitle:@"Circle Add" andIcon:@""];
-    
-    controller = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
-    [self.slideoutController addViewControllerToLastSection:controller tagged:3 withTitle:@"Settings" andIcon:@""];
-    
-    controller = [storyboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-    [self.slideoutController addViewControllerToLastSection:controller tagged:4 withTitle:@"Add Numerical Value" andIcon:@""];
+//	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home1ViewController_ID"];
+//	[self.slideoutController addViewControllerToLastSection:controller tagged:1 withTitle:@"Collection Add" andIcon:@""];
+//	
+//	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home2ViewController_ID"];
+//	[self.slideoutController addViewControllerToLastSection:controller tagged:2 withTitle:@"Circle Add" andIcon:@""];
+//    
+//    controller = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
+//    [self.slideoutController addViewControllerToLastSection:controller tagged:3 withTitle:@"Settings" andIcon:@""];
+//    
+//    controller = [storyboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
+//    [self.slideoutController addViewControllerToLastSection:controller tagged:4 withTitle:@"Add Numerical Value" andIcon:@""];
+//    
+//    controller = [storyboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
+//    [self.slideoutController addViewControllerToLastSection:controller tagged:5 withTitle:@"Add Text Note" andIcon:@""];
 	
 //	[self.slideoutController addActionToLastSection:^{
 //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Some action"
@@ -64,13 +70,20 @@
 //										  withTitle:@"Action"
 //											andIcon:@""];
 	
-    [self.window setRootViewController:self.slideoutController];
+//    [self.window setRootViewController:self.slideoutController];
 }
 
 - (void)setupUI {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"menubar"] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:197.0f/255.0f green:58.0f/255.0f blue:58.0f/255.0f alpha:1]];
     
+    //UINavigationBar
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                UITextAttributeTextColor: [UIColor blackColor],
+                          UITextAttributeTextShadowColor: [UIColor clearColor],
+                         UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
+                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]
+     }];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
