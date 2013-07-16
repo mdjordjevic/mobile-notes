@@ -1,4 +1,1 @@
 platform :ios, '5.0'
-pod 'AwesomeMenu', '1.0.0'
-pod 'PSTCollectionView', '0.0.1'
-pod 'AMSlideOutController', '1.3'
