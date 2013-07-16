@@ -228,7 +228,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:rect];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setFont:[UIFont boldSystemFontOfSize:24]];
-    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextAlignment:UITextAlignmentCenter];
     return label;
 }
 

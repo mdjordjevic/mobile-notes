@@ -39,7 +39,7 @@
                                                                     self.frame.size.width/2.0f,
                                                                     self.frame.size.height/2.0f)];
     [_cellTitleLabel setBackgroundColor:[UIColor clearColor]];
-    [_cellTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [_cellTitleLabel setTextAlignment:UITextAlignmentCenter];
     [_cellTitleLabel setFont:[UIFont boldSystemFontOfSize:10]];
     [_cellTitleLabel setNumberOfLines:0];
     [self addSubview:_cellTitleLabel];
@@ -68,7 +68,7 @@
                                                       green:67.0/255.0
                                                        blue:62.0/255.0
                                                       alpha:1.0]];
-        [itemLabel setTextAlignment:NSTextAlignmentCenter];
+        [itemLabel setTextAlignment:UITextAlignmentCenter];
         [itemLabel setFont:[UIFont systemFontOfSize:8]];
         [itemLabel setNumberOfLines:0];
         [itemLabel setText:title];

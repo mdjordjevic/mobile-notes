@@ -19,6 +19,7 @@
     #import "ViewController.h"
     #import "UIViewController+LoadingOverlay.h"
     #import "UIColor+PrYv.h"
+    #import "NSObject+subscript.h"
 #endif
 
 #define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)
@@ -27,3 +28,11 @@
 
 #define kAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
 #define kRootViewController [kAppDelegate rootViewController]
+
+#ifndef NS_ENUM
+#define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
+
+#ifndef NS_OPTIONS
+#define NS_OPTIONS(_type, _name) enum _name : _type _name; enum _name : _type
+#endif

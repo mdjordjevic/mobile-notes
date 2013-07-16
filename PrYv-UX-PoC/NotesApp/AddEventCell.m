@@ -29,7 +29,7 @@
 - (void)setupSubviews {
     self.cellTitleLabel = [[UILabel alloc] initWithFrame:self.bounds];
     [_cellTitleLabel setBackgroundColor:[UIColor clearColor]];
-    [_cellTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [_cellTitleLabel setTextAlignment:UITextAlignmentCenter];
     [_cellTitleLabel setFont:[UIFont systemFontOfSize:12]];
     [self addSubview:_cellTitleLabel];
     [self setBackgroundColor:[UIColor colorWithRed:239.0/255.0
