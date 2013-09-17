@@ -11,8 +11,8 @@
 @interface MeasurementGroup : NSObject
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSMutableArray *types;
+@property (nonatomic, copy) NSArray *types;
 
-- (id)initWithName:(NSString*)name andListOfTypes:(NSArray*)listOfTypes andLocalizedNames:(NSDictionary*)localizedNames;
+- (id)initWithName:(NSString*)name andListOfTypes:(NSArray*)listOfTypes;
 
 @end

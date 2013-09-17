@@ -21,9 +21,9 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 - (void)initObject;
 - (void)userDidLogout;
-- (void)loadSavedAccess;
-- (void)saveAccess:(PYAccess*)access;
-- (void)removeAccess:(PYAccess*)access;
+- (void)loadSavedConnection;
+- (void)saveConnection:(PYConnection*)connection;
+- (void)removeConnection:(PYConnection*)connection;
 
 @end
 
@@ -43,28 +43,28 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 - (void)initObject
 {
     [PYClient setDefaultDomainStaging];
-    [self loadSavedAccess];
+    [self loadSavedConnection];
 }
 
-- (void)loadSavedAccess
+- (void)loadSavedConnection
 {
     NSString *lastUsedUsername = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUsedUsernameKey];
     if(lastUsedUsername)
     {
         NSString *accessToken = [SSKeychain passwordForService:kServiceName account:lastUsedUsername];
-        self.access = [[PYAccess alloc] initWithUsername:lastUsedUsername andAccessToken:accessToken];
+        self.connection = [[PYConnection alloc] initWithUsername:lastUsedUsername andAccessToken:accessToken];
     }
 }
 
-- (void)setAccess:(PYAccess *)access
+- (void)setConnection:(PYConnection *)connection
 {
-    if(access != _access)
+    if(connection != _connection)
     {
-        [self removeAccess:_access];
-        _access = access;
-        [self saveAccess:access];
+        [self removeConnection:_connection];
+        _connection = connection;
+        [self saveConnection:connection];
     }
-    if(_access)
+    if(_connection)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:kAppDidReceiveAccessTokenNotification object:nil];
     }
@@ -79,16 +79,16 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserDidLogoutNotification object:nil];
 }
 
-- (void)saveAccess:(PYAccess *)access
+- (void)saveConnection:(PYConnection *)connection
 {
-    [[NSUserDefaults standardUserDefaults] setObject:access.userID forKey:kLastUsedUsernameKey];
+    [[NSUserDefaults standardUserDefaults] setObject:connection.userID forKey:kLastUsedUsernameKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [SSKeychain setPassword:access.accessToken forService:kServiceName account:access.userID];
+    [SSKeychain setPassword:connection.accessToken forService:kServiceName account:connection.userID];
 }
 
-- (void)removeAccess:(PYAccess *)access
+- (void)removeConnection:(PYConnection *)connection
 {
-    [SSKeychain deletePasswordForService:kServiceName account:access.userID];
+    [SSKeychain deletePasswordForService:kServiceName account:connection.userID];
 }
 
 @end

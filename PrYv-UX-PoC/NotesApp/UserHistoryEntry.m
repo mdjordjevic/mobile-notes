@@ -8,16 +8,14 @@
 
 #import "UserHistoryEntry.h"
 
-#define kChannelIdKey @"ChannelID"
-#define kFolderIdKey @"FolderID"
+#define kStreamIdKey @"StreamID"
 #define kTagsKey @"TagsKey"
 #define kDataTypeKey @"DataType"
 
 @implementation UserHistoryEntry
 
 - (void)encodeWithCoder:(NSCoder*)encoder {
-    [encoder encodeObject:_channelId forKey:kChannelIdKey];
-    [encoder encodeObject:_folderId forKey:kFolderIdKey];
+    [encoder encodeObject:_streamId forKey:kStreamIdKey];
     [encoder encodeObject:_tags forKey:kTagsKey];
     [encoder encodeInteger:_dataType forKey:kDataTypeKey];
 }
@@ -26,8 +24,7 @@
     self = [super init];
     if(self)
     {
-        self.channelId = [decoder decodeObjectForKey:kChannelIdKey];
-        self.folderId = [decoder decodeObjectForKey:kFolderIdKey];
+        self.streamId = [decoder decodeObjectForKey:kStreamIdKey];
         self.tags = [decoder decodeObjectForKey:kTagsKey];
         self.dataType = [decoder decodeIntegerForKey:kDataTypeKey];
     }
@@ -38,8 +35,7 @@
 {
     UserHistoryEntry *otherObject = (UserHistoryEntry*)object;
     BOOL equal = YES;
-    equal = equal && [self.channelId isEqualToString:otherObject.channelId];
-    equal = equal && [self.folderId isEqualToString:otherObject.folderId];
+    equal = equal && [self.streamId isEqualToString:otherObject.streamId];
     equal = equal && self.dataType == otherObject.dataType;
 
     if([otherObject.tags count] != [self.tags count])
@@ -62,7 +58,7 @@
     {
         tagsHash+=[tag hash];
     }
-    return [self.channelId hash] + [self.folderId hash] + tagsHash + self.dataType;
+    return [self.streamId hash] + tagsHash + self.dataType;
 }
 
 @end

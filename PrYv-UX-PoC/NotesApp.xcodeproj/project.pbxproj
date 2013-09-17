@@ -27,10 +27,10 @@
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
 		B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38AF17477DC700B94960 /* SettingsViewController.m */; };
 		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
+		B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B62A9C7017E5E7DC006CADFB /* Stream.m */; };
 		B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */; };
 		B64ACAC21750F1A500E2F6F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAC11750F1A500E2F6F7 /* Localizable.strings */; };
 		B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC51750F21900E2F6F7 /* DataService.m */; };
-		B64ACACA1752901400E2F6F7 /* MeasurementType.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC91752901400E2F6F7 /* MeasurementType.m */; };
 		B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */; };
 		B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */; };
 		B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD91753F76500E2F6F7 /* MeasurementController.m */; };
@@ -141,10 +141,8 @@
 		B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E711732E91000464C2F /* UIView+Frame.m */; };
 		B6BA3E851733CD1400464C2F /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E841733CD1400464C2F /* Event.m */; };
 		B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */; };
-		B6BA3E8B1733E23D00464C2F /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E8A1733E23D00464C2F /* Channel.m */; };
-		B6BA3E8E1733E24800464C2F /* Folder.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E8D1733E24800464C2F /* Folder.m */; };
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
-		B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */; };
+		B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */; };
 		B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA3EA21734075100464C2F /* libPryvApiKit.a */; };
 		B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED841787755900665DE8 /* UIColor+PrYv.m */; };
 		B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED871787804A00665DE8 /* BrowseEventsCell.m */; };
@@ -371,13 +369,13 @@
 		B61F38AF17477DC700B94960 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		B61F38CD17496A2800B94960 /* AddNumericalValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueViewController.h; sourceTree = "<group>"; };
 		B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueViewController.m; sourceTree = "<group>"; };
+		B62A9C6F17E5E7DC006CADFB /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
+		B62A9C7017E5E7DC006CADFB /* Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stream.m; sourceTree = "<group>"; };
 		B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSet.h; sourceTree = "<group>"; };
 		B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSet.m; sourceTree = "<group>"; };
 		B64ACAC11750F1A500E2F6F7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		B64ACAC41750F21900E2F6F7 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		B64ACAC51750F21900E2F6F7 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
-		B64ACAC81752901400E2F6F7 /* MeasurementType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementType.h; sourceTree = "<group>"; };
-		B64ACAC91752901400E2F6F7 /* MeasurementType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementType.m; sourceTree = "<group>"; };
 		B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementGroup.h; sourceTree = "<group>"; };
 		B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementGroup.m; sourceTree = "<group>"; };
 		B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSettingsViewController.h; sourceTree = "<group>"; };
@@ -507,14 +505,10 @@
 		B6BA3E841733CD1400464C2F /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Main.h"; sourceTree = "<group>"; };
 		B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Main.m"; sourceTree = "<group>"; };
-		B6BA3E891733E23D00464C2F /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
-		B6BA3E8A1733E23D00464C2F /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
-		B6BA3E8C1733E24800464C2F /* Folder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Folder.h; sourceTree = "<group>"; };
-		B6BA3E8D1733E24800464C2F /* Folder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Folder.m; sourceTree = "<group>"; };
 		B6BA3E901733E30800464C2F /* DataGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataGroupingManager.h; sourceTree = "<group>"; };
 		B6BA3E911733E30800464C2F /* DataGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGroupingManager.m; sourceTree = "<group>"; };
-		B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelGroupingManager.h; sourceTree = "<group>"; };
-		B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelGroupingManager.m; sourceTree = "<group>"; };
+		B6BA3E941733E4F500464C2F /* StreamGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamGroupingManager.h; sourceTree = "<group>"; };
+		B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamGroupingManager.m; sourceTree = "<group>"; };
 		B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
 		B6D0ED831787755900665DE8 /* UIColor+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PrYv.h"; sourceTree = "<group>"; };
 		B6D0ED841787755900665DE8 /* UIColor+PrYv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PrYv.m"; sourceTree = "<group>"; };
@@ -928,8 +922,6 @@
 			children = (
 				B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */,
 				B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */,
-				B64ACAC81752901400E2F6F7 /* MeasurementType.h */,
-				B64ACAC91752901400E2F6F7 /* MeasurementType.m */,
 				B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */,
 				B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */,
 			);
@@ -1070,10 +1062,8 @@
 				B64ACAC717528B3F00E2F6F7 /* Measurement */,
 				B6BA3E831733CD1400464C2F /* Event.h */,
 				B6BA3E841733CD1400464C2F /* Event.m */,
-				B6BA3E891733E23D00464C2F /* Channel.h */,
-				B6BA3E8A1733E23D00464C2F /* Channel.m */,
-				B6BA3E8C1733E24800464C2F /* Folder.h */,
-				B6BA3E8D1733E24800464C2F /* Folder.m */,
+				B62A9C6F17E5E7DC006CADFB /* Stream.h */,
+				B62A9C7017E5E7DC006CADFB /* Stream.m */,
 				B678306F17613D04008E6C1C /* UserHistoryEntry.h */,
 				B678307017613D04008E6C1C /* UserHistoryEntry.m */,
 			);
@@ -1099,8 +1089,8 @@
 			children = (
 				B6BA3E901733E30800464C2F /* DataGroupingManager.h */,
 				B6BA3E911733E30800464C2F /* DataGroupingManager.m */,
-				B6BA3E941733E4F500464C2F /* ChannelGroupingManager.h */,
-				B6BA3E951733E4F500464C2F /* ChannelGroupingManager.m */,
+				B6BA3E941733E4F500464C2F /* StreamGroupingManager.h */,
+				B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */,
 			);
 			name = DataGrouping;
 			sourceTree = "<group>";
@@ -1585,16 +1575,13 @@
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
 				B6BA3E851733CD1400464C2F /* Event.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
-				B6BA3E8B1733E23D00464C2F /* Channel.m in Sources */,
-				B6BA3E8E1733E24800464C2F /* Folder.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
-				B6BA3E961733E4F500464C2F /* ChannelGroupingManager.m in Sources */,
+				B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */,
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,
 				B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */,
 				B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
-				B64ACACA1752901400E2F6F7 /* MeasurementType.m in Sources */,
 				B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
@@ -1624,6 +1611,7 @@
 				B6F207AE17933D42006FC5B0 /* TextNotePreviewElement.m in Sources */,
 				B6F207B5179358E6006FC5B0 /* TagView.m in Sources */,
 				B6F207BB1793DE18006FC5B0 /* LRUManager.m in Sources */,
+				B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,7 +1736,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1778,7 +1766,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

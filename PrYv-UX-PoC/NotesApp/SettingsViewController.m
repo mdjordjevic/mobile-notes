@@ -46,7 +46,7 @@
     
     if(indexPath.section == 1 && indexPath.row == 0)
     {
-        [[NotesAppController sharedInstance] setAccess:nil];
+        [[NotesAppController sharedInstance] setConnection:nil];
     }
 }
 

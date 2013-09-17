@@ -9,8 +9,7 @@
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "DataService.h"
-#import "Channel.h"
-#import "Folder.h"
+#import "Stream.h"
 
 #define kLRUFileName @"LRUData.dat"
 
@@ -81,23 +80,16 @@
         block();
         return;
     }
-    [[DataService sharedInstance] fetchAllChannelsWithCompletionBlock:^(id object, NSError *error) {
+    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
         if(!error)
         {
             for(UserHistoryEntry *entry in self.lruArray)
             {
-                for(Channel *channel in object)
+                for(PYStream *stream in object)
                 {
-                    if([channel.channelId isEqualToString:entry.channelId])
+                    if([stream.streamId isEqualToString:entry.streamId])
                     {
-                        entry.channel = channel.pyChannel;
-                        for(Folder *folder in channel.folders)
-                        {
-                            if([folder.folderId isEqualToString:entry.folderId])
-                            {
-                                entry.folder = folder.pyFolder;
-                            }
-                        }
+                        entry.stream = stream;
                     }
                 }
             }

@@ -162,9 +162,9 @@
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
     MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    MeasurementType *type = [group.types objectAtIndex:selectedType];
+    NSString *type = [group.types objectAtIndex:selectedType];
     element.klass = [group name];
-    element.format = [type mark];
+    element.format = type;
     element.value = value;
     
     return element;
@@ -244,8 +244,8 @@
         UILabel *label = (UILabel*)view;
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        MeasurementType *type = [group.types objectAtIndex:row];
-        [label setText:[type localizedName]];
+        NSString *type = [group.types objectAtIndex:row];
+        [label setText:type];
     }
 }
 
@@ -274,8 +274,8 @@
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        MeasurementType *type = [group.types objectAtIndex:row];
-        [_typeTextField setText:[type mark]];
+        NSString *type = [group.types objectAtIndex:row];
+        [_typeTextField setText:type];
     }
 }
 

@@ -9,7 +9,7 @@
 #import "BrowseEventsViewController.h"
 #import "BrowseEventsCell.h"
 #import "DataService.h"
-#import "Channel.h"
+#import "Stream.h"
 #import "CellStyleModel.h"
 #import "CustomSegmentedControl.h"
 #import "AddNumericalValueViewController.h"
@@ -28,7 +28,6 @@
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) IBOutlet CustomSegmentedControl *segmentedControl;
 
-- (CellStyleType)cellStyleTypeFromEvent:(PYEvent*)event;
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
@@ -98,11 +97,7 @@
         [[DataService sharedInstance] fetchAllEventsWithCompletionBlock:^(id object, NSError *error) {
             if(object)
             {
-                self.events = [NSMutableArray array];
-                for(Channel *channel in object)
-                {
-                    [self.events addObjectsFromArray:channel.events];
-                }
+                self.events = object;
                 [self.tableView reloadData];
                 [self hideLoadingOverlay];
             }
@@ -158,16 +153,9 @@
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        if(event.folderId)
-        {
-            cell.channelFolderLabel.text = [NSString stringWithFormat:@"%@/%@",event.channelId,event.folderId];
-        }
-        else
-        {
-            cell.channelFolderLabel.text = event.channelId;
-        }
-        cell.valueLabel.text = [event.value description];
-        CellStyleType cellStyleType = [self cellStyleTypeFromEvent:event];
+        cell.channelFolderLabel.text = event.streamId;
+        cell.valueLabel.text = [event.eventContent description];
+        CellStyleType cellStyleType = [[DataService sharedInstance] dataTypeForEvent:event];
         CellStyleSize cellSize = CellStyleSizeBig;
         CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
         [cell updateWithCellStyleModel:cellModel];
@@ -176,14 +164,7 @@
     else
     {
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        if(entry.folder)
-        {
-            cell.channelFolderLabel.text = [NSString stringWithFormat:@"%@/%@",entry.channel.name,entry.folder.name];
-        }
-        else
-        {
-            cell.channelFolderLabel.text = entry.channel.name;
-        }
+        cell.channelFolderLabel.text = entry.streamId;
         CellStyleType cellStyleType = entry.dataType;
         CellStyleSize cellSize = CellStyleSizeSmall;
         CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
@@ -244,30 +225,6 @@
                 break;
         }
     }];
-}
-
-- (CellStyleType)cellStyleTypeFromEvent:(PYEvent *)event
-{
-    NSLog(@"eventClass: %@",event.eventClass);
-    NSLog(@"eventFormat: %@",event.eventFormat);
-    if([event.eventClass isEqualToString:@"note"])
-    {
-        return CellStyleTypeText;
-    }
-    if([event.eventClass isEqualToString:@"mass"])
-    {
-        return CellStyleTypeMass;
-    }
-    if([event.eventClass isEqualToString:@"money"])
-    {
-        return CellStyleTypeMoney;
-    }
-    if([event.eventClass isEqualToString:@"length"])
-    {
-        return CellStyleTypeLength;
-    }
-    
-    return CellStyleTypeLength;
 }
 
 #pragma mark - CustomSegmentedControlDelegate methods

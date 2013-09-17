@@ -13,13 +13,13 @@
 @property (nonatomic, copy) NSDictionary *names;
 @property (nonatomic, copy) NSDictionary *descriptions;
 
-- (void)initMeasurementTypesWithTypesDic:(NSDictionary*)types andLocalizedNames:(NSDictionary*)localizedNames;
+- (void)initMeasurementTypesWithTypesDic:(NSDictionary*)types;
 
 @end
 
 @implementation MeasurementSet
 
-- (id)initWithKey:(NSString *)key andDictionary:(NSDictionary *)dictionary andLocalizedNames:(NSDictionary *)localizedNames
+- (id)initWithKey:(NSString *)key andDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     if(self)
@@ -28,28 +28,36 @@
         self.names = [dictionary objectForKey:@"name"];
         self.descriptions = [dictionary objectForKey:@"description"];
         self.measurementGroups = [NSMutableArray array];
-        [self initMeasurementTypesWithTypesDic:[dictionary objectForKey:@"types"] andLocalizedNames:localizedNames];
+        [self initMeasurementTypesWithTypesDic:[dictionary objectForKey:@"types"]];
     }
     return self;
 }
 
-- (void)initMeasurementTypesWithTypesDic:(NSDictionary *)types andLocalizedNames:(NSDictionary *)localizedNames
+- (void)initMeasurementTypesWithTypesDic:(NSDictionary *)types
 {
     for(NSString *groupName in [types allKeys])
     {
-        MeasurementGroup *group = [[MeasurementGroup alloc] initWithName:groupName andListOfTypes:[types objectForKey:groupName] andLocalizedNames:[localizedNames objectForKey:groupName]];
+        MeasurementGroup *group = [[MeasurementGroup alloc] initWithName:groupName andListOfTypes:[types objectForKey:groupName]];
         [self.measurementGroups addObject:group];
     }
 }
 
 - (NSString*)localizedName
 {
-    return [_names objectForKey:kLocalizedKey];
+    if(self.names)
+    {
+        return [_names objectForKey:kLocalizedKey];
+    }
+    return self.key;
 }
 
 - (NSString*)localizedDescription
 {
-    return [_descriptions objectForKey:kLocalizedKey];
+    if(self.descriptions)
+    {
+        return [_descriptions objectForKey:kLocalizedKey];
+    }
+    return self.key;
 }
 
 @end

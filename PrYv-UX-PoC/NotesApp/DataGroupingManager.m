@@ -7,7 +7,7 @@
 //
 
 #import "DataGroupingManager.h"
-#import "ChannelGroupingManager.h"
+#import "StreamGroupingManager.h"
 
 NSString *const kDataGroupingManagerDidFinishGrouping = @"kDataGroupingManagerDidFinishGrouping";
 
@@ -20,7 +20,7 @@ NSString *const kDataGroupingManagerDidFinishGrouping = @"kDataGroupingManagerDi
 + (id<DataGroupingDataSource>)groupingManagerWithDatgroupingType:(DataGroupingType)dataGroupingType {
     switch (dataGroupingType) {
         case ChannelGrouping:
-            return [[ChannelGroupingManager alloc] init];
+            return [[StreamGroupingManager alloc] init];
             break;
         default:
             return nil;

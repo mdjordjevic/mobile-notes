@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "DataGroupingManager.h"
 
-@interface ChannelGroupingManager : NSObject <DataGroupingDataSource>
+@interface StreamGroupingManager : NSObject <DataGroupingDataSource>
 
 @end
