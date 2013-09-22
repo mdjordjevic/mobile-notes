@@ -9,26 +9,30 @@
 #import "BrowseEventsViewController.h"
 #import "BrowseEventsCell.h"
 #import "DataService.h"
-#import "Channel.h"
+#import "Stream.h"
 #import "CellStyleModel.h"
 #import "CustomSegmentedControl.h"
 #import "AddNumericalValueViewController.h"
 #import "SettingsViewController.h"
 #import "TextNoteViewController.h"
+#import "PhotoNoteViewController.h"
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
+#import "PYEvent+Helper.h"
+#import "UIImage+PrYv.h"
+#import "DetailsViewController.h"
+#import "PYStream+Helper.h"
 
-#define IS_LRU_SECTION (self.segmentedControl.selectedIndex == 0)
-#define IS_BROWSE_SECTION (self.segmentedControl.selectedIndex == 1)
+#define IS_LRU_SECTION self.isMenuOpen
+#define IS_BROWSE_SECTION !self.isMenuOpen
 
-@interface BrowseEventsViewController () <CustomSegmentedControlDelegate>
+@interface BrowseEventsViewController ()
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
+@property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
-@property (nonatomic, strong) IBOutlet CustomSegmentedControl *segmentedControl;
 
-- (CellStyleType)cellStyleTypeFromEvent:(PYEvent*)event;
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
@@ -50,7 +54,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.segmentedControl.delegate = self;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_settings"] target:self action:@selector(settingButtonTouched:)];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveEventAddedNotification:)
@@ -60,6 +63,7 @@
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
                                                  name:kAppDidReceiveAccessTokenNotification
                                                object:nil];
+    self.tableView.alpha = 0.0f;
     [self loadData];
 }
 
@@ -95,19 +99,26 @@
     {
         isLoading = YES;
         [self showLoadingOverlay];
-        [[DataService sharedInstance] fetchAllEventsWithCompletionBlock:^(id object, NSError *error) {
-            if(object)
+        [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id streamsObject, NSError *error) {
+            if(streamsObject)
             {
-                self.events = [NSMutableArray array];
-                for(Channel *channel in object)
-                {
-                    [self.events addObjectsFromArray:channel.events];
-                }
-                [self.tableView reloadData];
-                [self hideLoadingOverlay];
+                self.streams = streamsObject;
+                [[DataService sharedInstance] fetchAllEventsWithCompletionBlock:^(id eventsObject, NSError *error) {
+                    if(eventsObject)
+                    {
+                        self.events = eventsObject;
+                        [self.tableView reloadData];
+                        [UIView animateWithDuration:0.2 animations:^{
+                            self.tableView.alpha = 1.0f;
+                        }];
+                        [self hideLoadingOverlay];
+                    }
+                    
+                }];
             }
             isLoading = NO;
         }];
+        
     }
 }
 
@@ -158,32 +169,48 @@
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        if(event.folderId)
-        {
-            cell.channelFolderLabel.text = [NSString stringWithFormat:@"%@/%@",event.channelId,event.folderId];
-        }
-        else
-        {
-            cell.channelFolderLabel.text = event.channelId;
-        }
-        cell.valueLabel.text = [event.value description];
-        CellStyleType cellStyleType = [self cellStyleTypeFromEvent:event];
+        cell.channelFolderLabel.text = [event eventBreadcrumbsForStreamsList:self.streams];
+        cell.valueLabel.text = [event.eventContent description];
+        CellStyleType cellStyleType = [[DataService sharedInstance] dataTypeForEvent:event];
         CellStyleSize cellSize = CellStyleSizeBig;
         CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
         [cell updateWithCellStyleModel:cellModel];
         [cell updateTags:event.tags];
+        if(cellModel.cellStyleType == CellStyleTypePhoto && [event.attachments count] > 0)
+        {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                PYAttachment *att = [event.attachments objectAtIndex:0];
+                UIImage *img = [UIImage imageWithData:att.fileData];
+                CGSize newSize = img.size;
+                CGFloat maxSide = MAX(newSize.width, newSize.height);
+                CGFloat ratio = maxSide / cell.iconImageView.bounds.size.width;
+                newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
+                img = [img imageScaledToSize:newSize];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.iconImageView.image = img;
+                });
+            });
+            cell.valueLabel.text = event.eventDescription;
+        }
+        else if(cellStyleType == CellStyleTypeText)
+        {
+            
+        }
+        else
+        {
+            NSArray *components = [event.type componentsSeparatedByString:@"/"];
+            if([components count] > 1)
+            {
+                NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];
+                cell.valueLabel.text = value;
+            }
+            
+        }
     }
     else
     {
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        if(entry.folder)
-        {
-            cell.channelFolderLabel.text = [NSString stringWithFormat:@"%@/%@",entry.channel.name,entry.folder.name];
-        }
-        else
-        {
-            cell.channelFolderLabel.text = entry.channel.name;
-        }
+        cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
         CellStyleType cellStyleType = entry.dataType;
         CellStyleSize cellSize = CellStyleSizeSmall;
         CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
@@ -209,12 +236,25 @@
             textVC.entry = entry;
             [self.navigationController pushViewController:textVC animated:YES];
         }
+        else if(entry.dataType == CellStyleTypePhoto)
+        {
+            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+            photoVC.entry = entry;
+            [self.navigationController pushViewController:photoVC animated:YES];
+        }
         else
         {
             AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
             addNVC.entry = entry;
             [self.navigationController pushViewController:addNVC animated:YES];
         }
+    }
+    else
+    {
+        PYEvent *event = [_events objectAtIndex:indexPath.row];
+        DetailsViewController *detailsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"DetailsViewController_ID"];
+        detailsVC.event = event;
+        [self.navigationController pushViewController:detailsVC animated:YES];
     }
 }
 
@@ -235,7 +275,12 @@
                 [weakSelf.navigationController pushViewController:addNVC animated:YES];
             }
                 break;
-                
+            case 2:
+            {
+                PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+                [weakSelf.navigationController pushViewController:photoVC animated:YES];
+            }
+                break;
             default:
             {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This option is not yet implemented" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -246,40 +291,25 @@
     }];
 }
 
-- (CellStyleType)cellStyleTypeFromEvent:(PYEvent *)event
+#pragma mark - Top menu visibility changed
+
+- (void)topMenuVisibilityWillChange
 {
-    NSLog(@"eventClass: %@",event.eventClass);
-    NSLog(@"eventFormat: %@",event.eventFormat);
-    if([event.eventClass isEqualToString:@"note"])
-    {
-        return CellStyleTypeText;
-    }
-    if([event.eventClass isEqualToString:@"mass"])
-    {
-        return CellStyleTypeMass;
-    }
-    if([event.eventClass isEqualToString:@"money"])
-    {
-        return CellStyleTypeMoney;
-    }
-    if([event.eventClass isEqualToString:@"length"])
-    {
-        return CellStyleTypeLength;
-    }
-    
-    return CellStyleTypeLength;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.tableView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
-#pragma mark - CustomSegmentedControlDelegate methods
-
-- (void)customSegmentedControl:(CustomSegmentedControl *)segmentedControl didSelectIndex:(NSInteger)index
+- (void)topMenuVisibilityDidChange
 {
-    __block BrowseEventsViewController *weakSelf = self;
-    [[LRUManager sharedInstance] fetchLRUEntriesWithCompletionBlock:^{
-        weakSelf.shortcuts = [[LRUManager sharedInstance] lruEntries];
-    }];
-    [self.tableView setContentOffset:CGPointMake(0, 0)];
     [self.tableView reloadData];
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.tableView.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - Actions

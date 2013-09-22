@@ -28,7 +28,6 @@
 {
     [super viewDidLoad];
     NSString *imgName = imageNameForCurrentDevice(@"app_bg");
-    NSLog(@"imgName: %@",imgName);
 	UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     [self.view insertSubview:background atIndex:0];
     self.navigationController.navigationBar.layer.masksToBounds = NO;

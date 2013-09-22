@@ -32,8 +32,7 @@
         CGSize labelSize = [tagText sizeWithFont:self.tagLabel.font];
         self.tagLabel.frame = CGRectMake(4, 0, labelSize.width, kTagHeight);
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, labelSize.width + 8, kTagHeight)];
-        self.backgroundView.backgroundColor = [UIColor blackColor];
-        self.backgroundView.alpha = 0.3;
+        self.backgroundView.backgroundColor = [UIColor colorWithRed:234.0f/255.0f green:95.0f/255.0f blue:36.0f/255.0f alpha:1.0];
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.backgroundView];
         [self addSubview:self.tagLabel];

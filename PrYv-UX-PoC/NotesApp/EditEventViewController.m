@@ -12,17 +12,18 @@
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
 #import "UserHistoryEntry.h"
+#import "PYStream+Helper.h"
+#import "PhotoPreviewElement.h"
+#import "CellStyleModel.h"
+#import "TextNotePreviewElement.h"
+#import "MeasurementPreviewElement.h"
+#import "UIAlertView+PrYv.h"
 
-#define IS_CHANNEL_LIST (self.listType == EditEventListTypeChannel)
-#define IS_FOLDER_LIST (self.listType == EditEventListTypeFolder)
+#define SELECTED_LIST ([self.stream.children count] == 0 ? self.rootStreams : self.streams)
+#define IS_EDIT_MODE (self.event != nil)
+#define kDefaultPhotoCommentText @"Enter your comment"
 
-typedef NS_ENUM(NSInteger, EditEventListType)
-{
-    EditEventListTypeChannel,
-    EditEventListTypeFolder
-};
-
-@interface EditEventViewController () <JSTokenFieldDelegate>
+@interface EditEventViewController () <JSTokenFieldDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *eventPreviewContainer;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -31,15 +32,16 @@ typedef NS_ENUM(NSInteger, EditEventListType)
 @property (nonatomic, strong) IBOutlet UILabel *eventPreviewTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventPreviewSubtitleLabel;
 @property (nonatomic, strong) IBOutlet UIButton *listBackButton;
+@property (nonatomic, strong) IBOutlet UITextView *commentTextView;
 @property (nonatomic, strong) IBOutlet JSTokenField *tagsField;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
-@property (nonatomic) EditEventListType listType;
-
-@property (nonatomic, strong) NSArray *channels;
+@property (nonatomic, strong) NSArray *streams;
+@property (nonatomic, strong) NSArray *rootStreams;
 
 - (IBAction)backButtonTouched:(id)sender;
 - (void)doneButtonTouched:(id)sender;
 - (void)updateUIElements;
+- (NSArray*)parentStreamList;
 
 @end
 
@@ -60,31 +62,67 @@ typedef NS_ENUM(NSInteger, EditEventListType)
     
     [self addCustomBackButton];
     
-    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Done" target:self action:@selector(doneButtonTouched:)];
+    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
     self.navigationItem.rightBarButtonItem = self.doneButton;
     
     if(self.entry)
     {
-        self.channel = [[Channel alloc] initWithPYChannel:self.entry.channel];
-        self.folder = [[Folder alloc] initWithPYFolder:self.entry.folder];
-        self.listType = EditEventListTypeFolder;
         for(NSString *tag in self.entry.tags)
         {
             [self.tagsField addTokenWithTitle:tag representedObject:tag];
         }
     }
+    
+    if(IS_EDIT_MODE)
+    {
+        for(NSString *tag in self.event.tags)
+        {
+            [self.tagsField addTokenWithTitle:tag representedObject:tag];
+        }
+        
+        CellStyleType eventType = [[DataService sharedInstance] dataTypeForEvent:self.event];
+        if(eventType == CellStyleTypePhoto)
+        {
+            self.eventElement = [[PhotoPreviewElement alloc] init];
+            PYAttachment *att = [self.event.attachments objectAtIndex:0];
+            UIImage *img = [UIImage imageWithData:att.fileData];
+            self.eventElement.previewImage = img;
+            if([self.event.eventDescription length] > 0)
+            {
+                self.commentTextView.text = self.event.eventDescription;
+            }
+        }
+    }
+
+    if([self.eventElement isKindOfClass:[PhotoPreviewElement class]])
+    {
+        self.eventPreviewImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.commentTextView.hidden = NO;
+    }
     else
     {
-        self.listType = EditEventListTypeChannel;
+        self.commentTextView.hidden = YES;
     }
-    
-    [self updateUIElements];
     
     self.tagsField.delegate = self;
     
     [self showLoadingOverlay];
-    [[DataService sharedInstance] fetchAllChannelsWithCompletionBlock:^(id object, NSError *error) {
-        self.channels = object;
+    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
+        self.streams = object;
+        if((self.entry && self.entry.streamId) || IS_EDIT_MODE)
+        {
+            NSString *streamID = IS_EDIT_MODE ? self.event.streamId : self.entry.streamId;
+            for(PYStream *stream in self.streams)
+            {
+                if([stream.streamId isEqualToString:streamID])
+                {
+                    self.stream = stream;
+                    break;
+                }
+            }
+        }
+        self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
+        [self updateUIElements];
         [self.tableView reloadData];
         [self hideLoadingOverlay];
     }];
@@ -98,25 +136,10 @@ typedef NS_ENUM(NSInteger, EditEventListType)
 
 - (void)updateUIElements
 {
-    NSString *selectedText = nil;
-    NSString *descriptionText = nil;
-    BOOL saveButtonIsEnabled = NO;
-    if(_folder && _folder.folderName)
-    {
-        selectedText = [NSString stringWithFormat:@"%@/%@",_channel.channelName,_folder.folderName];
-        descriptionText = [NSString stringWithFormat:@"%@, %@",_channel.channelName,_folder.folderName];
-        saveButtonIsEnabled = YES;
-    }
-    else if(_channel)
-    {
-        selectedText = [_channel channelName];
-        descriptionText = [_channel channelName];
-        saveButtonIsEnabled = YES;
-    }
-    else
+    NSString *selectedText = [self.stream breadcrumbsInStreamList:self.streams];
+    if(!selectedText && [selectedText length] < 1)
     {
         selectedText = @"Select channel";
-        descriptionText = @"";
     }
     self.selectedLocationLabel.text = selectedText;
     
@@ -128,25 +151,30 @@ typedef NS_ENUM(NSInteger, EditEventListType)
         self.eventPreviewSubtitleLabel.hidden = YES;
         self.eventPreviewTitleLabel.center = CGPointMake(self.eventPreviewTitleLabel.center.x, self.eventPreviewImageView.center.y);
     }
-    self.listBackButton.hidden = IS_CHANNEL_LIST;
-    self.doneButton.enabled = saveButtonIsEnabled;
+    self.listBackButton.hidden = (self.stream == nil);
+    self.doneButton.enabled = (self.stream != nil);
 }
 
 #pragma mark - UITableViewDataSource and UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return IS_CHANNEL_LIST ? [_channels count] : [_channel.folders count];
+    return [[self parentStreamList] count] + 1;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"CategoryCell_ID";
     CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(IS_CHANNEL_LIST)
+    if(indexPath.row == [[self parentStreamList] count])
     {
-        Channel *channel = [_channels objectAtIndex:indexPath.row];
-        if([channel.folders count] > 0)
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.titleLabel.text = @"Add new Stream";
+    }
+    else
+    {
+        PYStream *stream = [[self parentStreamList] objectAtIndex:indexPath.row];
+        if([stream.children count] > 0)
         {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -154,80 +182,156 @@ typedef NS_ENUM(NSInteger, EditEventListType)
         {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        cell.titleLabel.text = channel.channelName;
-        BOOL isSelected = [channel.channelId isEqualToString:_channel.channelId];
+        cell.titleLabel.text = stream.name;
+        BOOL isSelected = [stream.streamId isEqualToString:self.stream.streamId];
         [cell setSelected:isSelected animated:NO];
     }
-    else
-    {
-        Folder *folder = [_channel.folders objectAtIndex:indexPath.row];
-        cell.titleLabel.text = folder.folderName;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        BOOL isSelected = [folder.folderId isEqualToString:_folder.folderId];
-        [cell setSelected:isSelected animated:NO];
-    }
+    
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(IS_CHANNEL_LIST)
+    if(indexPath.row == [[self parentStreamList] count])
     {
-        self.channel = [_channels objectAtIndex:indexPath.row];
-        if([_channel.folders count] > 0)
-        {
-            [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:NO];
-            self.listType = EditEventListTypeFolder;
-            [self.tableView reloadData];
-        }
-        [self updateUIElements];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Stream name:" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if(alertView.cancelButtonIndex != buttonIndex)
+            {
+                NSString *streamName = [[alertView textFieldAtIndex:0] text];
+                if([streamName length] > 0)
+                {
+                    [self showLoadingOverlay];
+                    PYStream *stream = [[PYStream alloc] init];
+                    stream.name = streamName;
+                    stream.parentId = self.stream.streamId;
+                    [[DataService sharedInstance] createStream:stream withCompletionBlock:^(id object, NSError *error) {
+                        if(error)
+                        {
+                            [self hideLoadingOverlay];
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            [alert show];
+                        }
+                        else
+                        {
+                            [[DataService sharedInstance] invalidateStreamListCache];
+                            [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
+                                self.streams = object;
+                                for(PYStream *stream in self.streams)
+                                {
+                                    if([stream.streamId isEqualToString:self.stream.streamId])
+                                    {
+                                        self.stream = stream;
+                                        break;
+                                    }
+                                }
+                                [self.tableView reloadData];
+                                [self updateUIElements];
+                                [self hideLoadingOverlay];
+                            }];
+                        }
+                    }];
+                }
+            }
+        }];
     }
     else
     {
-        self.folder = [_channel.folders objectAtIndex:indexPath.row];
+        PYStream *stream = [[self parentStreamList] objectAtIndex:indexPath.row];
+        self.stream = stream;
+        [self.tableView reloadData];
         [self updateUIElements];
     }
+    
 }
 
 #pragma mark - Actions
 
 - (void)backButtonTouched:(id)sender
 {
-    if(IS_FOLDER_LIST)
-    {
-        self.folder = nil;
-        self.listType = EditEventListTypeChannel;
-        [self updateUIElements];
-        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:NO];
-        [self.tableView reloadData];
-    }
+    self.stream = [self.stream parentStreamInList:self.streams];
+    [self.tableView reloadData];
+    [self updateUIElements];
 }
 
 - (void)doneButtonTouched:(id)sender
 {
     [self.tagsField textFieldDidEndEditing:self.tagsField.textField];
     [self tokenFieldShouldReturn:self.tagsField];
-    PYEvent *event = [[PYEvent alloc] init];
-    event.folderId = _folder.folderId;
-    event.channelId = _channel.channelId;
+    PYEvent *event = nil;
+    if(IS_EDIT_MODE)
+    {
+        event = self.event;
+    }
+    else
+    {
+        event = [[PYEvent alloc] init];
+    }
+    event.streamId = self.stream.streamId;
     event.tags = _tags;
-    event.value = _eventElement.textValue ? _eventElement.textValue : _eventElement.value;
-    event.eventClass = _eventElement.klass;
-    event.eventFormat = _eventElement.format;
-    [self showLoadingOverlay];
-    [[DataService sharedInstance] saveEvent:event inChannel:_channel.pyChannel withCompletionBlock:^(id object, NSError *error) {
-        [self hideLoadingOverlay];
-        if(error)
+    if(![self.commentTextView.text isEqualToString:kDefaultPhotoCommentText])
+    {
+        event.eventDescription = self.commentTextView.text;
+    }
+    if(IS_EDIT_MODE)
+    {
+        if([self.event.attachments count] == 0)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            event.eventContent = _eventElement.textValue ? _eventElement.textValue : _eventElement.value;
+            event.type = [_eventElement.klass stringByAppendingFormat:@"/%@",_eventElement.format];
         }
         else
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+            [self.event.attachments removeAllObjects];
+            if(![self.commentTextView.text isEqualToString:kDefaultPhotoCommentText])
+            {
+                event.eventDescription = self.commentTextView.text;
+            }
         }
-    }];
+        [self showLoadingOverlay];
+        [[DataService sharedInstance] updateEvent:event withCompletionBlock:^(id object, NSError *error) {
+            [self hideLoadingOverlay];
+            if(error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+            }
+        }];
+    }
+    else
+    {
+        PYAttachment *attachment = [_eventElement attachment];
+        if(attachment)
+        {
+            [event addAttachment:attachment];
+            event.type = @"picture/attached";
+        }
+        else
+        {
+            event.eventContent = _eventElement.textValue ? _eventElement.textValue : _eventElement.value;
+            event.type = [_eventElement.klass stringByAppendingFormat:@"/%@",_eventElement.format];
+            
+        }
+        [self showLoadingOverlay];
+        [[DataService sharedInstance] saveEvent:event withCompletionBlock:^(id object, NSError *error) {
+            [self hideLoadingOverlay];
+            if(error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+            }
+        }];
+    }
 }
 
 #pragma mark - JSTokenFieldDelegate methods
@@ -242,6 +346,49 @@ typedef NS_ENUM(NSInteger, EditEventListType)
     }
     self.tags = tokens;
     return YES;
+}
+
+#pragma mark - UITextViewDelegate methods
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if([self.commentTextView.text isEqualToString:kDefaultPhotoCommentText])
+    {
+        self.commentTextView.text = @"";
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if([self.commentTextView.text length] == 0)
+    {
+        self.commentTextView.text = kDefaultPhotoCommentText;
+    }
+}
+
+#pragma mark - Utils
+
+- (NSArray*)parentStreamList
+{
+    if(!self.stream)
+    {
+        return self.rootStreams;
+    }
+    else
+    {
+        return self.stream.children;
+    }
+//    else
+//    {
+//        if(!self.stream.parentId)
+//        {
+//            return self.rootStreams;
+//        }
+//        else
+//        {
+//            return [[self.stream parentStreamInList:self.streams] children];
+//        }
+//    }
 }
 
 @end

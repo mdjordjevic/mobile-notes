@@ -7,35 +7,22 @@
 //
 
 #import "MeasurementGroup.h"
-#import "MeasurementType.h"
 
 @interface MeasurementGroup ()
-
-- (void)initMeasurementTypesWithListOfTypes:(NSArray*)listOfTypes withLocalizedNames:(NSDictionary*)localizedNames;
 
 @end
 
 @implementation MeasurementGroup
 
-- (id)initWithName:(NSString *)name andListOfTypes:(NSArray *)listOfTypes andLocalizedNames:(NSDictionary *)localizedNames
+- (id)initWithName:(NSString *)name andListOfTypes:(NSArray *)listOfTypes
 {
     self = [super init];
     if(self)
     {
         self.name = name;
-        self.types = [NSMutableArray array];
-        [self initMeasurementTypesWithListOfTypes:listOfTypes withLocalizedNames:localizedNames];
+        self.types = listOfTypes;
     }
     return self;
-}
-
-- (void)initMeasurementTypesWithListOfTypes:(NSArray *)listOfTypes withLocalizedNames:(NSDictionary *)localizedNames
-{
-    for(NSString *mark in listOfTypes)
-    {
-        MeasurementType *type = [[MeasurementType alloc] initWithMark:mark andNames:[localizedNames objectForKey:mark]];
-        [_types addObject:type];
-    }
 }
 
 @end

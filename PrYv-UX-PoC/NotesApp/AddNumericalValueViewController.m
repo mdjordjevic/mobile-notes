@@ -35,7 +35,7 @@
 - (NSNumber*)valueAsNumber;
 - (void)updateMeasurementSets;
 - (void)doneButtonTouched:(id)sender;
-- (void)selectRightMeasurementGroup;
+- (void)selectRightMeasurementGroupForMeasurementGroupName:(NSString*)measurementGroupName andMeasurementType:(NSString*)measurementType;
 
 @end
 
@@ -61,14 +61,26 @@
     [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
     [self addCustomBackButton];
     
-    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Done" target:self action:@selector(doneButtonTouched:)];
+    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
     self.navigationItem.rightBarButtonItem = self.doneButton;
     
     if(self.entry)
     {
         [self updateMeasurementSets];
         [self.typePicker reloadData];
-        [self selectRightMeasurementGroup];
+        [self selectRightMeasurementGroupForMeasurementGroupName:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
+    }
+    
+    if(self.event)
+    {
+        [self updateMeasurementSets];
+        [self.typePicker reloadData];
+        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
+        if([components count] > 1)
+        {
+            [self selectRightMeasurementGroupForMeasurementGroupName:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
+            self.valueField.text = [self.event.eventContent description];
+        }
     }
 }
 
@@ -76,7 +88,7 @@
 {
     [super viewDidAppear:animated];
     
-    if(!self.entry)
+    if(!self.entry && !self.event)
     {
         NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
         [self updateMeasurementSets];
@@ -116,16 +128,21 @@
     }
 }
 
-- (void)selectRightMeasurementGroup
+- (void)selectRightMeasurementGroupForMeasurementGroupName:(NSString *)measurementGroupName andMeasurementType:(NSString *)measurementType
 {
     for(MeasurementGroup *mGroup in self.measurementGroups)
     {
-        if(([mGroup.name isEqualToString:@"mass"] && self.entry.dataType == CellStyleTypeMass) ||
-           ([mGroup.name isEqualToString:@"length"] && self.entry.dataType == CellStyleTypeLength) ||
-           ([mGroup.name isEqualToString:@"money"] && self.entry.dataType == CellStyleTypeMoney))
+        if([mGroup.name isEqualToString:measurementGroupName])
         {
             [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
-            break;
+            for(NSString *type in mGroup.types)
+            {
+                if([type isEqualToString:measurementType])
+                {
+                    [self.typePicker selectRow:[mGroup.types indexOfObject:type] inComponent:1 animated:NO];
+                    return;
+                }
+            }
         }
     }
 }
@@ -162,9 +179,9 @@
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
     MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    MeasurementType *type = [group.types objectAtIndex:selectedType];
+    NSString *type = [group.types objectAtIndex:selectedType];
     element.klass = [group name];
-    element.format = [type mark];
+    element.format = type;
     element.value = value;
     
     return element;
@@ -221,14 +238,19 @@
 {
     if(component == kGroupComponentIndex)
     {
-        UIImageView *viewToReturn = [[UIImageView alloc] initWithFrame:rect];
-        viewToReturn.contentMode = UIViewContentModeCenter;
-        return viewToReturn;
+//        UIImageView *viewToReturn = [[UIImageView alloc] initWithFrame:rect];
+//        viewToReturn.contentMode = UIViewContentModeCenter;
+//        return viewToReturn;
+        UILabel *label = [[UILabel alloc] initWithFrame:rect];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [label setFont:[UIFont boldSystemFontOfSize:24]];
+        [label setTextAlignment:UITextAlignmentCenter];
+        return label;
     }
     UILabel *label = [[UILabel alloc] initWithFrame:rect];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setFont:[UIFont boldSystemFontOfSize:24]];
-    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextAlignment:UITextAlignmentCenter];
     return label;
 }
 
@@ -236,16 +258,19 @@
 {
     if(component == kGroupComponentIndex)
     {
-        UIImageView *imgView = (UIImageView*)view;
-        [self updateView:imgView forRow:row];
+//        UIImageView *imgView = (UIImageView*)view;
+//        [self updateView:imgView forRow:row];
+        UILabel *label = (UILabel*)view;
+        MeasurementGroup *group = [_measurementGroups objectAtIndex:row];
+        [label setText:group.name];
     }
     else
     {
         UILabel *label = (UILabel*)view;
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        MeasurementType *type = [group.types objectAtIndex:row];
-        [label setText:[type localizedName]];
+        NSString *type = [group.types objectAtIndex:row];
+        [label setText:type];
     }
 }
 
@@ -274,8 +299,8 @@
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        MeasurementType *type = [group.types objectAtIndex:row];
-        [_typeTextField setText:[type mark]];
+        NSString *type = [group.types objectAtIndex:row];
+        [_typeTextField setText:type];
     }
 }
 

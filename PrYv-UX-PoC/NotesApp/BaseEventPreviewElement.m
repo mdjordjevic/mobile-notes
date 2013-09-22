@@ -12,7 +12,7 @@
 
 - (UIImage*)elementPreviewImage
 {
-    return nil;
+    return self.previewImage;
 }
 
 - (NSString*)elementTitle
@@ -21,6 +21,11 @@
 }
 
 - (NSString*)elementSubtitle
+{
+    return nil;
+}
+
+- (PYAttachment*)attachment
 {
     return nil;
 }

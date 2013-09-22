@@ -9,8 +9,7 @@
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "DataService.h"
-#import "Channel.h"
-#import "Folder.h"
+#import "Stream.h"
 
 #define kLRUFileName @"LRUData.dat"
 
@@ -67,43 +66,27 @@
 
 - (void)addUserHistoryEntry:(UserHistoryEntry *)entry
 {
-    if(![self.lruArray containsObject:entry])
+    UserHistoryEntry *entryToDelete = nil;
+    NSString *entryComparableString = [entry comparableString];
+    for(UserHistoryEntry *oldEntry in self.lruArray)
     {
-        [self.lruArray insertObject:entry atIndex:0];
-        [self saveToDisc];
+        if([[oldEntry comparableString] isEqualToString:entryComparableString])
+        {
+            entryToDelete = oldEntry;
+            break;
+        }
     }
+    if(entryToDelete)
+    {
+        [self.lruArray removeObject:entryToDelete];
+    }
+    [self.lruArray insertObject:entry atIndex:0];
+    [self saveToDisc];
 }
 
 - (void)fetchLRUEntriesWithCompletionBlock:(void (^)(void))block
 {
-    if([self.lruArray count] < 1)
-    {
-        block();
-        return;
-    }
-    [[DataService sharedInstance] fetchAllChannelsWithCompletionBlock:^(id object, NSError *error) {
-        if(!error)
-        {
-            for(UserHistoryEntry *entry in self.lruArray)
-            {
-                for(Channel *channel in object)
-                {
-                    if([channel.channelId isEqualToString:entry.channelId])
-                    {
-                        entry.channel = channel.pyChannel;
-                        for(Folder *folder in channel.folders)
-                        {
-                            if([folder.folderId isEqualToString:entry.folderId])
-                            {
-                                entry.folder = folder.pyFolder;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        block();
-    }];
+    block();
 }
 
 - (NSArray*)lruEntries

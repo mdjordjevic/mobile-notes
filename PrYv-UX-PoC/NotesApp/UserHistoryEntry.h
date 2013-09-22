@@ -11,11 +11,12 @@
 
 @interface UserHistoryEntry : NSObject <NSCoding>
 
-@property (nonatomic, strong) NSString *channelId;
-@property (nonatomic, strong) NSString *folderId;
+@property (nonatomic, strong) NSString *streamId;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic) NSInteger dataType;
-@property (nonatomic, strong) PYChannel *channel;
-@property (nonatomic, strong) PYFolder *folder;
+@property (nonatomic, strong) NSString *measurementGroupName;
+@property (nonatomic, strong) NSString *measurementTypeName;
+
+- (NSString*)comparableString;
 
 @end

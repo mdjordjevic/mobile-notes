@@ -14,5 +14,6 @@
 @interface TextNoteViewController : BaseViewController
 
 @property (nonatomic, strong) UserHistoryEntry *entry;
+@property (nonatomic, strong) PYEvent *event;
 
 @end

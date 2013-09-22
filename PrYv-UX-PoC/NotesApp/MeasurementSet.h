@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "MeasurementGroup.h"
-#import "MeasurementType.h"
 
 @interface MeasurementSet : NSObject
 
-- (id)initWithKey:(NSString*)key andDictionary:(NSDictionary*)dictionary andLocalizedNames:(NSDictionary*)localizedNames;
+- (id)initWithKey:(NSString*)key andDictionary:(NSDictionary*)dictionary;
 
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, readonly) NSString *localizedName;

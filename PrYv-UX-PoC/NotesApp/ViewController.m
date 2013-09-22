@@ -45,15 +45,25 @@
 
 - (void)initSignIn
 {
-    if(![[NotesAppController sharedInstance] access])
+    if(![[NotesAppController sharedInstance] connection])
     {
-        NSArray *objects = [NSArray arrayWithObjects:@"*", @"manage", nil];
-        NSArray *keys = [NSArray arrayWithObjects:@"channelId", @"level", nil];
         
-        NSArray *permissions = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjects:objects forKeys:keys]];
-        [PYWebLoginViewController requestAccessWithAppId:@"pryv-sdk-ios-example"
-                                          andPermissions:permissions
-                                                delegate:self];
+        NSArray *keys = [NSArray arrayWithObjects:  kPYAPIConnectionRequestStreamId,
+                         kPYAPIConnectionRequestLevel,
+                         nil];
+        
+        NSArray *objects = [NSArray arrayWithObjects:   kPYAPIConnectionRequestAllStreams,
+                            kPYAPIConnectionRequestManageLevel,
+                            nil];
+        
+        NSArray *permissions = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjects:objects
+                                                                                    forKeys:keys]];
+        
+        [PYClient setDefaultDomainStaging];
+        [PYWebLoginViewController requestConnectionWithAppId:@"pryv-sdk-ios-example"
+                                              andPermissions:permissions
+                                                    delegate:self];
+        
     }
     else
     {
@@ -68,10 +78,10 @@
     return self.browseEventsVC;
 }
 
-- (void)pyWebLoginSuccess:(PYAccess*)pyAccess
+- (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
-    [pyAccess synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
-    [[NotesAppController sharedInstance] setAccess:pyAccess];
+    [pyConnection synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
+    [[NotesAppController sharedInstance] setConnection:pyConnection];
 }
 
 - (void)pyWebLoginAborded:(NSString*)reason

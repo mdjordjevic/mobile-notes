@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PryvApiKit/PryvApiKit.h>
 
 @protocol BaseEventPreviewElement <NSObject>
 
@@ -25,5 +26,7 @@
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSString *folderName;
 @property (nonatomic, strong) NSString *textValue;
+@property (nonatomic, strong) UIImage *previewImage;
+@property (nonatomic, readonly) PYAttachment *attachment;
 
 @end

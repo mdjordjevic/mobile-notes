@@ -8,17 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseEventPreviewElement.h"
-#import "Channel.h"
-#import "Folder.h"
+#import "Stream.h"
 
 @class UserHistoryEntry;
 
 @interface EditEventViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) BaseEventPreviewElement *eventElement;
-@property (nonatomic, strong) Channel *channel;
-@property (nonatomic, strong) Folder *folder;
+@property (nonatomic, strong) PYStream *stream;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) UserHistoryEntry *entry;
+@property (nonatomic, strong) PYEvent *event;
 
 @end

@@ -39,10 +39,17 @@
 {
     [super viewDidLoad];
 	
-    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Done" target:self action:@selector(doneButtonTouched:)];
+    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
     self.navigationItem.rightBarButtonItem = self.doneButton;
     
+    [[self.view.subviews objectAtIndex:0] removeFromSuperview];
+    
     [self addCustomBackButton];
+    
+    if(self.event)
+    {
+        self.textView.text = self.event.eventContent;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +88,7 @@
         TextNotePreviewElement *previewElement = [self previewElement];
         editEventVC.eventElement = previewElement;
         editEventVC.entry = self.entry;
+        editEventVC.event = self.event;
     }
 }
 

@@ -7,8 +7,12 @@
 //
 
 #import "SettingsViewController.h"
+#import <PryvApiKit/PryvApiKit.h>
+#import "DataService.h"
 
 @interface SettingsViewController ()
+
+@property (nonatomic, strong) IBOutlet UILabel *logoutLabel;
 
 - (void)popVC:(id)sender;
 
@@ -30,6 +34,12 @@
     [super viewDidLoad];
 	self.navigationItem.leftItemsSupplementBackButton = NO;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add_active"] target:self action:@selector(popVC:)];
+    
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(connection)
+    {
+        self.logoutLabel.text = [NSString stringWithFormat:@"Logout (%@)",connection.userID];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,7 +56,7 @@
     
     if(indexPath.section == 1 && indexPath.row == 0)
     {
-        [[NotesAppController sharedInstance] setAccess:nil];
+        [[NotesAppController sharedInstance] setConnection:nil];
     }
 }
 

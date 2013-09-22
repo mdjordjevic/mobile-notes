@@ -14,7 +14,6 @@
 
 @interface BrowseEventsCell ()
 
-@property (nonatomic, strong) IBOutlet UIView *titleSeparatorView;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
 
 - (void)layoutForCellStyleModel:(CellStyleModel*)model;
@@ -41,25 +40,8 @@
 }
 
 - (void)updateWithCellStyleModel:(CellStyleModel *)cellStyleModel
-{
-    CGFloat totalWidth = cellStyleModel.leftImageSize.width + cellStyleModel.rightImageSize.width;
-    
-    NSString *leftImageName = @"cell_left";
-    UIImage *lImg = [[UIImage imageNamed:leftImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 3, 2)];
-    self.leftImageView.image = lImg;
-    self.leftImageView.frame = CGRectMake((kScreenSize - totalWidth) / 2, 8, cellStyleModel.leftImageSize.width, cellStyleModel.leftImageSize.height);
-    
-    NSString *rightImageName = [cellStyleModel cellImageName];
-    UIImage *rImg = [[UIImage imageNamed:rightImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 0, 3, 2)];
-    self.rightImageView.image = rImg;
-    self.rightImageView.frame = CGRectMake((kScreenSize - totalWidth) / 2 + cellStyleModel.leftImageSize.width, 8, cellStyleModel.rightImageSize.width, cellStyleModel.rightImageSize.height);
-    
-    self.titleSeparatorView.backgroundColor = [cellStyleModel baseColorWithAlpha:0.5];
-    [self.channelFolderLabel setTextColor:[cellStyleModel baseColorWithAlpha:0.5]];
-    [self.valueLabel setTextColor:[cellStyleModel baseColorWithAlpha:0.5]];
-    
+{    
     [self layoutForCellStyleModel:cellStyleModel];
-    
     self.iconImageView.image = [UIImage imageNamed:[self imageNameForCellStyleModel:cellStyleModel]];
 }
 
@@ -67,20 +49,16 @@
 {
     if(model.cellStyleSize == CellStyleSizeBig)
     {
-        self.channelFolderLabel.frame = CGRectMake(112, 8, 320 - 112 - 16, 24);
-        self.valueLabel.frame = CGRectMake(112, 36, 320 - 112 - 16, 24);
-        self.tagContainer.frame = CGRectMake(112, 80, 320 - 112 - 16, 16);
-        self.titleSeparatorView.frame = CGRectMake(112, 30, 320 - 112 - 16, 1);
-        self.iconImageView.frame = self.leftImageView.frame;
+        self.channelFolderLabel.frame = CGRectMake(72, 2, 320 - 79, 30);
+        self.valueLabel.frame = CGRectMake(72, 36, 320 - 79, 24);
+        self.tagContainer.frame = CGRectMake(72, 72, 320 - 79, 16);
         self.valueLabel.hidden = NO;
     }
     else
     {
-        self.channelFolderLabel.frame = CGRectMake(80, 8, 320 - 80 - 16, 24);
-        self.valueLabel.frame = CGRectMake(80, 36, 320 - 80 - 16, 24);
-        self.tagContainer.frame = CGRectMake(80, 48, 320 - 80 - 16, 16);
-        self.titleSeparatorView.frame = CGRectMake(80, 30, 320 - 80 - 16, 1);
-        self.iconImageView.frame = self.leftImageView.frame;
+        self.channelFolderLabel.frame = CGRectMake(72, 8, 320 - 80 - 16, 24);
+        self.valueLabel.frame = CGRectMake(72, 36, 320 - 80 - 16, 24);
+        self.tagContainer.frame = CGRectMake(72, 48, 320 - 80 - 16, 16);
         self.valueLabel.hidden = YES;
     }
 }

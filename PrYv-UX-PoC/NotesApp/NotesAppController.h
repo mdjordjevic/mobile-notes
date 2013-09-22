@@ -13,11 +13,11 @@
 extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
 
-@class PYAccess;
+@class PYConnection;
 
 @interface NotesAppController : NSObject
 
-@property (nonatomic, strong) PYAccess *access;
+@property (nonatomic, strong) PYConnection *connection;
 
 + (NotesAppController*)sharedInstance;
 
