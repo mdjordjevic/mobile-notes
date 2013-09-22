@@ -25,6 +25,15 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
+		B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */; };
+		B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55B017EC51B80016D0C4 /* PYEvent+Helper.m */; };
+		B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55B417EC68C80016D0C4 /* UIAlertView+PrYv.m */; };
+		B61D55B917EC9FE80016D0C4 /* PhotoNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55B817EC9FE80016D0C4 /* PhotoNoteViewController.m */; };
+		B61D55BD17ECB2CF0016D0C4 /* PhotoPreviewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55BC17ECB2CF0016D0C4 /* PhotoPreviewElement.m */; };
+		B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55BF17EEDEF00016D0C4 /* UIImage+PrYv.m */; };
+		B61D55C417EF1BFA0016D0C4 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55C317EF1BFA0016D0C4 /* DetailsViewController.m */; };
+		B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B61D55C917EF238A0016D0C4 /* trash-icon.png */; };
+		B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61D55CA17EF238A0016D0C4 /* trash-icon@2x.png */; };
 		B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38AF17477DC700B94960 /* SettingsViewController.m */; };
 		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
 		B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B62A9C7017E5E7DC006CADFB /* Stream.m */; };
@@ -365,6 +374,22 @@
 		B6016BCC172873D40056CD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B6016BCE172873D40056CD3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B61D55AC17EC51480016D0C4 /* PYStream+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PYStream+Helper.h"; sourceTree = "<group>"; };
+		B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PYStream+Helper.m"; sourceTree = "<group>"; };
+		B61D55AF17EC51B80016D0C4 /* PYEvent+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PYEvent+Helper.h"; sourceTree = "<group>"; };
+		B61D55B017EC51B80016D0C4 /* PYEvent+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PYEvent+Helper.m"; sourceTree = "<group>"; };
+		B61D55B317EC68C80016D0C4 /* UIAlertView+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PrYv.h"; sourceTree = "<group>"; };
+		B61D55B417EC68C80016D0C4 /* UIAlertView+PrYv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PrYv.m"; sourceTree = "<group>"; };
+		B61D55B717EC9FE80016D0C4 /* PhotoNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoNoteViewController.h; sourceTree = "<group>"; };
+		B61D55B817EC9FE80016D0C4 /* PhotoNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoNoteViewController.m; sourceTree = "<group>"; };
+		B61D55BB17ECB2CF0016D0C4 /* PhotoPreviewElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPreviewElement.h; sourceTree = "<group>"; };
+		B61D55BC17ECB2CF0016D0C4 /* PhotoPreviewElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPreviewElement.m; sourceTree = "<group>"; };
+		B61D55BE17EEDEF00016D0C4 /* UIImage+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PrYv.h"; sourceTree = "<group>"; };
+		B61D55BF17EEDEF00016D0C4 /* UIImage+PrYv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PrYv.m"; sourceTree = "<group>"; };
+		B61D55C217EF1BFA0016D0C4 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		B61D55C317EF1BFA0016D0C4 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		B61D55C917EF238A0016D0C4 /* trash-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-icon.png"; sourceTree = "<group>"; };
+		B61D55CA17EF238A0016D0C4 /* trash-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-icon@2x.png"; sourceTree = "<group>"; };
 		B61F38AE17477DC700B94960 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B61F38AF17477DC700B94960 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		B61F38CD17496A2800B94960 /* AddNumericalValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueViewController.h; sourceTree = "<group>"; };
@@ -899,6 +924,54 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B61D55A517EC51230016D0C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B61D55AC17EC51480016D0C4 /* PYStream+Helper.h */,
+				B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */,
+				B61D55AF17EC51B80016D0C4 /* PYEvent+Helper.h */,
+				B61D55B017EC51B80016D0C4 /* PYEvent+Helper.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B61D55B217EC68920016D0C4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */,
+				B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */,
+				B6BA3E701732E91000464C2F /* UIView+Frame.h */,
+				B6BA3E711732E91000464C2F /* UIView+Frame.m */,
+				B6D8EAA8175A18F000A3AA8F /* UIViewController+LoadingOverlay.h */,
+				B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */,
+				B6B59080178C8FD50009E413 /* UIBarButtonItem+PrYv.h */,
+				B6B59081178C8FD50009E413 /* UIBarButtonItem+PrYv.m */,
+				B61D55B317EC68C80016D0C4 /* UIAlertView+PrYv.h */,
+				B61D55B417EC68C80016D0C4 /* UIAlertView+PrYv.m */,
+				B61D55BE17EEDEF00016D0C4 /* UIImage+PrYv.h */,
+				B61D55BF17EEDEF00016D0C4 /* UIImage+PrYv.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B61D55B617EC9FAA0016D0C4 /* PhotoNotes */ = {
+			isa = PBXGroup;
+			children = (
+				B61D55B717EC9FE80016D0C4 /* PhotoNoteViewController.h */,
+				B61D55B817EC9FE80016D0C4 /* PhotoNoteViewController.m */,
+			);
+			name = PhotoNotes;
+			sourceTree = "<group>";
+		};
+		B61D55C117EF1BDD0016D0C4 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				B61D55C217EF1BFA0016D0C4 /* DetailsViewController.h */,
+				B61D55C317EF1BFA0016D0C4 /* DetailsViewController.m */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
 		B61F38C917496A0400B94960 /* NumericalValues */ = {
 			isa = PBXGroup;
 			children = (
@@ -967,6 +1040,8 @@
 				B64ACB151756AC5300E2F6F7 /* MeasurementPreviewElement.m */,
 				B6F207AC17933D42006FC5B0 /* TextNotePreviewElement.h */,
 				B6F207AD17933D42006FC5B0 /* TextNotePreviewElement.m */,
+				B61D55BB17ECB2CF0016D0C4 /* PhotoPreviewElement.h */,
+				B61D55BC17ECB2CF0016D0C4 /* PhotoPreviewElement.m */,
 			);
 			name = EventPreview;
 			sourceTree = "<group>";
@@ -1040,16 +1115,10 @@
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */,
-				B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */,
-				B6BA3E701732E91000464C2F /* UIView+Frame.h */,
-				B6BA3E711732E91000464C2F /* UIView+Frame.m */,
-				B6D8EAA8175A18F000A3AA8F /* UIViewController+LoadingOverlay.h */,
-				B6D8EAA9175A18F000A3AA8F /* UIViewController+LoadingOverlay.m */,
+				B61D55B217EC68920016D0C4 /* View */,
+				B61D55A517EC51230016D0C4 /* Model */,
 				B6D0ED831787755900665DE8 /* UIColor+PrYv.h */,
 				B6D0ED841787755900665DE8 /* UIColor+PrYv.m */,
-				B6B59080178C8FD50009E413 /* UIBarButtonItem+PrYv.h */,
-				B6B59081178C8FD50009E413 /* UIBarButtonItem+PrYv.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1190,10 +1259,12 @@
 		B6F9A2491729BF55009C8BAA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B61D55C117EF1BDD0016D0C4 /* Details */,
 				B6B58FBF178B5F1B0009E413 /* BaseViewController */,
 				B6F1AEAA17846C8E000ECD60 /* TextNotes */,
 				B64ACB0B1756A91900E2F6F7 /* EditEvents */,
 				B64ACAD11753F24100E2F6F7 /* Settings */,
+				B61D55B617EC9FAA0016D0C4 /* PhotoNotes */,
 				B61F38C917496A0400B94960 /* NumericalValues */,
 				B6016BCE172873D40056CD3F /* ViewController.h */,
 				B6016BCF172873D40056CD3F /* ViewController.m */,
@@ -1228,6 +1299,8 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B61D55C917EF238A0016D0C4 /* trash-icon.png */,
+				B61D55CA17EF238A0016D0C4 /* trash-icon@2x.png */,
 				B6B59092178E01700009E413 /* navbar_btn.png */,
 				B6B59093178E01710009E413 /* navbar_btn@2x.png */,
 				B6B59059178C751C0009E413 /* cells */,
@@ -1528,6 +1601,8 @@
 				4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */,
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
 				4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */,
+				B61D55CB17EF238A0016D0C4 /* trash-icon.png in Resources */,
+				B61D55CC17EF238A0016D0C4 /* trash-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,6 +1687,13 @@
 				B6F207B5179358E6006FC5B0 /* TagView.m in Sources */,
 				B6F207BB1793DE18006FC5B0 /* LRUManager.m in Sources */,
 				B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */,
+				B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */,
+				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
+				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
+				B61D55B917EC9FE80016D0C4 /* PhotoNoteViewController.m in Sources */,
+				B61D55BD17ECB2CF0016D0C4 /* PhotoPreviewElement.m in Sources */,
+				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
+				B61D55C417EF1BFA0016D0C4 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

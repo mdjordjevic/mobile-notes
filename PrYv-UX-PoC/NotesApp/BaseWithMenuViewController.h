@@ -14,7 +14,8 @@
 @property (nonatomic, getter = isMenuOpen) BOOL menuOpen;
 
 - (void)setMenuVisible:(BOOL)visible animated:(BOOL)animated withCompletionBlock:(void (^) (void))completionBlock;
-
 - (void)topMenuDidSelectOptionAtIndex:(NSInteger)index;
+- (void)topMenuVisibilityDidChange;
+- (void)topMenuVisibilityWillChange;
 
 @end

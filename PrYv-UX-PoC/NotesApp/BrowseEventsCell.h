@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *channelFolderLabel;
 @property (nonatomic, strong) IBOutlet UILabel *valueLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *leftImageView;
-@property (nonatomic, strong) IBOutlet UIImageView *rightImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
 
 - (void)updateWithCellStyleModel:(CellStyleModel*)cellStyleModel;

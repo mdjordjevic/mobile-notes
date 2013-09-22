@@ -38,8 +38,7 @@
     
     self.topMenuCellImages = @[@"icon_small_text",
                                @"icon_small_lenght",
-                               @"icon_small_photo",
-                               @"icon_small_audio"];
+                               @"icon_small_photo"];
     
     CGFloat tableHeight = self.view.bounds.size.height;
     self.menuOpen = NO;
@@ -109,10 +108,12 @@
 
 - (void)setMenuVisible:(BOOL)visible animated:(BOOL)animated withCompletionBlock:(void (^)(void))completionBlock
 {
+    [self topMenuVisibilityWillChange];
     CGFloat pointY = visible ? 0 : -self.menuTableView.bounds.size.height;
     if(!visible)
     {
         self.menuOpen = NO;
+        [self topMenuVisibilityDidChange];
         self.menuTableView.userInteractionEnabled = NO;
     }
     NSInteger option = visible ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
@@ -122,6 +123,7 @@
         if(visible)
         {
             self.menuOpen = YES;
+            [self topMenuVisibilityDidChange];
             self.menuTableView.userInteractionEnabled = YES;
         }
         if(completionBlock)
@@ -132,6 +134,16 @@
 }
 
 - (void)topMenuDidSelectOptionAtIndex:(NSInteger)index
+{
+    
+}
+
+- (void)topMenuVisibilityWillChange
+{
+    
+}
+
+- (void)topMenuVisibilityDidChange
 {
     
 }

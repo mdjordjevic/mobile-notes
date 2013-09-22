@@ -9,10 +9,13 @@
 #import "MeasurementSettingsViewController.h"
 #import "MeasurementController.h"
 #import "MeasurementSet.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MeasurementSettingsViewController ()
 
 @property (nonatomic, strong) NSArray *measurementSets;
+
+- (void)popVC:(id)sender;
 
 @end
 
@@ -33,6 +36,10 @@
 
     self.clearsSelectionOnViewWillAppear = NO;
     self.measurementSets = [[MeasurementController sharedInstance] availableMeasurementSets];
+    
+    self.navigationController.navigationBar.layer.masksToBounds = NO;
+    self.navigationItem.leftItemsSupplementBackButton = NO;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_back"] target:self action:@selector(popVC:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,6 +100,11 @@
             [[MeasurementController sharedInstance] removeMeasurementSetWithKey:set.key];
         }
     }
+}
+
+- (void)popVC:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

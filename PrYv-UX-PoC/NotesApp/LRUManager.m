@@ -66,36 +66,27 @@
 
 - (void)addUserHistoryEntry:(UserHistoryEntry *)entry
 {
-    if(![self.lruArray containsObject:entry])
+    UserHistoryEntry *entryToDelete = nil;
+    NSString *entryComparableString = [entry comparableString];
+    for(UserHistoryEntry *oldEntry in self.lruArray)
     {
-        [self.lruArray insertObject:entry atIndex:0];
-        [self saveToDisc];
+        if([[oldEntry comparableString] isEqualToString:entryComparableString])
+        {
+            entryToDelete = oldEntry;
+            break;
+        }
     }
+    if(entryToDelete)
+    {
+        [self.lruArray removeObject:entryToDelete];
+    }
+    [self.lruArray insertObject:entry atIndex:0];
+    [self saveToDisc];
 }
 
 - (void)fetchLRUEntriesWithCompletionBlock:(void (^)(void))block
 {
-    if([self.lruArray count] < 1)
-    {
-        block();
-        return;
-    }
-    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-        if(!error)
-        {
-            for(UserHistoryEntry *entry in self.lruArray)
-            {
-                for(PYStream *stream in object)
-                {
-                    if([stream.streamId isEqualToString:entry.streamId])
-                    {
-                        entry.stream = stream;
-                    }
-                }
-            }
-        }
-        block();
-    }];
+    block();
 }
 
 - (NSArray*)lruEntries

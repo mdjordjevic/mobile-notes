@@ -17,8 +17,12 @@ typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)saveEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)updateEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)deleteEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
+- (void)createStream:(PYStream*)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 
 - (NSInteger)dataTypeForEvent:(PYEvent*)event;
+- (void)invalidateStreamListCache;
 
 
 @end

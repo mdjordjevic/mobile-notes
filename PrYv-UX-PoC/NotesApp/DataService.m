@@ -8,6 +8,7 @@
 
 #import "DataService.h"
 #import <PryvApiKit/PryvApiKit.h>
+#import <PryvApiKit/PYClient.h>
 #import "MeasurementSet.h"
 #import "Stream.h"
 #import "Event.h"
@@ -16,7 +17,7 @@
 #import "CellStyleModel.h"
 
 #define kMeasurementSetsUrl @"http://pryv.github.io/event-types/extras.json"
-#define kChannelListCacheTimeout 60 * 60 //60 minutes
+#define kStreamListCacheTimeout 60 * 60 //60 minutes
 
 @interface DataService ()
 
@@ -26,6 +27,7 @@
 - (void)initObject;
 - (void)executeCompletionBlockOnMainQueue:(DataServiceCompletionBlock)completionBlock withObject:(id)object andError:(NSError*)error;
 - (void)saveEventAsShortcut:(PYEvent*)event;
+- (void)populateArray:(NSMutableArray*)array withStrems:(NSArray*)streams;
 
 @end
 
@@ -78,22 +80,44 @@
         }
         else
         {
-            if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kChannelListCacheTimeout)
+            if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
             {
                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:self.cachedStreams andError:nil];
             }
             else
             {
                 [connection getAllStreamsWithRequestType:PYRequestTypeSync gotCachedStreams:^(NSArray *cachedStreamsList) {
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedStreamsList andError:nil];
+//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedStreamsList andError:nil];
                 } gotOnlineStreams:^(NSArray *onlineStreamList) {
-                    self.cachedStreams = onlineStreamList;
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineStreamList andError:nil];
+                    NSMutableArray *streams = [NSMutableArray array];
+                    [self populateArray:streams withStrems:onlineStreamList];
+                    self.cachedStreams = streams;
+                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
                 }];
                     
             }
+        }
+    });
+}
+
+
+- (void)createStream:(PYStream *)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        PYConnection *connection = [[NotesAppController sharedInstance] connection];
+        if(!connection)
+        {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+        }
+        else
+        {
+            [connection createStream:stream withRequestType:PYRequestTypeSync successHandler:^(NSString *createdStreamId) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:createdStreamId andError:nil];
+            } errorHandler:^(NSError *error) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+            }];
         }
     });
 }
@@ -128,6 +152,44 @@
     });
 }
 
+- (void)updateEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        PYConnection *connection = [[NotesAppController sharedInstance] connection];
+        if(!connection)
+        {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+        }
+        else
+        {
+            [connection setModifiedEventAttributesObject:event forEventId:event.eventId requestType:PYRequestTypeSync successHandler:^(NSString *stoppedId) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
+            } errorHandler:^(NSError *error) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+            }];
+        }
+    });
+}
+
+- (void)deleteEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        PYConnection *connection = [[NotesAppController sharedInstance] connection];
+        if(!connection)
+        {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+        }
+        else
+        {
+            [connection trashOrDeleteEvent:event withRequestType:PYRequestTypeSync successHandler:^{
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
+            } errorHandler:^(NSError *error) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+            }];
+        }
+    });
+}
+
 - (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -155,6 +217,15 @@
     entry.streamId = event.streamId;
     entry.tags = [NSArray arrayWithArray:event.tags];
     entry.dataType = [self dataTypeForEvent:event];
+    if(entry.dataType != CellStyleTypePhoto && entry.dataType != CellStyleTypeText)
+    {
+        NSArray *components = [event.type componentsSeparatedByString:@"/"];
+        if([components count] > 1)
+        {
+            entry.measurementGroupName = [components objectAtIndex:0];
+            entry.measurementTypeName = [components objectAtIndex:1];
+        }
+    }
     [[LRUManager sharedInstance] addUserHistoryEntry:entry];
 }
 
@@ -182,7 +253,28 @@
     {
         return CellStyleTypeLength;
     }
+    if([eventClass isEqualToString:@"picture"])
+    {
+        return CellStyleTypePhoto;
+    }
     return CellStyleTypeLength;
+}
+
+- (void)invalidateStreamListCache
+{
+    self.cachedStreams = nil;
+}
+
+- (void)populateArray:(NSMutableArray *)array withStrems:(NSArray *)streams
+{
+    for(PYStream *stream in streams)
+    {
+        [array addObject:stream];
+        if([stream.children count] > 0)
+        {
+            [self populateArray:array withStrems:stream.children];
+        }
+    }
 }
 
 @end

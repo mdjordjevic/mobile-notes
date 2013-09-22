@@ -15,8 +15,9 @@
 @interface EditEventViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) BaseEventPreviewElement *eventElement;
-@property (nonatomic, strong) Stream *stream;
+@property (nonatomic, strong) PYStream *stream;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) UserHistoryEntry *entry;
+@property (nonatomic, strong) PYEvent *event;
 
 @end

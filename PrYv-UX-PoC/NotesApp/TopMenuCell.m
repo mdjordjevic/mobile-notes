@@ -27,7 +27,7 @@
         self.imageView.image = [UIImage imageNamed:@"add_circle"];
         [self.imgView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.imgView];
-        self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 16, 16)];
+        self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(18, 20, 16, 16)];
         [self.iconImageView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.iconImageView];
     }

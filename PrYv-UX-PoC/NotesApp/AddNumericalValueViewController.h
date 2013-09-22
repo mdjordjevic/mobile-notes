@@ -16,5 +16,6 @@
 @property (nonatomic, strong) IBOutlet UITextField *valueField;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
 @property (nonatomic, strong) UserHistoryEntry *entry;
+@property (nonatomic, strong) PYEvent *event;
 
 @end
