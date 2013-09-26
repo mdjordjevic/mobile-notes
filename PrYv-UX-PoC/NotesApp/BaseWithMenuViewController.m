@@ -33,6 +33,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.enabled = YES;
 	
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add"] target:self action:@selector(menuButtonTouched:)];
     
@@ -103,7 +105,7 @@
 - (void)menuButtonTouched:(id)sender
 {
     [(UIButton*)self.navigationItem.rightBarButtonItem.customView setImage:[UIImage imageNamed:self.isMenuOpen ? @"icon_add" : @"icon_add_active"] forState:UIControlStateNormal];
-    [self setMenuVisible:!self.isMenuOpen animated:YES withCompletionBlock:nil];
+    [self setMenuVisible:(!self.isMenuOpen && self.enabled) animated:YES withCompletionBlock:nil];
 }
 
 - (void)setMenuVisible:(BOOL)visible animated:(BOOL)animated withCompletionBlock:(void (^)(void))completionBlock

@@ -24,5 +24,4 @@ typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
 - (NSInteger)dataTypeForEvent:(PYEvent*)event;
 - (void)invalidateStreamListCache;
 
-
 @end

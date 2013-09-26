@@ -196,7 +196,7 @@
 
 - (void)textFieldValueChangedForCustomNumericalKeyboard:(CustomNumericalKeyboard *)customKeyboard
 {
-    _doneButton.enabled = _valueField.text.length > 0;
+//    _doneButton.enabled = _valueField.text.length > 0;
 }
 
 #pragma mark - Segues
@@ -214,6 +214,12 @@
 
 - (void)doneButtonTouched:(id)sender
 {
+    if([[_valueField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] < 1)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You must enter a value" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
     [self performSegueWithIdentifier:kSaveMeasurementSegue sender:self];
 }
 

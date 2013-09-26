@@ -12,5 +12,6 @@
 @interface PhotoNoteViewController : BaseViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UserHistoryEntry *entry;
+@property (nonatomic) UIImagePickerControllerSourceType sourceType;
 
 @end

@@ -40,6 +40,8 @@
 
 - (IBAction)backButtonTouched:(id)sender;
 - (void)doneButtonTouched:(id)sender;
+- (void)doneTagsFieldAction:(id)sender;
+- (void)textFieldDone:(id)sender;
 - (void)updateUIElements;
 - (NSArray*)parentStreamList;
 
@@ -64,6 +66,20 @@
     
     self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
     self.navigationItem.rightBarButtonItem = self.doneButton;
+    
+    UIToolbar *tipToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    tipToolbar.barStyle = UIBarStyleBlackTranslucent;
+    tipToolbar.items = [NSArray arrayWithObjects:
+                        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                      target:nil
+                                                                      action:nil],
+                        [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                         style:UIBarButtonItemStyleDone
+                                                        target:self
+                                                        action:@selector(doneTagsFieldAction:)],
+                        nil];
+    [tipToolbar sizeToFit];
+    self.tagsField.textField.inputAccessoryView = tipToolbar;
     
     if(self.entry)
     {
@@ -98,6 +114,19 @@
     {
         self.eventPreviewImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.commentTextView.hidden = NO;
+        UIToolbar *tipToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        tipToolbar.barStyle = UIBarStyleBlackTranslucent;
+        tipToolbar.items = [NSArray arrayWithObjects:
+                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                          target:nil
+                                                                          action:nil],
+                            [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                             style:UIBarButtonItemStyleDone
+                                                            target:self
+                                                            action:@selector(textFieldDone:)],
+                            nil];
+        [tipToolbar sizeToFit];
+        self.commentTextView.inputAccessoryView = tipToolbar;
     }
     else
     {
@@ -139,7 +168,7 @@
     NSString *selectedText = [self.stream breadcrumbsInStreamList:self.streams];
     if(!selectedText && [selectedText length] < 1)
     {
-        selectedText = @"Select channel";
+        selectedText = @"Select stream";
     }
     self.selectedLocationLabel.text = selectedText;
     
@@ -152,7 +181,6 @@
         self.eventPreviewTitleLabel.center = CGPointMake(self.eventPreviewTitleLabel.center.x, self.eventPreviewImageView.center.y);
     }
     self.listBackButton.hidden = (self.stream == nil);
-    self.doneButton.enabled = (self.stream != nil);
 }
 
 #pragma mark - UITableViewDataSource and UITableViewDelegate
@@ -219,11 +247,12 @@
                             [[DataService sharedInstance] invalidateStreamListCache];
                             [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
                                 self.streams = object;
-                                for(PYStream *stream in self.streams)
+                                self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
+                                for(PYStream *st in self.streams)
                                 {
-                                    if([stream.streamId isEqualToString:self.stream.streamId])
+                                    if([st.name isEqualToString:stream.name] && ([st.parentId isEqualToString:stream.parentId] || stream.parentId == nil))
                                     {
-                                        self.stream = stream;
+                                        self.stream = st;
                                         break;
                                     }
                                 }
@@ -256,8 +285,19 @@
     [self updateUIElements];
 }
 
+- (void)textFieldDone:(id)sender
+{
+    [self.commentTextView resignFirstResponder];
+}
+
 - (void)doneButtonTouched:(id)sender
 {
+    if(!self.stream)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You should select a stream first" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
     [self.tagsField textFieldDidEndEditing:self.tagsField.textField];
     [self tokenFieldShouldReturn:self.tagsField];
     PYEvent *event = nil;
@@ -338,14 +378,20 @@
 
 - (BOOL)tokenFieldShouldReturn:(JSTokenField *)tokenField
 {
-    [tokenField.textField resignFirstResponder];
+    [tokenField updateTokensInTextField:tokenField.textField];
+    return NO;
+}
+
+- (void)doneTagsFieldAction:(id)sender
+{
+    [self.tagsField.textField resignFirstResponder];
+    [self.tagsField updateTokensInTextField:self.tagsField.textField];
     NSMutableArray *tokens = [NSMutableArray array];
-    for(JSTokenButton *token in tokenField.tokens)
+    for(JSTokenButton *token in self.tagsField.tokens)
     {
         [tokens addObject:[token representedObject]];
     }
     self.tags = tokens;
-    return YES;
 }
 
 #pragma mark - UITextViewDelegate methods
