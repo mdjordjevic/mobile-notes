@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UITableView *menuTableView;
 @property (nonatomic, getter = isMenuOpen) BOOL menuOpen;
+@property (nonatomic) BOOL enabled;
 
 - (void)setMenuVisible:(BOOL)visible animated:(BOOL)animated withCompletionBlock:(void (^) (void))completionBlock;
 - (void)topMenuDidSelectOptionAtIndex:(NSInteger)index;

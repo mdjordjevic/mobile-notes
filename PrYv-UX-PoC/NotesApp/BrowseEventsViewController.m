@@ -26,7 +26,7 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-@interface BrowseEventsViewController ()
+@interface BrowseEventsViewController () <UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
@@ -277,8 +277,8 @@
                 break;
             case 2:
             {
-                PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-                [weakSelf.navigationController pushViewController:photoVC animated:YES];
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose photo shource" delegate:weakSelf cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Library", nil];
+                [actionSheet showInView:weakSelf.view];
             }
                 break;
             default:
@@ -322,6 +322,12 @@
     [self presentModalViewController:navVC animated:YES];
 }
 
+- (void)clearCurrentData
+{
+    self.events = nil;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Notifications
 
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification
@@ -333,6 +339,20 @@
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
     [self loadData];
+}
+
+#pragma mark - UIActionSheetDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 2)
+    {
+        return;
+    }
+    UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+    PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+    photoVC.sourceType = sourceType;
+    [self.navigationController pushViewController:photoVC animated:YES];
 }
 
 @end

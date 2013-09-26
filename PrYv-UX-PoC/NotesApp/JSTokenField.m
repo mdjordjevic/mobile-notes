@@ -94,6 +94,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     [_textField setBorderStyle:UITextBorderStyleNone];
     [_textField setBackground:nil];
     [_textField setBackgroundColor:[UIColor clearColor]];
+    [_textField setReturnKeyType:UIReturnKeyNext];
     [_textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     
     [self addSubview:_textField];
@@ -380,17 +381,22 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     }
     else if ([[textField text] length] > 1)
     {
-		NSArray *tokens = [[textField text] componentsSeparatedByString:@","];
-		for(NSString *token in tokens)
-		{
-			if([token length] < 1)
-			{
-				continue;
-			}
-			[self addTokenWithTitle:token representedObject:token];
-		}
-        [textField setText:nil];
+		[self updateTokensInTextField:textField];
     }
+}
+
+- (void)updateTokensInTextField:(UITextField *)textField
+{
+    NSArray *tokens = [[textField text] componentsSeparatedByString:@","];
+    for(NSString *token in tokens)
+    {
+        if([token length] < 1)
+        {
+            continue;
+        }
+        [self addTokenWithTitle:token representedObject:token];
+    }
+    [textField setText:nil];
 }
 
 @end

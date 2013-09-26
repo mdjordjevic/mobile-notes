@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "BrowseEventsViewController.h"
+#import "DataService.h"
 
 @interface ViewController ()
 
@@ -19,22 +20,15 @@
 
 @implementation ViewController
 
-- (id)init
-{
-    self = [super init];
-    if(self)
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(userDidLogoutNotification:)
-                                                     name:kUserDidLogoutNotification
-                                                   object:nil];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogoutNotification:)
+                                                 name:kUserDidLogoutNotification
+                                               object:nil];
+    
     self.browseEventsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"BrowseEventsViewController_ID"];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:self.browseEventsVC];
     [self.navigationController presentViewController:navVC animated:NO completion:nil];
@@ -81,11 +75,14 @@
 - (void)pyWebLoginSuccess:(PYConnection *)pyConnection
 {
     [pyConnection synchronizeTimeWithSuccessHandler:nil errorHandler:nil];
+    self.browseEventsVC.enabled = YES;
     [[NotesAppController sharedInstance] setConnection:pyConnection];
 }
 
 - (void)pyWebLoginAborded:(NSString*)reason
 {
+    self.browseEventsVC.enabled = NO;
+    [self.browseEventsVC hideLoadingOverlay];
     NSLog(@"Login aborted with reason: %@",reason);
 }
 
@@ -98,7 +95,13 @@
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-    [self initSignIn];
+    self.browseEventsVC.enabled = NO;
+    [self.browseEventsVC clearCurrentData];
+    [self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
+        [[DataService sharedInstance] invalidateStreamListCache];
+        [self initSignIn];
+    }];
+    
 }
 
 

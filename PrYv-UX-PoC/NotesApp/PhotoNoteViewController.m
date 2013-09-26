@@ -61,13 +61,13 @@
 {
     self.imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] &&  self.sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-    else
+    _imagePicker.sourceType = self.sourceType;
+    if(_imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         _imagePicker.showsCameraControls = YES;
     }
     _imagePicker.delegate = self;

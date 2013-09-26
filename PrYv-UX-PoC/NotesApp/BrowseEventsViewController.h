@@ -11,4 +11,6 @@
 
 @interface BrowseEventsViewController : BaseWithMenuViewController
 
+- (void)clearCurrentData;
+
 @end
