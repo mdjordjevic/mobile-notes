@@ -18,7 +18,9 @@ extern NSString *const kUserDidLogoutNotification;
 @interface NotesAppController : NSObject
 
 @property (nonatomic, strong) PYConnection *connection;
+@property (nonatomic, readonly) BOOL isOnline;
 
 + (NotesAppController*)sharedInstance;
+
 
 @end

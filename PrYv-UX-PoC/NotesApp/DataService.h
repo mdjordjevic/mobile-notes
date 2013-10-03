@@ -10,6 +10,8 @@
 
 typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
 
+extern NSString *const kSavingEventActionFinishedNotification;
+
 @interface DataService : NSObject
 
 + (DataService*)sharedInstance;

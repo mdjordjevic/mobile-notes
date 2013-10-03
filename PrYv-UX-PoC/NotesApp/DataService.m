@@ -19,6 +19,8 @@
 #define kMeasurementSetsUrl @"http://pryv.github.io/event-types/extras.json"
 #define kStreamListCacheTimeout 60 * 60 //60 minutes
 
+NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFinishedNotification";
+
 @interface DataService ()
 
 @property (nonatomic, strong) NSArray *cachedStreams;
@@ -87,12 +89,22 @@
             else
             {
                 [connection getAllStreamsWithRequestType:PYRequestTypeSync gotCachedStreams:^(NSArray *cachedStreamsList) {
-//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedStreamsList andError:nil];
+                    if(![[NotesAppController sharedInstance] isOnline])
+                    {
+                        NSMutableArray *streams = [NSMutableArray array];
+                        [self populateArray:streams withStrems:cachedStreamsList];
+                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                    }
+                    
                 } gotOnlineStreams:^(NSArray *onlineStreamList) {
-                    NSMutableArray *streams = [NSMutableArray array];
-                    [self populateArray:streams withStrems:onlineStreamList];
-                    self.cachedStreams = streams;
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                    if([[NotesAppController sharedInstance] isOnline])
+                    {
+                        NSMutableArray *streams = [NSMutableArray array];
+                        [self populateArray:streams withStrems:onlineStreamList];
+                        self.cachedStreams = streams;
+                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                    }
+                    
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
                 }];
@@ -137,16 +149,23 @@
     [self saveEventAsShortcut:event];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         PYConnection *connection = [[NotesAppController sharedInstance] connection];
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         if(!connection)
         {
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+            [userInfo setObject:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil] forKey:@"Error"];
+            NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
         }
         else
         {
-            [connection createEvent:event requestType:PYRequestTypeSync successHandler:^(NSString *newEventId, NSString *stoppedId) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:newEventId andError:nil];
+            [connection createEvent:event requestType:PYRequestTypeAsync successHandler:^(NSString *newEventId, NSString *stoppedId) {
+                [userInfo setObject:newEventId forKey:@"EventId"];
+                NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
             } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+                [userInfo setObject:error forKey:@"Error"];
+                NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
             }];
         }
     });
@@ -201,11 +220,26 @@
         else
         {
             [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
+                [connection getAllEventsWithRequestType:PYRequestTypeSync gotCachedEvents:^(NSArray *cachedEventList) {
+                    if(![[NotesAppController sharedInstance] isOnline])
+                    {
+                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
+                    }
+                } gotOnlineEvents:^(NSArray *onlineEventList) {
+                    if([[NotesAppController sharedInstance] isOnline])
+                    {
+                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
+                    }
+                } successHandler:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
+                    NSLog(@"successHandler");
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                } shouldSyncAndCache:YES];
+                }];
+//                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
+//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
+//                } errorHandler:^(NSError *error) {
+//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+//                } shouldSyncAndCache:YES];
             }];
         }
     });
