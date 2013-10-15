@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BvD-kb-Ra6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BvD-kb-Ra6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -993,104 +993,6 @@
         <image name="trash-icon.png" width="30" height="30"/>
         <image name="value_bg.png" width="640" height="637"/>
     </resources>
-    <classes>
-        <class className="AddNumericalValueViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNumericalValueViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="customKeyborad" candidateClass="CustomNumericalKeyboard"/>
-                <relationship kind="outlet" name="typePicker" candidateClass="KSAdvancedPicker"/>
-                <relationship kind="outlet" name="typeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="valueField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="BaseWithMenuViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseWithMenuViewController.h"/>
-        </class>
-        <class className="BrowseEventsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrowseEventsCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="channelFolderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="iconImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="tagContainer" candidateClass="UIView"/>
-                <relationship kind="outlet" name="valueLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="BrowseEventsViewController" superclassName="BaseWithMenuViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrowseEventsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CategoryCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CategoryCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CustomNumericalKeyboard" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomNumericalKeyboard.h"/>
-            <relationships>
-                <relationship kind="action" name="clicked:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="DetailsViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteButtonTouched:"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="streamLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="value" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="EditEventViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditEventViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButtonTouched:"/>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="eventPreviewContainer" candidateClass="UIView"/>
-                <relationship kind="outlet" name="eventPreviewImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="eventPreviewSubtitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="eventPreviewTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="listBackButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="selectedLocationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tagsField" candidateClass="JSTokenField"/>
-            </relationships>
-        </class>
-        <class className="JSTokenField" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JSTokenField.h"/>
-        </class>
-        <class className="KSAdvancedPicker" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/KSAdvancedPicker.h"/>
-        </class>
-        <class className="MeasurementSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeasurementSettingsViewController.h"/>
-        </class>
-        <class className="PhotoNoteViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNoteViewController.h"/>
-        </class>
-        <class className="SettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="logoutLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="TextNoteViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextNoteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

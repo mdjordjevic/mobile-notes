@@ -158,7 +158,8 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         }
         else
         {
-            [connection createEvent:event requestType:PYRequestTypeAsync successHandler:^(NSString *newEventId, NSString *stoppedId) {
+            [connection createEvent:event requestType:PYRequestTypeSync successHandler:^(NSString *newEventId, NSString *stoppedId) {
+                NSLog(@"saved event id: %@",newEventId);
                 [userInfo setObject:newEventId forKey:@"EventId"];
                 NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
                 [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
@@ -224,11 +225,17 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
                     if(![[NotesAppController sharedInstance] isOnline])
                     {
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
+                        NSLog(@"OFFLINE");
                     }
                 } gotOnlineEvents:^(NSArray *onlineEventList) {
+                    for(PYEvent *event in onlineEventList)
+                    {
+                        NSLog(@"event: %d",event.hasTmpId);
+                    }
                     if([[NotesAppController sharedInstance] isOnline])
                     {
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
+                        NSLog(@"ONLINE");
                     }
                 } successHandler:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
                     NSLog(@"successHandler");
