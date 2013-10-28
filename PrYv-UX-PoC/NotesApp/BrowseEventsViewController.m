@@ -22,16 +22,18 @@
 #import "UIImage+PrYv.h"
 #import "DetailsViewController.h"
 #import "PYStream+Helper.h"
+#import "MNMPullToRefreshManager.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
-@interface BrowseEventsViewController () <UIActionSheetDelegate>
+@interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
 @property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
+@property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -63,6 +65,8 @@
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
                                                  name:kAppDidReceiveAccessTokenNotification
                                                object:nil];
+    self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
+    
     self.tableView.alpha = 0.0f;
     [self loadData];
 }
@@ -112,6 +116,7 @@
                             self.tableView.alpha = 1.0f;
                         }];
                         [self hideLoadingOverlay];
+                        [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
                     }
                     
                 }];
@@ -353,6 +358,23 @@
     PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
     photoVC.sourceType = sourceType;
     [self.navigationController pushViewController:photoVC animated:YES];
+}
+
+#pragma mark - MNMPullToRefreshManagerClient methods
+
+- (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
+{
+    [self loadData];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.pullToRefreshManager tableViewScrolled];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self.pullToRefreshManager tableViewReleased];
 }
 
 @end
