@@ -23,6 +23,10 @@
 #import "DetailsViewController.h"
 #import "PYStream+Helper.h"
 #import "MNMPullToRefreshManager.h"
+#import "BrowseCell.h"
+#import "NoteCell.h"
+#import "ValueCell.h"
+#import "PictureCell.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -154,7 +158,13 @@
     }
     if(IS_BROWSE_SECTION)
     {
-        return 104;
+        PYEvent *event = [_events objectAtIndex:indexPath.row];
+        CellStyleType cellType = [[DataService sharedInstance] dataTypeForEvent:event];
+        if(cellType == CellStyleTypePhoto)
+        {
+            return 180;
+        }
+        return 160;
     }
     if(IS_LRU_SECTION)
     {
@@ -169,61 +179,63 @@
     {
         return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
-    static NSString *CellIdentifier = @"BrowseEventsCell_ID";
-    BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        cell.channelFolderLabel.text = [event eventBreadcrumbsForStreamsList:self.streams];
-        cell.valueLabel.text = [event.eventContent description];
         CellStyleType cellStyleType = [[DataService sharedInstance] dataTypeForEvent:event];
-        CellStyleSize cellSize = CellStyleSizeBig;
-        CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
-        [cell updateWithCellStyleModel:cellModel];
-        [cell updateTags:event.tags];
-        if(cellModel.cellStyleType == CellStyleTypePhoto && [event.attachments count] > 0)
+        BrowseCell *cell = nil;
+        if(cellStyleType == CellStyleTypePhoto)
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                PYAttachment *att = [event.attachments objectAtIndex:0];
-                UIImage *img = [UIImage imageWithData:att.fileData];
-                CGSize newSize = img.size;
-                CGFloat maxSide = MAX(newSize.width, newSize.height);
-                CGFloat ratio = maxSide / cell.iconImageView.bounds.size.width;
-                newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
-                img = [img imageScaledToSize:newSize];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.iconImageView.image = img;
+            cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell_ID"];
+            if([event.attachments count] > 0)
+            {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    PYAttachment *att = [event.attachments objectAtIndex:0];
+                    UIImage *img = [UIImage imageWithData:att.fileData];
+                    CGSize newSize = img.size;
+                    CGFloat maxSide = MAX(newSize.width, newSize.height);
+                    CGFloat ratio = maxSide / [(PictureCell*)cell pictureView].bounds.size.width;
+                    newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
+                    img = [img imageScaledToSize:newSize];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[(PictureCell*)cell pictureView] setImage:img];
+                    });
                 });
-            });
-            cell.valueLabel.text = event.eventDescription;
+            }
         }
         else if(cellStyleType == CellStyleTypeText)
         {
-            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
+            [[(NoteCell*)cell noteLabel] setText:[event.eventContent description]];
         }
         else
         {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
             NSArray *components = [event.type componentsSeparatedByString:@"/"];
             if([components count] > 1)
             {
                 NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];
-                cell.valueLabel.text = value;
+                [[(ValueCell*)cell valueLabel] setText:value];
             }
-            
         }
+        cell.commentLabel.text = event.eventDescription;
+        cell.streamLabel.text = [event eventBreadcrumbsForStreamsList:self.streams];
+        [cell updateTags:event.tags];
+        
+        return cell;
     }
-    else
-    {
-        UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
-        CellStyleType cellStyleType = entry.dataType;
-        CellStyleSize cellSize = CellStyleSizeSmall;
-        CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
-        [cell updateWithCellStyleModel:cellModel];
-        [cell updateTags:entry.tags];
-    }
-    
+    static NSString *CellIdentifier = @"BrowseEventsCell_ID";
+    BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
+    cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
+    CellStyleType cellStyleType = entry.dataType;
+    CellStyleSize cellSize = CellStyleSizeSmall;
+    CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
+    [cell updateWithCellStyleModel:cellModel];
+    [cell updateTags:entry.tags];
     return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
