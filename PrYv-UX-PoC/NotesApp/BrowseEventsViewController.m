@@ -201,7 +201,7 @@
         if(cellStyleType == CellStyleTypePhoto)
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
-            [[(PictureCell*)cell pictureView] setImage:nil];
+            [cell prepareForReuse];
             if([event.attachments count] > 0)
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
