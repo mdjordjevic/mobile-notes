@@ -103,35 +103,31 @@
             PYAttachment *att = [self.event.attachments objectAtIndex:0];
             UIImage *img = [UIImage imageWithData:att.fileData];
             self.eventElement.previewImage = img;
-            if([self.event.eventDescription length] > 0)
-            {
-                self.commentTextView.text = self.event.eventDescription;
-            }
+        }
+        if([self.event.eventDescription length] > 0)
+        {
+            self.commentTextView.text = self.event.eventDescription;
         }
     }
 
     if([self.eventElement isKindOfClass:[PhotoPreviewElement class]])
     {
         self.eventPreviewImageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.commentTextView.hidden = NO;
-        UIToolbar *tipToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-        tipToolbar.barStyle = UIBarStyleBlackTranslucent;
-        tipToolbar.items = [NSArray arrayWithObjects:
-                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                          target:nil
-                                                                          action:nil],
-                            [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                             style:UIBarButtonItemStyleDone
-                                                            target:self
-                                                            action:@selector(textFieldDone:)],
-                            nil];
-        [tipToolbar sizeToFit];
-        self.commentTextView.inputAccessoryView = tipToolbar;
     }
-    else
-    {
-        self.commentTextView.hidden = YES;
-    }
+    self.commentTextView.hidden = NO;
+    UIToolbar *tipToolbar2 = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    tipToolbar2.barStyle = UIBarStyleBlackTranslucent;
+    tipToolbar2.items = [NSArray arrayWithObjects:
+                        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                      target:nil
+                                                                      action:nil],
+                        [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                         style:UIBarButtonItemStyleDone
+                                                        target:self
+                                                        action:@selector(textFieldDone:)],
+                        nil];
+    [tipToolbar2 sizeToFit];
+    self.commentTextView.inputAccessoryView = tipToolbar2;
     
     self.tagsField.delegate = self;
     
@@ -332,10 +328,10 @@
         else
         {
             [self.event.attachments removeAllObjects];
-            if(![self.commentTextView.text isEqualToString:kDefaultPhotoCommentText])
-            {
-                event.eventDescription = self.commentTextView.text;
-            }
+        }
+        if(![self.commentTextView.text isEqualToString:kDefaultPhotoCommentText])
+        {
+            event.eventDescription = self.commentTextView.text;
         }
         [self showLoadingOverlay];
         [[DataService sharedInstance] updateEvent:event withCompletionBlock:^(id object, NSError *error) {

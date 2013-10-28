@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, TagViewStyle)
+{
+    TagViewStandardStyle,
+    TagViewTransparentStyle
+};
+
 @interface TagView : UIView
 
-- (id)initWithText:(NSString*)tagText;
+- (id)initWithText:(NSString*)tagText andStyle:(TagViewStyle)style;
 
 @end
