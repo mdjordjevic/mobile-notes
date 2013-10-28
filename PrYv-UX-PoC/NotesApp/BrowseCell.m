@@ -35,7 +35,7 @@
     int offset = 0;
     for(NSString *tag in tags)
     {
-        TagView *tagView = [[TagView alloc] initWithText:tag];
+        TagView *tagView = [[TagView alloc] initWithText:tag andStyle:TagViewTransparentStyle];
         CGRect frame = tagView.frame;
         frame.origin.x = offset;
         offset+=frame.size.width + 4;
