@@ -20,6 +20,7 @@
     #import "UIViewController+LoadingOverlay.h"
     #import "UIColor+PrYv.h"
     #import "NSObject+subscript.h"
+    #import "UIDevice+Utils.h"
 #endif
 
 #define isiPhone5 ([UIScreen mainScreen].bounds.size.height == 568.0f)

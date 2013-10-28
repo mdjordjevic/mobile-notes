@@ -77,7 +77,10 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     
     //UINavigationBar
     [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    if(![UIDevice isiOS7Device])
+    {
+        [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    }
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                 UITextAttributeTextColor: [UIColor blackColor],
                           UITextAttributeTextShadowColor: [UIColor clearColor],

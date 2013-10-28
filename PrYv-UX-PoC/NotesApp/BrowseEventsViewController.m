@@ -362,6 +362,7 @@
     SettingsViewController *settingsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
     settingsVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    navVC.navigationBar.translucent = NO;
     [self presentModalViewController:navVC animated:YES];
 }
 
