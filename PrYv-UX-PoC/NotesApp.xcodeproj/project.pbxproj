@@ -159,6 +159,7 @@
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
 		B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */; };
 		B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA3EA21734075100464C2F /* libPryvApiKit.a */; };
+		B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C9D467181ED7F200EB5FF9 /* UIDevice+Utils.m */; };
 		B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED841787755900665DE8 /* UIColor+PrYv.m */; };
 		B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED871787804A00665DE8 /* BrowseEventsCell.m */; };
 		B6D0ED8B1787827400665DE8 /* BrowseEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED8A1787827400665DE8 /* BrowseEventsViewController.m */; };
@@ -558,6 +559,8 @@
 		B6BA3E941733E4F500464C2F /* StreamGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamGroupingManager.h; sourceTree = "<group>"; };
 		B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamGroupingManager.m; sourceTree = "<group>"; };
 		B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
+		B6C9D466181ED7F200EB5FF9 /* UIDevice+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Utils.h"; sourceTree = "<group>"; };
+		B6C9D467181ED7F200EB5FF9 /* UIDevice+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Utils.m"; sourceTree = "<group>"; };
 		B6D0ED831787755900665DE8 /* UIColor+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PrYv.h"; sourceTree = "<group>"; };
 		B6D0ED841787755900665DE8 /* UIColor+PrYv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PrYv.m"; sourceTree = "<group>"; };
 		B6D0ED861787804A00665DE8 /* BrowseEventsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseEventsCell.h; sourceTree = "<group>"; };
@@ -1147,6 +1150,7 @@
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B6C9D465181ED7DF00EB5FF9 /* Utils */,
 				B61D55B217EC68920016D0C4 /* View */,
 				B61D55A517EC51230016D0C4 /* Model */,
 				B6D0ED831787755900665DE8 /* UIColor+PrYv.h */,
@@ -1206,6 +1210,15 @@
 				B6F1AEB017846C8E000ECD60 /* libPryvApiKitLogicTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B6C9D465181ED7DF00EB5FF9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B6C9D466181ED7F200EB5FF9 /* UIDevice+Utils.h */,
+				B6C9D467181ED7F200EB5FF9 /* UIDevice+Utils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		B6D8EA9F175A182000A3AA8F /* Vendor */ = {
@@ -1761,6 +1774,7 @@
 				B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
+				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				B61D55B917EC9FE80016D0C4 /* PhotoNoteViewController.m in Sources */,
 				B61D55BD17ECB2CF0016D0C4 /* PhotoPreviewElement.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
