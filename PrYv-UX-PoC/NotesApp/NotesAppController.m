@@ -91,4 +91,9 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
     [SSKeychain deletePasswordForService:kServiceName account:connection.userID];
 }
 
+- (BOOL)isOnline
+{
+    return _connection.online;
+}
+
 @end

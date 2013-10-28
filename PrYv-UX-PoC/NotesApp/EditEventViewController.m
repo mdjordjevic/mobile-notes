@@ -137,20 +137,27 @@
     
     [self showLoadingOverlay];
     [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-        self.streams = object;
-        if((self.entry && self.entry.streamId) || IS_EDIT_MODE)
+        if(error)
         {
-            NSString *streamID = IS_EDIT_MODE ? self.event.streamId : self.entry.streamId;
-            for(PYStream *stream in self.streams)
+            NSLog(@"ERROR!!!!!!!");
+        }
+        else
+        {
+            self.streams = object;
+            if((self.entry && self.entry.streamId) || IS_EDIT_MODE)
             {
-                if([stream.streamId isEqualToString:streamID])
+                NSString *streamID = IS_EDIT_MODE ? self.event.streamId : self.entry.streamId;
+                for(PYStream *stream in self.streams)
                 {
-                    self.stream = stream;
-                    break;
+                    if([stream.streamId isEqualToString:streamID])
+                    {
+                        self.stream = stream;
+                        break;
+                    }
                 }
             }
+            self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
         }
-        self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
         [self updateUIElements];
         [self.tableView reloadData];
         [self hideLoadingOverlay];
@@ -358,19 +365,20 @@
             event.type = [_eventElement.klass stringByAppendingFormat:@"/%@",_eventElement.format];
             
         }
-        [self showLoadingOverlay];
+//        [self showLoadingOverlay];
         [[DataService sharedInstance] saveEvent:event withCompletionBlock:^(id object, NSError *error) {
-            [self hideLoadingOverlay];
-            if(error)
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-            }
-            else
-            {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-            }
+//            [self hideLoadingOverlay];
+//            if(error)
+//            {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                [alert show];
+//            }
+//            else
+//            {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+//            }
         }];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
