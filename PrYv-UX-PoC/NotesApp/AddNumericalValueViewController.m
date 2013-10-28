@@ -63,6 +63,7 @@
     
     self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
     self.navigationItem.rightBarButtonItem = self.doneButton;
+    self.valueField.text = @"";
     
     if(self.entry)
     {
@@ -79,7 +80,12 @@
         if([components count] > 1)
         {
             [self selectRightMeasurementGroupForMeasurementGroupName:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
-            self.valueField.text = [self.event.eventContent description];
+            NSString *text = [self.event.eventContent description];
+            if(!text)
+            {
+                text = @"";
+            }
+            self.valueField.text = text;
         }
     }
 }

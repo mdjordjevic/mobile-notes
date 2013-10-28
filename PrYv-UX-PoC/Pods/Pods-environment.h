@@ -6,6 +6,12 @@
 // project.
 
 
+// MNMPullToRefresh
+#define COCOAPODS_POD_AVAILABLE_MNMPullToRefresh
+#define COCOAPODS_VERSION_MAJOR_MNMPullToRefresh 0
+#define COCOAPODS_VERSION_MINOR_MNMPullToRefresh 0
+#define COCOAPODS_VERSION_PATCH_MNMPullToRefresh 1
+
 // SSKeychain
 #define COCOAPODS_POD_AVAILABLE_SSKeychain
 #define COCOAPODS_VERSION_MAJOR_SSKeychain 1
