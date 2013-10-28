@@ -38,6 +38,7 @@
 @property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -131,6 +132,18 @@
     }
 }
 
+- (NSDateFormatter*)dateFormatter
+{
+    if(!_dateFormatter)
+    {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+//        [_dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    }
+    return _dateFormatter;
+}
+
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -187,7 +200,8 @@
         BrowseCell *cell = nil;
         if(cellStyleType == CellStyleTypePhoto)
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell_ID"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
+            [[(PictureCell*)cell pictureView] setImage:nil];
             if([event.attachments count] > 0)
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -199,7 +213,17 @@
                     newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
                     img = [img imageScaledToSize:newSize];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [[(PictureCell*)cell pictureView] setImage:img];
+                        [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
+                            [[(PictureCell*)cell pictureView] setAlpha:0.0f];
+                        } completion:^(BOOL finished) {
+                            [[(PictureCell*)cell pictureView] setImage:img];
+                            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
+                                [[(PictureCell*)cell pictureView] setAlpha:1.0f];
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+                        }];
+                        
                     });
                 });
             }
@@ -222,6 +246,8 @@
         cell.commentLabel.text = event.eventDescription;
         cell.streamLabel.text = [event eventBreadcrumbsForStreamsList:self.streams];
         [cell updateTags:event.tags];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:event.time];
+        cell.dateLabel.text = [self.dateFormatter stringFromDate:date];
         
         return cell;
     }

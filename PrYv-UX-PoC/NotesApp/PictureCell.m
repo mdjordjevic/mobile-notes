@@ -28,4 +28,10 @@
 }
 */
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.pictureView.image = nil;
+}
+
 @end
