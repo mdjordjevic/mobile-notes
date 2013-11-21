@@ -381,7 +381,7 @@
 		960FE0BC1806B64D0074D24E /* picture_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture_overlay.png; sourceTree = "<group>"; };
 		960FE0BE1806B8180074D24E /* picture_overlay_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture_overlay_bottom.png; sourceTree = "<group>"; };
 		960FE0C01806BB230074D24E /* value_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = value_bg.png; sourceTree = "<group>"; };
-		B6016BAD172873D30056CD3F /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6016BAD172873D30056CD3F /* Pryv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pryv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6016BB0172873D30056CD3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B6016BB2172873D30056CD3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B6016BB4172873D30056CD3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -905,7 +905,7 @@
 		B6016BAE172873D30056CD3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B6016BAD172873D30056CD3F /* NotesApp.app */,
+				B6016BAD172873D30056CD3F /* Pryv.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1467,7 +1467,7 @@
 			);
 			name = NotesApp;
 			productName = NotesApp;
-			productReference = B6016BAD172873D30056CD3F /* NotesApp.app */;
+			productReference = B6016BAD172873D30056CD3F /* Pryv.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1478,6 +1478,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = PrYv;
+				TargetAttributes = {
+					B6016BAC172873D30056CD3F = {
+						DevelopmentTeam = GNL8PH5553;
+					};
+				};
 			};
 			buildConfigurationList = B6016BA8172873D30056CD3F /* Build configuration list for PBXProject "NotesApp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1882,7 +1887,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mladen Djordjevic (6T526D9736)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1894,7 +1900,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1903,9 +1908,8 @@
 					"-framework",
 					UIKit,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C019F874-8784-4489-A4D2-F6CBBFB04C3C";
-				SDKROOT = iphoneos6.1;
+				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1914,7 +1918,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mladen Djordjevic (6T526D9736)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1926,7 +1931,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1935,9 +1939,8 @@
 					"-framework",
 					UIKit,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C019F874-8784-4489-A4D2-F6CBBFB04C3C";
-				SDKROOT = iphoneos6.1;
+				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
