@@ -56,6 +56,9 @@
     if(self.descriptions)
     {
         return [_descriptions objectForKey:kLocalizedKey];
+    } else {
+        // TODO if no description, then
+        return @"TODO should be some examles of measures...";
     }
     return self.key;
 }

@@ -66,6 +66,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     MeasurementSet *set = [_measurementSets objectAtIndex:indexPath.row];
+  
     [cell.textLabel setText:[set localizedName]];
     [cell.detailTextLabel setText:[set localizedDescription]];
     

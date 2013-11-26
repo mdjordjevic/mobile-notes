@@ -12,6 +12,7 @@
 		4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853117953BBD00ED94DF /* Pods-acknowledgements.plist */; };
 		4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853517953BBD00ED94DF /* Pods-resources.sh */; };
 		4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853617953BBD00ED94DF /* Pods.xcconfig */; };
+		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		960FE0B21806B3270074D24E /* icon-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FE0B01806B3240074D24E /* icon-time.png */; };
 		960FE0B31806B3270074D24E /* icon-time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FE0B11806B3260074D24E /* icon-time@2x.png */; };
@@ -44,7 +45,6 @@
 		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
 		B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B62A9C7017E5E7DC006CADFB /* Stream.m */; };
 		B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */; };
-		B64ACAC21750F1A500E2F6F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAC11750F1A500E2F6F7 /* Localizable.strings */; };
 		B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC51750F21900E2F6F7 /* DataService.m */; };
 		B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */; };
 		B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */; };
@@ -374,6 +374,9 @@
 		4E37855717953BBD00ED94DF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		4E37855817953BBD00ED94DF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		4E37855917953BBD00ED94DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = file; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		960FE0B01806B3240074D24E /* icon-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-time.png"; sourceTree = "<group>"; };
 		960FE0B11806B3260074D24E /* icon-time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-time@2x.png"; sourceTree = "<group>"; };
@@ -422,7 +425,6 @@
 		B62A9C7017E5E7DC006CADFB /* Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stream.m; sourceTree = "<group>"; };
 		B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSet.h; sourceTree = "<group>"; };
 		B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSet.m; sourceTree = "<group>"; };
-		B64ACAC11750F1A500E2F6F7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		B64ACAC41750F21900E2F6F7 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		B64ACAC51750F21900E2F6F7 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
 		B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementGroup.h; sourceTree = "<group>"; };
@@ -954,7 +956,7 @@
 				B6016BC2172873D40056CD3F /* Default.png */,
 				B6016BC4172873D40056CD3F /* Default@2x.png */,
 				B6016BC6172873D40056CD3F /* Default-568h@2x.png */,
-				B64ACAC11750F1A500E2F6F7 /* Localizable.strings */,
+				4EBE04691844D5070031724A /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1490,6 +1492,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
 			);
 			mainGroup = B6016BA4172873D30056CD3F;
 			productRefGroup = B6016BAE172873D30056CD3F /* Products */;
@@ -1581,7 +1584,7 @@
 				B6016BC7172873D40056CD3F /* Default-568h@2x.png in Resources */,
 				B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */,
 				B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */,
-				B64ACAC21750F1A500E2F6F7 /* Localizable.strings in Resources */,
+				4EBE04671844D5070031724A /* Localizable.strings in Resources */,
 				B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */,
 				B6F1AEC61784742D000ECD60 /* tokenHighlighted.png in Resources */,
 				B6F1AEC71784742D000ECD60 /* tokenHighlighted@2x.png in Resources */,
@@ -1798,10 +1801,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4EBE04691844D5070031724A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EBE04681844D5070031724A /* en */,
+				4EBE04711844D52C0031724A /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		B6016BB9172873D40056CD3F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B6016BBA172873D40056CD3F /* en */,
+				4EBE04721844D5380031724A /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
