@@ -56,6 +56,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     NSURL *measurementSetsURL = [NSURL URLWithString:kMeasurementSetsUrl];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:measurementSetsURL];
     [PYClient sendRequest:request withReqType:PYRequestTypeSync success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
         NSMutableArray *sets = [NSMutableArray array];
         NSDictionary *setsJSON = [JSON objectForKey:@"sets"];
         for(NSString *setKey in [setsJSON allKeys])
@@ -64,7 +65,16 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
             MeasurementSet *set = [[MeasurementSet alloc] initWithKey:setKey andDictionary:setDic];
             [sets addObject:set];
         }
-        [self executeCompletionBlockOnMainQueue:completionBlock withObject:sets andError:nil];
+        
+       
+        
+        
+        NSDictionary *extras = [JSON objectForKey:@"extras"];
+        
+        
+        
+        NSArray *result = [NSArray arrayWithObjects:sets,extras,nil];
+        [self executeCompletionBlockOnMainQueue:completionBlock withObject:result andError:nil];
     } failure:^(NSError *error) {
         [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
     }];

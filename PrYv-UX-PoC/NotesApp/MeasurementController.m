@@ -10,11 +10,12 @@
 #import "DataService.h"
 #import "MeasurementSet.h"
 
-#define kMeasurementSetsKey @"kMeasurementSetsKey" 
+#define kMeasurementSetsKey @"kMeasurementSetsKey"
 
 @interface MeasurementController ()
 
 @property (nonatomic, strong) NSMutableArray *measurementSets;
+@property (nonatomic, strong) NSDictionary *extras;
 @property (nonatomic, strong) NSMutableArray *userMeasurementSets;
 
 - (void)initObject;
@@ -57,11 +58,31 @@
     [[DataService sharedInstance] fetchAllMeasurementSetsWithCompletionBlock:^(id object, NSError *error) {
         if(!error)
         {
-            self.measurementSets = (NSMutableArray*)object;
+            NSArray *result = (NSArray*)object;
+            self.measurementSets = (NSMutableArray*)result[0];
+            self.extras = (NSDictionary*)result[1];
+            
             if([_userMeasurementSets count] < 1)
             {
-                MeasurementSet *set = [_measurementSets objectAtIndex:0];
-                [_userMeasurementSets insertObject:[set key] atIndex:0];
+                [self addMeasurementSetWithKey:@"money-most-used"];
+                
+                
+                if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) { // ismetric
+                    [self addMeasurementSetWithKey:@"generic-measurements-metric"];
+
+                } else {
+                    [self addMeasurementSetWithKey:@"generic-measurements-imperial"];
+                }
+                if ([[[NSLocale currentLocale] objectForKey:NSLocaleMeasurementSystem] isEqualToString:@"U.S."]) {
+                    [self addMeasurementSetWithKey:@"generic-measurements-us"];
+                }
+                
+                if([_userMeasurementSets count] < 1)
+                {
+                    MeasurementSet *set = [_measurementSets objectAtIndex:0];
+                    [_userMeasurementSets insertObject:[set key] atIndex:0];
+                }
+                
             }
         }
         else
