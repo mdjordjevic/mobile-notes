@@ -44,9 +44,7 @@
 		B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38AF17477DC700B94960 /* SettingsViewController.m */; };
 		B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */; };
 		B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B62A9C7017E5E7DC006CADFB /* Stream.m */; };
-		B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */; };
 		B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAC51750F21900E2F6F7 /* DataService.m */; };
-		B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */; };
 		B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */; };
 		B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD91753F76500E2F6F7 /* MeasurementController.m */; };
 		B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */; };
@@ -374,8 +372,8 @@
 		4E37855717953BBD00ED94DF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		4E37855817953BBD00ED94DF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		4E37855917953BBD00ED94DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = file; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		960FE0B01806B3240074D24E /* icon-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-time.png"; sourceTree = "<group>"; };
@@ -423,12 +421,8 @@
 		B61F38CE17496A2800B94960 /* AddNumericalValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueViewController.m; sourceTree = "<group>"; };
 		B62A9C6F17E5E7DC006CADFB /* Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stream.h; sourceTree = "<group>"; };
 		B62A9C7017E5E7DC006CADFB /* Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stream.m; sourceTree = "<group>"; };
-		B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSet.h; sourceTree = "<group>"; };
-		B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSet.m; sourceTree = "<group>"; };
 		B64ACAC41750F21900E2F6F7 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		B64ACAC51750F21900E2F6F7 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
-		B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementGroup.h; sourceTree = "<group>"; };
-		B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementGroup.m; sourceTree = "<group>"; };
 		B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSettingsViewController.h; sourceTree = "<group>"; };
 		B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSettingsViewController.m; sourceTree = "<group>"; };
 		B64ACAD81753F76500E2F6F7 /* MeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementController.h; sourceTree = "<group>"; };
@@ -1027,17 +1021,6 @@
 			name = DataService;
 			sourceTree = "<group>";
 		};
-		B64ACAC717528B3F00E2F6F7 /* Measurement */ = {
-			isa = PBXGroup;
-			children = (
-				B64ACABB1750EFF800E2F6F7 /* MeasurementSet.h */,
-				B64ACABC1750EFF800E2F6F7 /* MeasurementSet.m */,
-				B64ACACB1752905100E2F6F7 /* MeasurementGroup.h */,
-				B64ACACC1752905100E2F6F7 /* MeasurementGroup.m */,
-			);
-			name = Measurement;
-			sourceTree = "<group>";
-		};
 		B64ACAD11753F24100E2F6F7 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1166,7 +1149,6 @@
 			children = (
 				B6B59072178C75F90009E413 /* CellStyleModels */,
 				B64ACB0F1756ABEE00E2F6F7 /* EventPreview */,
-				B64ACAC717528B3F00E2F6F7 /* Measurement */,
 				B6BA3E831733CD1400464C2F /* Event.h */,
 				B6BA3E841733CD1400464C2F /* Event.m */,
 				B62A9C6F17E5E7DC006CADFB /* Stream.h */,
@@ -1743,10 +1725,8 @@
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,
 				B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */,
-				B64ACABD1750EFF800E2F6F7 /* MeasurementSet.m in Sources */,
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
-				B64ACACD1752905100E2F6F7 /* MeasurementGroup.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,

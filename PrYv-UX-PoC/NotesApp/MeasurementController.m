@@ -8,7 +8,8 @@
 
 #import "MeasurementController.h"
 #import "DataService.h"
-#import "MeasurementSet.h"
+#import <PryvApiKit/PYMeasurementSet.h>
+#import <PryvApiKit/PYEventTypes.h>
 
 #define kMeasurementSetsKey @"kMeasurementSetsKey"
 
@@ -55,21 +56,32 @@
     {
         self.userMeasurementSets = [NSMutableArray array];
     }
-    [[DataService sharedInstance] fetchAllMeasurementSetsWithCompletionBlock:^(id object, NSError *error) {
+    
+    
+    [[PYEventTypes sharedInstance] reloadWithCompletionBlock:^(id object, NSError *error) {
         if(!error)
         {
-            NSArray *result = (NSArray*)object;
-            self.measurementSets = (NSMutableArray*)result[0];
-            self.extras = (NSDictionary*)result[1];
             
+            id JSON = [[PYEventTypes sharedInstance] extras];
+            
+            self.measurementSets = [NSMutableArray array];
+            
+            NSDictionary *setsJSON = [JSON objectForKey:@"sets"];
+            for(NSString *setKey in [setsJSON allKeys])
+            {
+                NSDictionary *setDic = [setsJSON objectForKey:setKey];
+                PYMeasurementSet *set = [[PYMeasurementSet alloc] initWithKey:setKey andDictionary:setDic];
+                [self.measurementSets addObject:set];
+            }
+            
+
             if([_userMeasurementSets count] < 1)
             {
                 [self addMeasurementSetWithKey:@"money-most-used"];
-                
-                
+  
                 if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) { // ismetric
                     [self addMeasurementSetWithKey:@"generic-measurements-metric"];
-
+                    
                 } else {
                     [self addMeasurementSetWithKey:@"generic-measurements-imperial"];
                 }
@@ -79,7 +91,7 @@
                 
                 if([_userMeasurementSets count] < 1)
                 {
-                    MeasurementSet *set = [_measurementSets objectAtIndex:0];
+                    PYMeasurementSet *set = [_measurementSets objectAtIndex:0];
                     [_userMeasurementSets insertObject:[set key] atIndex:0];
                 }
                 

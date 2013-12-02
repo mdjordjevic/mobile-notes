@@ -15,7 +15,6 @@ extern NSString *const kSavingEventActionFinishedNotification;
 @interface DataService : NSObject
 
 + (DataService*)sharedInstance;
-- (void)fetchAllMeasurementSetsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)saveEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock;

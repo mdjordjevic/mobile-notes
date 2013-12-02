@@ -8,7 +8,7 @@
 
 #import "MeasurementSettingsViewController.h"
 #import "MeasurementController.h"
-#import "MeasurementSet.h"
+#import <PryvApikit/PYMeasurementSet.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface MeasurementSettingsViewController ()
@@ -65,7 +65,7 @@
     static NSString *CellIdentifier = @"MeasurementSetCell_ID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    MeasurementSet *set = [_measurementSets objectAtIndex:indexPath.row];
+    PYMeasurementSet *set = [_measurementSets objectAtIndex:indexPath.row];
   
     [cell.textLabel setText:[set localizedName]];
     [cell.detailTextLabel setText:[set localizedDescription]];
@@ -86,7 +86,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MeasurementSet *set = [_measurementSets objectAtIndex:indexPath.row];
+    PYMeasurementSet *set = [_measurementSets objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(cell.accessoryType == UITableViewCellAccessoryNone)
     {

@@ -9,14 +9,14 @@
 #import "DataService.h"
 #import <PryvApiKit/PryvApiKit.h>
 #import <PryvApiKit/PYClient.h>
-#import "MeasurementSet.h"
+#import <PryvApiKit/PYEventTypes.h>
+#import <PryvApiKit/PYMeasurementSet.h>
 #import "Stream.h"
 #import "Event.h"
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "CellStyleModel.h"
 
-#define kMeasurementSetsUrl @"http://pryv.github.io/event-types/extras.json"
 #define kStreamListCacheTimeout 60 * 60 //60 minutes
 
 NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFinishedNotification";
@@ -51,34 +51,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     
 }
 
-- (void)fetchAllMeasurementSetsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
-{
-    NSURL *measurementSetsURL = [NSURL URLWithString:kMeasurementSetsUrl];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:measurementSetsURL];
-    [PYClient sendRequest:request withReqType:PYRequestTypeSync success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-        NSMutableArray *sets = [NSMutableArray array];
-        NSDictionary *setsJSON = [JSON objectForKey:@"sets"];
-        for(NSString *setKey in [setsJSON allKeys])
-        {
-            NSDictionary *setDic = [setsJSON objectForKey:setKey];
-            MeasurementSet *set = [[MeasurementSet alloc] initWithKey:setKey andDictionary:setDic];
-            [sets addObject:set];
-        }
-        
-       
-        
-        
-        NSDictionary *extras = [JSON objectForKey:@"extras"];
-        
-        
-        
-        NSArray *result = [NSArray arrayWithObjects:sets,extras,nil];
-        [self executeCompletionBlockOnMainQueue:completionBlock withObject:result andError:nil];
-    } failure:^(NSError *error) {
-        [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-    }];
-}
+
 
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
@@ -279,6 +252,8 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     }
     [[LRUManager sharedInstance] addUserHistoryEntry:entry];
 }
+
+
 
 - (NSInteger)dataTypeForEvent:(PYEvent *)event
 {

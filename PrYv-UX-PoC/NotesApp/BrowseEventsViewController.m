@@ -237,6 +237,8 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
             NSArray *components = [event.type componentsSeparatedByString:@"/"];
+            
+            
             if([components count] > 1)
             {
                 NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];

@@ -7,7 +7,7 @@
 //
 
 #import "AddNumericalValueViewController.h"
-#import "MeasurementSet.h"
+#import <PryvApiKit/PYMeasurementSet.h>
 #import "MeasurementController.h"
 #import "EditEventViewController.h"
 #import "MeasurementPreviewElement.h"
@@ -123,7 +123,7 @@
     NSArray *availableSets = [[MeasurementController sharedInstance] availableMeasurementSets];
     for(NSString *setKey in measurementSets)
     {
-        for(MeasurementSet *set in availableSets)
+        for(PYMeasurementSet *set in availableSets)
         {
             if([[set key] isEqualToString:setKey])
             {
@@ -136,7 +136,7 @@
 
 - (void)selectRightMeasurementGroupForMeasurementGroupName:(NSString *)measurementGroupName andMeasurementType:(NSString *)measurementType
 {
-    for(MeasurementGroup *mGroup in self.measurementGroups)
+    for(PYMeasurementGroup *mGroup in self.measurementGroups)
     {
         if([mGroup.name isEqualToString:measurementGroupName])
         {
@@ -166,7 +166,7 @@
 
 - (void)updateView:(UIImageView *)view forRow:(NSInteger)row
 {
-    MeasurementGroup *group = [_measurementGroups objectAtIndex:row];
+    PYMeasurementGroup *group = [_measurementGroups objectAtIndex:row];
     [view setImage:[UIImage imageNamed:[group name]]];
 }
 
@@ -184,7 +184,7 @@
     NSNumber *value = [self valueAsNumber];
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-    MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
     NSString *type = [group.types objectAtIndex:selectedType];
     element.klass = [group name];
     element.format = type;
@@ -273,14 +273,14 @@
 //        UIImageView *imgView = (UIImageView*)view;
 //        [self updateView:imgView forRow:row];
         UILabel *label = (UILabel*)view;
-        MeasurementGroup *group = [_measurementGroups objectAtIndex:row];
+        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:row];
         [label setText:group.name];
     }
     else
     {
         UILabel *label = (UILabel*)view;
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         NSString *type = [group.types objectAtIndex:row];
         [label setText:type];
     }
@@ -310,7 +310,7 @@
     else if(component == 1)
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        MeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         NSString *type = [group.types objectAtIndex:row];
         [_typeTextField setText:type];
     }
