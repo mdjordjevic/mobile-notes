@@ -14,7 +14,6 @@
 
 - (void)addMeasurementSetWithKey:(NSString*)key;
 - (void)removeMeasurementSetWithKey:(NSString*)key;
-- (NSArray*)availableMeasurementSets;
 - (NSArray*)userSelectedMeasurementSets;
 
 @end

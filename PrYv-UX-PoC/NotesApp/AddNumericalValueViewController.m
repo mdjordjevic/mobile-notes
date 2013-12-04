@@ -8,6 +8,7 @@
 
 #import "AddNumericalValueViewController.h"
 #import <PryvApiKit/PYMeasurementSet.h>
+#import <PryvApiKit/PYEventTypes.h>
 #import "MeasurementController.h"
 #import "EditEventViewController.h"
 #import "MeasurementPreviewElement.h"
@@ -120,7 +121,7 @@
         self.measurementGroups = [NSMutableArray array];
     }
     NSArray *measurementSets = [[MeasurementController sharedInstance] userSelectedMeasurementSets];
-    NSArray *availableSets = [[MeasurementController sharedInstance] availableMeasurementSets];
+    NSArray *availableSets = [[PYEventTypes sharedInstance] measurementSets];
     for(NSString *setKey in measurementSets)
     {
         for(PYMeasurementSet *set in availableSets)

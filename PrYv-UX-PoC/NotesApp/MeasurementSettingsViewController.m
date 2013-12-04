@@ -35,7 +35,7 @@
     [super viewDidLoad];
 
     self.clearsSelectionOnViewWillAppear = NO;
-    self.measurementSets = [[MeasurementController sharedInstance] availableMeasurementSets];
+    self.measurementSets = [[PYEventTypes sharedInstance] measurementSets];
     
     self.navigationController.navigationBar.layer.masksToBounds = NO;
     self.navigationItem.leftItemsSupplementBackButton = NO;

@@ -15,13 +15,10 @@
 
 @interface MeasurementController ()
 
-@property (nonatomic, strong) NSMutableArray *measurementSets;
-@property (nonatomic, strong) NSDictionary *extras;
 @property (nonatomic, strong) NSMutableArray *userMeasurementSets;
 
 - (void)initObject;
 - (void)saveMeasurementSets;
-- (void)loadMeasurementSets;
 
 @end
 
@@ -40,7 +37,7 @@
 
 - (void)initObject
 {
-    [self loadMeasurementSets];
+    [self loadUserMeasurementSets];
 }
 
 - (void)saveMeasurementSets
@@ -49,7 +46,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)loadMeasurementSets
+
+- (void)loadUserMeasurementSets
 {
     self.userMeasurementSets = [[NSUserDefaults standardUserDefaults] objectForKey:kMeasurementSetsKey];
     if(!_userMeasurementSets)
@@ -57,51 +55,28 @@
         self.userMeasurementSets = [NSMutableArray array];
     }
     
-    
-    [[PYEventTypes sharedInstance] reloadWithCompletionBlock:^(id object, NSError *error) {
-        if(!error)
-        {
+    if([_userMeasurementSets count] < 1)
+    {
+        [self addMeasurementSetWithKey:@"money-most-used"];
+        
+        if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) { // ismetric
+            [self addMeasurementSetWithKey:@"generic-measurements-metric"];
             
-            id JSON = [[PYEventTypes sharedInstance] extras];
-            
-            self.measurementSets = [NSMutableArray array];
-            
-            NSDictionary *setsJSON = [JSON objectForKey:@"sets"];
-            for(NSString *setKey in [setsJSON allKeys])
-            {
-                NSDictionary *setDic = [setsJSON objectForKey:setKey];
-                PYMeasurementSet *set = [[PYMeasurementSet alloc] initWithKey:setKey andDictionary:setDic];
-                [self.measurementSets addObject:set];
-            }
-            
-
-            if([_userMeasurementSets count] < 1)
-            {
-                [self addMeasurementSetWithKey:@"money-most-used"];
-  
-                if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) { // ismetric
-                    [self addMeasurementSetWithKey:@"generic-measurements-metric"];
-                    
-                } else {
-                    [self addMeasurementSetWithKey:@"generic-measurements-imperial"];
-                }
-                if ([[[NSLocale currentLocale] objectForKey:NSLocaleMeasurementSystem] isEqualToString:@"U.S."]) {
-                    [self addMeasurementSetWithKey:@"generic-measurements-us"];
-                }
-                
-                if([_userMeasurementSets count] < 1)
-                {
-                    PYMeasurementSet *set = [_measurementSets objectAtIndex:0];
-                    [_userMeasurementSets insertObject:[set key] atIndex:0];
-                }
-                
-            }
+        } else {
+            [self addMeasurementSetWithKey:@"generic-measurements-imperial"];
         }
-        else
-        {
-            NSLog(@"Can't fetch measurement list: %@",error);
+        if ([[[NSLocale currentLocale] objectForKey:NSLocaleMeasurementSystem] isEqualToString:@"U.S."]) {
+            [self addMeasurementSetWithKey:@"generic-measurements-us"];
         }
-    }];
+        
+        if([_userMeasurementSets count] < 1)
+        {
+            PYMeasurementSet *set = [[[PYEventTypes sharedInstance] measurementSets] objectAtIndex:0];
+            [_userMeasurementSets insertObject:[set key] atIndex:0];
+        }
+        
+    }
+ 
 }
 
 #pragma mark - Public API
@@ -121,10 +96,6 @@
     [self saveMeasurementSets];
 }
 
-- (NSArray*)availableMeasurementSets
-{
-    return _measurementSets;
-}
 
 - (NSArray*)userSelectedMeasurementSets
 {
