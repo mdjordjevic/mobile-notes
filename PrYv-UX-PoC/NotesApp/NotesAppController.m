@@ -42,7 +42,7 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 - (void)initObject
 {
-    [PYClient setDefaultDomainStaging];
+    //[PYClient setDefaultDomainStaging];
     [PYClient setLanguageCodePrefered:kLocalizedKey];
     [self loadSavedConnection];
 }

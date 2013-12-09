@@ -54,8 +54,7 @@
         NSArray *permissions = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjects:objects
                                                                                     forKeys:keys]];
         
-        [PYClient setDefaultDomainStaging];
-        [PYWebLoginViewController requestConnectionWithAppId:@"pryv-sdk-ios-example"
+        [PYWebLoginViewController requestConnectionWithAppId:@"pryv-ios-app"
                                               andPermissions:permissions
                                                     delegate:self];
         
