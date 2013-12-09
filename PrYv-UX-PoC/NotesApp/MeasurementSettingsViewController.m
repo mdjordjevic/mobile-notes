@@ -9,6 +9,7 @@
 #import "MeasurementSettingsViewController.h"
 #import "MeasurementController.h"
 #import <PryvApikit/PYMeasurementSet.h>
+#import <PryvApikit/PYEventTypes.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface MeasurementSettingsViewController ()
@@ -35,7 +36,7 @@
     [super viewDidLoad];
 
     self.clearsSelectionOnViewWillAppear = NO;
-    self.measurementSets = [[PYEventTypes sharedInstance] measurementSets];
+    self.measurementSets = [PYEventTypes sharedInstance].measurementSets;
     
     self.navigationController.navigationBar.layer.masksToBounds = NO;
     self.navigationItem.leftItemsSupplementBackButton = NO;
