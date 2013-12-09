@@ -27,7 +27,7 @@
     [button setTitle:text forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:12]];
-	[button.titleLabel setLineBreakMode:UILineBreakModeTailTruncation];
+	[button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(1, 10, 0, 10)];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(0, 0, [text sizeWithFont:button.titleLabel.font].width + 20, 29);

@@ -20,13 +20,13 @@
 #import "UserHistoryEntry.h"
 #import "PYEvent+Helper.h"
 #import "UIImage+PrYv.h"
-#import "DetailsViewController.h"
 #import "PYStream+Helper.h"
 #import "MNMPullToRefreshManager.h"
 #import "BrowseCell.h"
 #import "NoteCell.h"
 #import "ValueCell.h"
 #import "PictureCell.h"
+#import "BaseDetailsViewController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -38,7 +38,6 @@
 @property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -132,18 +131,6 @@
     }
 }
 
-- (NSDateFormatter*)dateFormatter
-{
-    if(!_dateFormatter)
-    {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-//        [_dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
-        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    }
-    return _dateFormatter;
-}
-
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -186,6 +173,24 @@
     return 0;
 }
 
+- (BrowseCell *)cellInTableView:(UITableView *)tableView forCellStyleType:(CellStyleType)cellStyleType
+{
+    BrowseCell *cell;
+    if(cellStyleType == CellStyleTypePhoto)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
+    }
+    else if(cellStyleType == CellStyleTypeText)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
+    }
+    return cell;
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([tableView isEqual:self.menuTableView])
@@ -193,69 +198,19 @@
         return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     
+    NSInteger row = indexPath.row;
     if(IS_BROWSE_SECTION)
     {
-        PYEvent *event = [_events objectAtIndex:indexPath.row];
+        PYEvent *event = [_events objectAtIndex:row];
         CellStyleType cellStyleType = [[DataService sharedInstance] dataTypeForEvent:event];
-        BrowseCell *cell = nil;
-        if(cellStyleType == CellStyleTypePhoto)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell_ID"];
-            [cell prepareForReuse];
-            if([event.attachments count] > 0)
-            {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    PYAttachment *att = [event.attachments objectAtIndex:0];
-                    UIImage *img = [UIImage imageWithData:att.fileData];
-                    CGSize newSize = img.size;
-                    CGFloat maxSide = MAX(newSize.width, newSize.height);
-                    CGFloat ratio = maxSide / [(PictureCell*)cell pictureView].bounds.size.width;
-                    newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
-                    img = [img imageScaledToSize:newSize];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
-                            [[(PictureCell*)cell pictureView] setAlpha:0.0f];
-                        } completion:^(BOOL finished) {
-                            [[(PictureCell*)cell pictureView] setImage:img];
-                            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
-                                [[(PictureCell*)cell pictureView] setAlpha:1.0f];
-                            } completion:^(BOOL finished) {
-                                
-                            }];
-                        }];
-                        
-                    });
-                });
-            }
-        }
-        else if(cellStyleType == CellStyleTypeText)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
-            [[(NoteCell*)cell noteLabel] setText:[event.eventContent description]];
-        }
-        else
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
-            NSArray *components = [event.type componentsSeparatedByString:@"/"];
-            
-            
-            if([components count] > 1)
-            {
-                NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];
-                [[(ValueCell*)cell valueLabel] setText:value];
-            }
-        }
-        cell.commentLabel.text = event.eventDescription;
-        cell.streamLabel.text = [event eventBreadcrumbsForStreamsList:self.streams];
-        [cell updateTags:event.tags];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:event.time];
-        cell.dateLabel.text = [self.dateFormatter stringFromDate:date];
-        
+        BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
+        [cell updateWithEvent:event andListOfStreams:self.streams];
+        [cell prepareForReuse];
         return cell;
     }
     static NSString *CellIdentifier = @"BrowseEventsCell_ID";
     BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
+    UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
     cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
     CellStyleType cellStyleType = entry.dataType;
     CellStyleSize cellSize = CellStyleSizeSmall;
@@ -291,15 +246,17 @@
         {
             AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
             addNVC.entry = entry;
-            [self.navigationController pushViewController:addNVC animated:YES];
+            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
         }
     }
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        DetailsViewController *detailsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"DetailsViewController_ID"];
+        UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
+        
+        BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
         detailsVC.event = event;
-        [self.navigationController pushViewController:detailsVC animated:YES];
+        [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
 }
 
@@ -322,7 +279,7 @@
                 break;
             case 2:
             {
-                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose photo shource" delegate:weakSelf cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Library", nil];
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Alert.Message.PhotoSource", nil) delegate:weakSelf cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Library", nil), nil];
                 [actionSheet showInView:weakSelf.view];
             }
                 break;
@@ -365,7 +322,7 @@
     settingsVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
     navVC.navigationBar.translucent = NO;
-    [self presentModalViewController:navVC animated:YES];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 - (void)clearCurrentData

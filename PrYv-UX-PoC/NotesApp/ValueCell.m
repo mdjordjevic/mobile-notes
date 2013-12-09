@@ -28,4 +28,15 @@
 }
 */
 
+- (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
+{
+    NSArray *components = [event.type componentsSeparatedByString:@"/"];
+    if([components count] > 1)
+    {
+        NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];
+        [self.valueLabel setText:value];
+    }
+    [super updateWithEvent:event andListOfStreams:streams];
+}
+
 @end

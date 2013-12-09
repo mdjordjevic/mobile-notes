@@ -10,11 +10,18 @@
 
 @implementation UIStoryboard (Main)
 
-+ (UIStoryboard*)mainStoryBoard {
++ (UIStoryboard*)mainStoryBoard
+{
     return [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
 }
 
-+ (id)instantiateViewControllerWithIdentifier:(NSString *)identifier {
++ (UIStoryboard*)detailsStoryBoard
+{
+    return [UIStoryboard storyboardWithName:@"DetailsStoryboard_iPhone" bundle:nil];
+}
+
++ (id)instantiateViewControllerWithIdentifier:(NSString *)identifier
+{
     return [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:identifier];
 }
 

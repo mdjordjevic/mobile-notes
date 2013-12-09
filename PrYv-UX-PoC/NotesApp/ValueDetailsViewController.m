@@ -35,4 +35,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateEventDetails
+{
+    NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
+    if([components count] > 1)
+    {
+        NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description],[components objectAtIndex:1]];
+        self.eventValueLabel.text = value;
+    }
+    self.eventDescriptionLabel.text = self.event.eventDescription;
+}
+
 @end

@@ -8,12 +8,24 @@
 
 #import "BaseViewController.h"
 
+@class PYEvent;
+
 @interface BaseDetailsViewController : BaseViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *dateButton;
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIView *detailsContainerView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *dateButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIView *streamsSection;
 @property (weak, nonatomic) IBOutlet UIView *tagsSection;
+
+@property (nonatomic, strong) PYEvent *event;
+
+- (void)updateDateFromPickerWith:(NSDate*)date;
+
+@end
+
+@protocol BaseDetailsDelegate <NSObject>
+
 
 @end
