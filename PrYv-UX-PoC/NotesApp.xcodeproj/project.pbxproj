@@ -1376,8 +1376,8 @@
 			isa = PBXGroup;
 			children = (
 				B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */,
-				B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */,
 				B67064AB184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard */,
+				B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -1943,6 +1943,7 @@
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1963,7 +1964,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "EC0AB7A8-6D34-4723-B6A2-328924A6062D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1973,6 +1974,7 @@
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1993,7 +1995,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "EC0AB7A8-6D34-4723-B6A2-328924A6062D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

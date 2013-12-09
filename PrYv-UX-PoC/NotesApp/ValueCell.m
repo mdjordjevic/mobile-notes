@@ -7,6 +7,8 @@
 //
 
 #import "ValueCell.h"
+#import <PryvApiKit/PYEvent.h>
+#import <PryvApiKit/PYEventType.h>
 
 @implementation ValueCell
 
@@ -20,22 +22,23 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
 {
-    NSArray *components = [event.type componentsSeparatedByString:@"/"];
-    if([components count] > 1)
-    {
-        NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description],[components objectAtIndex:1]];
-        [self.valueLabel setText:value];
-    }
+    NSString *unit = [event.pyType symbol];
+    if (! unit) { unit = event.pyType.formatKey ; }
+    
+    
+    NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description], unit];
+    [self.valueLabel setText:value];
+    
     [super updateWithEvent:event andListOfStreams:streams];
 }
 
