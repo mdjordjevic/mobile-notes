@@ -7,12 +7,11 @@
 //
 
 #import "DataService.h"
-#import <PryvApiKit/PryvApiKit.h>
 #import <PryvApiKit/PYClient.h>
 #import <PryvApiKit/PYEventTypes.h>
 #import <PryvApiKit/PYMeasurementSet.h>
-#import "Stream.h"
-#import "Event.h"
+#import <PryvApiKit/PYStream.h>
+#import <PryvApiKit/PYEvent.h>
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "CellStyleModel.h"
@@ -284,6 +283,37 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         return CellStyleTypePhoto;
     }
     return CellStyleTypeLength;
+}
+
+- (EventDataType)eventDataTypeForEvent:(PYEvent *)event
+{
+    NSArray *components = [event.type componentsSeparatedByString:@"/"];
+    if([components count] < 2)
+    {
+        return EventDataTypeNote;
+    }
+    NSString *eventClass = [components objectAtIndex:0];
+    if([eventClass isEqualToString:@"note"])
+    {
+        return EventDataTypeNote;
+    }
+    else if([eventClass isEqualToString:@"mass"])
+    {
+        return EventDataTypeValue;
+    }
+    else if([eventClass isEqualToString:@"money"])
+    {
+        return EventDataTypeValue;
+    }
+    else if([eventClass isEqualToString:@"length"])
+    {
+        return EventDataTypeValue;
+    }
+    else if([eventClass isEqualToString:@"picture"])
+    {
+        return EventDataTypeImage;
+    }
+    return EventDataTypeNote;
 }
 
 - (void)invalidateStreamListCache

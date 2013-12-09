@@ -46,7 +46,7 @@
 	[button setAdjustsImageWhenHighlighted:NO];
 	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[[button titleLabel] setFont:[UIFont fontWithName:@"Helvetica Neue-Medium" size:12]];
-	[[button titleLabel] setLineBreakMode:UILineBreakModeTailTruncation];
+	[[button titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
 	[button setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
 	
 	[button setTitle:string forState:UIControlStateNormal];

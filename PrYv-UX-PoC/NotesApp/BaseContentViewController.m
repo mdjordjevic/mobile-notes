@@ -1,18 +1,18 @@
 //
-//  ImageDetailsViewController.m
+//  BaseContentViewController.m
 //  NotesApp
 //
-//  Created by Mladen Djordjevic on 12/3/13.
+//  Created by Mladen Djordjevic on 12/8/13.
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "ImageDetailsViewController.h"
+#import "BaseContentViewController.h"
 
-@interface ImageDetailsViewController ()
+@interface BaseContentViewController ()
 
 @end
 
-@implementation ImageDetailsViewController
+@implementation BaseContentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    [self updateEventDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,10 +38,7 @@
 
 - (void)updateEventDetails
 {
-    PYAttachment *att = [self.event.attachments objectAtIndex:0];
-    UIImage *img = [UIImage imageWithData:att.fileData];
-    self.eventImage.image = img;
-    self.eventDescriptionLabel.text = self.event.eventDescription;
+    
 }
 
 @end

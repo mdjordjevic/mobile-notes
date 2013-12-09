@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class PYEvent, PYStream;
+
 typedef void (^DataServiceCompletionBlock)(id object, NSError *error);
 
 extern NSString *const kSavingEventActionFinishedNotification;
@@ -23,6 +25,7 @@ extern NSString *const kSavingEventActionFinishedNotification;
 - (void)createStream:(PYStream*)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 
 - (NSInteger)dataTypeForEvent:(PYEvent*)event;
+- (EventDataType)eventDataTypeForEvent:(PYEvent*)event;
 - (void)invalidateStreamListCache;
 
 @end

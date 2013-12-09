@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseContentViewController.h"
 
-@interface ImageDetailsViewController : BaseViewController
+@interface ImageDetailsViewController : BaseContentViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *eventImage;
 @property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;

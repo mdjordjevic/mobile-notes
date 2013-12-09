@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, EventDataType)
+{
+    EventDataTypeNote,
+    EventDataTypeValue,
+    EventDataTypeImage
+};
+
 #define kLocalizedKey NSLocalizedString(@"MeasurementSetLocalizedKey", nil)
 
 extern NSString *const kAppDidReceiveAccessTokenNotification;
@@ -19,6 +26,7 @@ extern NSString *const kUserDidLogoutNotification;
 
 @property (nonatomic, strong) PYConnection *connection;
 @property (nonatomic, readonly) BOOL isOnline;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 + (NotesAppController*)sharedInstance;
 

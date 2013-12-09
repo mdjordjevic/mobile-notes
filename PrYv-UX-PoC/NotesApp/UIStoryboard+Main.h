@@ -11,6 +11,7 @@
 @interface UIStoryboard (Main)
 
 + (UIStoryboard*)mainStoryBoard;
++ (UIStoryboard*)detailsStoryBoard;
 + (id)instantiateViewControllerWithIdentifier:(NSString*)identifier;
 
 @end

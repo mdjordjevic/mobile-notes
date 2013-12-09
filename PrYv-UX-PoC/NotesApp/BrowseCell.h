@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PYEvent+Helper.h"
 
 @interface BrowseCell : UITableViewCell
 
@@ -16,5 +17,7 @@
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
 
 - (void)updateTags:(NSArray*)tags;
+
+- (void)updateWithEvent:(PYEvent*)event andListOfStreams:(NSArray*)streams;
 
 @end

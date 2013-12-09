@@ -7,8 +7,9 @@
 //
 
 #import "NoteDetailsViewController.h"
+#import "TextEditorViewController.h"
 
-@interface NoteDetailsViewController ()
+@interface NoteDetailsViewController () <TextEditorDelegate>
 
 @end
 
@@ -26,13 +27,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
+    [self.eventDescriptionLabel addGestureRecognizer:tapGR];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateEventDetails
+{
+    self.eventDescriptionLabel.text = self.event.eventContent;
+}
+
+- (void)editDescriptionText:(id)sender
+{
+    TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
+    textEditVC.delegate = self;
+    textEditVC.text = self.event.eventContent;
+    [self.parentViewController.navigationController pushViewController:textEditVC animated:YES];
+}
+
+#pragma mark - TextEditorDelegate Methods
+
+- (void)textDidChangedTo:(NSString *)text forTextEditor:(TextEditorViewController *)textEditor
+{
+    self.eventDescriptionLabel.text = text;
 }
 
 @end

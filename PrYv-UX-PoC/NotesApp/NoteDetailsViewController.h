@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseContentViewController.h"
 
-@interface NoteDetailsViewController : BaseViewController
+@interface NoteDetailsViewController : BaseContentViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
 
