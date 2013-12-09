@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BvD-kb-Ra6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BvD-kb-Ra6">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Add Numerical Value View Controller - Add Type-->
@@ -1004,6 +1004,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Energy meter per seconds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KND-fu-tP9" userLabel="Label - format description">
+                                                    <rect key="frame" x="7" y="15" width="307" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" image="icon-time.png" id="Iq0-V5-SEi" userLabel="icon-time">
                                                     <rect key="frame" x="6" y="6" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1016,14 +1023,14 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2dM-zy-UrD">
-                                                    <rect key="frame" x="21" y="4" width="154" height="16"/>
+                                                    <rect key="frame" x="20" y="5" width="154" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8B1-Sy-z6K">
-                                                    <rect key="frame" x="5" y="19" width="308" height="67"/>
+                                                    <rect key="frame" x="3" y="26" width="308" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="56"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1046,6 +1053,7 @@
                                         <connections>
                                             <outlet property="commentLabel" destination="GDX-xs-el0" id="eq4-w1-Hxq"/>
                                             <outlet property="dateLabel" destination="2dM-zy-UrD" id="3XU-ol-0Rb"/>
+                                            <outlet property="formatDescriptionLabel" destination="KND-fu-tP9" id="jcS-Jq-eol"/>
                                             <outlet property="streamLabel" destination="zcg-t9-UBY" id="kSz-Oh-vFX"/>
                                             <outlet property="tagContainer" destination="b9c-RJ-f76" id="CWa-ul-fVe"/>
                                             <outlet property="valueLabel" destination="8B1-Sy-z6K" id="INn-0X-r6K"/>
@@ -1113,7 +1121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yRN-bR-w4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-363" y="-1685"/>
+            <point key="canvasLocation" x="-363" y="-1697"/>
         </scene>
         <!--Add Event View Controller-->
         <scene sceneID="XQC-gp-Vrq">

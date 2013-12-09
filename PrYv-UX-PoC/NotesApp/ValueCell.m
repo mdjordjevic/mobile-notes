@@ -39,6 +39,11 @@
     NSString *value = [NSString stringWithFormat:@"%@ %@",[event.eventContent description], unit];
     [self.valueLabel setText:value];
     
+    NSString *formatDescription = [event.pyType localizedName];
+    if (! formatDescription) { unit = event.pyType.key ; }
+    [self.formatDescriptionLabel setText:formatDescription];
+    
+    
     [super updateWithEvent:event andListOfStreams:streams];
 }
 

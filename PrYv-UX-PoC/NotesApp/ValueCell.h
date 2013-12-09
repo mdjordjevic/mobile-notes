@@ -11,5 +11,6 @@
 @interface ValueCell : BrowseCell
 
 @property (nonatomic, strong) IBOutlet UILabel *valueLabel;
+@property (nonatomic, strong) IBOutlet UILabel *formatDescriptionLabel;
 
 @end
