@@ -262,7 +262,7 @@
     }
     UILabel *label = [[UILabel alloc] initWithFrame:rect];
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setFont:[UIFont boldSystemFontOfSize:24]];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setTextAlignment:UITextAlignmentCenter];
     return label;
 }
@@ -282,8 +282,16 @@
         UILabel *label = (UILabel*)view;
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        
         NSString *type = [group.types objectAtIndex:row];
-        [label setText:type];
+        NSString *key = [NSString stringWithFormat:@"%@/%@", group.name, type];
+        PYEventType *pyType = [[PYEventTypes sharedInstance] pyTypeForString:key];
+        NSString *descLabel = type;
+        if (pyType && pyType.localizedName) {
+            descLabel = pyType.localizedName;
+        }
+        
+        [label setText:descLabel];
     }
 }
 
@@ -313,7 +321,14 @@
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         NSString *type = [group.types objectAtIndex:row];
-        [_typeTextField setText:type];
+        NSString *key = [NSString stringWithFormat:@"%@/%@", group.name, type];
+        PYEventType *pyType = [[PYEventTypes sharedInstance] pyTypeForString:key];
+        NSString *descLabel = type;
+        if (pyType && pyType.symbol) {
+            descLabel = pyType.symbol;
+        }
+
+        [_typeTextField setText:descLabel];
     }
 }
 

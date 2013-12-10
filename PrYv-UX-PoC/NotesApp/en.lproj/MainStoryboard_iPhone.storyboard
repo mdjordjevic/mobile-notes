@@ -18,14 +18,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" id="pkk-II-rWH">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="9H5-Np-c1O">
-                                        <rect key="frame" x="285" y="0.0" width="35" height="40"/>
+                                        <rect key="frame" x="254" y="0.0" width="66" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -993,19 +993,19 @@
                                             <outlet property="tagContainer" destination="5v1-6q-Nqj" id="0tr-V4-mEQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ValueCell_ID" id="bJc-ol-sWC" userLabel="Value Table View Cell" customClass="ValueCell">
-                                        <rect key="frame" x="0.0" y="406" width="320" height="160"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ValueCell_ID" rowHeight="166" id="bJc-ol-sWC" userLabel="Value Table View Cell" customClass="ValueCell">
+                                        <rect key="frame" x="0.0" y="406" width="320" height="166"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bJc-ol-sWC" id="TjZ-Vg-3wq">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="value_bg.png" id="xA2-Tb-4lp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Energy meter per seconds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KND-fu-tP9" userLabel="Label - format description">
-                                                    <rect key="frame" x="7" y="15" width="307" height="23"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Energy meter per seconds" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KND-fu-tP9" userLabel="Label - format description">
+                                                    <rect key="frame" x="6" y="98" width="307" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1030,22 +1030,24 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8B1-Sy-z6K">
-                                                    <rect key="frame" x="3" y="26" width="308" height="65"/>
+                                                    <rect key="frame" x="5" y="29" width="308" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="56"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Comment maximum two ligne" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GDX-xs-el0">
-                                                    <rect key="frame" x="6" y="93" width="305" height="38"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" id="b9c-RJ-f76" userLabel="tag container">
-                                                    <rect key="frame" x="7" y="135" width="306" height="16"/>
+                                                    <rect key="frame" x="7" y="129" width="306" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Comment maximum two ligne" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GDX-xs-el0">
+                                                            <rect key="frame" x="0.0" y="-11" width="305" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -1059,11 +1061,11 @@
                                             <outlet property="valueLabel" destination="8B1-Sy-z6K" id="INn-0X-r6K"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BrowseEventsCell_ID" id="vj7-vr-T0o" customClass="BrowseEventsCell">
-                                        <rect key="frame" x="0.0" y="566" width="320" height="160"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BrowseEventsCell_ID" rowHeight="154" id="vj7-vr-T0o" customClass="BrowseEventsCell">
+                                        <rect key="frame" x="0.0" y="572" width="320" height="154"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vj7-vr-T0o" id="9dt-RL-Mm1">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="STREAM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pEN-cc-hph">

@@ -104,6 +104,7 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setDoesRelativeDateFormatting:YES];
     }
     return _dateFormatter;
 }
