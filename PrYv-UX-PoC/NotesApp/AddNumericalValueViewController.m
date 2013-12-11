@@ -9,6 +9,7 @@
 #import "AddNumericalValueViewController.h"
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYEventTypes.h>
+#import <PryvApiKit/PYEventTypesGroup.h>
 #import "MeasurementController.h"
 #import "EditEventViewController.h"
 #import "MeasurementPreviewElement.h"
@@ -37,7 +38,7 @@
 - (NSNumber*)valueAsNumber;
 - (void)updateMeasurementSets;
 - (void)doneButtonTouched:(id)sender;
-- (void)selectRightMeasurementGroupForMeasurementGroupName:(NSString*)measurementGroupName andMeasurementType:(NSString*)measurementType;
+- (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString*)classKey andMeasurementType:(NSString*)measurementType;
 
 @end
 
@@ -71,7 +72,7 @@
     {
         [self updateMeasurementSets];
         [self.typePicker reloadData];
-        [self selectRightMeasurementGroupForMeasurementGroupName:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
+        [self selectRightMeasurementGroupForMeasurementClassKey:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
     }
     
     if(self.event)
@@ -81,7 +82,7 @@
         NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
         if([components count] > 1)
         {
-            [self selectRightMeasurementGroupForMeasurementGroupName:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
+            [self selectRightMeasurementGroupForMeasurementClassKey:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
             NSString *text = [self.event.eventContent description];
             if(!text)
             {
@@ -136,11 +137,11 @@
     }
 }
 
-- (void)selectRightMeasurementGroupForMeasurementGroupName:(NSString *)measurementGroupName andMeasurementType:(NSString *)measurementType
+- (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString *)classKey andMeasurementType:(NSString *)measurementType
 {
-    for(PYMeasurementGroup *mGroup in self.measurementGroups)
+    for(PYEventTypesGroup *mGroup in self.measurementGroups)
     {
-        if([mGroup.name isEqualToString:measurementGroupName])
+        if([mGroup.classKey isEqualToString:classKey])
         {
             [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
             for(NSString *type in mGroup.types)
@@ -168,8 +169,8 @@
 
 - (void)updateView:(UIImageView *)view forRow:(NSInteger)row
 {
-    PYMeasurementGroup *group = [_measurementGroups objectAtIndex:row];
-    [view setImage:[UIImage imageNamed:[group name]]];
+    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:row];
+    [view setImage:[UIImage imageNamed:[group classKey]]];
 }
 
 - (NSNumber*)valueAsNumber
@@ -186,9 +187,9 @@
     NSNumber *value = [self valueAsNumber];
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-    PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
     NSString *type = [group.types objectAtIndex:selectedType];
-    element.klass = [group name];
+    element.klass = [group classKey];
     element.format = type;
     element.value = value;
     
@@ -274,8 +275,8 @@
         //UILabel *label = (UILabel*)view;
         UILabel *label = [(AddNumericalValueCellClass*)view classLabel];
         
-        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:row];
-        [label setText:group.name];
+        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:row];
+        [label setText:group.localizedName];
         
         
     }
@@ -284,12 +285,10 @@
        
         
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         
-        NSString *type = [group.types objectAtIndex:row];
-        NSString *key = [NSString stringWithFormat:@"%@/%@", group.name, type];
-        PYEventType *pyType = [[PYEventTypes sharedInstance] pyTypeForString:key];
-        NSString *symbolText = type;
+        PYEventType *pyType = [group pyTypeAtIndex:row];
+        NSString *symbolText = pyType.type;
         
         NSString *nameText = @"";
         if (pyType && pyType.localizedName) {
@@ -334,11 +333,9 @@
     else if(component == 1)
     {
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-        PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-        NSString *type = [group.types objectAtIndex:row];
-        NSString *key = [NSString stringWithFormat:@"%@/%@", group.name, type];
-        PYEventType *pyType = [[PYEventTypes sharedInstance] pyTypeForString:key];
-        NSString *descLabel = type;
+        PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+        PYEventType *pyType = [group pyTypeAtIndex:row];
+        NSString *descLabel = pyType.key;
         if (pyType && pyType.symbol) {
             descLabel = pyType.symbol;
         }
