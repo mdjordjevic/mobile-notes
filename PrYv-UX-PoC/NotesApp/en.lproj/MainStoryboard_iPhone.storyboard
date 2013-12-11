@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Add Numerical Value View Controller - Add Type-->
+        <!--Add Numerical Value View Controller - Measure-->
         <scene sceneID="f8M-8U-kft">
             <objects>
                 <viewController storyboardIdentifier="AddNumericalValueViewController_ID" id="Erg-Yp-Yvx" customClass="AddNumericalValueViewController" sceneMemberID="viewController">
@@ -262,7 +262,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Type" id="8kr-iy-uJ9"/>
+                    <navigationItem key="navigationItem" title="Measure" id="8kr-iy-uJ9"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="customKeyborad" destination="l3C-uD-4E7" id="UkK-he-GYL"/>
