@@ -15,12 +15,13 @@
 #import "KSAdvancedPicker.h"
 #import "UserHistoryEntry.h"
 #import "CellStyleModel.h"
+#import "AddNumericalValueCellFormat.h"
 
 #define kSaveMeasurementSegue @"SaveMeasurementSegue_ID"
 #define kGroupComponentIndex 0
 #define kTypeComponentIndex 1
 #define kGroupComponentWidth 120
-#define kTypeComponentWidth 200
+#define kTypeComponentWidth 250
 #define kGroupComponentHeight 77
 
 @interface AddNumericalValueViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate>
@@ -260,11 +261,16 @@
         [label setTextAlignment:UITextAlignmentCenter];
         return label;
     }
-    UILabel *label = [[UILabel alloc] initWithFrame:rect];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    [label setTextAlignment:UITextAlignmentCenter];
-    return label;
+    
+    AddNumericalValueCellFormat *cell = [[AddNumericalValueCellFormat alloc] initWithFrame:rect];
+    return cell;
+    //UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    //[label setBackgroundColor:[UIColor clearColor]];
+    //[label setFont:[UIFont boldSystemFontOfSize:15]];
+    //[label setTextAlignment:UITextAlignmentCenter];
+    //return label;
+    
+    
 }
 
 - (void) advancedPicker:(KSAdvancedPicker *)picker setDataForView:(UIView *)view row:(NSInteger)row inComponent:(NSInteger)component
@@ -279,19 +285,29 @@
     }
     else
     {
-        UILabel *label = (UILabel*)view;
+       
+        
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYMeasurementGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         
         NSString *type = [group.types objectAtIndex:row];
         NSString *key = [NSString stringWithFormat:@"%@/%@", group.name, type];
         PYEventType *pyType = [[PYEventTypes sharedInstance] pyTypeForString:key];
-        NSString *descLabel = type;
+        NSString *symbolText = type;
+        
+        NSString *nameText = @"";
         if (pyType && pyType.localizedName) {
-            descLabel = pyType.localizedName;
+            nameText = pyType.localizedName;
+        }
+        if (pyType && pyType.symbol) {
+            symbolText = pyType.symbol;
         }
         
-        [label setText:descLabel];
+        
+        
+        AddNumericalValueCellFormat *cell = (AddNumericalValueCellFormat*)view;
+        [cell.nameLabel setText:nameText];
+        [cell.symbolLabel setText:symbolText];
     }
 }
 
