@@ -124,17 +124,50 @@
     }
     NSArray *measurementSets = [[MeasurementController sharedInstance] userSelectedMeasurementSets];
     NSArray *availableSets = [[PYEventTypes sharedInstance] measurementSets];
+    
+    
+    NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] init];
+    
     for(NSString *setKey in measurementSets)
     {
         for(PYMeasurementSet *set in availableSets)
         {
             if([[set key] isEqualToString:setKey])
             {
-                [_measurementGroups addObjectsFromArray:set.measurementGroups];
+                // --- for each event group put them in a new PYGroup
+                for (int i = 0; i < set.measurementGroups.count ; i++) {
+                    PYEventTypesGroup *pyGroupSrc = [set.measurementGroups objectAtIndex:i];
+                    
+                    if (! pyGroupSrc.classKey) { continue; }
+                    
+                    PYEventTypesGroup *pyGroupDest = [tempDictionary objectForKey:pyGroupSrc.classKey];
+                    if (! pyGroupDest) {
+                        pyGroupDest = [[PYEventTypesGroup alloc] initWithClassKey:pyGroupSrc.classKey
+                                                                   andListOfTypes:pyGroupSrc.types andPYEventsTypes:nil];
+                        [tempDictionary setObject:pyGroupDest forKey:pyGroupSrc.classKey];
+                    } else {
+                    // merge arrays
+                        for (int j = 0; j < pyGroupSrc.types.count ; j++) {
+                            NSString* typeSrc = [pyGroupSrc.types objectAtIndex:j];
+                            BOOL found = false;
+                            for (int k = 0; k < pyGroupDest.types.count ; k++) {
+                                if ([(NSString*)[pyGroupDest.types objectAtIndex:k] isEqualToString:typeSrc]) {
+                                    found = true; 
+                                }
+                            }
+
+                            if (! found) {
+                               [pyGroupDest.types addObject:typeSrc];
+                            }
+                        }
+                    }
+                }
+                
             }
         }
         
     }
+    [_measurementGroups addObjectsFromArray:[tempDictionary allValues]];
 }
 
 - (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString *)classKey andMeasurementType:(NSString *)measurementType
