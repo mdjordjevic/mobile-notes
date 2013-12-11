@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="picker.png" id="1dC-Jd-yS6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pickercenter.png" id="1dC-Jd-yS6">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -1166,7 +1166,7 @@
         <image name="numpad_bg.png" width="320" height="216"/>
         <image name="numpad_button.png" width="102" height="47"/>
         <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="picker.png" width="320" height="157"/>
+        <image name="pickercenter.png" width="320" height="157"/>
         <image name="picture_overlay.png" width="640" height="90"/>
         <image name="picture_overlay_bottom.png" width="640" height="200"/>
         <image name="trash-icon.png" width="30" height="30"/>

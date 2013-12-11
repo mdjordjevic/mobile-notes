@@ -16,12 +16,12 @@
 #import "UserHistoryEntry.h"
 #import "CellStyleModel.h"
 #import "AddNumericalValueCellFormat.h"
+#import "AddNumericalValueCellClass.h"
 
 #define kSaveMeasurementSegue @"SaveMeasurementSegue_ID"
 #define kGroupComponentIndex 0
 #define kTypeComponentIndex 1
-#define kGroupComponentWidth 120
-#define kTypeComponentWidth 250
+#define kGroupComponentProportionalWidth 0.5
 #define kGroupComponentHeight 77
 
 @interface AddNumericalValueViewController () <KSAdvancedPickerDataSource, KSAdvancedPickerDelegate>
@@ -252,24 +252,18 @@
 {
     if(component == kGroupComponentIndex)
     {
-//        UIImageView *viewToReturn = [[UIImageView alloc] initWithFrame:rect];
-//        viewToReturn.contentMode = UIViewContentModeCenter;
-//        return viewToReturn;
-        UILabel *label = [[UILabel alloc] initWithFrame:rect];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setFont:[UIFont boldSystemFontOfSize:24]];
-        [label setTextAlignment:UITextAlignmentCenter];
-        return label;
+        //UILabel *label = [[UILabel alloc] initWithFrame:rect];
+        //[label setBackgroundColor:[UIColor clearColor]];
+        //[label setFont:[UIFont boldSystemFontOfSize:24]];
+        //[label setTextAlignment:UITextAlignmentCenter];
+        //return label;
+        
+        AddNumericalValueCellClass *cell = [[AddNumericalValueCellClass alloc] initWithFrame:rect];
+        return cell ;
     }
     
     AddNumericalValueCellFormat *cell = [[AddNumericalValueCellFormat alloc] initWithFrame:rect];
     return cell;
-    //UILabel *label = [[UILabel alloc] initWithFrame:rect];
-    //[label setBackgroundColor:[UIColor clearColor]];
-    //[label setFont:[UIFont boldSystemFontOfSize:15]];
-    //[label setTextAlignment:UITextAlignmentCenter];
-    //return label;
-    
     
 }
 
@@ -277,11 +271,13 @@
 {
     if(component == kGroupComponentIndex)
     {
-//        UIImageView *imgView = (UIImageView*)view;
-//        [self updateView:imgView forRow:row];
-        UILabel *label = (UILabel*)view;
+        //UILabel *label = (UILabel*)view;
+        UILabel *label = [(AddNumericalValueCellClass*)view classLabel];
+        
         PYMeasurementGroup *group = [_measurementGroups objectAtIndex:row];
         [label setText:group.name];
+        
+        
     }
     else
     {
@@ -318,11 +314,14 @@
 
 - (CGFloat) advancedPicker:(KSAdvancedPicker *)picker widthForComponent:(NSInteger)component
 {
+    CGFloat width = picker.frame.size.width;
     if(component == kGroupComponentIndex)
     {
-        return kGroupComponentWidth;
+        return width * kGroupComponentProportionalWidth;
     }
-    return kTypeComponentWidth;
+    //return width * (1 - kGroupComponentProportionalWidth);
+    // TODO Fix.. there is a problem with the width of 2nd column component
+    return 320;
 }
 
 - (void) advancedPicker:(KSAdvancedPicker *)picker didSelectRow:(NSInteger)row inComponent:(NSInteger)component

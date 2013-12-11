@@ -172,7 +172,7 @@
 
         view = [dataSource advancedPicker:self viewForComponent:component inRect:viewRect];
 
-        view.frame = viewRect;
+        [view setFrame:viewRect];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.tag = tag;
         [cell.contentView addSubview:view];

@@ -14,6 +14,11 @@
 		4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853117953BBD00ED94DF /* Pods-acknowledgements.plist */; };
 		4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853517953BBD00ED94DF /* Pods-resources.sh */; };
 		4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E37853617953BBD00ED94DF /* Pods.xcconfig */; };
+		4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */; };
+		4E41A63618587F1700BC0C28 /* AddNumericalValueCellClass.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */; };
+		4E41A63A1858998F00BC0C28 /* pickercenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6371858998F00BC0C28 /* pickercenter.png */; };
+		4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */; };
+		4E41A63C1858998F00BC0C28 /* pickercenter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6391858998F00BC0C28 /* pickercenter@2x.png */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		960FE0B21806B3270074D24E /* icon-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FE0B01806B3240074D24E /* icon-time.png */; };
@@ -385,6 +390,12 @@
 		4E37855717953BBD00ED94DF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		4E37855817953BBD00ED94DF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		4E37855917953BBD00ED94DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4E41A62B18587EE000BC0C28 /* AddNumericalValueCellClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNumericalValueCellClass.h; sourceTree = "<group>"; };
+		4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNumericalValueCellClass.m; sourceTree = "<group>"; };
+		4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNumericalValueCellClass.xib; sourceTree = "<group>"; };
+		4E41A6371858998F00BC0C28 /* pickercenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickercenter.png; sourceTree = "<group>"; };
+		4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickercenter-568h@2x.png"; sourceTree = "<group>"; };
+		4E41A6391858998F00BC0C28 /* pickercenter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickercenter@2x.png"; sourceTree = "<group>"; };
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1040,6 +1051,9 @@
 				4E0900FC185763DF00A2F044 /* AddNumericalValueCellFormat.xib */,
 				4E0901051857640400A2F044 /* AddNumericalValueCellFormat.h */,
 				4E0901061857640400A2F044 /* AddNumericalValueCellFormat.m */,
+				4E41A62B18587EE000BC0C28 /* AddNumericalValueCellClass.h */,
+				4E41A62C18587EE000BC0C28 /* AddNumericalValueCellClass.m */,
+				4E41A63518587F1700BC0C28 /* AddNumericalValueCellClass.xib */,
 			);
 			name = NumericalValues;
 			sourceTree = "<group>";
@@ -1406,6 +1420,9 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E41A6371858998F00BC0C28 /* pickercenter.png */,
+				4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */,
+				4E41A6391858998F00BC0C28 /* pickercenter@2x.png */,
 				960FE0C01806BB230074D24E /* value_bg.png */,
 				960FE0BE1806B8180074D24E /* picture_overlay_bottom.png */,
 				960FE0BC1806B64D0074D24E /* picture_overlay.png */,
@@ -1622,6 +1639,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E41A63A1858998F00BC0C28 /* pickercenter.png in Resources */,
 				B6016BBB172873D40056CD3F /* InfoPlist.strings in Resources */,
 				B6016BC3172873D40056CD3F /* Default.png in Resources */,
 				B6016BC5172873D40056CD3F /* Default@2x.png in Resources */,
@@ -1685,11 +1703,14 @@
 				B6B5903A178B60B60009E413 /* icon_small_text.png in Resources */,
 				B6B5903B178B60B60009E413 /* icon_small_text@2x.png in Resources */,
 				B6B5903C178B60B60009E413 /* icon_text.png in Resources */,
+				4E41A63618587F1700BC0C28 /* AddNumericalValueCellClass.xib in Resources */,
+				4E41A63C1858998F00BC0C28 /* pickercenter@2x.png in Resources */,
 				B6B5903D178B60B60009E413 /* icon_text@2x.png in Resources */,
 				B6B5903E178B60B60009E413 /* icon_weight.png in Resources */,
 				B6B5903F178B60B60009E413 /* icon_weight@2x.png in Resources */,
 				B6B59040178B60B60009E413 /* numpad_bg.png in Resources */,
 				B6B59041178B60B60009E413 /* numpad_bg@2x.png in Resources */,
+				4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */,
 				B6B59042178B60B60009E413 /* numpad_button_active.png in Resources */,
 				B6B59043178B60B60009E413 /* numpad_button_active@2x.png in Resources */,
 				B6B59044178B60B60009E413 /* numpad_button.png in Resources */,
@@ -1793,6 +1814,7 @@
 				B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */,
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
+				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,
 				B64ACAD71753F28D00E2F6F7 /* MeasurementSettingsViewController.m in Sources */,
 				B67064AF184D3E3600A0EB62 /* BaseDetailsViewController.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,

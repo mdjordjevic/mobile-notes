@@ -1,20 +1,21 @@
 //
-//  AddNumericalValueViewCellClass.m
+//  AddNumericalValueCellClass.m
 //  NotesApp
 //
-//  Created by Perki on 10.12.13.
+//  Created by Perki on 11.12.13.
 //  Copyright (c) 2013 PrYv. All rights reserved.
 //
 
-#import "AddNumericalValueCellFormat.h"
+#import "AddNumericalValueCellClass.h"
 
-@implementation AddNumericalValueCellFormat
+@implementation AddNumericalValueCellClass
+
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"AddNumericalValueCellFormat" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"AddNumericalValueCellClass" owner:self options:nil];
         [self addSubview: self.contentView];
     }
     return self;
