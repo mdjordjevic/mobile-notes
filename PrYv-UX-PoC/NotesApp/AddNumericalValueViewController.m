@@ -128,46 +128,46 @@
     
     NSMutableDictionary* tempDictionary = [[NSMutableDictionary alloc] init];
     
-    for(NSString *setKey in measurementSets)
+    
+    
+    for(NSString *setKey in measurementSets) // for each set choosen by the user
     {
-        for(PYMeasurementSet *set in availableSets)
+        for(PYMeasurementSet *set in availableSets) // for each available set
         {
-            if([[set key] isEqualToString:setKey])
+            if([[set key] isEqualToString:setKey]) // found set in available set
             {
                 // --- for each event group put them in a new PYGroup
                 for (int i = 0; i < set.measurementGroups.count ; i++) {
                     PYEventTypesGroup *pyGroupSrc = [set.measurementGroups objectAtIndex:i];
                     
-                    if (! pyGroupSrc.classKey) { continue; }
+                    if (! pyGroupSrc.classKey) { continue; } // should not happend
                     
                     PYEventTypesGroup *pyGroupDest = [tempDictionary objectForKey:pyGroupSrc.classKey];
                     if (! pyGroupDest) {
                         pyGroupDest = [[PYEventTypesGroup alloc] initWithClassKey:pyGroupSrc.classKey
-                                                                   andListOfTypes:pyGroupSrc.types andPYEventsTypes:nil];
+                                                                 andListOfFormats:pyGroupSrc.formatKeyList
+                                                                 andPYEventsTypes:nil];
                         [tempDictionary setObject:pyGroupDest forKey:pyGroupSrc.classKey];
                     } else {
-                    // merge arrays
-                        for (int j = 0; j < pyGroupSrc.types.count ; j++) {
-                            NSString* typeSrc = [pyGroupSrc.types objectAtIndex:j];
-                            BOOL found = false;
-                            for (int k = 0; k < pyGroupDest.types.count ; k++) {
-                                if ([(NSString*)[pyGroupDest.types objectAtIndex:k] isEqualToString:typeSrc]) {
-                                    found = true; 
-                                }
-                            }
-
-                            if (! found) {
-                               [pyGroupDest.types addObject:typeSrc];
-                            }
-                        }
+                    // merge
+                        [pyGroupDest addFormats:pyGroupSrc.formatKeyList withClassKey:pyGroupSrc.classKey];
                     }
+                    [pyGroupDest sortUsingLocalizedName];
                 }
                 
             }
         }
-        
     }
+    
+    
+   
     [_measurementGroups addObjectsFromArray:[tempDictionary allValues]];
+    
+    // order
+    [_measurementGroups sortUsingComparator:^NSComparisonResult(id a, id b) {
+        return [[(PYEventTypesGroup*)a localizedName] caseInsensitiveCompare:[(PYEventTypesGroup*)b localizedName]];
+    }];
+    
 }
 
 - (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString *)classKey andMeasurementType:(NSString *)measurementType
@@ -177,11 +177,11 @@
         if([mGroup.classKey isEqualToString:classKey])
         {
             [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
-            for(NSString *type in mGroup.types)
+            for(NSString *type in mGroup.formatKeys)
             {
                 if([type isEqualToString:measurementType])
                 {
-                    [self.typePicker selectRow:[mGroup.types indexOfObject:type] inComponent:1 animated:NO];
+                    [self.typePicker selectRow:[mGroup.formatKeys indexOfObject:type] inComponent:1 animated:NO];
                     return;
                 }
             }
@@ -221,9 +221,9 @@
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
     PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    NSString *type = [group.types objectAtIndex:selectedType];
+    NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
     element.klass = [group classKey];
-    element.format = type;
+    element.format = formatKey;
     element.value = value;
     
     return element;
@@ -279,7 +279,7 @@
         return [_measurementGroups count];
     }
     NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-    return [[[_measurementGroups objectAtIndex:selectedGroup] types] count];
+    return [[[_measurementGroups objectAtIndex:selectedGroup] formatKeys] count];
 }
 
 - (UIView *) advancedPicker:(KSAdvancedPicker *)picker viewForComponent:(NSInteger)component inRect:(CGRect)rect
