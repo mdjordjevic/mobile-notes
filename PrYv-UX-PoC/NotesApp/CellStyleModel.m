@@ -62,7 +62,7 @@
 
 - (UIColor*)baseColorWithAlpha:(CGFloat)alpha
 {
-    if(self.cellStyleType == CellStyleTypeMoney || self.cellStyleType == CellStyleTypeMass || self.cellStyleType == CellStyleTypeText)
+    if(self.cellStyleType == CellStyleTypeMoney || self.cellStyleType == CellStyleTypeText)
     {
         return [UIColor blackColor];
     }

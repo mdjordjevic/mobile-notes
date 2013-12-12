@@ -10,8 +10,7 @@
 
 typedef enum {
     CellStyleTypeText = 1,
-    CellStyleTypeLength,
-    CellStyleTypeMass,
+    CellStyleTypeMeasure,
     CellStyleTypeMoney,
     CellStyleTypePhoto,
     CellStyleTypeAudio

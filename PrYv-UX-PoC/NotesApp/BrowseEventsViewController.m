@@ -159,7 +159,7 @@
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        CellStyleType cellType = [[DataService sharedInstance] dataTypeForEvent:event];
+        CellStyleType cellType = [[DataService sharedInstance] cellStyleForEvent:event];
         if(cellType == CellStyleTypePhoto)
         {
             return 180;
@@ -202,7 +202,7 @@
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:row];
-        CellStyleType cellStyleType = [[DataService sharedInstance] dataTypeForEvent:event];
+        CellStyleType cellStyleType = [[DataService sharedInstance] cellStyleForEvent:event];
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
         [cell updateWithEvent:event andListOfStreams:self.streams];
         [cell prepareForReuse];

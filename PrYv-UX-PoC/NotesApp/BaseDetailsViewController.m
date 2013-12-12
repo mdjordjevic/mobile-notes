@@ -66,7 +66,7 @@
         case EventDataTypeNote:
             vc = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"NoteDetailsViewController_ID"];
             break;
-        case EventDataTypeValue:
+        case EventDataTypeValueMeasure:
             vc = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ValueDetailsViewController_ID"];
             break;
         case EventDataTypeImage:

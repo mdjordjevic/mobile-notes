@@ -96,7 +96,7 @@
             [self.tagsField addTokenWithTitle:tag representedObject:tag];
         }
         
-        CellStyleType eventType = [[DataService sharedInstance] dataTypeForEvent:self.event];
+        CellStyleType eventType = [[DataService sharedInstance] cellStyleForEvent:self.event];
         if(eventType == CellStyleTypePhoto)
         {
             self.eventElement = [[PhotoPreviewElement alloc] init];

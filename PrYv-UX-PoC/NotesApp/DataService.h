@@ -24,7 +24,7 @@ extern NSString *const kSavingEventActionFinishedNotification;
 - (void)deleteEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 - (void)createStream:(PYStream*)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 
-- (NSInteger)dataTypeForEvent:(PYEvent*)event;
+- (NSInteger)cellStyleForEvent:(PYEvent*)event;
 - (EventDataType)eventDataTypeForEvent:(PYEvent*)event;
 - (void)invalidateStreamListCache;
 

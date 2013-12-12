@@ -66,7 +66,7 @@
 - (NSString*)imageNameForCellStyleModel:(CellStyleModel *)model
 {
     switch (model.cellStyleType) {
-        case CellStyleTypeLength:
+        case CellStyleTypeMeasure:
             return @"icon_measure";
         case CellStyleTypeMoney:
             return @"icon_money";
@@ -74,8 +74,6 @@
             return @"icon_photo";
         case CellStyleTypeText:
             return @"icon_text";
-        case CellStyleTypeMass:
-            return @"icon_weight";
         default:
             break;
     }

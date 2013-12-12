@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSInteger, EventDataType)
 {
     EventDataTypeNote,
-    EventDataTypeValue,
+    EventDataTypeValueMeasure,
     EventDataTypeImage
 };
 

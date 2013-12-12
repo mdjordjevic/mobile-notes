@@ -239,7 +239,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     UserHistoryEntry *entry = [[UserHistoryEntry alloc] init];
     entry.streamId = event.streamId;
     entry.tags = [NSArray arrayWithArray:event.tags];
-    entry.dataType = [self dataTypeForEvent:event];
+    entry.dataType = [self cellStyleForEvent:event];
     if(entry.dataType != CellStyleTypePhoto && entry.dataType != CellStyleTypeText)
     {
         NSArray *components = [event.type componentsSeparatedByString:@"/"];
@@ -254,62 +254,37 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 
 
-- (NSInteger)dataTypeForEvent:(PYEvent *)event
+- (NSInteger)cellStyleForEvent:(PYEvent *)event
 {
-    NSArray *components = [event.type componentsSeparatedByString:@"/"];
-    if([components count] < 2)
+
+    NSString *eventClassKey = event.pyType.classKey;
+    if([eventClassKey isEqualToString:@"note"])
     {
         return CellStyleTypeText;
     }
-    NSString *eventClass = [components objectAtIndex:0];
-    if([eventClass isEqualToString:@"note"])
-    {
-        return CellStyleTypeText;
-    }
-    if([eventClass isEqualToString:@"mass"])
-    {
-        return CellStyleTypeMass;
-    }
-    if([eventClass isEqualToString:@"money"])
+    else if([eventClassKey isEqualToString:@"money"])
     {
         return CellStyleTypeMoney;
     }
-    if([eventClass isEqualToString:@"length"])
-    {
-        return CellStyleTypeLength;
-    }
-    if([eventClass isEqualToString:@"picture"])
+    else if([eventClassKey isEqualToString:@"picture"])
     {
         return CellStyleTypePhoto;
     }
-    return CellStyleTypeLength;
+    return CellStyleTypeMeasure;
 }
 
 - (EventDataType)eventDataTypeForEvent:(PYEvent *)event
 {
-    NSArray *components = [event.type componentsSeparatedByString:@"/"];
-    if([components count] < 2)
+    if ([event.pyType isNumerical]) {
+         return EventDataTypeValueMeasure;
+    }
+    
+    NSString *eventClassKey = event.pyType.classKey;
+    if([eventClassKey isEqualToString:@"note"])
     {
         return EventDataTypeNote;
     }
-    NSString *eventClass = [components objectAtIndex:0];
-    if([eventClass isEqualToString:@"note"])
-    {
-        return EventDataTypeNote;
-    }
-    else if([eventClass isEqualToString:@"mass"])
-    {
-        return EventDataTypeValue;
-    }
-    else if([eventClass isEqualToString:@"money"])
-    {
-        return EventDataTypeValue;
-    }
-    else if([eventClass isEqualToString:@"length"])
-    {
-        return EventDataTypeValue;
-    }
-    else if([eventClass isEqualToString:@"picture"])
+    else if([eventClassKey isEqualToString:@"picture"])
     {
         return EventDataTypeImage;
     }

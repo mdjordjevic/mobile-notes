@@ -54,7 +54,7 @@
     UIBarButtonItem *editButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Edit" target:self action:@selector(editButtonTouched:)];
     self.navigationItem.rightBarButtonItem = editButton;
     
-    self.eventType = [[DataService sharedInstance] dataTypeForEvent:self.event];
+    self.eventType = [[DataService sharedInstance] cellStyleForEvent:self.event];
     self.streamLabel.hidden = YES;
     [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
         self.streamLabel.text = [self.event eventBreadcrumbsForStreamsList:object];
