@@ -20,6 +20,8 @@
 		4E41A63B1858998F00BC0C28 /* pickercenter-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */; };
 		4E41A63C1858998F00BC0C28 /* pickercenter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41A6391858998F00BC0C28 /* pickercenter@2x.png */; };
 		4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFE61859EA440083DE8C /* UnkownCell.m */; };
+		4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFF7185A07A30083DE8C /* AppConstants.m */; };
+		4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFFA185A0EE40083DE8C /* SettingsController.m */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		960FE0B21806B3270074D24E /* icon-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FE0B01806B3240074D24E /* icon-time.png */; };
@@ -399,6 +401,10 @@
 		4E41A6391858998F00BC0C28 /* pickercenter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickercenter@2x.png"; sourceTree = "<group>"; };
 		4E8AAFE51859EA440083DE8C /* UnkownCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnkownCell.h; sourceTree = "<group>"; };
 		4E8AAFE61859EA440083DE8C /* UnkownCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnkownCell.m; sourceTree = "<group>"; };
+		4E8AAFF6185A07A30083DE8C /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
+		4E8AAFF7185A07A30083DE8C /* AppConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstants.m; sourceTree = "<group>"; };
+		4E8AAFF9185A0EE40083DE8C /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		4E8AAFFA185A0EE40083DE8C /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -929,6 +935,15 @@
 			path = PSTCollectionView;
 			sourceTree = "<group>";
 		};
+		4E8AAFEF1859FC640083DE8C /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				4E8AAFF6185A07A30083DE8C /* AppConstants.h */,
+				4E8AAFF7185A07A30083DE8C /* AppConstants.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		B6016BA4172873D30056CD3F = {
 			isa = PBXGroup;
 			children = (
@@ -969,6 +984,7 @@
 		B6016BB6172873D30056CD3F /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E8AAFEF1859FC640083DE8C /* Constants */,
 				B6016BBF172873D40056CD3F /* AppDelegate.h */,
 				B6016BC0172873D40056CD3F /* AppDelegate.m */,
 				B6F9A24B1729BF87009C8BAA /* Classes */,
@@ -1247,6 +1263,8 @@
 				B64ACAD81753F76500E2F6F7 /* MeasurementController.h */,
 				B64ACAD91753F76500E2F6F7 /* MeasurementController.m */,
 				B6BA3E931733E44A00464C2F /* DataGrouping */,
+				4E8AAFF9185A0EE40083DE8C /* SettingsController.h */,
+				4E8AAFFA185A0EE40083DE8C /* SettingsController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1811,6 +1829,7 @@
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
 				4E0901071857640400A2F044 /* AddNumericalValueCellFormat.m in Sources */,
 				B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */,
+				4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */,
 				B6BA3E851733CD1400464C2F /* Event.m in Sources */,
 				B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */,
 				B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */,
@@ -1825,6 +1844,7 @@
 				B67064AF184D3E3600A0EB62 /* BaseDetailsViewController.m in Sources */,
 				B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */,
 				B67064B2184D488500A0EB62 /* ValueDetailsViewController.m in Sources */,
+				4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
 				B64ACB0E1756A93700E2F6F7 /* EditEventViewController.m in Sources */,
 				B64ACB131756AC1900E2F6F7 /* BaseEventPreviewElement.m in Sources */,

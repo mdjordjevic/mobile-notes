@@ -11,7 +11,7 @@
 #import <PryvApiKit/PYMeasurementSet.h>
 #import <PryvApiKit/PYEventTypes.h>
 
-#define kMeasurementSetsKey @"kMeasurementSetsKey"
+#import "AppConstants.h"
 
 @interface MeasurementController ()
 
@@ -42,14 +42,15 @@
 
 - (void)saveMeasurementSets
 {
-    [[NSUserDefaults standardUserDefaults] setObject:_userMeasurementSets forKey:kMeasurementSetsKey];
+    [[NSUserDefaults standardUserDefaults] setObject:_userMeasurementSets forKey:kPYAppSettingMeasurementSetsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
 - (void)loadUserMeasurementSets
 {
-    self.userMeasurementSets = [[NSUserDefaults standardUserDefaults] objectForKey:kMeasurementSetsKey];
+    self.userMeasurementSets =
+    [(NSMutableArray*)[[NSUserDefaults standardUserDefaults] objectForKey:kPYAppSettingMeasurementSetsKey] mutableCopy];
     if(!_userMeasurementSets)
     {
         self.userMeasurementSets = [NSMutableArray array];
