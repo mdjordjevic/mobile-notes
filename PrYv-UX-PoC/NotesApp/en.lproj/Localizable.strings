@@ -20,3 +20,6 @@
 "Error" = "Error";
 "OK" = "OK";
 "Cancel" = "Cancel";
+
+"ViewController.Streams.SelectStream" = "Select stream";
+"ViewController.Streams.AddNewStream" = "Add new Stream";

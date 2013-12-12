@@ -7,6 +7,7 @@
 //
 
 #import "ImageDetailsViewController.h"
+#import "ImagePreviewViewController.h"
 
 @interface ImageDetailsViewController ()
 
@@ -26,13 +27,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImagePreview:)];
+    self.eventImage.userInteractionEnabled = YES;
+    [self.eventImage addGestureRecognizer:tapGR];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)showImagePreview:(id)sender
+{
+    ImagePreviewViewController *imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
+    imagePreviewVC.image = self.eventImage.image;
+    imagePreviewVC.descText = self.eventDescriptionLabel.text;
+    [self.navigationController pushViewController:imagePreviewVC animated:YES];
 }
 
 - (void)updateEventDetails

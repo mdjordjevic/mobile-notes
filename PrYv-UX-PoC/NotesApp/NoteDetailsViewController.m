@@ -29,7 +29,9 @@
     [super viewDidLoad];
 	
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
-    [self.eventDescriptionLabel addGestureRecognizer:tapGR];
+    UIView *tapGesturePlaceholder = [[UIView alloc] initWithFrame:self.eventDescriptionLabel.frame];
+    [tapGesturePlaceholder addGestureRecognizer:tapGR];
+    [self.eventDescriptionLabel.superview addSubview:tapGesturePlaceholder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,6 +58,7 @@
 - (void)textDidChangedTo:(NSString *)text forTextEditor:(TextEditorViewController *)textEditor
 {
     self.eventDescriptionLabel.text = text;
+    [self.delegate textDidChangedTo:text];
 }
 
 @end

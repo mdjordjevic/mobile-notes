@@ -40,6 +40,13 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
+		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
+		B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193C185A322900E9F9BE /* circle-add@2x.png */; };
+		B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */; };
+		B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */; };
+		B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A1947185A64E100E9F9BE /* StreamCell.m */; };
+		B61A194B185A665900E9F9BE /* circle-chevron-right.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A1949185A665900E9F9BE /* circle-chevron-right.png */; };
+		B61A194C185A665900E9F9BE /* circle-chevron-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A194A185A665900E9F9BE /* circle-chevron-right@2x.png */; };
 		B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */; };
 		B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55B017EC51B80016D0C4 /* PYEvent+Helper.m */; };
 		B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B61D55B417EC68C80016D0C4 /* UIAlertView+PrYv.m */; };
@@ -426,6 +433,16 @@
 		B6016BCC172873D40056CD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B6016BCE172873D40056CD3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
+		B61A193C185A322900E9F9BE /* circle-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add@2x.png"; sourceTree = "<group>"; };
+		B61A193E185A325C00E9F9BE /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
+		B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
+		B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamPickerViewController.h; sourceTree = "<group>"; };
+		B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamPickerViewController.m; sourceTree = "<group>"; };
+		B61A1946185A64E100E9F9BE /* StreamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamCell.h; sourceTree = "<group>"; };
+		B61A1947185A64E100E9F9BE /* StreamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamCell.m; sourceTree = "<group>"; };
+		B61A1949185A665900E9F9BE /* circle-chevron-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-chevron-right.png"; sourceTree = "<group>"; };
+		B61A194A185A665900E9F9BE /* circle-chevron-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-chevron-right@2x.png"; sourceTree = "<group>"; };
 		B61D55AC17EC51480016D0C4 /* PYStream+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PYStream+Helper.h"; sourceTree = "<group>"; };
 		B61D55AD17EC51480016D0C4 /* PYStream+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PYStream+Helper.m"; sourceTree = "<group>"; };
 		B61D55AF17EC51B80016D0C4 /* PYEvent+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PYEvent+Helper.h"; sourceTree = "<group>"; };
@@ -997,6 +1014,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B61A1945185A64CB00E9F9BE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B61A1946185A64E100E9F9BE /* StreamCell.h */,
+				B61A1947185A64E100E9F9BE /* StreamCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		B61D55A517EC51230016D0C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1145,10 +1171,15 @@
 		B681B68018552E7A0067DF37 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				B61A1945185A64CB00E9F9BE /* Cells */,
 				B681B68118552E940067DF37 /* DatePickerViewController.h */,
 				B681B68218552E940067DF37 /* DatePickerViewController.m */,
 				B681B684185543240067DF37 /* TextEditorViewController.h */,
 				B681B685185543240067DF37 /* TextEditorViewController.m */,
+				B61A193E185A325C00E9F9BE /* ImagePreviewViewController.h */,
+				B61A193F185A325C00E9F9BE /* ImagePreviewViewController.m */,
+				B61A1942185A49E900E9F9BE /* StreamPickerViewController.h */,
+				B61A1943185A49E900E9F9BE /* StreamPickerViewController.m */,
 			);
 			name = Pickers;
 			sourceTree = "<group>";
@@ -1425,6 +1456,10 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B61A1949185A665900E9F9BE /* circle-chevron-right.png */,
+				B61A194A185A665900E9F9BE /* circle-chevron-right@2x.png */,
+				B61A193C185A322900E9F9BE /* circle-add@2x.png */,
+				B61A193A185A321000E9F9BE /* circle-add.png */,
 				4E41A6371858998F00BC0C28 /* pickercenter.png */,
 				4E41A6381858998F00BC0C28 /* pickercenter-568h@2x.png */,
 				4E41A6391858998F00BC0C28 /* pickercenter@2x.png */,
@@ -1658,14 +1693,17 @@
 				B6F1AEC81784742D000ECD60 /* tokenNormal.png in Resources */,
 				B6F1AEC91784742D000ECD60 /* tokenNormal@2x.png in Resources */,
 				B6B5900B178B60B60009E413 /* add_circle.png in Resources */,
+				B61A194C185A665900E9F9BE /* circle-chevron-right@2x.png in Resources */,
 				B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */,
 				B6B5900D178B60B60009E413 /* app_bg-h568@2x.png in Resources */,
 				B6B5900E178B60B60009E413 /* app_bg.png in Resources */,
 				B6B5900F178B60B60009E413 /* app_bg@2x.png in Resources */,
 				B6B59010178B60B60009E413 /* icon_add_active.png in Resources */,
 				B6B59011178B60B60009E413 /* icon_add_active@2x.png in Resources */,
+				B61A194B185A665900E9F9BE /* circle-chevron-right.png in Resources */,
 				B6B59012178B60B60009E413 /* icon_add.png in Resources */,
 				B6B59013178B60B60009E413 /* icon_add@2x.png in Resources */,
+				B61A193B185A321000E9F9BE /* circle-add.png in Resources */,
 				B6B59014178B60B60009E413 /* icon_back.png in Resources */,
 				B6B59015178B60B60009E413 /* icon_back@2x.png in Resources */,
 				B6B59016178B60B60009E413 /* icon_disclosure.png in Resources */,
@@ -1747,6 +1785,7 @@
 				B6B59070178C752E0009E413 /* cell_left@2x.png in Resources */,
 				B6B59071178C752E0009E413 /* cell_left.png in Resources */,
 				B6B59090178DE42F0009E413 /* Icon@2x.png in Resources */,
+				B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */,
 				B6B59091178DE42F0009E413 /* Icon.png in Resources */,
 				B6B59094178E01720009E413 /* navbar_btn.png in Resources */,
 				B6B59095178E01720009E413 /* navbar_btn@2x.png in Resources */,
@@ -1806,6 +1845,7 @@
 			files = (
 				B6016BBD172873D40056CD3F /* main.m in Sources */,
 				B6016BC1172873D40056CD3F /* AppDelegate.m in Sources */,
+				B61A1944185A49E900E9F9BE /* StreamPickerViewController.m in Sources */,
 				B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */,
 				B6016BD0172873D40056CD3F /* ViewController.m in Sources */,
 				4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */,
@@ -1858,11 +1898,13 @@
 				B6DC81EE181E665B00118ED9 /* NoteCell.m in Sources */,
 				B62A9C7117E5E7DD006CADFB /* Stream.m in Sources */,
 				B61D55AE17EC51480016D0C4 /* PYStream+Helper.m in Sources */,
+				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				B681B686185543240067DF37 /* TextEditorViewController.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				B61D55B917EC9FE80016D0C4 /* PhotoNoteViewController.m in Sources */,
+				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
 				B67064B8184D48AC00A0EB62 /* ImageDetailsViewController.m in Sources */,
 				B61D55BD17ECB2CF0016D0C4 /* PhotoPreviewElement.m in Sources */,
 				B61D55C017EEDEF00016D0C4 /* UIImage+PrYv.m in Sources */,
@@ -2002,7 +2044,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9229DEB6-53F4-441C-978C-248380083D51";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

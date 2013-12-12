@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *dateButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UIView *streamsSection;
+@property (weak, nonatomic) IBOutlet UIView *streamsContainer;
 @property (weak, nonatomic) IBOutlet UIView *tagsSection;
 
 @property (nonatomic, strong) PYEvent *event;
@@ -27,5 +27,6 @@
 
 @protocol BaseDetailsDelegate <NSObject>
 
+- (void)textDidChangedTo:(NSString*)newText;
 
 @end
