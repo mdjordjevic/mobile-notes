@@ -31,12 +31,13 @@
 @property (nonatomic, strong) IBOutlet UIImageView *eventPreviewImageView;
 @property (nonatomic, strong) IBOutlet UILabel *eventPreviewTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventPreviewSubtitleLabel;
-@property (nonatomic, strong) IBOutlet UIButton *listBackButton;
 @property (nonatomic, strong) IBOutlet UITextView *commentTextView;
 @property (nonatomic, strong) IBOutlet JSTokenField *tagsField;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) IBOutlet UIButton *listBackButton;
 @property (nonatomic, strong) NSArray *streams;
 @property (nonatomic, strong) NSArray *rootStreams;
+@property (nonatomic, strong) PYStream *stream;
 
 - (IBAction)backButtonTouched:(id)sender;
 - (void)doneButtonTouched:(id)sender;
@@ -428,17 +429,6 @@
     {
         return self.stream.children;
     }
-//    else
-//    {
-//        if(!self.stream.parentId)
-//        {
-//            return self.rootStreams;
-//        }
-//        else
-//        {
-//            return [[self.stream parentStreamInList:self.streams] children];
-//        }
-//    }
 }
 
 @end

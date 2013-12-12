@@ -12,12 +12,25 @@
 #import "DataService.h"
 #import "UIAlertView+PrYv.h"
 #import "DatePickerViewController.h"
+#import "StreamPickerViewController.h"
+#import "TextEditorViewController.h"
 
 #define kDatePickerSegueID @"DatePickerSegue_ID"
+#define kStreamPickerSegue_ID @"StreamPickerSegue_ID"
 
-@interface BaseDetailsViewController () <BaseDetailsDelegate>
+#define kStreamDefaultConstraint -200
+#define kStreamOpenedConstraint 0
+#define kTagsDefaultConstraint -200
+#define kTagsOpenedConstraint 0
+
+@interface BaseDetailsViewController () <BaseDetailsDelegate,StreamsPickerDelegate>
 
 @property (nonatomic) EventDataType eventDataType;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *streamConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagsConstraint;
+@property (nonatomic, strong) StreamPickerViewController *streamPicker;
+@property (nonatomic, strong) BaseContentViewController *contentDetailsVC;
+@property (nonatomic) BOOL shouldUpdateEvent;
 
 @end
 
@@ -35,6 +48,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.shouldUpdateEvent = NO;
 	[self setupContentViewController];
     [self updateUI];
 }
@@ -81,6 +95,7 @@
     [self addChildViewController:vc];
     vc.view.frame = self.detailsContainerView.bounds;
     [self.detailsContainerView addSubview:vc.view];
+    self.contentDetailsVC = vc;
     [vc didMoveToParentViewController:self];
 }
 
@@ -89,6 +104,8 @@
 - (void)updateDateFromPickerWith:(NSDate *)date
 {
     [self.dateButton setTitle:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
+    self.event.time = [date timeIntervalSince1970];
+    self.shouldUpdateEvent = YES;
 }
 
 #pragma mark - Private methods
@@ -99,6 +116,25 @@
     [self.dateButton setTitle:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
 }
 
+- (void)deleteCurrentEvent
+{
+    [self showLoadingOverlay];
+    [[DataService sharedInstance] deleteEvent:self.event withCompletionBlock:^(id object, NSError *error) {
+        [self hideLoadingOverlay];
+        if(error)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+            }];
+        }
+    }];
+}
+
 #pragma mark - Actions
 
 - (IBAction)deleteButtonTouched:(id)sender
@@ -107,26 +143,68 @@
     [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if(alertView.cancelButtonIndex != buttonIndex)
         {
-            [self showLoadingOverlay];
-            [[DataService sharedInstance] deleteEvent:self.event withCompletionBlock:^(id object, NSError *error) {
-                [self hideLoadingOverlay];
-                if(error)
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-                    [alert show];
-                }
-                else
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-                }
-            }];
+            [self deleteCurrentEvent];
         }
     }];
 }
 
 - (IBAction)doneButtonTouched:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    if(self.shouldUpdateEvent)
+    {
+        [self showLoadingOverlay];
+        [[DataService sharedInstance] updateEvent:self.event withCompletionBlock:^(id object, NSError *error) {
+            [self hideLoadingOverlay];
+            if(error)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+            {
+                [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+                }];
+            }
+        }];
+    }
+    else
+    {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+#pragma mark - StreamPickerDelegate methods
+
+- (void)changeVisibilityOfStreamPickerTo:(BOOL)visible
+{
+    if(visible)
+    {
+        self.streamConstraint.constant = kStreamOpenedConstraint;
+    }
+    else
+    {
+        self.streamConstraint.constant = kStreamDefaultConstraint;
+    }
+    [self.view setNeedsLayout];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)streamSelected:(PYStream *)stream
+{
+    self.event.streamId = stream.streamId;
+    self.shouldUpdateEvent = YES;
+}
+
+#pragma mark - BaseDetailsDelegate methods
+
+- (void)textDidChangedTo:(NSString *)newText
+{
+    self.event.eventContent = newText;
+    [self.contentDetailsVC updateEventDetails];
+    self.shouldUpdateEvent = YES;
 }
 
 #pragma mark - Segues
@@ -137,6 +215,13 @@
     {
         DatePickerViewController *dpVC = (DatePickerViewController*)segue.destinationViewController;
         dpVC.baseDetailsVC = self;
+    }
+    else if([segue.identifier isEqualToString:kStreamPickerSegue_ID])
+    {
+        StreamPickerViewController *streamPicker = (StreamPickerViewController*)segue.destinationViewController;
+        streamPicker.event = self.event;
+        streamPicker.delegate = self;
+        self.streamPicker = streamPicker;
     }
 }
 
