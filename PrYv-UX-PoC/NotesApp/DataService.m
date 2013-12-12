@@ -256,7 +256,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (NSInteger)cellStyleForEvent:(PYEvent *)event
 {
-
+    
     NSString *eventClassKey = event.pyType.classKey;
     if([eventClassKey isEqualToString:@"note"])
     {
@@ -270,7 +270,11 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     {
         return CellStyleTypePhoto;
     }
-    return CellStyleTypeMeasure;
+    else if ([event.pyType isNumerical]) {
+        return CellStyleTypeMeasure;
+    }
+    NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
+    return CellStyleTypeUnkown;
 }
 
 - (EventDataType)eventDataTypeForEvent:(PYEvent *)event
@@ -288,6 +292,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     {
         return EventDataTypeImage;
     }
+    NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", event);
     return EventDataTypeNote;
 }
 

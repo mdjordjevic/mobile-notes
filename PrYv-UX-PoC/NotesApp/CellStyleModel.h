@@ -13,7 +13,8 @@ typedef enum {
     CellStyleTypeMeasure,
     CellStyleTypeMoney,
     CellStyleTypePhoto,
-    CellStyleTypeAudio
+    CellStyleTypeAudio,
+    CellStyleTypeUnkown
 } CellStyleType;
 
 typedef enum {

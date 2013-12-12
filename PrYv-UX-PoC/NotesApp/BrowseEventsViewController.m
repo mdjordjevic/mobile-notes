@@ -26,6 +26,7 @@
 #import "NoteCell.h"
 #import "ValueCell.h"
 #import "PictureCell.h"
+#import "UnkownCell.h"
 #import "BaseDetailsViewController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
@@ -184,9 +185,11 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell_ID"];
     }
-    else
+    else if (cellStyleType == CellStyleTypeMeasure || cellStyleType == CellStyleTypeMoney)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell_ID"];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UnkownCell_ID"];
     }
     return cell;
 }
