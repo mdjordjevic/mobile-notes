@@ -10,11 +10,18 @@
 #import <PryvApiKit/PryvApiKit.h>
 #import "DataService.h"
 
+#import "AppConstants.h"
+
+
 @interface SettingsViewController ()
 
 @property (nonatomic, strong) IBOutlet UILabel *logoutLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *uiDisplayNonStandardEventsSwitch;
+- (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender;
 
 - (void)popVC:(id)sender;
+
+- (void)loadSettings;
 
 @end
 
@@ -29,6 +36,14 @@
     return self;
 }
 
+- (void)loadSettings
+{
+   BOOL uiDisplayNonStandardEventsSwitchValue =
+    [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
+    
+   [self.uiDisplayNonStandardEventsSwitch setOn:uiDisplayNonStandardEventsSwitchValue];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,6 +55,7 @@
     {
         self.logoutLabel.text = [NSString stringWithFormat:@"Logout (%@)",connection.userID];
     }
+    [self loadSettings];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,6 +74,12 @@
     {
         [[NotesAppController sharedInstance] setConnection:nil];
     }
+}
+
+- (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender {
+  [[NSUserDefaults standardUserDefaults]
+     setBool:[self.uiDisplayNonStandardEventsSwitch isOn]
+     forKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
 - (void)popVC:(id)sender

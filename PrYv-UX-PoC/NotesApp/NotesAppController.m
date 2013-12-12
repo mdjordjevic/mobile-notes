@@ -10,6 +10,7 @@
 #import <PryvApiKit/PryvApiKit.h>
 #import "DataService.h"
 #import "SSKeychain.h"
+#import "SettingsController.h"
 
 #define kServiceName @"com.pryv.notesapp"
 #define kLastUsedUsernameKey @"lastUsedUsernameKey"
@@ -24,6 +25,7 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 - (void)loadSavedConnection;
 - (void)saveConnection:(PYConnection*)connection;
 - (void)removeConnection:(PYConnection*)connection;
+
 
 @end
 
@@ -44,6 +46,8 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 {
     //[PYClient setDefaultDomainStaging];
     [PYClient setLanguageCodePrefered:kLocalizedKey];
+    
+    _settingController = [[SettingsController alloc] init];
     [self loadSavedConnection];
 }
 

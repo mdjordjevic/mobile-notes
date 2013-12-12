@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SettingsController;
+
 typedef NS_ENUM(NSInteger, EventDataType)
 {
     EventDataTypeNote,
@@ -27,6 +29,8 @@ extern NSString *const kUserDidLogoutNotification;
 @property (nonatomic, strong) PYConnection *connection;
 @property (nonatomic, readonly) BOOL isOnline;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+@property (nonatomic, strong) SettingsController* settingController;
 
 + (NotesAppController*)sharedInstance;
 
