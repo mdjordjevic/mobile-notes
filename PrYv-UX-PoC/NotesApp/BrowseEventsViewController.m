@@ -28,6 +28,7 @@
 #import "PictureCell.h"
 #import "UnkownCell.h"
 #import "BaseDetailsViewController.h"
+#import "NSString+Utils.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -247,9 +248,9 @@
         }
         else
         {
-            AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-            addNVC.entry = entry;
-            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
+//            AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
+//            addNVC.entry = entry;
+//            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
         }
     }
     else
@@ -259,6 +260,7 @@
         
         BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
         detailsVC.event = event;
+        detailsVC.isEditing = YES;
         [self.navigationController presentViewController:navVC animated:YES completion:nil];
     }
 }
@@ -270,14 +272,23 @@
         switch (index) {
             case 0:
             {
-                TextNoteViewController *textVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
-                [weakSelf.navigationController pushViewController:textVC animated:YES];
+                PYEvent *event = [[PYEvent alloc] init];
+                event.type = @"note/txt";
+                UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
+                
+                BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
+                detailsVC.event = event;
+                [weakSelf.navigationController presentViewController:navVC animated:YES completion:nil];
             }
                 break;
             case 1:
             {
-                AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-                [weakSelf.navigationController pushViewController:addNVC animated:YES];
+                PYEvent *event = [[PYEvent alloc] init];
+                UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
+                
+                BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
+                detailsVC.event = event;
+                [weakSelf.navigationController presentViewController:navVC animated:YES completion:nil];
             }
                 break;
             case 2:
@@ -358,7 +369,39 @@
     UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
     PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
     photoVC.sourceType = sourceType;
+    photoVC.browseVC = self;
     [self.navigationController pushViewController:photoVC animated:YES];
+}
+
+- (void)setPickedImage:(UIImage *)pickedImage
+{
+    if(_pickedImage != pickedImage)
+    {
+        _pickedImage = pickedImage;
+        [self showImageDetails];
+    }
+}
+
+- (void)showImageDetails
+{
+    PYEvent *event = [[PYEvent alloc] init];
+    event.type = @"picture/attached";
+    NSData *imageData = UIImageJPEGRepresentation(self.pickedImage, 0.5);
+    if(imageData)
+    {
+        NSString *imgName = [NSString randomStringWithLength:10];
+        PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
+        [event.attachments addObject:att];
+        UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
+        
+        BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
+        detailsVC.event = event;
+        double delayInSeconds = 0.3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.navigationController presentViewController:navVC animated:YES completion:nil];
+        });
+    }
 }
 
 #pragma mark - MNMPullToRefreshManagerClient methods

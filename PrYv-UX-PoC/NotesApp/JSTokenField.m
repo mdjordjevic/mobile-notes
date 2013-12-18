@@ -335,6 +335,14 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 #pragma mark UITextFieldDelegate
 
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if([self.delegate respondsToSelector:@selector(tokenFieldWillBeginEditing:)])
+    {
+        [self.delegate tokenFieldWillBeginEditing:self];
+    }
+}
+
 - (void)textFieldWasUpdated:(UITextField *)sender {
     if ([self.delegate respondsToSelector:@selector(tokenFieldTextDidChange:)]) {
         [self.delegate tokenFieldTextDidChange:self];

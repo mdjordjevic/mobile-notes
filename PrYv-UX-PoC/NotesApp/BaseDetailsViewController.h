@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@class PYEvent;
+@class PYEvent,JSTokenField;
 
 @interface BaseDetailsViewController : BaseViewController
 
@@ -18,8 +18,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIView *streamsContainer;
 @property (weak, nonatomic) IBOutlet UIView *tagsSection;
+@property (weak, nonatomic) IBOutlet JSTokenField *tagsField;
+@property (weak, nonatomic) IBOutlet UIButton *doneTagsEditingButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagsContainerConstraint;
 
 @property (nonatomic, strong) PYEvent *event;
+@property (nonatomic) BOOL isEditing;
 
 - (void)updateDateFromPickerWith:(NSDate*)date;
 
@@ -27,6 +31,9 @@
 
 @protocol BaseDetailsDelegate <NSObject>
 
+@optional
+
 - (void)textDidChangedTo:(NSString*)newText;
+- (void)eventDidChangeProperties:(NSString*)valueClass valueType:(NSString*)valueType value:(NSString*)value;
 
 @end

@@ -23,3 +23,5 @@
 
 "ViewController.Streams.SelectStream" = "Select stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";
+"ViewController.TextContent.TapToAdd" = "Tap to edit content";
+"ViewController.Tags.TapToAdd" = "Tap to add tags";

@@ -34,10 +34,8 @@
 
 - (void)updateView:(UIImageView*)view forRow:(NSInteger)row;
 - (void)selectFirstTypeAnimated:(BOOL)animated;
-- (MeasurementPreviewElement*)previewElement;
 - (NSNumber*)valueAsNumber;
 - (void)updateMeasurementSets;
-- (void)doneButtonTouched:(id)sender;
 - (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString*)classKey andMeasurementType:(NSString*)measurementType;
 
 @end
@@ -62,54 +60,59 @@
     [self.typePicker reloadData];
     UIButton *delBtn = (UIButton*)[self.customKeyborad viewWithTag:11];
     [delBtn setTitle:@"\u232B" forState:UIControlStateNormal];
-    [self addCustomBackButton];
     
-    self.doneButton = [UIBarButtonItem flatBarItemWithImage:[[UIImage imageNamed:@"navbar_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 4, 14, 4)] text:@"Post" target:self action:@selector(doneButtonTouched:)];
-    self.navigationItem.rightBarButtonItem = self.doneButton;
     self.valueField.text = @"";
     
-    if(self.entry)
+    [self updateMeasurementSets];
+    [self.typePicker reloadData];
+    [self selectRightMeasurementGroupForMeasurementClassKey:self.valueClass andMeasurementType:self.valueType];
+    if(self.value)
     {
-        [self updateMeasurementSets];
-        [self.typePicker reloadData];
-        [self selectRightMeasurementGroupForMeasurementClassKey:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
+        self.valueField.text = self.value;
     }
     
-    if(self.event)
-    {
-        [self updateMeasurementSets];
-        [self.typePicker reloadData];
-        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
-        if([components count] > 1)
-        {
-            [self selectRightMeasurementGroupForMeasurementClassKey:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
-            NSString *text = [self.event.eventContent description];
-            if(!text)
-            {
-                text = @"";
-            }
-            self.valueField.text = text;
-        }
-    }
+//    if(self.entry)
+//    {
+//        [self updateMeasurementSets];
+//        [self.typePicker reloadData];
+//        [self selectRightMeasurementGroupForMeasurementClassKey:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
+//    }
+//    
+//    if(self.event)
+//    {
+//        [self updateMeasurementSets];
+//        [self.typePicker reloadData];
+//        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
+//        if([components count] > 1)
+//        {
+//            [self selectRightMeasurementGroupForMeasurementClassKey:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
+//            NSString *text = [self.event.eventContent description];
+//            if(!text)
+//            {
+//                text = @"";
+//            }
+//            self.valueField.text = text;
+//        }
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if(!self.entry && !self.event)
-    {
-        NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
-        [self updateMeasurementSets];
-        
-        [self.typePicker reloadData];
-        
-        if(groupsCountBeforeUpdate == [_measurementGroups count])
-        {
-            [_typePicker selectRow:0 inComponent:0 animated:NO];
-        }
-        [self selectFirstTypeAnimated:NO];
-    }
+//    if(!self.entry && !self.event)
+//    {
+//        NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
+//        [self updateMeasurementSets];
+//        
+//        [self.typePicker reloadData];
+//        
+//        if(groupsCountBeforeUpdate == [_measurementGroups count])
+//        {
+//            [_typePicker selectRow:0 inComponent:0 animated:NO];
+//        }
+//        [self selectFirstTypeAnimated:NO];
+//    }
 }
 
 - (void)updateMeasurementSets
@@ -214,20 +217,20 @@
     return number;
 }
 
-- (MeasurementPreviewElement*)previewElement
-{
-    MeasurementPreviewElement *element = [[MeasurementPreviewElement alloc] init];
-    NSNumber *value = [self valueAsNumber];
-    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-    NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-    NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
-    element.klass = [group classKey];
-    element.format = formatKey;
-    element.value = value;
-    
-    return element;
-}
+//- (MeasurementPreviewElement*)previewElement
+//{
+//    MeasurementPreviewElement *element = [[MeasurementPreviewElement alloc] init];
+//    NSNumber *value = [self valueAsNumber];
+//    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+//    NSInteger selectedType = [_typePicker selectedRowInComponent:1];
+//    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+//    NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
+//    element.klass = [group classKey];
+//    element.format = formatKey;
+//    element.value = value;
+//
+//    return element;
+//}
 
 #pragma mark - CustomNumericalKeyboardDelegate
 
@@ -243,26 +246,30 @@
 
 #pragma mark - Segues
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:kSaveMeasurementSegue])
-    {
-        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
-        MeasurementPreviewElement *previewElement = [self previewElement];
-        editEventVC.eventElement = previewElement;
-        editEventVC.entry = self.entry;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if([segue.identifier isEqualToString:kSaveMeasurementSegue])
+//    {
+//        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
+//        MeasurementPreviewElement *previewElement = [self previewElement];
+//        editEventVC.eventElement = previewElement;
+//        editEventVC.entry = self.entry;
+//    }
+//}
 
-- (void)doneButtonTouched:(id)sender
+- (IBAction)doneButtonTouched:(id)sender
 {
+    NSLog(@"");
     if([[_valueField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] < 1)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You must enter a value" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-        return;
+        _valueField.text = @"0";
     }
-    [self performSegueWithIdentifier:kSaveMeasurementSegue sender:self];
+    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
+    NSInteger selectedType = [_typePicker selectedRowInComponent:1];
+    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
+    NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
+    [self.delegate eventDidChangeProperties:[group classKey] valueType:formatKey value:_valueField.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - KSAdvancedPickerDataSource and KSAdvancedDelegate methods

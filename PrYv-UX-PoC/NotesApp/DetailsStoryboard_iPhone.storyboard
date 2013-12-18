@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Enl-mR-bx2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Enl-mR-bx2">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -26,31 +26,39 @@
                                 <rect key="frame" x="0.0" y="480" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UY-r5-6ZD">
-                                        <rect key="frame" x="10" y="11" width="37" height="21"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuU-DW-GIK">
+                                        <rect key="frame" x="270" y="7" width="40" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag222" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lkd-e2-gtW">
-                                        <rect key="frame" x="55" y="11" width="56" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="mhH-nb-sCy"/>
+                                        </constraints>
+                                        <state key="normal" title="Done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doneTagsEditingButtonTouched:" destination="Aad-FO-PXE" eventType="touchUpInside" id="naJ-a0-mTj"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2sU-uW-2LL" customClass="JSTokenField">
+                                        <rect key="frame" x="20" y="0.0" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="RKN-Gd-jfN"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="6UY-r5-6ZD" firstAttribute="leading" secondItem="B96-KX-HhR" secondAttribute="leading" constant="10" id="0kd-a8-nU3"/>
-                                    <constraint firstItem="6UY-r5-6ZD" firstAttribute="top" secondItem="B96-KX-HhR" secondAttribute="top" constant="11" id="8wP-Wv-N6T"/>
                                     <constraint firstAttribute="width" constant="320" id="JF2-Xw-wCl"/>
+                                    <constraint firstAttribute="bottom" secondItem="2sU-uW-2LL" secondAttribute="bottom" id="Jjb-HR-RTR"/>
                                     <constraint firstAttribute="height" constant="44" id="MbU-Vq-vUJ"/>
-                                    <constraint firstItem="Lkd-e2-gtW" firstAttribute="baseline" secondItem="6UY-r5-6ZD" secondAttribute="baseline" id="XSo-jA-Ezv"/>
-                                    <constraint firstItem="Lkd-e2-gtW" firstAttribute="leading" secondItem="6UY-r5-6ZD" secondAttribute="trailing" constant="8" symbolic="YES" id="tvq-85-QLf"/>
+                                    <constraint firstAttribute="bottom" secondItem="IuU-DW-GIK" secondAttribute="bottom" constant="7" id="OId-Ca-QPM"/>
+                                    <constraint firstItem="2sU-uW-2LL" firstAttribute="leading" secondItem="B96-KX-HhR" secondAttribute="leading" constant="20" id="OtL-v5-49z"/>
+                                    <constraint firstItem="2sU-uW-2LL" firstAttribute="top" secondItem="B96-KX-HhR" secondAttribute="top" id="Q5b-fy-xXx"/>
+                                    <constraint firstItem="IuU-DW-GIK" firstAttribute="top" secondItem="B96-KX-HhR" secondAttribute="top" constant="7" id="QGY-0E-9lv"/>
+                                    <constraint firstAttribute="trailing" secondItem="IuU-DW-GIK" secondAttribute="trailing" constant="10" id="bHE-DD-C4j"/>
+                                    <constraint firstItem="IuU-DW-GIK" firstAttribute="leading" secondItem="2sU-uW-2LL" secondAttribute="trailing" constant="10" id="jXU-jr-Wdd"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RK0-Vc-vGU">
@@ -109,9 +117,12 @@
                         <outlet property="deleteButton" destination="RK0-Vc-vGU" id="R6M-pG-yPx"/>
                         <outlet property="detailsContainerView" destination="xRk-55-nOB" id="XjI-CX-sbh"/>
                         <outlet property="doneButton" destination="JmR-RO-29i" id="toh-OG-RDa"/>
+                        <outlet property="doneButtonConstraint" destination="mhH-nb-sCy" id="Dib-Ik-pzx"/>
+                        <outlet property="doneTagsEditingButton" destination="IuU-DW-GIK" id="4oF-PE-5aT"/>
                         <outlet property="streamConstraint" destination="mlV-zO-L2f" id="LEm-OK-B7B"/>
                         <outlet property="streamsContainer" destination="YYM-qj-DzJ" id="UPW-fC-R4L"/>
-                        <outlet property="tagsConstraint" destination="MbU-Vq-vUJ" id="YCG-0h-NBL"/>
+                        <outlet property="tagsContainerConstraint" destination="rS3-Zf-YCy" id="YoF-kJ-bMY"/>
+                        <outlet property="tagsField" destination="2sU-uW-2LL" id="laf-jM-BUE"/>
                         <outlet property="tagsSection" destination="B96-KX-HhR" id="JHd-TA-Bu1"/>
                     </connections>
                 </viewController>
@@ -323,7 +334,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="373"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Rr-iA-3L0">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="25kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="28" translatesAutoresizingMaskIntoConstraints="NO" id="6Rr-iA-3L0">
                                 <rect key="frame" x="0.0" y="40" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -552,10 +563,312 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="917" y="772"/>
         </scene>
+        <!--Add Numerical Value View Controller-->
+        <scene sceneID="iPU-Ti-qBT">
+            <objects>
+                <viewController storyboardIdentifier="AddNumericalValueViewController_ID" id="Yop-F5-1lm" customClass="AddNumericalValueViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QUk-FY-c7b"/>
+                        <viewControllerLayoutGuide type="bottom" id="TAv-h9-XaI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uGf-Vf-Ok7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-Iv-Aie">
+                                <rect key="frame" x="0.0" y="301" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z2c-sZ-BVa">
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-qc-V9a">
+                                        <rect key="frame" x="254" y="0.0" width="66" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cus-z1-KeM"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-c8-baC">
+                                <rect key="frame" x="0.0" y="144" width="320" height="157"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="pickercenter.png" translatesAutoresizingMaskIntoConstraints="NO" id="5ga-YR-03W">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baO-rt-WPh" customClass="KSAdvancedPicker">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="157" id="UCh-bf-9dI"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFA-xO-ZZ3">
+                                <rect key="frame" x="0.0" y="349" width="320" height="219"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FGg-Ll-Yp4" customClass="CustomNumericalKeyboard">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="219"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugR-Ir-Xf1">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCu-9G-JNI">
+                                                        <rect key="frame" x="5" y="4" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="1" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="M56-8B-EEN"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLi-at-uk1">
+                                                        <rect key="frame" x="5" y="110" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="7" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="AmD-Gz-JVG"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taz-ge-msL">
+                                                        <rect key="frame" x="5" y="163" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="." backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="voE-PW-Qth"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VE9-Fk-IXQ">
+                                                        <rect key="frame" x="5" y="57" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="4" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="fKI-ka-gBT"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF4-hC-U9O">
+                                                        <rect key="frame" x="109" y="4" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="2" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="VSQ-By-Xpt"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cM-QD-cLj">
+                                                        <rect key="frame" x="109" y="110" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="8" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="JrE-Fg-q6P"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEa-oz-nS9">
+                                                        <rect key="frame" x="109" y="163" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="0" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="mIS-5N-pPd"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azA-4O-LZI">
+                                                        <rect key="frame" x="109" y="57" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="5" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="wLU-87-aIz"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqb-gi-hRK">
+                                                        <rect key="frame" x="213" y="4" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="3" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="F5K-Nu-Sq2"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9g-tg-hZl">
+                                                        <rect key="frame" x="213" y="110" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="9" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="R0R-iI-3Bw"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhx-ua-goJ">
+                                                        <rect key="frame" x="213" y="163" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="DEL" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="VRu-8L-x8c"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og7-Ll-AR1">
+                                                        <rect key="frame" x="213" y="57" width="102" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                        <state key="normal" title="6" backgroundImage="numpad_button.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" backgroundImage="numpad_button_active.png">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clicked:" destination="FGg-Ll-Yp4" eventType="touchUpInside" id="5ME-Ar-6h4"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Yop-F5-1lm" id="P4E-Ik-7H1"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="219" id="okX-0G-HWZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GuQ-Iv-Aie" secondAttribute="trailing" id="5vz-Qc-5iC"/>
+                            <constraint firstItem="nFA-xO-ZZ3" firstAttribute="top" secondItem="GuQ-Iv-Aie" secondAttribute="bottom" constant="8" id="6pb-LU-7bF"/>
+                            <constraint firstItem="nFA-xO-ZZ3" firstAttribute="leading" secondItem="uGf-Vf-Ok7" secondAttribute="leading" id="CbG-X7-ZmJ"/>
+                            <constraint firstAttribute="trailing" secondItem="nFA-xO-ZZ3" secondAttribute="trailing" id="DAl-lX-wEq"/>
+                            <constraint firstAttribute="trailing" secondItem="hkh-c8-baC" secondAttribute="trailing" id="PHG-jf-bSj"/>
+                            <constraint firstItem="GuQ-Iv-Aie" firstAttribute="leading" secondItem="uGf-Vf-Ok7" secondAttribute="leading" id="bMA-2s-x7W"/>
+                            <constraint firstItem="TAv-h9-XaI" firstAttribute="top" secondItem="nFA-xO-ZZ3" secondAttribute="bottom" id="gE0-jt-ZCE"/>
+                            <constraint firstItem="hkh-c8-baC" firstAttribute="leading" secondItem="uGf-Vf-Ok7" secondAttribute="leading" id="nEg-LQ-Sev"/>
+                            <constraint firstItem="GuQ-Iv-Aie" firstAttribute="top" secondItem="hkh-c8-baC" secondAttribute="bottom" id="sB3-Gx-T9C"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="13x-uQ-vWL">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="adx-bH-PHf"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="fY9-md-u3A">
+                            <connections>
+                                <action selector="doneButtonTouched:" destination="Yop-F5-1lm" id="9r1-qA-VG4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="customKeyborad" destination="FGg-Ll-Yp4" id="5KJ-RV-F6e"/>
+                        <outlet property="doneButton" destination="fY9-md-u3A" id="q5z-vx-zTV"/>
+                        <outlet property="typePicker" destination="baO-rt-WPh" id="VMN-vl-jw2"/>
+                        <outlet property="typeTextField" destination="YOj-qc-V9a" id="sTi-Xs-AIZ"/>
+                        <outlet property="valueField" destination="z2c-sZ-BVa" id="ddv-Z7-amT"/>
+                        <outlet property="view" destination="uGf-Vf-Ok7" id="EXF-VN-m0r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XON-v2-E6O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="932" y="1233"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon_back.png" width="32" height="32"/>
         <image name="img-test.png" width="762" height="499"/>
+        <image name="numpad_button.png" width="102" height="47"/>
+        <image name="numpad_button_active.png" width="102" height="47"/>
+        <image name="pickercenter.png" width="320" height="157"/>
         <image name="picture_overlay_bottom.png" width="640" height="200"/>
         <image name="trash-icon.png" width="30" height="30"/>
     </resources>
