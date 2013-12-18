@@ -71,21 +71,21 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
             else
             {
                 [connection getAllStreamsWithRequestType:PYRequestTypeSync gotCachedStreams:^(NSArray *cachedStreamsList) {
-                    if(![[NotesAppController sharedInstance] isOnline])
-                    {
+                    //if(![[NotesAppController sharedInstance] isOnline])
+                    //{
                         NSMutableArray *streams = [NSMutableArray array];
                         [self populateArray:streams withStrems:cachedStreamsList];
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
-                    }
+                    //}
                     
                 } gotOnlineStreams:^(NSArray *onlineStreamList) {
-                    if([[NotesAppController sharedInstance] isOnline])
-                    {
+                    //if([[NotesAppController sharedInstance] isOnline])
+                    //{
                         NSMutableArray *streams = [NSMutableArray array];
                         [self populateArray:streams withStrems:onlineStreamList];
                         self.cachedStreams = streams;
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
-                    }
+                    //}
                     
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
