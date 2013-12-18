@@ -131,24 +131,18 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     [self saveEventAsShortcut:event];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         if(!connection)
         {
-            [userInfo setObject:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil] forKey:@"Error"];
-            NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
-            [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
+            NSError *error = [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil];
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
         }
         else
         {
             [connection createEvent:event requestType:PYRequestTypeSync successHandler:^(NSString *newEventId, NSString *stoppedId) {
                 NSLog(@"saved event id: %@",newEventId);
-                [userInfo setObject:newEventId forKey:@"EventId"];
-                NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
-                [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:newEventId andError:nil];
             } errorHandler:^(NSError *error) {
-                [userInfo setObject:error forKey:@"Error"];
-                NSNotification *saveEventNotification = [NSNotification notificationWithName:kEventAddedNotification object:self userInfo:userInfo];
-                [[NSNotificationCenter defaultCenter] postNotification:saveEventNotification];
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
             }];
         }
     });

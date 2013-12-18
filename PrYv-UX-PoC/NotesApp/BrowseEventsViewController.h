@@ -11,6 +11,8 @@
 
 @interface BrowseEventsViewController : BaseWithMenuViewController
 
+@property (nonatomic, strong) UIImage *pickedImage;
+
 - (void)clearCurrentData;
 
 @end

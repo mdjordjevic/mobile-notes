@@ -134,7 +134,6 @@
     else if([segue.identifier isEqualToString:kAddTypeSegue_ID])
     {
         AddNumericalValueViewController *addVC = (AddNumericalValueViewController*)segue.destinationViewController;
-        addVC.event = self.event;
     }
 }
 
