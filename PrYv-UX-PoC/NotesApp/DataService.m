@@ -197,7 +197,9 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         else
         {
             [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-                [connection getAllEventsWithRequestType:PYRequestTypeSync gotCachedEvents:^(NSArray *cachedEventList) {
+                [connection getEventsWithRequestType:PYRequestTypeSync
+                                          parameters:nil 
+                                     gotCachedEvents:^(NSArray *cachedEventList) {
                     if(![[NotesAppController sharedInstance] isOnline])
                     {
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
