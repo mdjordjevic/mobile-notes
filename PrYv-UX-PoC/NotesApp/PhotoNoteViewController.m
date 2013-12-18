@@ -10,16 +10,15 @@
 #import "EditEventViewController.h"
 #import "PhotoPreviewElement.h"
 #import "UIImage+PrYv.h"
+#import "BrowseEventsViewController.h"
 
 #define kSaveImageSegue_ID @"SaveImageSegue_ID"
 
 @interface PhotoNoteViewController ()
 
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic, strong) UIImage *selectedImage;
 
 - (void)setupImagePicker;
-- (PhotoPreviewElement*)previewElement;
 
 @end
 
@@ -74,26 +73,20 @@
     
 }
 
-
-- (PhotoPreviewElement*)previewElement
-{
-    PhotoPreviewElement *pElement = [[PhotoPreviewElement alloc] init];
-    pElement.previewImage = self.selectedImage;
-    return pElement;
-}
-
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-    CGSize newSize = self.selectedImage.size;
+    UIImage *selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    CGSize newSize = selectedImage.size;
     CGFloat maxSide = MAX(newSize.width, newSize.height);
     CGFloat ratio = maxSide / 1024.0f;
     newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
-    self.selectedImage = [self.selectedImage imageScaledToSize:newSize];
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    [self performSegueWithIdentifier:kSaveImageSegue_ID sender:self];
+    selectedImage = [selectedImage imageScaledToSize:newSize];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self popViewController];
+        self.browseVC.pickedImage = selectedImage;
+    }];
 }
 
 
@@ -101,19 +94,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self popViewController];
-}
-
-#pragma mark - Segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:kSaveImageSegue_ID])
-    {
-        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
-        PhotoPreviewElement *previewElement = [self previewElement];
-        editEventVC.eventElement = previewElement;
-        editEventVC.entry = self.entry;
-    }
 }
 
 @end

@@ -9,9 +9,12 @@
 #import "BaseViewController.h"
 #import "UserHistoryEntry.h"
 
+@class BrowseEventsViewController;
+
 @interface PhotoNoteViewController : BaseViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UserHistoryEntry *entry;
 @property (nonatomic) UIImagePickerControllerSourceType sourceType;
+@property (nonatomic, weak) BrowseEventsViewController *browseVC;
 
 @end

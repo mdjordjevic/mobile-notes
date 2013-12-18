@@ -42,14 +42,28 @@
 
 - (void)updateEventDetails
 {
-    self.eventDescriptionLabel.text = self.event.eventContent;
+    if(self.isEditing || [self.event.eventContent length] > 0)
+    {
+        self.eventDescriptionLabel.text = self.event.eventContent;
+    }
+    else
+    {
+        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+    }
 }
 
 - (void)editDescriptionText:(id)sender
 {
     TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
     textEditVC.delegate = self;
-    textEditVC.text = self.event.eventContent;
+    if(self.isEditing)
+    {
+        textEditVC.text = self.event.eventContent;
+    }
+    else
+    {
+        textEditVC.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+    }
     [self.parentViewController.navigationController pushViewController:textEditVC animated:YES];
 }
 

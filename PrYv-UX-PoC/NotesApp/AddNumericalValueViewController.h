@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomNumericalKeyboard.h"
-
-@class UserHistoryEntry;
+#import "BaseDetailsViewController.h"
 
 @interface AddNumericalValueViewController : BaseViewController <CustomKeyboardDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *valueField;
-@property (nonatomic, strong) UIBarButtonItem *doneButton;
-@property (nonatomic, strong) UserHistoryEntry *entry;
-@property (nonatomic, strong) PYEvent *event;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
+@property (nonatomic, weak) id<BaseDetailsDelegate> delegate;
+
+@property (nonatomic, strong) NSString *valueClass;
+@property (nonatomic, strong) NSString *valueType;
+@property (nonatomic, strong) NSString *value;
 
 @end

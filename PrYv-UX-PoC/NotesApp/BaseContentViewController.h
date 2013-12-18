@@ -14,6 +14,7 @@
 
 @property (nonatomic, weak) id<BaseDetailsDelegate> delegate;
 @property (nonatomic, weak) PYEvent *event;
+@property (nonatomic) BOOL isEditing;
 
 - (void)updateEventDetails;
 
