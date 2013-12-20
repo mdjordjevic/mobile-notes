@@ -36,11 +36,11 @@
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, labelSize.width + 8, kTagHeight)];
         if(style == TagViewStandardStyle)
         {
-            self.backgroundView.backgroundColor = [UIColor colorWithRed:234.0f/255.0f green:95.0f/255.0f blue:36.0f/255.0f alpha:1.0];
+            self.backgroundView.backgroundColor = [UIColor colorWithRed:63.0f/255.0f green:91.0f/255.0f blue:107.0f/255.0f alpha:1.0];
         }
         else
         {
-            self.backgroundView.backgroundColor = [UIColor whiteColor];
+            self.backgroundView.backgroundColor = [UIColor colorWithRed:63.0f/255.0f green:91.0f/255.0f blue:107.0f/255.0f alpha:1.0];
         }
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.backgroundView];
@@ -61,9 +61,9 @@
     }
     else
     {
-        [tagLabel setTextColor:[UIColor colorWithRed:106.0f/255.0f green:163.0f/255.0f blue:195.0f/255.0f alpha:1]];
+        [tagLabel setTextColor:[UIColor whiteColor]];
     }
-    [tagLabel setAlpha:0.8];
+    [tagLabel setAlpha:1];
     return tagLabel;
 }
 
