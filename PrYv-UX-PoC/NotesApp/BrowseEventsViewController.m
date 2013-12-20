@@ -62,7 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"pryv";
+    self.navigationItem.title = @"Pryv";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveEventAddedNotification:)

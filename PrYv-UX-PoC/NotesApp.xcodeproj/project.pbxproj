@@ -40,6 +40,7 @@
 		960FE0C11806BB240074D24E /* value_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FE0C01806BB230074D24E /* value_bg.png */; };
 		963B8DD418644B0F00F7CBF7 /* icon_pryv.png in Resources */ = {isa = PBXBuildFile; fileRef = 963B8DD218644B0F00F7CBF7 /* icon_pryv.png */; };
 		963B8DD518644B0F00F7CBF7 /* icon_pryv@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 963B8DD318644B0F00F7CBF7 /* icon_pryv@2x.png */; };
+		963B8DDF18644F9D00F7CBF7 /* museo300-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 963B8DDE18644F9D00F7CBF7 /* museo300-regular-webfont.ttf */; };
 		B6016BB1172873D30056CD3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6016BB0172873D30056CD3F /* UIKit.framework */; };
 		B6016BB3172873D30056CD3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6016BB2172873D30056CD3F /* Foundation.framework */; };
 		B6016BB5172873D30056CD3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6016BB4172873D30056CD3F /* CoreGraphics.framework */; };
@@ -443,6 +444,7 @@
 		960FE0C01806BB230074D24E /* value_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = value_bg.png; sourceTree = "<group>"; };
 		963B8DD218644B0F00F7CBF7 /* icon_pryv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pryv.png; sourceTree = "<group>"; };
 		963B8DD318644B0F00F7CBF7 /* icon_pryv@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_pryv@2x.png"; sourceTree = "<group>"; };
+		963B8DDE18644F9D00F7CBF7 /* museo300-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "museo300-regular-webfont.ttf"; sourceTree = "<group>"; };
 		B6016BAD172873D30056CD3F /* Pryv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pryv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6016BB0172873D30056CD3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B6016BB2172873D30056CD3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -984,6 +986,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		963B8DDD18644F8100F7CBF7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				963B8DDE18644F9D00F7CBF7 /* museo300-regular-webfont.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		B6016BA4172873D30056CD3F = {
 			isa = PBXGroup;
 			children = (
@@ -1047,6 +1057,7 @@
 		B6016BB7172873D40056CD3F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				963B8DDD18644F8100F7CBF7 /* Fonts */,
 				4E1F482E1795446B009A8E15 /* NSObject+subscript.h */,
 				B6F9A2551729C28F009C8BAA /* Images */,
 				B6016BB8172873D40056CD3F /* NotesApp-Info.plist */,
@@ -1863,6 +1874,7 @@
 				960FE0B31806B3270074D24E /* icon-time@2x.png in Resources */,
 				960FE0BB1806B5760074D24E /* img-test.png in Resources */,
 				960FE0BD1806B64E0074D24E /* picture_overlay.png in Resources */,
+				963B8DDF18644F9D00F7CBF7 /* museo300-regular-webfont.ttf in Resources */,
 				960FE0BF1806B8190074D24E /* picture_overlay_bottom.png in Resources */,
 				960FE0C11806BB240074D24E /* value_bg.png in Resources */,
 			);
