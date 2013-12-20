@@ -1271,51 +1271,17 @@ height=123312</string>
     </scenes>
     <resources>
         <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
-        <image name="icon-time.png" width="11" height="12"/>
         <image name="icon_back.png" width="32" height="32"/>
         <image name="icon_picture.png" width="31" height="29"/>
         <image name="icon_small_tag.png" width="16" height="16"/>
         <image name="img-test.png" width="762" height="499"/>
         <image name="numpad_bg.png" width="320" height="216"/>
         <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="pickercenter.png" width="320" height="157"/>
         <image name="picture_overlay.png" width="640" height="90"/>
-        <image name="picture_overlay.png" width="640" height="90"/>
-        <image name="picture_overlay_bottom.png" width="640" height="200"/>
         <image name="picture_overlay_bottom.png" width="640" height="200"/>
         <image name="trash-icon.png" width="30" height="30"/>
-        <image name="value_bg.png" width="640" height="637"/>
-        <image name="value_bg.png" width="640" height="637"/>
-        <image name="value_bg.png" width="640" height="637"/>
-        <image name="value_bg.png" width="640" height="637"/>
         <image name="value_bg.png" width="640" height="637"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
