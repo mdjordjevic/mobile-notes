@@ -51,7 +51,6 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 }
 
 
-
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -198,7 +197,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         {
             [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
                 [connection getEventsWithRequestType:PYRequestTypeSync
-                                          parameters:nil 
+                                              filter:nil
                                      gotCachedEvents:^(NSArray *cachedEventList) {
                     if(![[NotesAppController sharedInstance] isOnline])
                     {
@@ -215,7 +214,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
                         NSLog(@"ONLINE");
                     }
-                } successHandler:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
+                } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
                     NSLog(@"successHandler");
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
