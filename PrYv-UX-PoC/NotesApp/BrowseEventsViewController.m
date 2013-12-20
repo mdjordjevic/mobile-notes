@@ -35,16 +35,20 @@
 
 @interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient>
 
+
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *events;
 @property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 
+@property (nonatomic, strong) PYEventFilter *filter;
+
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
+- (void)filterEventUpdate:(NSNotification*)notification;
 
 @end
 
@@ -73,6 +77,19 @@
                                                  name:kAppDidReceiveAccessTokenNotification
                                                object:nil];
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
+    
+    
+    self.events = [[NSMutableArray alloc] init];
+    
+    self.filter = [[PYEventFilter alloc] initWithConnection:[[NotesAppController sharedInstance] connection]
+                                                   fromTime:PYEventFilter_UNDEFINED_FROMTIME
+                                                     toTime:PYEventFilter_UNDEFINED_TOTIME
+                                                      limit:1
+                                             onlyStreamsIDs:nil
+                                                       tags:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:) name:@"EVENTS" object:self.filter];
+    
     
     self.tableView.alpha = 0.0f;
     [self loadData];
@@ -104,6 +121,30 @@
 }
 
 - (void)loadData
+{
+    static BOOL isLoading;
+    if(!isLoading)
+    {
+        isLoading = YES;
+        [self showLoadingOverlay];
+        [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id streamsObject, NSError *error) {
+            if(streamsObject)
+            {
+                self.streams = streamsObject;
+                
+                [self hideLoadingOverlay];
+                [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
+            }
+            isLoading = NO;
+        }];
+        
+    }
+    
+    
+    [self.filter update];
+}
+
+- (void)loadDataOld
 {
     static BOOL isLoading;
     if(!isLoading)
@@ -249,9 +290,9 @@
         }
         else
         {
-//            AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-//            addNVC.entry = entry;
-//            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
+            //            AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
+            //            addNVC.entry = entry;
+            //            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
         }
     }
     else
@@ -359,6 +400,83 @@
     [self loadData];
 }
 
+- (void)filterEventUpdate:(NSNotification *)notification
+{
+    
+    NSDictionary *message = (NSDictionary*) notification.userInfo;
+    
+    
+    
+    NSArray* toAdd = [message objectForKey:@"ADD"];
+    NSArray* toRemove = [message objectForKey:@"REMOVE"];
+    NSArray* modify = [message objectForKey:@"MODIFY"];
+    
+   // [_tableView beginUpdates];
+    // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
+    
+    // events are sent ordered by time
+    if (toRemove) {
+        NSLog(@"*62 REMOVE %i", toRemove.count);
+        
+        int k = self.events.count - 1;
+        PYEvent* kEvent = nil;
+        PYEvent* eventToRemove = nil;
+        for (int i = toRemove.count -1 ; i >= 0; i--) {
+            if (self.events.count == 0) break; // list is empty
+            if (kEvent == nil) kEvent = [self.events objectAtIndex:k];
+            eventToRemove = [toRemove objectAtIndex:i];
+            
+            
+            while (kEvent.time > eventToRemove.time && k >=0) {
+                k--;
+                kEvent = [self.events objectAtIndex:k];
+            }
+            
+            if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
+                [self.events removeObjectAtIndex:k];
+                kEvent = nil;
+            }
+            
+        }
+        
+    }
+    
+    if (modify) {
+        NSLog(@"*62 MODIFY %i", modify.count);
+    }
+    
+    if (toAdd && toAdd.count > 0) {
+        
+        NSLog(@"*62 ADD %i", toAdd.count);
+        if (self.events.count > 0) {
+            
+            int k = self.events.count - 1;
+            PYEvent* kEvent = nil;
+            PYEvent* eventToAdd = nil;
+            
+            for (int i = toAdd.count - 1 ; i >= 0; i--) {
+                eventToAdd = [toAdd objectAtIndex:i];
+                if (kEvent == nil) kEvent = [self.events objectAtIndex:k];
+                
+                while (kEvent.time > eventToAdd.time && k > 0) {
+                    NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
+                    k--;
+                    kEvent = [self.events objectAtIndex:k];
+                }
+                [self.events insertObject:eventToAdd atIndex:k];
+                kEvent = nil;
+            }
+            
+        } else { // empty list add all events
+            [self.events addObjectsFromArray:toAdd];
+        }
+    }
+   // [_tableView endUpdates];
+    
+    [self hideLoadingOverlay];
+    
+}
+
 #pragma mark - UIActionSheetDelegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -409,6 +527,7 @@
 
 - (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
 {
+    self.filter.limit = 3;
     [self loadData];
 }
 

@@ -268,7 +268,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     else if ([event.pyType isNumerical]) {
         return CellStyleTypeMeasure;
     }
-    NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
+    //NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
     return CellStyleTypeUnkown;
 }
 
