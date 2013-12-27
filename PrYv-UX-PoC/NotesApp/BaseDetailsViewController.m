@@ -347,7 +347,7 @@
 {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     self.tagsContainerConstraint.constant = keyboardSize.height - 44;
-    self.doneButtonConstraint.constant = 40;
+    self.doneButtonConstraint.constant = 80;
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{
         [self.doneTagsEditingButton setWidth:37];
