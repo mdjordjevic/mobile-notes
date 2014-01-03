@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="AddNumericalValueViewController_ID" id="Erg-Yp-Yvx" customClass="AddNumericalValueViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="boW-yb-cex">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="PU9-Tc-Cze">
@@ -52,7 +52,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="Dhf-ZW-3V9">
-                                <rect key="frame" x="0.0" y="197" width="320" height="283"/>
+                                <rect key="frame" x="0.0" y="197" width="320" height="371"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="l3C-uD-4E7" customClass="CustomNumericalKeyboard">
@@ -282,11 +282,11 @@
             <objects>
                 <viewController storyboardIdentifier="TextNoteViewController_ID" id="xPd-dQ-HP6" customClass="TextNoteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9yT-Dc-pQg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="nvn-f6-8Rw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="265"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
@@ -311,7 +311,7 @@
             <objects>
                 <viewController id="DKB-Vj-e0S" customClass="EditEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8YJ-Z8-nG3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="6sU-2o-784">
@@ -379,7 +379,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VMg-BJ-eCt">
-                                <rect key="frame" x="0.0" y="178" width="320" height="302"/>
+                                <rect key="frame" x="0.0" y="178" width="320" height="390"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.8511348084" alpha="1" colorSpace="calibratedWhite"/>
@@ -468,7 +468,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="SettingsViewController_ID" id="0To-B6-AQp" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="53t-rJ-thJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -567,7 +567,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MeasurementSettingsViewController_ID" id="U8f-nR-cjn" customClass="MeasurementSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Mng-1k-8I9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -612,7 +612,7 @@
             <objects>
                 <viewController storyboardIdentifier="PhotoNoteViewController_ID" id="yCq-bN-qmk" customClass="PhotoNoteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="igo-yZ-gg0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -630,7 +630,7 @@
             <objects>
                 <tableViewController id="24e-G2-ucW" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nKV-5I-q1z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -804,7 +804,7 @@
             <objects>
                 <viewController id="jxF-yp-AcH" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XCC-zY-FzD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -820,15 +820,15 @@
             <objects>
                 <viewController storyboardIdentifier="DetailsViewController_ID" id="vc2-Ju-i7O" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lS8-uc-TaT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Kp9-YL-Qf7">
-                                <rect key="frame" x="0.0" y="82" width="320" height="340"/>
+                                <rect key="frame" x="0.0" y="82" width="320" height="428"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="wmj-vq-ulS">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="340"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="428"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="joX-1L-f3d">
@@ -897,11 +897,11 @@
             <objects>
                 <viewController storyboardIdentifier="BrowseEventsViewController_ID" id="bxN-mN-biN" customClass="BrowseEventsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K6W-cn-ZXt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="160" sectionHeaderHeight="22" sectionFooterHeight="22" id="tKO-ND-CN1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1234,7 +1234,7 @@ height=123312</string>
             <objects>
                 <viewController storyboardIdentifier="AddEventViewController_ID" id="qQH-7f-NwD" customClass="AddEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZAO-eY-gcq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1277,12 +1277,13 @@ height=123312</string>
         <image name="trash-icon.png" width="30" height="30"/>
         <image name="value_bg.png" width="640" height="637"/>
     </resources>
+    <color key="tintColor" red="0.0" green="0.66666666669999997" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="n9u-Ag-oOv"/>
+        <segue reference="iRl-Ji-YHn"/>
     </inferredMetricsTieBreakers>
 </document>
