@@ -204,7 +204,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
                         NSLog(@"OFFLINE");
                     }
-                } gotOnlineEvents:^(NSArray *onlineEventList) {
+                } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
                     for(PYEvent *event in onlineEventList)
                     {
                         NSLog(@"event: %d",event.hasTmpId);
