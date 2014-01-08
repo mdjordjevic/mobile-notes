@@ -444,20 +444,27 @@
         
         NSLog(@"*262 ADD %i", toAdd.count);
         
-        
-        int k = 0;
+    
         PYEvent* kEvent = nil;
         PYEvent* eventToAdd = nil;
         
         for (int i = toAdd.count - 1 ; i >= 0; i--) {
             eventToAdd = [toAdd objectAtIndex:i];
             if (self.events.count > 0) {
-                do {
-                    kEvent = [self.events objectAtIndex:k];
-                    k++;
-                    NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
-                } while (kEvent.time > eventToAdd.time && k < self.events.count );
-                 [self.events insertObject:eventToAdd atIndex:k];
+                
+                BOOL inserted = NO;
+                for (int k = 0; k < self.events.count; k++) {
+                  kEvent = [self.events objectAtIndex:k];
+                    if (kEvent.time < eventToAdd.time) {
+                        [self.events insertObject:eventToAdd atIndex:k];
+                        inserted = YES;
+                        break;
+                    }
+                }
+                if (! inserted) {
+                   [self.events addObject:eventToAdd];
+                }
+ 
             } else {
                [self.events addObject:eventToAdd];
             }
