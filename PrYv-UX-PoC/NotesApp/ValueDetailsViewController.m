@@ -8,6 +8,8 @@
 
 #import "ValueDetailsViewController.h"
 #import "AddNumericalValueViewController.h"
+#import <PryvApiKit/PYEvent.h>
+#import <PryvApiKit/PYEventType.h>
 
 @interface ValueDetailsViewController ()
 
@@ -42,18 +44,35 @@
 {
     if(self.isEditing || self.event.eventContent)
     {
-        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
-        if([components count] > 1)
-        {
-            NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description],[components objectAtIndex:1]];
-            self.eventValueLabel.text = value;
+        
+        NSString *unit = self.event.pyType.symbol;
+        if (! unit) { unit = self.event.pyType.formatKey ; }
+        
+        
+        NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description], unit];
+        [self.eventValueLabel setText:value];
+        
+        NSString *formatDescription = [self.event.pyType localizedName];
+        if (! formatDescription) { unit = self.event.pyType.key ; }
+        [ self.eventValueFormatDescriptionLabel setText:formatDescription];
+        
+        if (self.event.eventDescription == nil || [self.event.eventDescription length] == 0) {
+            self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+        } else {
+           self.eventDescriptionLabel.text = self.event.eventDescription;
         }
-        self.eventDescriptionLabel.text = self.event.eventDescription;
+        
+        
+        
+        
     }
     else
     {
-        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
         self.eventValueLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+        self.eventValueFormatDescriptionLabel.text = @"";
+        
+        
     }
 }
 

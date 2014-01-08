@@ -11,6 +11,8 @@
 @interface ValueDetailsViewController : BaseContentViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *eventValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventValueFormatDescriptionLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
 
 @end
