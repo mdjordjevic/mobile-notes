@@ -225,6 +225,16 @@
 
 - (IBAction)doneButtonTouched:(id)sender
 {
+    
+    if(! self.event.streamId)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Please select a stream" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        [self changeVisibilityOfStreamPickerTo:YES];
+        return;
+    }
+
+    
     if(self.shouldUpdateEvent)
     {
         [self showLoadingOverlay];

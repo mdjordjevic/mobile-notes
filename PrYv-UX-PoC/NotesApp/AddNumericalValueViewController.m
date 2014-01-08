@@ -260,7 +260,7 @@
 
 - (IBAction)doneButtonTouched:(id)sender
 {
-    NSLog(@"");
+    NSLog(@"doneButtonTouched");
     if([[_valueField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] < 1)
     {
         _valueField.text = @"0";
