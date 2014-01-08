@@ -213,6 +213,7 @@
 {
     NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterDecimalStyle];
+    [nf setMaximumFractionDigits:2000];
     NSNumber *number = [nf numberFromString:_valueField.text];
     return number;
 }
