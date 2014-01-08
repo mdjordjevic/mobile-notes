@@ -452,16 +452,16 @@
         for (int i = toAdd.count - 1 ; i >= 0; i--) {
             eventToAdd = [toAdd objectAtIndex:i];
             if (self.events.count > 0) {
-                if (kEvent == nil) kEvent = [self.events objectAtIndex:k];
-                
-                NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
-                while (kEvent.time > eventToAdd.time && k < ( self.events.count - 1 ) ) {
-                    
+                do {
                     kEvent = [self.events objectAtIndex:k];
                     k++;
-                }
+                    NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
+                } while (kEvent.time > eventToAdd.time && k < self.events.count );
+                 [self.events insertObject:eventToAdd atIndex:k];
+            } else {
+               [self.events addObject:eventToAdd];
             }
-            [self.events addObject:eventToAdd];
+            
             kEvent = nil;
         }
         
