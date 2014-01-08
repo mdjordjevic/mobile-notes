@@ -72,24 +72,24 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
                 [connection getAllStreamsWithRequestType:PYRequestTypeSync gotCachedStreams:^(NSArray *cachedStreamsList) {
                     //if(![[NotesAppController sharedInstance] isOnline])
                     //{
-                        NSMutableArray *streams = [NSMutableArray array];
-                        [self populateArray:streams withStrems:cachedStreamsList];
-                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                    NSMutableArray *streams = [NSMutableArray array];
+                    [self populateArray:streams withStrems:cachedStreamsList];
+                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
                     //}
                     
                 } gotOnlineStreams:^(NSArray *onlineStreamList) {
                     //if([[NotesAppController sharedInstance] isOnline])
                     //{
-                        NSMutableArray *streams = [NSMutableArray array];
-                        [self populateArray:streams withStrems:onlineStreamList];
-                        self.cachedStreams = streams;
-                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                    NSMutableArray *streams = [NSMutableArray array];
+                    [self populateArray:streams withStrems:onlineStreamList];
+                    self.cachedStreams = streams;
+                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
                     //}
                     
                 } errorHandler:^(NSError *error) {
                     [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
                 }];
-                    
+                
             }
         }
     });
@@ -196,34 +196,37 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         else
         {
             [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
+                /**
                 [connection getEventsWithRequestType:PYRequestTypeSync
                                               filter:nil
                                      gotCachedEvents:^(NSArray *cachedEventList) {
-                    if(![[NotesAppController sharedInstance] isOnline])
-                    {
-                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
-                        NSLog(@"OFFLINE");
-                    }
-                } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
-                    for(PYEvent *event in onlineEventList)
-                    {
-                        NSLog(@"event: %d",event.hasTmpId);
-                    }
-                    if([[NotesAppController sharedInstance] isOnline])
-                    {
-                        [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
-                        NSLog(@"ONLINE");
-                    }
-                } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
-                    NSLog(@"successHandler");
-                } errorHandler:^(NSError *error) {
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                }];
-//                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
-//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
-//                } errorHandler:^(NSError *error) {
-//                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-//                } shouldSyncAndCache:YES];
+
+                                         if(![[NotesAppController sharedInstance] isOnline])
+                                         {
+                                             [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
+                                             NSLog(@"OFFLINE");
+                                         }
+                                     } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
+                                         for(PYEvent *event in onlineEventList)
+                                         {
+                                             NSLog(@"event: %d",event.hasTmpId);
+                                         }
+                                         if([[NotesAppController sharedInstance] isOnline])
+                                         {
+                                             [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
+                                             NSLog(@"ONLINE");
+                                         }
+                                     } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
+                                         NSLog(@"successHandler");
+                                     } errorHandler:^(NSError *error) {
+                                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+                                     }];
+                 **/
+                //                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
+                //                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
+                //                } errorHandler:^(NSError *error) {
+                //                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+                //                } shouldSyncAndCache:YES];
             }];
         }
     });
@@ -268,14 +271,14 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     else if ([event.pyType isNumerical]) {
         return CellStyleTypeMeasure;
     }
-    NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
+    //NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
     return CellStyleTypeUnkown;
 }
 
 - (EventDataType)eventDataTypeForEvent:(PYEvent *)event
 {
     if ([event.pyType isNumerical]) {
-         return EventDataTypeValueMeasure;
+        return EventDataTypeValueMeasure;
     }
     
     NSString *eventClassKey = event.pyType.classKey;
