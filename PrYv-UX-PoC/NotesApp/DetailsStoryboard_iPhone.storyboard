@@ -25,8 +25,8 @@
                                 <rect key="frame" x="0.0" y="480" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuU-DW-GIK">
-                                        <rect key="frame" x="260" y="5" width="60" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuU-DW-GIK">
+                                        <rect key="frame" x="250" y="5" width="60" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.66274509800000003" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -41,8 +41,8 @@
                                             <action selector="doneTagsEditingButtonTouched:" destination="Aad-FO-PXE" eventType="touchUpInside" id="naJ-a0-mTj"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2sU-uW-2LL" customClass="JSTokenField">
-                                        <rect key="frame" x="10" y="5" width="241" height="35"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2sU-uW-2LL" customClass="JSTokenField">
+                                        <rect key="frame" x="10" y="5" width="240" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
@@ -145,6 +145,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSH-4E-Kg4">
                                 <rect key="frame" x="10" y="74" width="300" height="322"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="02/12/2013 7:00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCC-Ry-UbL">
+                                        <rect key="frame" x="20" y="37" width="245" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kds-OZ-MfO">
@@ -178,26 +187,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="datePickerDidChangeDate:" destination="hqK-Lr-rTO" eventType="valueChanged" id="X2k-pT-KJo"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="02/12/2013 7:00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCC-Ry-UbL">
-                                <rect key="frame" x="0.0" y="117" width="320" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kds-OZ-MfO" secondAttribute="trailing" id="EdU-ZU-itm"/>
                             <constraint firstItem="vSH-4E-Kg4" firstAttribute="leading" secondItem="BzU-0w-fTt" secondAttribute="leading" constant="10" id="GmL-bV-dB8"/>
-                            <constraint firstItem="tCC-Ry-UbL" firstAttribute="top" secondItem="dv6-kb-kPv" secondAttribute="bottom" constant="53" id="KTV-kb-mgr"/>
                             <constraint firstItem="DTE-0N-12D" firstAttribute="top" secondItem="kds-OZ-MfO" secondAttribute="bottom" id="Oq5-Jz-8ve"/>
                             <constraint firstItem="kds-OZ-MfO" firstAttribute="leading" secondItem="BzU-0w-fTt" secondAttribute="leading" id="Tey-Sd-Wry"/>
                             <constraint firstAttribute="trailing" secondItem="vSH-4E-Kg4" secondAttribute="trailing" constant="10" id="cD1-DX-bG7"/>
-                            <constraint firstAttribute="trailing" secondItem="tCC-Ry-UbL" secondAttribute="trailing" id="cfN-Oi-cdQ"/>
                             <constraint firstItem="vSH-4E-Kg4" firstAttribute="top" secondItem="dv6-kb-kPv" secondAttribute="bottom" constant="10" id="eXp-UZ-C44"/>
                             <constraint firstItem="kds-OZ-MfO" firstAttribute="top" secondItem="vSH-4E-Kg4" secondAttribute="bottom" constant="10" id="hoO-BD-qMO"/>
-                            <constraint firstItem="tCC-Ry-UbL" firstAttribute="leading" secondItem="BzU-0w-fTt" secondAttribute="leading" id="mhk-Hs-DXQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JIw-b4-P0f">
@@ -346,6 +345,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojw-eT-ynE">
                                 <rect key="frame" x="10" y="10" width="300" height="353"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="q1I-Li-0nk">
+                                        <rect key="frame" x="10" y="161" width="280" height="116"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at mi velit. Etiam eleifend purus in lectus posuere consequat. Maecenas aliquet lorem et arcu accumsan, ut malesuada diam rhoncus. Pellentesque eu eleifend dui. Aliquam nec diam at est ultricies vehicula. Praesent placerat leo nec varius adipiscing.</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="format information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ejF-BO-CeW">
+                                        <rect key="frame" x="20" y="97" width="251" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="E4g-T2-rMj"/>
@@ -356,13 +370,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="56"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="q1I-Li-0nk">
-                                <rect key="frame" x="20" y="135" width="280" height="116"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at mi velit. Etiam eleifend purus in lectus posuere consequat. Maecenas aliquet lorem et arcu accumsan, ut malesuada diam rhoncus. Pellentesque eu eleifend dui. Aliquam nec diam at est ultricies vehicula. Praesent placerat leo nec varius adipiscing.</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                         </subviews>
@@ -379,6 +386,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="eventDescriptionLabel" destination="q1I-Li-0nk" id="MGI-qF-fFj"/>
+                        <outlet property="eventValueFormatDescriptionLabel" destination="ejF-BO-CeW" id="UbU-wE-2Hn"/>
                         <outlet property="eventValueLabel" destination="6Rr-iA-3L0" id="sd1-Vg-FRt"/>
                     </connections>
                 </viewController>
@@ -600,8 +608,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-Iv-Aie">
-                                <rect key="frame" x="0.0" y="271" width="320" height="78"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuQ-Iv-Aie">
+                                <rect key="frame" x="0.0" y="222" width="320" height="127"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Brt" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-qc-V9a">
@@ -623,8 +631,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-c8-baC">
-                                <rect key="frame" x="0.0" y="64" width="320" height="157"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkh-c8-baC">
+                                <rect key="frame" x="0.0" y="65" width="320" height="157"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baO-rt-WPh" customClass="KSAdvancedPicker">

@@ -157,6 +157,13 @@
 
 - (void)deleteCurrentEvent
 {
+    if (!self.isEditing) { // this is a "cancel"
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        return;
+    }
+    
     [self showLoadingOverlay];
     [[DataService sharedInstance] deleteEvent:self.event withCompletionBlock:^(id object, NSError *error) {
         [self hideLoadingOverlay];
