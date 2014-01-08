@@ -84,7 +84,7 @@
     self.filter = [[PYEventFilter alloc] initWithConnection:[[NotesAppController sharedInstance] connection]
                                                    fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                      toTime:PYEventFilter_UNDEFINED_TOTIME
-                                                      limit:1
+                                                      limit:10
                                              onlyStreamsIDs:nil
                                                        tags:nil];
     
@@ -122,6 +122,7 @@
 
 - (void)loadData
 {
+    NSLog(@"*261");
     static BOOL isLoading;
     if(!isLoading)
     {
@@ -411,68 +412,63 @@
     NSArray* toRemove = [message objectForKey:@"REMOVE"];
     NSArray* modify = [message objectForKey:@"MODIFY"];
     
-   // [_tableView beginUpdates];
+    // [_tableView beginUpdates];
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
+    // ref2 : http://stackoverflow.com/questions/4777683/how-do-i-efficiently-update-a-uitableview-with-animation
     
     // events are sent ordered by time
     if (toRemove) {
-        NSLog(@"*62 REMOVE %i", toRemove.count);
+        NSLog(@"*262 REMOVE %i", toRemove.count);
         
-        int k = self.events.count - 1;
         PYEvent* kEvent = nil;
         PYEvent* eventToRemove = nil;
         for (int i = toRemove.count -1 ; i >= 0; i--) {
-            if (self.events.count == 0) break; // list is empty
-            if (kEvent == nil) kEvent = [self.events objectAtIndex:k];
             eventToRemove = [toRemove objectAtIndex:i];
-            
-            
-            while (kEvent.time > eventToRemove.time && k >=0) {
-                k--;
+            for (int k =  self.events.count; k >= 0 ; k--) {
                 kEvent = [self.events objectAtIndex:k];
+                if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
+                    [self.events removeObjectAtIndex:k];
+                    break; // assuming an event is only represented once in the list
+                }
             }
-            
-            if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
-                [self.events removeObjectAtIndex:k];
-                kEvent = nil;
-            }
-            
         }
         
     }
     
     if (modify) {
-        NSLog(@"*62 MODIFY %i", modify.count);
+        NSLog(@"*262 MODIFY %i", modify.count);
     }
     
+    // events are sent ordered by time
     if (toAdd && toAdd.count > 0) {
         
-        NSLog(@"*62 ADD %i", toAdd.count);
-        if (self.events.count > 0) {
-            
-            int k = self.events.count - 1;
-            PYEvent* kEvent = nil;
-            PYEvent* eventToAdd = nil;
-            
-            for (int i = toAdd.count - 1 ; i >= 0; i--) {
-                eventToAdd = [toAdd objectAtIndex:i];
+        NSLog(@"*262 ADD %i", toAdd.count);
+        
+        
+        int k = 0;
+        PYEvent* kEvent = nil;
+        PYEvent* eventToAdd = nil;
+        
+        for (int i = toAdd.count - 1 ; i >= 0; i--) {
+            eventToAdd = [toAdd objectAtIndex:i];
+            if (self.events.count > 0) {
                 if (kEvent == nil) kEvent = [self.events objectAtIndex:k];
                 
-                while (kEvent.time > eventToAdd.time && k > 0) {
-                    NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
-                    k--;
+                NSLog(@"%i %i %f",k,i,kEvent.time - eventToAdd.time);
+                while (kEvent.time > eventToAdd.time && k < ( self.events.count - 1 ) ) {
+                    
                     kEvent = [self.events objectAtIndex:k];
+                    k++;
                 }
-                [self.events insertObject:eventToAdd atIndex:k];
-                kEvent = nil;
             }
-            
-        } else { // empty list add all events
-            [self.events addObjectsFromArray:toAdd];
+            [self.events addObject:eventToAdd];
+            kEvent = nil;
         }
+        
     }
-   // [_tableView endUpdates];
-    
+    // [_tableView endUpdates];
+    NSLog(@"*262 END");
+    [self.tableView reloadData]; // until update is implmeneted
     [self hideLoadingOverlay];
     
 }
@@ -527,7 +523,7 @@
 
 - (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
 {
-    self.filter.limit = 3;
+    self.filter.limit++;
     [self loadData];
 }
 
