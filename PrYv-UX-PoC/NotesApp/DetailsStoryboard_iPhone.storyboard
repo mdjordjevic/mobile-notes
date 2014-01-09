@@ -85,6 +85,16 @@
                                     <action selector="deleteButtonTouched:" destination="Aad-FO-PXE" eventType="touchUpInside" id="h4V-gN-ndR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3H-3w-lMT">
+                                <rect key="frame" x="20" y="389" width="243" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="QAs-4d-rf2"/>
+                                    <constraint firstAttribute="width" constant="243" id="rvw-YQ-VEB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYM-qj-DzJ">
                                 <rect key="frame" x="0.0" y="524" width="320" height="244"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -103,6 +113,7 @@
                             <constraint firstItem="xRk-55-nOB" firstAttribute="top" secondItem="Eik-xw-08N" secondAttribute="bottom" constant="1" id="Fd2-Sl-DaZ"/>
                             <constraint firstAttribute="trailing" secondItem="RK0-Vc-vGU" secondAttribute="trailing" constant="12" id="Idl-HZ-bBX"/>
                             <constraint firstItem="xRk-55-nOB" firstAttribute="trailing" secondItem="B96-KX-HhR" secondAttribute="trailing" id="Ir2-nq-7dj"/>
+                            <constraint firstItem="B96-KX-HhR" firstAttribute="top" secondItem="T3H-3w-lMT" secondAttribute="bottom" constant="18" id="RuL-ZS-CiC"/>
                             <constraint firstItem="xRk-55-nOB" firstAttribute="leading" secondItem="B96-KX-HhR" secondAttribute="leading" id="XIk-Sr-yb6"/>
                             <constraint firstItem="B96-KX-HhR" firstAttribute="leading" secondItem="YYM-qj-DzJ" secondAttribute="leading" id="YRO-w2-K3j"/>
                             <constraint firstItem="B96-KX-HhR" firstAttribute="top" secondItem="xRk-55-nOB" secondAttribute="bottom" constant="46" id="eyx-dC-NSU"/>
@@ -131,6 +142,7 @@
                         <outlet property="doneButton" destination="JmR-RO-29i" id="toh-OG-RDa"/>
                         <outlet property="doneButtonConstraint" destination="mhH-nb-sCy" id="Dib-Ik-pzx"/>
                         <outlet property="doneTagsEditingButton" destination="IuU-DW-GIK" id="4oF-PE-5aT"/>
+                        <outlet property="eventDescriptionLabel" destination="T3H-3w-lMT" id="mIX-Xe-i7F"/>
                         <outlet property="streamConstraint" destination="mlV-zO-L2f" id="LEm-OK-B7B"/>
                         <outlet property="streamsContainer" destination="YYM-qj-DzJ" id="UPW-fC-R4L"/>
                         <outlet property="tagsContainerConstraint" destination="rS3-Zf-YCy" id="YoF-kJ-bMY"/>
@@ -358,13 +370,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <rect key="frame" x="10" y="10" width="300" height="353"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="q1I-Li-0nk">
-                                        <rect key="frame" x="10" y="161" width="280" height="116"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at mi velit. Etiam eleifend purus in lectus posuere consequat. Maecenas aliquet lorem et arcu accumsan, ut malesuada diam rhoncus. Pellentesque eu eleifend dui. Aliquam nec diam at est ultricies vehicula. Praesent placerat leo nec varius adipiscing.</string>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="format information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ejF-BO-CeW">
                                         <rect key="frame" x="20" y="97" width="251" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -397,7 +402,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="eventDescriptionLabel" destination="q1I-Li-0nk" id="MGI-qF-fFj"/>
                         <outlet property="eventValueFormatDescriptionLabel" destination="ejF-BO-CeW" id="UbU-wE-2Hn"/>
                         <outlet property="eventValueLabel" destination="6Rr-iA-3L0" id="sd1-Vg-FRt"/>
                     </connections>
@@ -422,7 +426,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <rect key="frame" x="0.0" y="-1" width="320" height="374"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picture_overlay_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="PeC-gi-baL">
+                            <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picture_overlay_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="PeC-gi-baL">
                                 <rect key="frame" x="0.0" y="74" width="320" height="299"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -503,7 +507,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="eventDescriptionLabel" destination="ekf-7w-8pX" id="8xN-DQ-rka"/>
+                        <outlet property="eventNoteContentLabel" destination="ekf-7w-8pX" id="wuI-Wz-f5X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pvh-PO-CyI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -625,7 +629,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Brt" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-qc-V9a">
-                                        <rect key="frame" x="248" y="9" width="66" height="59"/>
+                                        <rect key="frame" x="248" y="14" width="66" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="0.82601505470000003" alpha="1" colorSpace="calibratedWhite"/>
@@ -633,11 +637,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="245" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z2c-sZ-BVa">
-                                        <rect key="frame" x="0.0" y="4" width="240" height="70"/>
+                                        <rect key="frame" x="0.0" y="4" width="240" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="58"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="38"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                 </subviews>
