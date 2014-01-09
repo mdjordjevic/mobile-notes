@@ -29,9 +29,9 @@
     [super viewDidLoad];
 	
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
-    UIView *tapGesturePlaceholder = [[UIView alloc] initWithFrame:self.eventDescriptionLabel.frame];
+    UIView *tapGesturePlaceholder = [[UIView alloc] initWithFrame:self.eventNoteContentLabel.frame];
     [tapGesturePlaceholder addGestureRecognizer:tapGR];
-    [self.eventDescriptionLabel.superview addSubview:tapGesturePlaceholder];
+    [self.eventNoteContentLabel.superview addSubview:tapGesturePlaceholder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,11 +44,11 @@
 {
     if(self.isEditing || [self.event.eventContent length] > 0)
     {
-        self.eventDescriptionLabel.text = self.event.eventContent;
+        self.eventNoteContentLabel.text = self.event.eventContent;
     }
     else
     {
-        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+        self.eventNoteContentLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
     }
 }
 
@@ -71,8 +71,9 @@
 
 - (void)textDidChangedTo:(NSString *)text forTextEditor:(TextEditorViewController *)textEditor
 {
-    self.eventDescriptionLabel.text = text;
-    [self.delegate textDidChangedTo:text];
+    self.eventNoteContentLabel.text = text;
+    self.event.eventContent = text;
 }
+
 
 @end

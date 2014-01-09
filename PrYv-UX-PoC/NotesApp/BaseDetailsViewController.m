@@ -13,7 +13,6 @@
 #import "UIAlertView+PrYv.h"
 #import "DatePickerViewController.h"
 #import "StreamPickerViewController.h"
-#import "TextEditorViewController.h"
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
 
@@ -325,12 +324,6 @@
 
 #pragma mark - BaseDetailsDelegate methods
 
-- (void)textDidChangedTo:(NSString *)newText
-{
-    self.event.eventContent = newText;
-    [self.contentDetailsVC updateEventDetails];
-    self.shouldUpdateEvent = YES;
-}
 
 - (void)eventDidChangeProperties:(NSString *)valueClass valueType:(NSString *)valueType value:(NSString *)value
 {

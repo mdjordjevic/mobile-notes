@@ -20,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIView *tagsSection;
 @property (weak, nonatomic) IBOutlet JSTokenField *tagsField;
 @property (weak, nonatomic) IBOutlet UIButton *doneTagsEditingButton;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagsContainerConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
 
 @property (nonatomic, strong) PYEvent *event;
 @property (nonatomic) BOOL isEditing;
@@ -33,7 +35,6 @@
 
 @optional
 
-- (void)textDidChangedTo:(NSString*)newText;
 - (void)eventDidChangeProperties:(NSString*)valueClass valueType:(NSString*)valueType value:(NSString*)value;
 
 @end

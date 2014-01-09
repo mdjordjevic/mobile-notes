@@ -10,6 +10,6 @@
 
 @interface NoteDetailsViewController : BaseContentViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventNoteContentLabel;
 
 @end
