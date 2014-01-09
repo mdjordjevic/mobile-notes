@@ -168,21 +168,19 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)deleteEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
-        {
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
-        }
-        else
-        {
-            [connection trashOrDeleteEvent:event withRequestType:PYRequestTypeSync successHandler:^{
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
-            } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-            }];
-        }
-    });
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(!connection)
+    {
+        [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+    }
+    else
+    {
+        [connection trashOrDeleteEvent:event withRequestType:PYRequestTypeAsync successHandler:^{
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
+        } errorHandler:^(NSError *error) {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+        }];
+    }
 }
 
 - (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
