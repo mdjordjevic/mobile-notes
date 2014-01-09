@@ -55,20 +55,10 @@
         NSString *formatDescription = [self.event.pyType localizedName];
         if (! formatDescription) { unit = self.event.pyType.key ; }
         [ self.eventValueFormatDescriptionLabel setText:formatDescription];
-        
-        if (self.event.eventDescription == nil || [self.event.eventDescription length] == 0) {
-            self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
-        } else {
-           self.eventDescriptionLabel.text = self.event.eventDescription;
-        }
-        
-        
-        
-        
+  
     }
     else
     {
-        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
         self.eventValueLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
         self.eventValueFormatDescriptionLabel.text = @"";
         

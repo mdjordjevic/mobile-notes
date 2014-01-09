@@ -40,7 +40,12 @@
 
 - (IBAction)doneButtonTouched:(id)sender
 {
-    [self.delegate textDidChangedTo:self.textView.text forTextEditor:self];
+    if (self.delegate) {
+        [self.delegate textDidChangedTo:self.textView.text forTextEditor:self];
+    }
+    if (self.textDidChangeCallBack) {
+        self.textDidChangeCallBack(self.textView.text, self);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

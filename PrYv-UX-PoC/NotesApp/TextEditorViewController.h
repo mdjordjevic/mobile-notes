@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, weak) id<TextEditorDelegate> delegate;
+@property (copy) void (^textDidChangeCallBack)(NSString* text, TextEditorViewController* textEditor);
 
 @end
 

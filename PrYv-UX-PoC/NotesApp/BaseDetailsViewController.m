@@ -15,6 +15,7 @@
 #import "StreamPickerViewController.h"
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
+#import "TextEditorViewController.h"
 
 #define kDatePickerSegueID @"DatePickerSegue_ID"
 #define kStreamPickerSegue_ID @"StreamPickerSegue_ID"
@@ -50,8 +51,10 @@
 {
     [super viewDidLoad];
     self.shouldUpdateEvent = NO;
+    
 	[self setupContentViewController];
     [self initTags];
+    [self initDescription];
     [self updateUI];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -89,6 +92,35 @@
             self.eventDataType = [[DataService sharedInstance] eventDataTypeForEvent:_event];
         }
     }
+}
+
+- (void)initDescription
+{
+    
+    self.eventDescriptionLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
+    [self.eventDescriptionLabel addGestureRecognizer:tapGR];
+
+}
+
+
+- (void)editDescriptionText:(id)sender
+{
+    
+    TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
+    textEditVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
+        self.eventDescriptionLabel.text = text;
+        self.event.eventDescription = text;
+    };
+    if(self.isEditing)
+    {
+        textEditVC.text = self.event.eventContent;
+    }
+    else
+    {
+        textEditVC.text = @"";
+    }
+    [self.navigationController pushViewController:textEditVC animated:YES];
 }
 
 - (void)initTags
@@ -179,6 +211,7 @@
         }
     }];
 }
+
 
 - (void)updateEvent
 {
