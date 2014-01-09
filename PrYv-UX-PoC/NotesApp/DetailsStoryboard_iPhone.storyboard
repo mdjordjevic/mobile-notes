@@ -121,11 +121,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DsI-aj-NNz">
-                        <barButtonItem key="leftBarButtonItem" title="12/12/13 7:00 AM" id="MZD-bT-fUJ">
-                            <connections>
-                                <segue destination="hqK-Lr-rTO" kind="push" identifier="DatePickerSegue_ID" id="J7C-OT-Qug"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="JmR-RO-29i">
                             <connections>
                                 <action selector="doneButtonTouched:" destination="Aad-FO-PXE" id="ZEC-0B-d8p"/>
@@ -133,7 +128,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateButton" destination="MZD-bT-fUJ" id="KIn-Ua-HNg"/>
+                        <outlet property="dateButton" destination="JtE-Yz-6cw" id="VcK-4Q-FwR"/>
                         <outlet property="deleteButton" destination="RK0-Vc-vGU" id="R6M-pG-yPx"/>
                         <outlet property="detailsContainerView" destination="xRk-55-nOB" id="XjI-CX-sbh"/>
                         <outlet property="doneButton" destination="JmR-RO-29i" id="toh-OG-RDa"/>
@@ -875,7 +870,4 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="QDD-eH-mKZ"/>
-    </inferredMetricsTieBreakers>
 </document>

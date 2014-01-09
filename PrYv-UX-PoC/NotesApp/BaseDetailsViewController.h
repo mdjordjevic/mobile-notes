@@ -13,7 +13,7 @@
 @interface BaseDetailsViewController : BaseViewController
 
 @property (weak, nonatomic) IBOutlet UIView *detailsContainerView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *dateButton;
+@property (weak, nonatomic) IBOutlet UIButton *dateButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIView *streamsContainer;

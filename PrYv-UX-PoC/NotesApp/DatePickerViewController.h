@@ -12,6 +12,6 @@
 
 @interface DatePickerViewController : BaseViewController
 
-@property (nonatomic, weak) BaseDetailsViewController *baseDetailsVC;
+- (void) setBaseDetailsVC:(BaseDetailsViewController*) baseDetailsVC;
 
 @end

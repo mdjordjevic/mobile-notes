@@ -172,7 +172,7 @@
 
 - (void)updateDateFromPickerWith:(NSDate *)date
 {
-    [self.dateButton setTitle:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
+    [self.dateButton.titleLabel setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
     self.event.time = [date timeIntervalSince1970];
     self.shouldUpdateEvent = YES;
 }
@@ -186,7 +186,7 @@
         self.event.time = [[NSDate new] timeIntervalSince1970];
     }
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.event.time];
-    [self.dateButton setTitle:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
+    [self.dateButton.titleLabel setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
     
     if (self.event.eventDescription && [self.event.eventDescription length] > 0) {
             self.eventDescriptionLabel.text = self.event.eventDescription;
@@ -382,7 +382,7 @@
     if([segue.identifier isEqualToString:kDatePickerSegueID])
     {
         DatePickerViewController *dpVC = (DatePickerViewController*)segue.destinationViewController;
-        dpVC.baseDetailsVC = self;
+        [dpVC setBaseDetailsVC:self];
     }
     else if([segue.identifier isEqualToString:kStreamPickerSegue_ID])
     {
