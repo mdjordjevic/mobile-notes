@@ -109,12 +109,15 @@
     
     TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
     textEditVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        self.eventDescriptionLabel.text = text;
+        if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
+        self.shouldUpdateEvent = YES;
         self.event.eventDescription = text;
+      
+        [self updateUI];
     };
-    if(self.isEditing)
+    if(self.event.eventDescription)
     {
-        textEditVC.text = self.event.eventContent;
+        textEditVC.text = self.event.eventDescription;
     }
     else
     {
@@ -184,6 +187,12 @@
     }
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.event.time];
     [self.dateButton setTitle:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
+    
+    if (self.event.eventDescription && [self.event.eventDescription length] > 0) {
+            self.eventDescriptionLabel.text = self.event.eventDescription;
+    } else {
+         self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+    }
 }
 
 - (void)deleteCurrentEvent
