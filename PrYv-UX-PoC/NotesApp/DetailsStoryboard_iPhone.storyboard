@@ -92,7 +92,7 @@
                                     <constraint firstAttribute="height" constant="73" id="QAs-4d-rf2"/>
                                     <constraint firstAttribute="width" constant="243" id="rvw-YQ-VEB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYM-qj-DzJ">
@@ -302,8 +302,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9eI-7W-yyD">
-                                        <rect key="frame" x="0.0" y="61" width="320" height="341"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9eI-7W-yyD">
+                                        <rect key="frame" x="0.0" y="61" width="320" height="507"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                 </subviews>
@@ -312,28 +312,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <outlet property="delegate" destination="26P-Ld-DD1" id="PGN-P1-doP"/>
                                 </connections>
                             </scrollView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNi-ti-1Bo">
-                                <rect key="frame" x="0.0" y="401" width="320" height="167"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.65000000000000002" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="167" id="7YO-Qs-e7d"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TqP-di-NH8" firstAttribute="top" secondItem="edU-rF-qqQ" secondAttribute="bottom" id="BRJ-UZ-7A4"/>
                             <constraint firstAttribute="trailing" secondItem="edU-rF-qqQ" secondAttribute="trailing" id="JtI-Xt-KV8"/>
-                            <constraint firstAttribute="trailing" secondItem="JNi-ti-1Bo" secondAttribute="trailing" id="PoE-nG-gU1"/>
                             <constraint firstItem="edU-rF-qqQ" firstAttribute="leading" secondItem="PrS-Wf-dGr" secondAttribute="leading" id="g7X-Da-WmY"/>
-                            <constraint firstItem="TqP-di-NH8" firstAttribute="top" secondItem="JNi-ti-1Bo" secondAttribute="bottom" id="idU-zo-Enw"/>
                             <constraint firstItem="edU-rF-qqQ" firstAttribute="top" secondItem="PrS-Wf-dGr" secondAttribute="top" id="jew-38-52T"/>
-                            <constraint firstItem="JNi-ti-1Bo" firstAttribute="leading" secondItem="PrS-Wf-dGr" secondAttribute="leading" id="q5u-n4-qv0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PfM-7r-SaU">
@@ -346,7 +331,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="contentImageView" destination="9eI-7W-yyD" id="LiG-pA-T2z"/>
-                        <outlet property="descriptionText" destination="JNi-ti-1Bo" id="BA9-Ig-Jtc"/>
                         <outlet property="scrollView" destination="edU-rF-qqQ" id="Ycm-VN-HQB"/>
                     </connections>
                 </viewController>
@@ -913,28 +897,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="icon_back.png" width="32" height="32"/>
         <image name="img-test.png" width="762" height="499"/>
         <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="pickercenter.png" width="320" height="157"/>
         <image name="picture_overlay_bottom.png" width="640" height="200"/>
