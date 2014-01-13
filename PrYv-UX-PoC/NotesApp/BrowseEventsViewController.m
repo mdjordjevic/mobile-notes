@@ -29,6 +29,7 @@
 #import "UnkownCell.h"
 #import "BaseDetailsViewController.h"
 #import "NSString+Utils.h"
+#import "AppConstants.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -49,10 +50,13 @@
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification*)notification;
 - (void)filterEventUpdate:(NSNotification*)notification;
+- (int)addEventToList:(PYEvent*)eventToAdd;
 
 @end
 
 @implementation BrowseEventsViewController
+
+BOOL displayNonStandardEvents;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,8 +70,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadSettings];
+    
+    
     self.navigationItem.title = @"Pryv";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
+    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveEventAddedNotification:)
                                                  name:kEventAddedNotification
@@ -76,6 +86,11 @@
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
                                                  name:kAppDidReceiveAccessTokenNotification
                                                object:nil];
+    // Monitor changes of option "show non standard events"
+    [[NSUserDefaults standardUserDefaults] addObserver:self
+                    forKeyPath:kPYAppSettingUIDisplayNonStandardEvents
+                       options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+    
     self.pullToRefreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60 tableView:self.tableView withClient:self];
     
     
@@ -84,7 +99,7 @@
     self.filter = [[PYEventFilter alloc] initWithConnection:[[NotesAppController sharedInstance] connection]
                                                    fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                      toTime:PYEventFilter_UNDEFINED_TOTIME
-                                                      limit:10
+                                                      limit:100
                                              onlyStreamsIDs:nil
                                                        tags:nil];
     
@@ -118,6 +133,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadSettings
+{
+  displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
 - (void)loadData
@@ -382,13 +402,65 @@
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
+
+#pragma mark - Event List manipulations
+
+
+- (BOOL)clientFilterMatchEvent:(PYEvent*)event
+{
+    return displayNonStandardEvents || ! ([[DataService sharedInstance] cellStyleForEvent:event] == CellStyleTypeUnkown );
+}
+
+/**
+ * add an event to the list, will match it against current client filter
+ * return index of event Added, -1 if not added
+ */
+- (int)addEventToList:(PYEvent*) eventToAdd {
+    if (! [self clientFilterMatchEvent:eventToAdd]) return -1;
+    PYEvent* kEvent = nil;
+    if (self.events.count > 0) {
+        for (int k = 0; k < self.events.count; k++) {
+            kEvent = [self.events objectAtIndex:k];
+            if (kEvent.time < eventToAdd.time) {
+                [self.events insertObject:eventToAdd atIndex:k];
+                return k;
+            }
+        }
+    }
+    [self.events addObject:eventToAdd];
+    return self.events.count;
+}
+
+
 - (void)clearCurrentData
 {
-    self.events = nil;
+    [self.events removeAllObjects];
+    
+    NSArray* currentEvents = [self.filter currentEventsSet];
+    for (int i = 0; i < currentEvents.count; i++) {
+        [self addEventToList:[currentEvents objectAtIndex:i]];
+    }
+    
     [self.tableView reloadData];
 }
 
+#pragma mark - Observers
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (keyPath == kPYAppSettingUIDisplayNonStandardEvents) {
+        [self loadSettings];
+        [self clearCurrentData];
+    }
+    
+}
+
+
 #pragma mark - Notifications
+
+
 
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification
 {
@@ -400,6 +472,8 @@
 {
     [self loadData];
 }
+
+
 
 - (void)filterEventUpdate:(NSNotification *)notification
 {
@@ -444,32 +518,8 @@
         
         NSLog(@"*262 ADD %i", toAdd.count);
         
-    
-        PYEvent* kEvent = nil;
-        PYEvent* eventToAdd = nil;
-        
         for (int i = toAdd.count - 1 ; i >= 0; i--) {
-            eventToAdd = [toAdd objectAtIndex:i];
-            if (self.events.count > 0) {
-                
-                BOOL inserted = NO;
-                for (int k = 0; k < self.events.count; k++) {
-                  kEvent = [self.events objectAtIndex:k];
-                    if (kEvent.time < eventToAdd.time) {
-                        [self.events insertObject:eventToAdd atIndex:k];
-                        inserted = YES;
-                        break;
-                    }
-                }
-                if (! inserted) {
-                   [self.events addObject:eventToAdd];
-                }
- 
-            } else {
-               [self.events addObject:eventToAdd];
-            }
-            
-            kEvent = nil;
+            [self addEventToList:[toAdd objectAtIndex:i]];
         }
         
     }

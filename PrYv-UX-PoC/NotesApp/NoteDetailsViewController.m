@@ -11,6 +11,8 @@
 
 @interface NoteDetailsViewController () <TextEditorDelegate>
 
+- (BOOL) isEditable;
+
 @end
 
 @implementation NoteDetailsViewController
@@ -27,11 +29,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
-    UIView *tapGesturePlaceholder = [[UIView alloc] initWithFrame:self.eventNoteContentLabel.frame];
-    [tapGesturePlaceholder addGestureRecognizer:tapGR];
-    [self.eventNoteContentLabel.superview addSubview:tapGesturePlaceholder];
+	if ([self isEditable]) {
+        
+        self.eventNoteContentLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editContentText:)];
+        [self.eventNoteContentLabel addGestureRecognizer:tapGR];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,20 +43,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)isEditable
+{
+    return ([self.event.type isEqualToString:@"note/txt"] || [self.event.eventContent isKindOfClass:[NSString class]]);
+}
+
 - (void)updateEventDetails
 {
-    if(self.isEditing || [self.event.eventContent length] > 0)
+    NSString *text = [NSString stringWithFormat:@"%@", self.event.eventContent];
+    
+    if(self.isEditing || [text length] > 0)
     {
-        self.eventNoteContentLabel.text = self.event.eventContent;
+        self.eventNoteContentLabel.text = text;
     }
     else
     {
-        self.eventNoteContentLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+        if ([self isEditable]) {
+            self.eventNoteContentLabel.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
+        } else {
+            self.eventNoteContentLabel.text = @"";
+        }
     }
 }
 
-- (void)editDescriptionText:(id)sender
+- (void)editContentText:(id)sender
 {
+    if (! [self isEditable]) {
+        NSLog(@"<WARNING> NoteDetailsViewController.editContentText: Cannot edit this kind of event: %@", self.event.type);
+        return;
+    }
+    
     TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
     textEditVC.delegate = self;
     if(self.isEditing)
@@ -71,6 +90,10 @@
 
 - (void)textDidChangedTo:(NSString *)text forTextEditor:(TextEditorViewController *)textEditor
 {
+    if (! [self isEditable]) {
+        NSLog(@"<WARNING> NoteDetailsViewController.textDidChangedTo: Cannot edit this kind of event: %@", self.event.type);
+        return;
+    }
     self.eventNoteContentLabel.text = text;
     self.event.eventContent = text;
 }
