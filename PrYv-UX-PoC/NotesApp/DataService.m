@@ -28,7 +28,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 - (void)initObject;
 - (void)executeCompletionBlockOnMainQueue:(DataServiceCompletionBlock)completionBlock withObject:(id)object andError:(NSError*)error;
 - (void)saveEventAsShortcut:(PYEvent*)event;
-- (void)populateArray:(NSMutableArray*)array withStrems:(NSArray*)streams;
+- (void)populateStreamList:(NSMutableArray*)array withStreamsTree:(NSArray*)streams;
 
 @end
 
@@ -53,66 +53,62 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
+    
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(!connection)
+    {
+        completionBlock(nil,[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]);
+    }
+    else
+    {
+        if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil,[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]);
-            });
+            completionBlock(self.cachedStreams, nil);
         }
         else
         {
-            if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
-            {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:self.cachedStreams andError:nil];
-            }
-            else
-            {
-                [connection getAllStreamsWithRequestType:PYRequestTypeSync gotCachedStreams:^(NSArray *cachedStreamsList) {
-                    //if(![[NotesAppController sharedInstance] isOnline])
-                    //{
-                    NSMutableArray *streams = [NSMutableArray array];
-                    [self populateArray:streams withStrems:cachedStreamsList];
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
-                    //}
-                    
-                } gotOnlineStreams:^(NSArray *onlineStreamList) {
-                    //if([[NotesAppController sharedInstance] isOnline])
-                    //{
-                    NSMutableArray *streams = [NSMutableArray array];
-                    [self populateArray:streams withStrems:onlineStreamList];
-                    self.cachedStreams = streams;
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
-                    //}
-                    
-                } errorHandler:^(NSError *error) {
-                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                }];
+            [connection getAllStreamsWithRequestType:PYRequestTypeAsync gotCachedStreams:^(NSArray *cachedStreamsList) {
+                //if(![[NotesAppController sharedInstance] isOnline])
+                //{
+                NSMutableArray *streams = [NSMutableArray array] ;
+                [self populateStreamList:streams withStreamsTree:cachedStreamsList];
+                completionBlock(streams, nil);
+                //}
                 
-            }
+            } gotOnlineStreams:^(NSArray *onlineStreamList) {
+                //if([[NotesAppController sharedInstance] isOnline])
+                //{
+                NSMutableArray *streams = [NSMutableArray array];
+                [self populateStreamList:streams withStreamsTree:onlineStreamList];
+                self.cachedStreams = streams;
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                //}
+                
+            } errorHandler:^(NSError *error) {
+                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+            }];
+            
         }
-    });
+    }
 }
 
 
 - (void)createStream:(PYStream *)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
-        {
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
-        }
-        else
-        {
-            [connection createStream:stream withRequestType:PYRequestTypeSync successHandler:^(NSString *createdStreamId) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:createdStreamId andError:nil];
-            } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-            }];
-        }
-    });
+    
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(!connection)
+    {
+        [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+    }
+    else
+    {
+        [connection createStream:stream withRequestType:PYRequestTypeAsync successHandler:^(NSString *createdStreamId) {
+            completionBlock(createdStreamId, nil);
+        } errorHandler:^(NSError *error) {
+            completionBlock(nil, error);
+        }];
+    }
 }
 
 - (void)executeCompletionBlockOnMainQueue:(DataServiceCompletionBlock)completionBlock withObject:(id)object andError:(NSError *)error
@@ -128,42 +124,38 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 - (void)saveEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
     [self saveEventAsShortcut:event];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
-        {
-            NSError *error = [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil];
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-        }
-        else
-        {
-            [connection createEvent:event requestType:PYRequestTypeSync successHandler:^(NSString *newEventId, NSString *stoppedId) {
-                NSLog(@"saved event id: %@",newEventId);
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:newEventId andError:nil];
-            } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-            }];
-        }
-    });
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(!connection)
+    {
+        NSError *error = [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil];
+        completionBlock(nil, error);
+    }
+    else
+    {
+        [connection createEvent:event requestType:PYRequestTypeAsync successHandler:^(NSString *newEventId, NSString *stoppedId) {
+            NSLog(@"saved event id: %@",newEventId);
+            completionBlock(newEventId, nil);
+        } errorHandler:^(NSError *error) {
+            completionBlock(nil, error);
+        }];
+    }
 }
 
 - (void)updateEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
-        {
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
-        }
-        else
-        {
-            [connection setModifiedEventAttributesObject:event forEventId:event.eventId requestType:PYRequestTypeSync successHandler:^(NSString *stoppedId) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
-            } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-            }];
-        }
-    });
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(!connection)
+    {
+        [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+    }
+    else
+    {
+        [connection setModifiedEventAttributesObject:event forEventId:event.eventId requestType:PYRequestTypeSync successHandler:^(NSString *stoppedId) {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:event andError:nil];
+        } errorHandler:^(NSError *error) {
+            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+        }];
+    }
 }
 
 - (void)deleteEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
@@ -195,30 +187,30 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         {
             [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
                 /**
-                [connection getEventsWithRequestType:PYRequestTypeSync
-                                              filter:nil
-                                     gotCachedEvents:^(NSArray *cachedEventList) {
-
-                                         if(![[NotesAppController sharedInstance] isOnline])
-                                         {
-                                             [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
-                                             NSLog(@"OFFLINE");
-                                         }
-                                     } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
-                                         for(PYEvent *event in onlineEventList)
-                                         {
-                                             NSLog(@"event: %d",event.hasTmpId);
-                                         }
-                                         if([[NotesAppController sharedInstance] isOnline])
-                                         {
-                                             [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
-                                             NSLog(@"ONLINE");
-                                         }
-                                     } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
-                                         NSLog(@"successHandler");
-                                     } errorHandler:^(NSError *error) {
-                                         [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                                     }];
+                 [connection getEventsWithRequestType:PYRequestTypeSync
+                 filter:nil
+                 gotCachedEvents:^(NSArray *cachedEventList) {
+                 
+                 if(![[NotesAppController sharedInstance] isOnline])
+                 {
+                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
+                 NSLog(@"OFFLINE");
+                 }
+                 } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
+                 for(PYEvent *event in onlineEventList)
+                 {
+                 NSLog(@"event: %d",event.hasTmpId);
+                 }
+                 if([[NotesAppController sharedInstance] isOnline])
+                 {
+                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
+                 NSLog(@"ONLINE");
+                 }
+                 } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
+                 NSLog(@"successHandler");
+                 } errorHandler:^(NSError *error) {
+                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+                 }];
                  **/
                 //                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
                 //                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
@@ -297,14 +289,14 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     self.cachedStreams = nil;
 }
 
-- (void)populateArray:(NSMutableArray *)array withStrems:(NSArray *)streams
+- (void)populateStreamList:(NSMutableArray *)array withStreamsTree:(NSArray *)streams
 {
     for(PYStream *stream in streams)
     {
         [array addObject:stream];
         if([stream.children count] > 0)
         {
-            [self populateArray:array withStrems:stream.children];
+            [self populateStreamList:array withStreamsTree:stream.children];
         }
     }
 }
