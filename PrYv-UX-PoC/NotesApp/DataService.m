@@ -51,6 +51,8 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 }
 
 
+
+
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
     
@@ -99,7 +101,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     PYConnection *connection = [[NotesAppController sharedInstance] connection];
     if(!connection)
     {
-        [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]];
+        completionBlock(nil, [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]);
     }
     else
     {

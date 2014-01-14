@@ -239,7 +239,9 @@
                     PYStream *stream = [[PYStream alloc] init];
                     stream.name = streamName;
                     stream.parentId = self.stream.streamId;
-                    [[DataService sharedInstance] createStream:stream withCompletionBlock:^(id object, NSError *error) {
+                    // TODO Explain why a stream is created ?
+                    [[DataService sharedInstance] createStream:stream
+                                           withCompletionBlock:^(id object, NSError *error) {
                         if(error)
                         {
                             [self hideLoadingOverlay];
