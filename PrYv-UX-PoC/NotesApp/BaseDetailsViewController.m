@@ -243,7 +243,7 @@
 - (void)saveEvent
 {
     
-    [NotesAppController sharedConnection:NO noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
     {
         [connection createEvent:self.event requestType:PYRequestTypeAsync
                  successHandler:^(NSString *newEventId, NSString *stoppedId)

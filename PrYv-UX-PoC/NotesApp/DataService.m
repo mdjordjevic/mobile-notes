@@ -55,7 +55,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    [NotesAppController sharedConnection:NO
+    [NotesAppController sharedConnectionWithID:nil
              noConnectionCompletionBlock:nil
                      withCompletionBlock:^(PYConnection *connection)
      {
@@ -98,26 +98,6 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
             completionBlock(object, error);
         }
     });
-}
-
-- (void)saveEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock
-{
-    [self saveEventAsShortcut:event];
-    PYConnection *connection = [[NotesAppController sharedInstance] connection];
-    if(!connection)
-    {
-        NSError *error = [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil];
-        completionBlock(nil, error);
-    }
-    else
-    {
-        [connection createEvent:event requestType:PYRequestTypeAsync successHandler:^(NSString *newEventId, NSString *stoppedId) {
-            NSLog(@"saved event id: %@",newEventId);
-            completionBlock(newEventId, nil);
-        } errorHandler:^(NSError *error) {
-            completionBlock(nil, error);
-        }];
-    }
 }
 
 - (void)updateEvent:(PYEvent *)event withCompletionBlock:(DataServiceCompletionBlock)completionBlock

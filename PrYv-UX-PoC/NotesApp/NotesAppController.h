@@ -37,7 +37,11 @@ extern NSString *const kUserDidLogoutNotification;
 
 + (NotesAppController*)sharedInstance;
 
-+ (void)sharedConnection:(BOOL)requestIfNone
+/**
+ *
+ * @param connectionID optional nil for default
+ */
++ (void)sharedConnectionWithID:(NSString*)connectionID
     noConnectionCompletionBlock:(NoConnectionCompletionBlock)noConnectionCompletionBlock
      withCompletionBlock:(SharedConnectionCompletionBlock)completionBlock;
 

@@ -186,7 +186,7 @@
         stream.name = streamName;
         stream.parentId = self.stream.streamId;
         
-        [NotesAppController sharedConnection:NO
+        [NotesAppController sharedConnectionWithID:nil
                  noConnectionCompletionBlock:nil
                          withCompletionBlock:^(PYConnection *connection)
          {

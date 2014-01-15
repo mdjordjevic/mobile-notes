@@ -101,19 +101,18 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
     return _connection.online;
 }
 
-+ (void)sharedConnection:(BOOL)requestIfNone
++ (void)sharedConnectionWithID:(NSString*)connectionID
     noConnectionCompletionBlock:(NoConnectionCompletionBlock)noConnectionCompletionBlock
      withCompletionBlock:(SharedConnectionCompletionBlock)completionBlock {
     
+    if (connectionID) {
+        NSLog(@"<WARNING> NotesAppController.sharedConnection connectionID to be implemented!!");
+    }
+    
     NotesAppController *me = [NotesAppController sharedInstance];
     if (! me.connection) {
-        if (requestIfNone) {
-            // TODO
-            NSLog(@"<WARNING> NotesAppController.sharedConnection requestIfNone to be implemented!!");
-        } else {
-            if (noConnectionCompletionBlock) noConnectionCompletionBlock();
-            return ;
-        }
+        if (noConnectionCompletionBlock) noConnectionCompletionBlock();
+        return ;
     }
     if (completionBlock) completionBlock(me.connection);
 }
