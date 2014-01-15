@@ -230,7 +230,7 @@
      {
          [connection setModifiedEventAttributesObject:self.event
                                            forEventId:self.event.eventId
-                                          requestType:PYRequestTypeSync successHandler:^(NSString *stoppedId)
+                                          requestType:PYRequestTypeAsync successHandler:^(NSString *stoppedId)
           {
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];

@@ -152,7 +152,9 @@ BOOL displayNonStandardEvents;
             if(streamsObject)
             {
                 self.streams = streamsObject;
-                
+                //[UIView animateWithDuration:0.2 animations:^{
+                //    self.tableView.alpha = 1.0f;
+                //}];
                 [self hideLoadingOverlay];
                 [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
             }
@@ -161,40 +163,10 @@ BOOL displayNonStandardEvents;
         
     }
     
-    
     [self.filter update];
 }
 
-- (void)loadDataOld
-{
-    static BOOL isLoading;
-    if(!isLoading)
-    {
-        isLoading = YES;
-        [self showLoadingOverlay];
-        [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id streamsObject, NSError *error) {
-            if(streamsObject)
-            {
-                self.streams = streamsObject;
-                [[DataService sharedInstance] fetchAllEventsWithCompletionBlock:^(id eventsObject, NSError *error) {
-                    if(eventsObject)
-                    {
-                        self.events = eventsObject;
-                        [self.tableView reloadData];
-                        [UIView animateWithDuration:0.2 animations:^{
-                            self.tableView.alpha = 1.0f;
-                        }];
-                        [self hideLoadingOverlay];
-                        [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
-                    }
-                    
-                }];
-            }
-            isLoading = NO;
-        }];
-        
-    }
-}
+
 
 #pragma mark - UITableViewDelegate and UITableViewDataSource methods
 

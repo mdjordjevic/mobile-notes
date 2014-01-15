@@ -100,54 +100,6 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     });
 }
 
-
-- (void)fetchAllEventsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PYConnection *connection = [[NotesAppController sharedInstance] connection];
-        if(!connection)
-        {
-            [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:[NSError errorWithDomain:@"NotesApp - User is not logged in" code:100 userInfo:nil]];
-        }
-        else
-        {
-            [self fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-                /**
-                 [connection getEventsWithRequestType:PYRequestTypeSync
-                 filter:nil
-                 gotCachedEvents:^(NSArray *cachedEventList) {
-                 
-                 if(![[NotesAppController sharedInstance] isOnline])
-                 {
-                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:cachedEventList andError:nil];
-                 NSLog(@"OFFLINE");
-                 }
-                 } gotOnlineEvents:^(NSArray *onlineEventList, NSNumber *serverTime) {
-                 for(PYEvent *event in onlineEventList)
-                 {
-                 NSLog(@"event: %d",event.hasTmpId);
-                 }
-                 if([[NotesAppController sharedInstance] isOnline])
-                 {
-                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:onlineEventList andError:nil];
-                 NSLog(@"ONLINE");
-                 }
-                 } onlineDiffWithCached:^(NSArray *eventsToAdd, NSArray *eventsToRemove, NSArray *eventModified) {
-                 NSLog(@"successHandler");
-                 } errorHandler:^(NSError *error) {
-                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                 }];
-                 **/
-                //                [connection getEventsWithRequestType:PYRequestTypeSync filter:nil successHandler:^(NSArray *eventList) {
-                //                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:eventList andError:nil];
-                //                } errorHandler:^(NSError *error) {
-                //                    [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-                //                } shouldSyncAndCache:YES];
-            }];
-        }
-    });
-}
-
 - (void)saveEventAsShortcut:(PYEvent *)event
 {
     UserHistoryEntry *entry = [[UserHistoryEntry alloc] init];
