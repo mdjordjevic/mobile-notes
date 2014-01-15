@@ -7,7 +7,6 @@
 //
 
 #import "DetailsViewController.h"
-#import "EditEventViewController.h"
 #import "CellStyleModel.h"
 #import "DataService.h"
 #import "AddNumericalValueViewController.h"
@@ -121,12 +120,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:kEditEventSegue_ID])
-    {
-        EditEventViewController *editVC = (EditEventViewController*)segue.destinationViewController;
-        editVC.event = self.event;
-    }
-    else if([segue.identifier isEqualToString:kAddTextNoteSegue_ID])
+    if([segue.identifier isEqualToString:kAddTextNoteSegue_ID])
     {
         TextNoteViewController *textVC = (TextNoteViewController*)segue.destinationViewController;
         textVC.event = self.event;

@@ -8,7 +8,6 @@
 
 #import "TextNoteViewController.h"
 #import "DALinedTextView.h"
-#import "EditEventViewController.h"
 #import "TextNotePreviewElement.h"
 #import "UserHistoryEntry.h"
 
@@ -84,11 +83,12 @@
 {
     if([segue.identifier isEqualToString:kTextNoteSaveSegue_ID])
     {
+        /**
         EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
         TextNotePreviewElement *previewElement = [self previewElement];
         editEventVC.eventElement = previewElement;
         editEventVC.entry = self.entry;
-        editEventVC.event = self.event;
+        editEventVC.event = self.event; **/
     }
 }
 

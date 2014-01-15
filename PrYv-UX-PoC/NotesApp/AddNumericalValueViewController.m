@@ -11,7 +11,6 @@
 #import <PryvApiKit/PYEventTypes.h>
 #import <PryvApiKit/PYEventTypesGroup.h>
 #import "MeasurementController.h"
-#import "EditEventViewController.h"
 #import "MeasurementPreviewElement.h"
 #import "KSAdvancedPicker.h"
 #import "UserHistoryEntry.h"

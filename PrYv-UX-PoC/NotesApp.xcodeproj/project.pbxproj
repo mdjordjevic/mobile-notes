@@ -80,7 +80,6 @@
 		B64ACADA1753F76500E2F6F7 /* MeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAD91753F76500E2F6F7 /* MeasurementController.m */; };
 		B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */; };
 		B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */; };
-		B64ACB0E1756A93700E2F6F7 /* EditEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB0D1756A93700E2F6F7 /* EditEventViewController.m */; };
 		B64ACB131756AC1900E2F6F7 /* BaseEventPreviewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB121756AC1900E2F6F7 /* BaseEventPreviewElement.m */; };
 		B64ACB161756AC5400E2F6F7 /* MeasurementPreviewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B64ACB151756AC5300E2F6F7 /* MeasurementPreviewElement.m */; };
 		B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6556DE1175B7DC7008DFCC9 /* Security.framework */; };
@@ -509,8 +508,6 @@
 		B64ACAE7175544E100E2F6F7 /* CustomNumericalKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNumericalKeyboard.h; sourceTree = "<group>"; };
 		B64ACAE8175544E100E2F6F7 /* CustomNumericalKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNumericalKeyboard.m; sourceTree = "<group>"; };
 		B64ACAEA1755451000E2F6F7 /* CustomNumericalKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNumericalKeyboard.xib; sourceTree = "<group>"; };
-		B64ACB0C1756A93700E2F6F7 /* EditEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEventViewController.h; sourceTree = "<group>"; };
-		B64ACB0D1756A93700E2F6F7 /* EditEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEventViewController.m; sourceTree = "<group>"; };
 		B64ACB111756AC1900E2F6F7 /* BaseEventPreviewElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEventPreviewElement.h; sourceTree = "<group>"; };
 		B64ACB121756AC1900E2F6F7 /* BaseEventPreviewElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEventPreviewElement.m; sourceTree = "<group>"; };
 		B64ACB141756AC5300E2F6F7 /* MeasurementPreviewElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPreviewElement.h; sourceTree = "<group>"; };
@@ -1182,8 +1179,6 @@
 		B64ACB0B1756A91900E2F6F7 /* EditEvents */ = {
 			isa = PBXGroup;
 			children = (
-				B64ACB0C1756A93700E2F6F7 /* EditEventViewController.h */,
-				B64ACB0D1756A93700E2F6F7 /* EditEventViewController.m */,
 			);
 			name = EditEvents;
 			sourceTree = "<group>";
@@ -1951,7 +1946,6 @@
 				B67064B2184D488500A0EB62 /* ValueDetailsViewController.m in Sources */,
 				4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */,
 				B64ACAE9175544E100E2F6F7 /* CustomNumericalKeyboard.m in Sources */,
-				B64ACB0E1756A93700E2F6F7 /* EditEventViewController.m in Sources */,
 				B64ACB131756AC1900E2F6F7 /* BaseEventPreviewElement.m in Sources */,
 				B64ACB161756AC5400E2F6F7 /* MeasurementPreviewElement.m in Sources */,
 				B6D8EAA5175A185A00A3AA8F /* MBProgressHUD.m in Sources */,
