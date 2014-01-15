@@ -55,62 +55,39 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
-    
-    PYConnection *connection = [[NotesAppController sharedInstance] connection];
-    if(!connection)
-    {
-        completionBlock(nil,[NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]);
-    }
-    else
-    {
-        if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
-        {
-            completionBlock(self.cachedStreams, nil);
-        }
-        else
-        {
-            [connection getAllStreamsWithRequestType:PYRequestTypeAsync gotCachedStreams:^(NSArray *cachedStreamsList) {
-                //if(![[NotesAppController sharedInstance] isOnline])
-                //{
-                NSMutableArray *streams = [NSMutableArray array] ;
-                [self populateStreamList:streams withStreamsTree:cachedStreamsList];
-                completionBlock(streams, nil);
-                //}
-                
-            } gotOnlineStreams:^(NSArray *onlineStreamList) {
-                //if([[NotesAppController sharedInstance] isOnline])
-                //{
-                NSMutableArray *streams = [NSMutableArray array];
-                [self populateStreamList:streams withStreamsTree:onlineStreamList];
-                self.cachedStreams = streams;
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
-                //}
-                
-            } errorHandler:^(NSError *error) {
-                [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
-            }];
-            
-        }
-    }
-}
-
-
-- (void)createStream:(PYStream *)stream withCompletionBlock:(DataServiceCompletionBlock)completionBlock
-{
-    
-    PYConnection *connection = [[NotesAppController sharedInstance] connection];
-    if(!connection)
-    {
-        completionBlock(nil, [NSError errorWithDomain:@"Connection error" code:-100 userInfo:nil]);
-    }
-    else
-    {
-        [connection createStream:stream withRequestType:PYRequestTypeAsync successHandler:^(NSString *createdStreamId) {
-            completionBlock(createdStreamId, nil);
-        } errorHandler:^(NSError *error) {
-            completionBlock(nil, error);
-        }];
-    }
+    [NotesAppController sharedConnection:NO
+             noConnectionCompletionBlock:nil
+                     withCompletionBlock:^(PYConnection *connection)
+     {
+         if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
+         {
+             completionBlock(self.cachedStreams, nil);
+         }
+         else
+         {
+             [connection getAllStreamsWithRequestType:PYRequestTypeAsync gotCachedStreams:^(NSArray *cachedStreamsList) {
+                 //if(![[NotesAppController sharedInstance] isOnline])
+                 //{
+                 NSMutableArray *streams = [NSMutableArray array] ;
+                 [self populateStreamList:streams withStreamsTree:cachedStreamsList];
+                 completionBlock(streams, nil);
+                 //}
+                 
+             } gotOnlineStreams:^(NSArray *onlineStreamList) {
+                 //if([[NotesAppController sharedInstance] isOnline])
+                 //{
+                 NSMutableArray *streams = [NSMutableArray array];
+                 [self populateStreamList:streams withStreamsTree:onlineStreamList];
+                 self.cachedStreams = streams;
+                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:streams andError:nil];
+                 //}
+                 
+             } errorHandler:^(NSError *error) {
+                 [self executeCompletionBlockOnMainQueue:completionBlock withObject:nil andError:error];
+             }];
+             
+         }
+     }];
 }
 
 - (void)executeCompletionBlockOnMainQueue:(DataServiceCompletionBlock)completionBlock withObject:(id)object andError:(NSError *)error

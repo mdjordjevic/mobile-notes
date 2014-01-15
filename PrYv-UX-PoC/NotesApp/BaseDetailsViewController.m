@@ -242,19 +242,24 @@
 
 - (void)saveEvent
 {
-    [[DataService sharedInstance] saveEvent:self.event withCompletionBlock:^(id object, NSError *error) {
-        [self hideLoadingOverlay];
-        if(error)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
-        else
+    
+    [NotesAppController sharedConnection:NO noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+    {
+        [connection createEvent:self.event requestType:PYRequestTypeAsync
+                 successHandler:^(NSString *newEventId, NSString *stoppedId)
         {
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
             }];
-        }
+        } errorHandler:^(NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }];
+
     }];
 }
 

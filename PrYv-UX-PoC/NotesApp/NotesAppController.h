@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class SettingsController;
+@class PYConnection;
 
 typedef NS_ENUM(NSInteger, EventDataType)
 {
@@ -17,12 +18,14 @@ typedef NS_ENUM(NSInteger, EventDataType)
     EventDataTypeImage
 };
 
+typedef void (^NoConnectionCompletionBlock)(void);
+typedef void (^SharedConnectionCompletionBlock)(PYConnection *connection);
+
 #define kLocalizedKey NSLocalizedString(@"MeasurementSetLocalizedKey", nil)
 
 extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
 
-@class PYConnection;
 
 @interface NotesAppController : NSObject
 
@@ -33,6 +36,10 @@ extern NSString *const kUserDidLogoutNotification;
 @property (nonatomic, strong) SettingsController* settingController;
 
 + (NotesAppController*)sharedInstance;
+
++ (void)sharedConnection:(BOOL)requestIfNone
+    noConnectionCompletionBlock:(NoConnectionCompletionBlock)noConnectionCompletionBlock
+     withCompletionBlock:(SharedConnectionCompletionBlock)completionBlock;
 
 
 @end

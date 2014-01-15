@@ -185,34 +185,40 @@
         PYStream *stream = [[PYStream alloc] init];
         stream.name = streamName;
         stream.parentId = self.stream.streamId;
-        [[DataService sharedInstance] createStream:stream withCompletionBlock:^(id object, NSError *error) {
-            if(error)
-            {
-                [self hideLoadingOverlay];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
-            }
-            else
-            {
-                [[DataService sharedInstance] invalidateStreamListCache];
-                [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
-                    self.streams = object;
-                    self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
-                    for(PYStream *st in self.streams)
-                    {
-                        if([st.name isEqualToString:stream.name] && ([st.parentId isEqualToString:stream.parentId] || stream.parentId == nil))
-                        {
-                            self.stream = st;
-                            break;
-                        }
-                    }
-                    [self.tableView reloadData];
-                    [self updateUIElements];
-                    [self hideLoadingOverlay];
-                    [self.delegate streamSelected:self.stream];
-                }];
-            }
-        }];
+        
+        [NotesAppController sharedConnection:NO
+                 noConnectionCompletionBlock:nil
+                         withCompletionBlock:^(PYConnection *connection)
+         {
+             [connection createStream:stream withRequestType:PYRequestTypeAsync successHandler:^(NSString *createdStreamId) {
+                 
+                 // TODO replace this with Stream update notifications
+                 [[DataService sharedInstance] invalidateStreamListCache];
+                 [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
+                     self.streams = object;
+                     self.rootStreams = [self.streams filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"parentId = nil"]];
+                     for(PYStream *st in self.streams)
+                     {
+                         if([st.name isEqualToString:stream.name] && ([st.parentId isEqualToString:stream.parentId] || stream.parentId == nil))
+                         {
+                             self.stream = st;
+                             break;
+                         }
+                     }
+                     [self.tableView reloadData];
+                     [self updateUIElements];
+                     [self hideLoadingOverlay];
+                     [self.delegate streamSelected:self.stream];
+                 }];
+                 
+                 
+             } errorHandler:^(NSError *error) {
+                 [self hideLoadingOverlay];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                 [alert show];
+             }];
+         }];
+        
     }
 }
 

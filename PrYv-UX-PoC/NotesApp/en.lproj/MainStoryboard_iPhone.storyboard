@@ -471,7 +471,7 @@ height=123312</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yRN-bR-w4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-363" y="-1697"/>
+            <point key="canvasLocation" x="477" y="-227"/>
         </scene>
         <!--Add Event View Controller-->
         <scene sceneID="XQC-gp-Vrq">
