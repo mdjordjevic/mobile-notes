@@ -184,18 +184,20 @@
         if(alertView.cancelButtonIndex != buttonIndex)
         {
             [self showLoadingOverlay];
-            [[DataService sharedInstance] deleteEvent:self.event withCompletionBlock:^(id object, NSError *error) {
-                [self hideLoadingOverlay];
-                if(error)
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                }
-                else
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-                }
-            }];
+            
+            
+            [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+             {
+                 [connection trashOrDeleteEvent:self.event withRequestType:PYRequestTypeAsync successHandler:^{
+                     [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                         [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+                     }];
+                 } errorHandler:^(NSError *error) {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+                     [alert show];
+                 }];
+                 
+             }];
         }
     }];
 }

@@ -100,7 +100,7 @@
     self.eventDescriptionLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editDescriptionText:)];
     [self.eventDescriptionLabel addGestureRecognizer:tapGR];
-
+    
 }
 
 
@@ -112,7 +112,7 @@
         if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
         self.shouldUpdateEvent = YES;
         self.event.eventDescription = text;
-      
+        
         [self updateUI];
     };
     if(self.event.eventDescription)
@@ -189,9 +189,9 @@
     [self.dateButton.titleLabel setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
     
     if (self.event.eventDescription && [self.event.eventDescription length] > 0) {
-            self.eventDescriptionLabel.text = self.event.eventDescription;
+        self.eventDescriptionLabel.text = self.event.eventDescription;
     } else {
-         self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+        self.eventDescriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
     }
 }
 
@@ -205,62 +205,69 @@
     }
     
     [self showLoadingOverlay];
-    [[DataService sharedInstance] deleteEvent:self.event withCompletionBlock:^(id object, NSError *error) {
-        [self hideLoadingOverlay];
-        if(error)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-            [alert show];
-        }
-        else
-        {
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-            }];
-        }
-    }];
+    
+    [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
+     {
+         [connection trashOrDeleteEvent:self.event withRequestType:PYRequestTypeAsync successHandler:^{
+             [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+             }];
+         } errorHandler:^(NSError *error) {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+             [alert show];
+         }];
+         
+     }];
 }
 
 
 - (void)updateEvent
 {
-    [[DataService sharedInstance] updateEvent:self.event withCompletionBlock:^(id object, NSError *error) {
-        [self hideLoadingOverlay];
-        if(error)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
-        else
-        {
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-            }];
-        }
-    }];
+    
+    [NotesAppController sharedConnectionWithID:nil
+                   noConnectionCompletionBlock:nil
+                           withCompletionBlock:^(PYConnection *connection)
+     {
+         [connection setModifiedEventAttributesObject:self.event
+                                           forEventId:self.event.eventId
+                                          requestType:PYRequestTypeSync successHandler:^(NSString *stoppedId)
+          {
+              [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                  [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+              }];
+          } errorHandler:^(NSError *error) {
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:[error localizedDescription]
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+              [alert show];
+          }];
+     }];
+    
 }
 
 - (void)saveEvent
 {
     
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
-    {
-        [connection createEvent:self.event requestType:PYRequestTypeAsync
-                 successHandler:^(NSString *newEventId, NSString *stoppedId)
-        {
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
-            }];
-        } errorHandler:^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }];
-
-    }];
+     {
+         [connection createEvent:self.event requestType:PYRequestTypeAsync
+                  successHandler:^(NSString *newEventId, NSString *stoppedId)
+          {
+              [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                  [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
+              }];
+          } errorHandler:^(NSError *error) {
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:[error localizedDescription]
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+              [alert show];
+          }];
+         
+     }];
 }
 
 #pragma mark - Actions
@@ -286,7 +293,7 @@
         [self changeVisibilityOfStreamPickerTo:YES];
         return;
     }
-
+    
     
     if(self.shouldUpdateEvent)
     {
