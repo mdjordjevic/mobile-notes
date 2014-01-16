@@ -27,7 +27,6 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)initObject;
 - (void)executeCompletionBlockOnMainQueue:(DataServiceCompletionBlock)completionBlock withObject:(id)object andError:(NSError*)error;
-- (void)saveEventAsShortcut:(PYEvent*)event;
 - (void)populateStreamList:(NSMutableArray*)array withStreamsTree:(NSArray*)streams;
 
 @end

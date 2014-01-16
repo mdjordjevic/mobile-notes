@@ -22,5 +22,6 @@ extern NSString *const kSavingEventActionFinishedNotification;
 - (NSInteger)cellStyleForEvent:(PYEvent*)event;
 - (EventDataType)eventDataTypeForEvent:(PYEvent*)event;
 - (void)invalidateStreamListCache;
+- (void)saveEventAsShortcut:(PYEvent*)event;
 
 @end
