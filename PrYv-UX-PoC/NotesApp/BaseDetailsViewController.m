@@ -89,7 +89,7 @@
         }
         else
         {
-            self.eventDataType = [[DataService sharedInstance] eventDataTypeForEvent:_event];
+            self.eventDataType = [_event eventDataType];
         }
     }
 }

@@ -15,6 +15,7 @@
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "CellStyleModel.h"
+#import "PYEvent+Helper.h"
 
 #define kStreamListCacheTimeout 60 * 60 //60 minutes
 
@@ -104,7 +105,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     UserHistoryEntry *entry = [[UserHistoryEntry alloc] init];
     entry.streamId = event.streamId;
     entry.tags = [NSArray arrayWithArray:event.tags];
-    entry.dataType = [self cellStyleForEvent:event];
+    entry.dataType = [event cellStyle];
     if(entry.dataType != CellStyleTypePhoto && entry.dataType != CellStyleTypeText)
     {
         NSArray *components = [event.type componentsSeparatedByString:@"/"];
@@ -115,50 +116,6 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
         }
     }
     [[LRUManager sharedInstance] addUserHistoryEntry:entry];
-}
-
-
-
-- (NSInteger)cellStyleForEvent:(PYEvent *)event
-{
-    
-    NSString *eventClassKey = event.pyType.classKey;
-    if([eventClassKey isEqualToString:@"note"])
-    {
-        return CellStyleTypeText;
-    }
-    else if([eventClassKey isEqualToString:@"money"])
-    {
-        return CellStyleTypeMoney;
-    }
-    else if([eventClassKey isEqualToString:@"picture"])
-    {
-        return CellStyleTypePhoto;
-    }
-    else if ([event.pyType isNumerical]) {
-        return CellStyleTypeMeasure;
-    }
-    //NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
-    return CellStyleTypeUnkown;
-}
-
-- (EventDataType)eventDataTypeForEvent:(PYEvent *)event
-{
-    if ([event.pyType isNumerical]) {
-        return EventDataTypeValueMeasure;
-    }
-    
-    NSString *eventClassKey = event.pyType.classKey;
-    if([eventClassKey isEqualToString:@"note"])
-    {
-        return EventDataTypeNote;
-    }
-    else if([eventClassKey isEqualToString:@"picture"])
-    {
-        return EventDataTypeImage;
-    }
-    NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", event);
-    return EventDataTypeNote;
 }
 
 - (void)invalidateStreamListCache
