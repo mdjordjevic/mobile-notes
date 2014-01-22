@@ -7,7 +7,6 @@
 //
 
 #import "PhotoNoteViewController.h"
-#import "PhotoPreviewElement.h"
 #import "UIImage+PrYv.h"
 #import "BrowseEventsViewController.h"
 

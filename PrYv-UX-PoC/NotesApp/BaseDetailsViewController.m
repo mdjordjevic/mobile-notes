@@ -65,11 +65,18 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self performSegueWithIdentifier:@"TMP_EDIT_SEGUE" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,7 +96,7 @@
         }
         else
         {
-            self.eventDataType = [[DataService sharedInstance] eventDataTypeForEvent:_event];
+            self.eventDataType = [_event eventDataType];
         }
     }
 }
