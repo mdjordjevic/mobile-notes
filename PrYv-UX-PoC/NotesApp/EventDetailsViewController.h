@@ -8,6 +8,11 @@
 
 #import "BaseViewController.h"
 
+@class PYEvent;
+
 @interface EventDetailsViewController : UITableViewController
+
+@property (nonatomic, strong) PYEvent *event;
+@property (nonatomic, strong) NSArray *streams;
 
 @end
