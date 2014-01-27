@@ -7,6 +7,7 @@
 //
 
 #import "BaseDetailCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BaseDetailCell ()
 
