@@ -15,6 +15,11 @@
 
 @interface SettingsViewController ()
 
+
+@property (nonatomic, strong) IBOutlet UILabel *versionTitle;
+@property (nonatomic, strong) IBOutlet UILabel *versionLabel;
+
+
 @property (nonatomic, strong) IBOutlet UILabel *logoutLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *uiDisplayNonStandardEventsSwitch;
 - (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender;
@@ -22,6 +27,7 @@
 - (void)popVC:(id)sender;
 
 - (void)loadSettings;
+- (void)loadInformations;
 
 @end
 
@@ -44,6 +50,14 @@
    [self.uiDisplayNonStandardEventsSwitch setOn:uiDisplayNonStandardEventsSwitchValue];
 }
 
+- (void)loadInformations
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    self.versionLabel.text = [NSString stringWithFormat:@"%@ build %@",
+                             version, build];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,6 +70,7 @@
         self.logoutLabel.text = [NSString stringWithFormat:@"Logout (%@)",connection.userID];
     }
     [self loadSettings];
+    [self loadInformations];
 }
 
 - (void)didReceiveMemoryWarning
