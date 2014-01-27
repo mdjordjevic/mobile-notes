@@ -27,6 +27,7 @@
 		4E8AAFE71859EA440083DE8C /* UnkownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFE61859EA440083DE8C /* UnkownCell.m */; };
 		4E8AAFF8185A07A30083DE8C /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFF7185A07A30083DE8C /* AppConstants.m */; };
 		4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFFA185A0EE40083DE8C /* SettingsController.m */; };
+		4EBC558B1896B7DD00C4A136 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBC558A1896B7DD00C4A136 /* FeedbackViewController.m */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		96088A951861F1230090ECC7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 96088A8D1861F1230090ECC7 /* Icon-72.png */; };
@@ -432,6 +433,8 @@
 		4E8AAFF7185A07A30083DE8C /* AppConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstants.m; sourceTree = "<group>"; };
 		4E8AAFF9185A0EE40083DE8C /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
 		4E8AAFFA185A0EE40083DE8C /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		4EBC55891896B7DD00C4A136 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		4EBC558A1896B7DD00C4A136 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1200,6 +1203,8 @@
 				B61F38AF17477DC700B94960 /* SettingsViewController.m */,
 				B64ACAD51753F28D00E2F6F7 /* MeasurementSettingsViewController.h */,
 				B64ACAD61753F28D00E2F6F7 /* MeasurementSettingsViewController.m */,
+				4EBC55891896B7DD00C4A136 /* FeedbackViewController.h */,
+				4EBC558A1896B7DD00C4A136 /* FeedbackViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1922,6 +1927,7 @@
 				B6783A3D174178FB0083AE50 /* NotesAppController.m in Sources */,
 				B61F38B017477DC700B94960 /* SettingsViewController.m in Sources */,
 				B61F38CF17496A2800B94960 /* AddNumericalValueViewController.m in Sources */,
+				4EBC558B1896B7DD00C4A136 /* FeedbackViewController.m in Sources */,
 				B6DC81F4181E667700118ED9 /* PictureCell.m in Sources */,
 				B64ACAC61750F21900E2F6F7 /* DataService.m in Sources */,
 				4E41A62D18587EE000BC0C28 /* AddNumericalValueCellClass.m in Sources */,

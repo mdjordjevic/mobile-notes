@@ -11,6 +11,7 @@
 #import "DataService.h"
 
 #import "AppConstants.h"
+#import "TestFlight.h"
 
 
 @interface SettingsViewController ()
@@ -90,6 +91,7 @@
         [[NotesAppController sharedInstance] setConnection:nil];
     }
 }
+
 
 - (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender {
   [[NSUserDefaults standardUserDefaults]
