@@ -25,7 +25,7 @@
 #define kTagsDefaultConstraint -200
 #define kTagsOpenedConstraint 0
 
-@interface BaseDetailsViewController () <BaseDetailsDelegate,StreamsPickerDelegate,JSTokenFieldDelegate>
+@interface BaseDetailsViewController () <BaseDetailsDelegate,JSTokenFieldDelegate>
 
 @property (nonatomic) EventDataType eventDataType;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *streamConstraint;
@@ -401,14 +401,11 @@
 {
     if([segue.identifier isEqualToString:kDatePickerSegueID])
     {
-        DatePickerViewController *dpVC = (DatePickerViewController*)segue.destinationViewController;
-        [dpVC setBaseDetailsVC:self];
     }
     else if([segue.identifier isEqualToString:kStreamPickerSegue_ID])
     {
         StreamPickerViewController *streamPicker = (StreamPickerViewController*)segue.destinationViewController;
         streamPicker.event = self.event;
-        streamPicker.delegate = self;
         self.streamPicker = streamPicker;
     }
 }

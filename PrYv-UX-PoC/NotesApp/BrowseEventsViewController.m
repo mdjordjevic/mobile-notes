@@ -27,6 +27,7 @@
 #import "BaseDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "AppConstants.h"
+#import "EventDetailsViewController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -288,12 +289,10 @@ BOOL displayNonStandardEvents;
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
-        
-        BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
-        detailsVC.event = event;
-        detailsVC.isEditing = YES;
-        [self.navigationController presentViewController:navVC animated:YES completion:nil];
+        EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
+        eventDetailVC.event = event;
+        eventDetailVC.streams = self.streams;
+        [self.navigationController pushViewController:eventDetailVC animated:YES];
     }
 }
 

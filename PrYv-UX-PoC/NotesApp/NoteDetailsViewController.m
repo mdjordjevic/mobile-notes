@@ -9,7 +9,7 @@
 #import "NoteDetailsViewController.h"
 #import "TextEditorViewController.h"
 
-@interface NoteDetailsViewController () <TextEditorDelegate>
+@interface NoteDetailsViewController ()
 
 - (BOOL) isEditable;
 
@@ -74,7 +74,6 @@
     }
     
     TextEditorViewController *textEditVC = (TextEditorViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-    textEditVC.delegate = self;
     if(self.isEditing)
     {
         textEditVC.text = self.event.eventContent;
@@ -84,18 +83,6 @@
         textEditVC.text = NSLocalizedString(@"ViewController.TextContent.TapToAdd", nil);
     }
     [self.parentViewController.navigationController pushViewController:textEditVC animated:YES];
-}
-
-#pragma mark - TextEditorDelegate Methods
-
-- (void)textDidChangedTo:(NSString *)text forTextEditor:(TextEditorViewController *)textEditor
-{
-    if (! [self isEditable]) {
-        NSLog(@"<WARNING> NoteDetailsViewController.textDidChangedTo: Cannot edit this kind of event: %@", self.event.type);
-        return;
-    }
-    self.eventNoteContentLabel.text = text;
-    self.event.eventContent = text;
 }
 
 

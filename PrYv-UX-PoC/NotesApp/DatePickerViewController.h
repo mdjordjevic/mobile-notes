@@ -8,10 +8,9 @@
 
 #import "BaseViewController.h"
 
-@class BaseDetailsViewController;
-
 @interface DatePickerViewController : BaseViewController
 
-- (void) setBaseDetailsVC:(BaseDetailsViewController*) baseDetailsVC;
+@property (nonatomic, strong) NSDate *selectedDate;
+@property (copy) void (^dateDidChangeBlock)(NSDate *newDate, DatePickerViewController *datePicker);
 
 @end

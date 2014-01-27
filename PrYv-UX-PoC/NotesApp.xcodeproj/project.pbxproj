@@ -90,6 +90,7 @@
 		B681B678185514450067DF37 /* BaseContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B677185514450067DF37 /* BaseContentViewController.m */; };
 		B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B68218552E940067DF37 /* DatePickerViewController.m */; };
 		B681B686185543240067DF37 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B685185543240067DF37 /* TextEditorViewController.m */; };
+		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
 		B6B58FC2178B5F2D0009E413 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B58FC1178B5F2D0009E413 /* BaseViewController.m */; };
 		B6B5900B178B60B60009E413 /* add_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC3178B60B60009E413 /* add_circle.png */; };
 		B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC4178B60B60009E413 /* add_circle@2x.png */; };
@@ -517,6 +518,8 @@
 		B681B68218552E940067DF37 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		B681B684185543240067DF37 /* TextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorViewController.h; sourceTree = "<group>"; };
 		B681B685185543240067DF37 /* TextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorViewController.m; sourceTree = "<group>"; };
+		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
+		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
 		B6B58FC0178B5F2D0009E413 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		B6B58FC1178B5F2D0009E413 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		B6B58FC3178B60B60009E413 /* add_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_circle.png; sourceTree = "<group>"; };
@@ -1195,6 +1198,15 @@
 			name = Pickers;
 			sourceTree = "<group>";
 		};
+		B6993FC81891C05100D88127 /* DetailCells */ = {
+			isa = PBXGroup;
+			children = (
+				B6993FD01891C07700D88127 /* BaseDetailCell.h */,
+				B6993FD11891C07700D88127 /* BaseDetailCell.m */,
+			);
+			name = DetailCells;
+			sourceTree = "<group>";
+		};
 		B6B58FBF178B5F1B0009E413 /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1392,6 +1404,7 @@
 		B6F5AFFC173260E5000BC60A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B6993FC81891C05100D88127 /* DetailCells */,
 				B6DC81E6181E63E000118ED9 /* BrowseCell */,
 				B6D8EAAB175A2A4F00A3AA8F /* CategoryCell.h */,
 				B6D8EAAC175A2A4F00A3AA8F /* CategoryCell.m */,
@@ -1882,6 +1895,7 @@
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
+				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,
 				B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */,
