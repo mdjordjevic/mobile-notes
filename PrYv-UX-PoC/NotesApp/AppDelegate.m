@@ -12,6 +12,8 @@
 #import "NotesAppController.h"
 #import "MeasurementController.h"
 #import "TextNoteViewController.h"
+#import "TestFlight.h"
+#import "AppConstantsPrivate.h"
 
 NSString *const kEventAddedNotification = @"kEventAddedNotification";
 
@@ -30,6 +32,8 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [MeasurementController sharedInstance];
     [self initViewControllers];
     [self setupUI];
+    
+    [TestFlight takeOff:kPYAppConstantsPrivateTestFlightToken];
     
     return YES;
 }
