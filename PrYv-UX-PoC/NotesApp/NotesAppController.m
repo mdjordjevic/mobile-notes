@@ -12,6 +12,8 @@
 #import "SSKeychain.h"
 #import "SettingsController.h"
 
+#import "TestFlight.h"
+
 #define kServiceName @"com.pryv.notesapp"
 #define kLastUsedUsernameKey @"lastUsedUsernameKey"
 
@@ -58,11 +60,15 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
     {
         NSString *accessToken = [SSKeychain passwordForService:kServiceName account:lastUsedUsername];
         self.connection = [[PYConnection alloc] initWithUsername:lastUsedUsername andAccessToken:accessToken];
+        TFLog(@"LoadedSavedConnection: %@", lastUsedUsername);
     }
 }
 
 - (void)setConnection:(PYConnection *)connection
 {
+    if (connection != nil) {
+        TFLog(@"setConnection: %@", connection.userID);
+    }
     if(connection != _connection)
     {
         [self removeConnection:_connection];

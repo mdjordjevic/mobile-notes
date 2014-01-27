@@ -2172,6 +2172,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2204,6 +2205,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

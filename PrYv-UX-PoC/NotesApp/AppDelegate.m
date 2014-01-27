@@ -33,8 +33,11 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [self initViewControllers];
     [self setupUI];
     
+    // testFlight
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight setOptions:@{ TFOptionDisableInAppUpdates : @YES }];
     [TestFlight takeOff:kPYAppConstantsPrivateTestFlightToken];
-    
+    TFLog(@"appStarted");
     return YES;
 }
 
