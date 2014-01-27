@@ -56,7 +56,7 @@
 - (void)streamsLabelTouched:(id)sender
 {
     self.visible = !self.visible;
-    [self.delegate changeVisibilityOfStreamPickerTo:self.visible];
+    [self.delegate streamPickerShouldClose];
 }
 
 - (void)initStreams
@@ -112,6 +112,7 @@
     self.stream = [self.stream parentStreamInList:self.streams];
     [self.tableView reloadData];
     [self updateUIElements];
+    [self.delegate streamPickerDidSelectStream:self.stream];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -171,7 +172,7 @@
         self.stream = stream;
         [self.tableView reloadData];
         [self updateUIElements];
-        [self.delegate streamSelected:self.stream];
+        [self.delegate streamPickerDidSelectStream:self.stream];
     }
 }
 
@@ -208,7 +209,7 @@
                      [self.tableView reloadData];
                      [self updateUIElements];
                      [self hideLoadingOverlay];
-                     [self.delegate streamSelected:self.stream];
+                     [self.delegate streamPickerDidSelectStream:self.stream];
                  }];
                  
                  

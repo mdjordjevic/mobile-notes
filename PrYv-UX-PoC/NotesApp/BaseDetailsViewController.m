@@ -25,7 +25,7 @@
 #define kTagsDefaultConstraint -200
 #define kTagsOpenedConstraint 0
 
-@interface BaseDetailsViewController () <BaseDetailsDelegate,StreamsPickerDelegate,JSTokenFieldDelegate>
+@interface BaseDetailsViewController () <BaseDetailsDelegate,JSTokenFieldDelegate>
 
 @property (nonatomic) EventDataType eventDataType;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *streamConstraint;
@@ -65,11 +65,18 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self performSegueWithIdentifier:@"TMP_EDIT_SEGUE" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,7 +96,7 @@
         }
         else
         {
-            self.eventDataType = [[DataService sharedInstance] eventDataTypeForEvent:_event];
+            self.eventDataType = [_event eventDataType];
         }
     }
 }
@@ -394,14 +401,11 @@
 {
     if([segue.identifier isEqualToString:kDatePickerSegueID])
     {
-        DatePickerViewController *dpVC = (DatePickerViewController*)segue.destinationViewController;
-        [dpVC setBaseDetailsVC:self];
     }
     else if([segue.identifier isEqualToString:kStreamPickerSegue_ID])
     {
         StreamPickerViewController *streamPicker = (StreamPickerViewController*)segue.destinationViewController;
         streamPicker.event = self.event;
-        streamPicker.delegate = self;
         self.streamPicker = streamPicker;
     }
 }

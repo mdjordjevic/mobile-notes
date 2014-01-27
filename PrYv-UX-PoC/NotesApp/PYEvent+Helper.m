@@ -8,6 +8,11 @@
 
 #import "PYEvent+Helper.h"
 #import "PYStream+Helper.h"
+#import <PryvApiKit/PYEventTypes.h>
+#import <PryvApiKit/PYMeasurementSet.h>
+#import <PryvApiKit/PYStream.h>
+#import <PryvApiKit/PYEvent.h>
+#import "CellStyleModel.h"
 
 @implementation PYEvent (Helper)
 
@@ -25,6 +30,48 @@
         }
     }
     return nil;
+}
+
+- (EventDataType)eventDataType
+{
+    if ([[self pyType] isNumerical]) {
+        return EventDataTypeValueMeasure;
+    }
+    
+    NSString *eventClassKey = self.pyType.classKey;
+    if([eventClassKey isEqualToString:@"note"])
+    {
+        return EventDataTypeNote;
+    }
+    else if([eventClassKey isEqualToString:@"picture"])
+    {
+        return EventDataTypeImage;
+    }
+    NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", self);
+    return EventDataTypeNote;
+}
+
+- (NSInteger)cellStyle
+{
+    
+    NSString *eventClassKey = self.pyType.classKey;
+    if([eventClassKey isEqualToString:@"note"])
+    {
+        return CellStyleTypeText;
+    }
+    else if([eventClassKey isEqualToString:@"money"])
+    {
+        return CellStyleTypeMoney;
+    }
+    else if([eventClassKey isEqualToString:@"picture"])
+    {
+        return CellStyleTypePhoto;
+    }
+    else if ([self.pyType isNumerical]) {
+        return CellStyleTypeMeasure;
+    }
+    //NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
+    return CellStyleTypeUnkown;
 }
 
 @end

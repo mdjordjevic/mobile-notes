@@ -11,7 +11,6 @@
 #import "ViewController.h"
 #import "NotesAppController.h"
 #import "MeasurementController.h"
-#import "TextNoteViewController.h"
 #import "TestFlight.h"
 #import "AppConstantsPrivate.h"
 
@@ -19,7 +18,6 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
 
 @interface AppDelegate ()
 
-- (void)initViewControllers;
 - (void)setupUI;
 
 @end
@@ -30,7 +28,6 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
 {
     [NotesAppController sharedInstance];
     [MeasurementController sharedInstance];
-    [self initViewControllers];
     [self setupUI];
     
     // testFlight
@@ -39,45 +36,6 @@ NSString *const kEventAddedNotification = @"kEventAddedNotification";
     [TestFlight takeOff:kPYAppConstantsPrivateTestFlightToken];
     TFLog(@"appStarted");
     return YES;
-}
-
-- (void)initViewControllers {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-//    
-//	UIViewController* controller;
-//	
-//	self.slideoutController = [[ViewController alloc] init];
-//	
-//	[self.slideoutController addSectionWithTitle:@""];
-	
-//	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home1ViewController_ID"];
-//	[self.slideoutController addViewControllerToLastSection:controller tagged:1 withTitle:@"Collection Add" andIcon:@""];
-//	
-//	controller = [storyboard instantiateViewControllerWithIdentifier:@"Home2ViewController_ID"];
-//	[self.slideoutController addViewControllerToLastSection:controller tagged:2 withTitle:@"Circle Add" andIcon:@""];
-//    
-//    controller = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController_ID"];
-//    [self.slideoutController addViewControllerToLastSection:controller tagged:3 withTitle:@"Settings" andIcon:@""];
-//    
-//    controller = [storyboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-//    [self.slideoutController addViewControllerToLastSection:controller tagged:4 withTitle:@"Add Numerical Value" andIcon:@""];
-//    
-//    controller = [storyboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
-//    [self.slideoutController addViewControllerToLastSection:controller tagged:5 withTitle:@"Add Text Note" andIcon:@""];
-	
-//	[self.slideoutController addActionToLastSection:^{
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Some action"
-//                                                        message:@"Some message."
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil];
-//		[alert show];
-//	}
-//											 tagged:3
-//										  withTitle:@"Action"
-//											andIcon:@""];
-	
-//    [self.window setRootViewController:self.slideoutController];
 }
 
 - (void)setupUI {

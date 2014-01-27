@@ -7,14 +7,11 @@
 //
 
 #import "DatePickerViewController.h"
-#import "BaseDetailsViewController.h"
 
 @interface DatePickerViewController ()
 
 @property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-
-@property (nonatomic, weak) BaseDetailsViewController *myBaseDetailsVC;
 
 @end
 
@@ -32,15 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   }
-
-- (void) setBaseDetailsVC:(BaseDetailsViewController*) baseDetailsVC
-{
-    self.myBaseDetailsVC = baseDetailsVC;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.myBaseDetailsVC.event.time];
-	[self.datePicker setDate:date animated:NO];
+    
+	[self.datePicker setDate:self.selectedDate animated:NO];
     [self datePickerDidChangeDate:nil];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,7 +42,10 @@
 
 - (IBAction)doneButtonTouched:(id)sender
 {
-    [self.myBaseDetailsVC updateDateFromPickerWith:self.datePicker.date];
+    if(self.dateDidChangeBlock)
+    {
+        self.dateDidChangeBlock(self.datePicker.date,self);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

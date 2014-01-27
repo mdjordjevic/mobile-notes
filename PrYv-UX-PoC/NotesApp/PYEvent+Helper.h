@@ -12,4 +12,7 @@
 
 - (NSString*)eventBreadcrumbsForStreamsList:(NSArray*)streams;
 
+- (EventDataType)eventDataType;
+- (NSInteger)cellStyle;
+
 @end

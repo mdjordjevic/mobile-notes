@@ -25,7 +25,7 @@
 
 @protocol StreamsPickerDelegate <NSObject>
 
-- (void)changeVisibilityOfStreamPickerTo:(BOOL)visible;
-- (void)streamSelected:(PYStream*)stream;
+- (void)streamPickerShouldClose;
+- (void)streamPickerDidSelectStream:(PYStream*)stream;
 
 @end

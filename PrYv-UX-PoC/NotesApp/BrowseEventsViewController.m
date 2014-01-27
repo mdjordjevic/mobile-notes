@@ -9,13 +9,10 @@
 #import "BrowseEventsViewController.h"
 #import "BrowseEventsCell.h"
 #import "DataService.h"
-#import "Stream.h"
 #import "CellStyleModel.h"
-#import "CustomSegmentedControl.h"
 #import "AddNumericalValueViewController.h"
-#import "SettingsViewController.h"
-#import "TextNoteViewController.h"
 #import "PhotoNoteViewController.h"
+#import "SettingsViewController.h"
 #import "LRUManager.h"
 #import "UserHistoryEntry.h"
 #import "PYEvent+Helper.h"
@@ -30,6 +27,7 @@
 #import "BaseDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "AppConstants.h"
+#import "EventDetailsViewController.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
@@ -196,7 +194,7 @@ BOOL displayNonStandardEvents;
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        CellStyleType cellType = [[DataService sharedInstance] cellStyleForEvent:event];
+        CellStyleType cellType = [event cellStyle];
         if(cellType == CellStyleTypePhoto)
         {
             return 180;
@@ -241,7 +239,7 @@ BOOL displayNonStandardEvents;
     if(IS_BROWSE_SECTION)
     {
         PYEvent *event = [_events objectAtIndex:row];
-        CellStyleType cellStyleType = [[DataService sharedInstance] cellStyleForEvent:event];
+        CellStyleType cellStyleType = [event cellStyle];
         BrowseCell *cell = [self cellInTableView:tableView forCellStyleType:cellStyleType];
         [cell updateWithEvent:event andListOfStreams:self.streams];
         [cell prepareForReuse];
@@ -271,15 +269,15 @@ BOOL displayNonStandardEvents;
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
         if(entry.dataType == CellStyleTypeText)
         {
-            TextNoteViewController *textVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
-            textVC.entry = entry;
-            [self.navigationController pushViewController:textVC animated:YES];
+//            TextNoteViewController *textVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
+//            textVC.entry = entry;
+//            [self.navigationController pushViewController:textVC animated:YES];
         }
         else if(entry.dataType == CellStyleTypePhoto)
         {
-            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-            photoVC.entry = entry;
-            [self.navigationController pushViewController:photoVC animated:YES];
+//            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+//            photoVC.entry = entry;
+//            [self.navigationController pushViewController:photoVC animated:YES];
         }
         else
         {
@@ -291,12 +289,10 @@ BOOL displayNonStandardEvents;
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
-        
-        BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
-        detailsVC.event = event;
-        detailsVC.isEditing = YES;
-        [self.navigationController presentViewController:navVC animated:YES completion:nil];
+        EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
+        eventDetailVC.event = event;
+        eventDetailVC.streams = self.streams;
+        [self.navigationController pushViewController:eventDetailVC animated:YES];
     }
 }
 
@@ -380,7 +376,7 @@ BOOL displayNonStandardEvents;
 
 - (BOOL)clientFilterMatchEvent:(PYEvent*)event
 {
-    return displayNonStandardEvents || ! ([[DataService sharedInstance] cellStyleForEvent:event] == CellStyleTypeUnkown );
+    return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
 }
 
 /**
