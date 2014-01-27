@@ -14,10 +14,11 @@
 
 @property (nonatomic, strong) IBOutlet UITextField *valueField;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
-@property (nonatomic, weak) id<BaseDetailsDelegate> delegate;
 
 @property (nonatomic, strong) NSString *valueClass;
 @property (nonatomic, strong) NSString *valueType;
 @property (nonatomic, strong) NSString *value;
+
+@property (copy) void (^valueDidChangeBlock)(NSString* valueClass, NSString *valueType, NSString* value, AddNumericalValueViewController *addNumericalVC);
 
 @end

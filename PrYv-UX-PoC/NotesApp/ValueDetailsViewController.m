@@ -79,8 +79,6 @@
             addVC.valueType = [components objectAtIndex:1];
         }
     }
-    
-    addVC.delegate = self.delegate;
     [self.parentViewController.navigationController pushViewController:addVC animated:YES];
 }
 

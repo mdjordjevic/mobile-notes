@@ -29,7 +29,12 @@
 {
     [super viewDidLoad];
     self.textView.text = self.text;
-	[self.textView becomeFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.textView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,9 +45,6 @@
 
 - (IBAction)doneButtonTouched:(id)sender
 {
-    if (self.delegate) {
-        [self.delegate textDidChangedTo:self.textView.text forTextEditor:self];
-    }
     if (self.textDidChangeCallBack) {
         self.textDidChangeCallBack(self.textView.text, self);
     }

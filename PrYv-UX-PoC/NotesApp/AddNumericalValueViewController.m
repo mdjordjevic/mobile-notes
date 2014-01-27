@@ -69,49 +69,6 @@
     {
         self.valueField.text = self.value;
     }
-    
-//    if(self.entry)
-//    {
-//        [self updateMeasurementSets];
-//        [self.typePicker reloadData];
-//        [self selectRightMeasurementGroupForMeasurementClassKey:self.entry.measurementGroupName andMeasurementType:self.entry.measurementTypeName];
-//    }
-//    
-//    if(self.event)
-//    {
-//        [self updateMeasurementSets];
-//        [self.typePicker reloadData];
-//        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
-//        if([components count] > 1)
-//        {
-//            [self selectRightMeasurementGroupForMeasurementClassKey:[components objectAtIndex:0] andMeasurementType:[components objectAtIndex:1]];
-//            NSString *text = [self.event.eventContent description];
-//            if(!text)
-//            {
-//                text = @"";
-//            }
-//            self.valueField.text = text;
-//        }
-//    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-//    if(!self.entry && !self.event)
-//    {
-//        NSInteger groupsCountBeforeUpdate = [_measurementGroups count];
-//        [self updateMeasurementSets];
-//        
-//        [self.typePicker reloadData];
-//        
-//        if(groupsCountBeforeUpdate == [_measurementGroups count])
-//        {
-//            [_typePicker selectRow:0 inComponent:0 animated:NO];
-//        }
-//        [self selectFirstTypeAnimated:NO];
-//    }
 }
 
 - (void)updateMeasurementSets
@@ -217,21 +174,6 @@
     return number;
 }
 
-//- (MeasurementPreviewElement*)previewElement
-//{
-//    MeasurementPreviewElement *element = [[MeasurementPreviewElement alloc] init];
-//    NSNumber *value = [self valueAsNumber];
-//    NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
-//    NSInteger selectedType = [_typePicker selectedRowInComponent:1];
-//    PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
-//    NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
-//    element.klass = [group classKey];
-//    element.format = formatKey;
-//    element.value = value;
-//
-//    return element;
-//}
-
 #pragma mark - CustomNumericalKeyboardDelegate
 
 - (UITextField*)textFieldForCustomkeyboard:(CustomNumericalKeyboard *)customKeybord
@@ -246,20 +188,8 @@
 
 #pragma mark - Segues
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if([segue.identifier isEqualToString:kSaveMeasurementSegue])
-//    {
-//        EditEventViewController *editEventVC = (EditEventViewController*)[segue destinationViewController];
-//        MeasurementPreviewElement *previewElement = [self previewElement];
-//        editEventVC.eventElement = previewElement;
-//        editEventVC.entry = self.entry;
-//    }
-//}
-
 - (IBAction)doneButtonTouched:(id)sender
 {
-    NSLog(@"doneButtonTouched");
     if([[_valueField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] < 1)
     {
         _valueField.text = @"0";
@@ -268,7 +198,10 @@
     NSInteger selectedType = [_typePicker selectedRowInComponent:1];
     PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
     NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
-    [self.delegate eventDidChangeProperties:[group classKey] valueType:formatKey value:_valueField.text];
+    if(self.valueDidChangeBlock)
+    {
+        self.valueDidChangeBlock([group classKey],formatKey,_valueField.text,self);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -293,12 +226,6 @@
 {
     if(component == kGroupComponentIndex)
     {
-        //UILabel *label = [[UILabel alloc] initWithFrame:rect];
-        //[label setBackgroundColor:[UIColor clearColor]];
-        //[label setFont:[UIFont boldSystemFontOfSize:24]];
-        //[label setTextAlignment:UITextAlignmentCenter];
-        //return label;
-        
         AddNumericalValueCellClass *cell = [[AddNumericalValueCellClass alloc] initWithFrame:rect];
         return cell ;
     }
@@ -317,13 +244,9 @@
         
         PYEventTypesGroup *group = [_measurementGroups objectAtIndex:row];
         [label setText:group.localizedName];
-        
-        
     }
     else
     {
-       
-        
         NSInteger selectedGroup = [_typePicker selectedRowInComponent:0];
         PYEventTypesGroup *group = [_measurementGroups objectAtIndex:selectedGroup];
         
@@ -337,8 +260,6 @@
         if (pyType && pyType.symbol) {
             symbolText = pyType.symbol;
         }
-        
-        
         
         AddNumericalValueCellFormat *cell = (AddNumericalValueCellFormat*)view;
         [cell.nameLabel setText:nameText];
