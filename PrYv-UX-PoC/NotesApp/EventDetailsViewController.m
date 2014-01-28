@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self initTags];
     
     self.backupEvent = self.event;
-    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]];
+    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary] onConnection:self.backupEvent.connection];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShown:)
@@ -203,7 +203,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)cancelButtonTouched:(id)sender
 {
-    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]];
+    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]  onConnection:self.backupEvent.connection];
     [self updateUIForEvent];
     self.shouldUpdateEvent = NO;
     [self editButtonTouched:nil];
