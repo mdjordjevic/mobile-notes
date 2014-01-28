@@ -97,6 +97,7 @@
 		B681B68318552E940067DF37 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B68218552E940067DF37 /* DatePickerViewController.m */; };
 		B681B686185543240067DF37 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B685185543240067DF37 /* TextEditorViewController.m */; };
 		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
+		B6994026189736B900D88127 /* BrowseEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6994025189736B900D88127 /* BrowseEventCell.xib */; };
 		B6B58FC2178B5F2D0009E413 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B58FC1178B5F2D0009E413 /* BaseViewController.m */; };
 		B6B5900B178B60B60009E413 /* add_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC3178B60B60009E413 /* add_circle.png */; };
 		B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC4178B60B60009E413 /* add_circle@2x.png */; };
@@ -537,6 +538,7 @@
 		B681B685185543240067DF37 /* TextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorViewController.m; sourceTree = "<group>"; };
 		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
 		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
+		B6994025189736B900D88127 /* BrowseEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseEventCell.xib; sourceTree = "<group>"; };
 		B6B58FC0178B5F2D0009E413 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		B6B58FC1178B5F2D0009E413 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		B6B58FC3178B60B60009E413 /* add_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_circle.png; sourceTree = "<group>"; };
@@ -1253,6 +1255,14 @@
 			name = DetailCells;
 			sourceTree = "<group>";
 		};
+		B69940241897368B00D88127 /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				B6994025189736B900D88127 /* BrowseEventCell.xib */,
+			);
+			name = Nibs;
+			sourceTree = "<group>";
+		};
 		B6B58FBF178B5F1B0009E413 /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1481,6 +1491,7 @@
 		B6F9A24A1729BF74009C8BAA /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				B69940241897368B00D88127 /* Nibs */,
 				B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */,
 				B67064AB184D3DE400A0EB62 /* DetailsStoryboard_iPhone.storyboard */,
 				B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */,
@@ -1740,6 +1751,7 @@
 				B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */,
 				4EBE04671844D5070031724A /* Localizable.strings in Resources */,
 				B64ACAEB1755451000E2F6F7 /* CustomNumericalKeyboard.xib in Resources */,
+				B6994026189736B900D88127 /* BrowseEventCell.xib in Resources */,
 				96088A9A1861F1230090ECC7 /* Icon-Small-50@2x.png in Resources */,
 				B6F1AEC61784742D000ECD60 /* tokenHighlighted.png in Resources */,
 				B6F1AEC71784742D000ECD60 /* tokenHighlighted@2x.png in Resources */,
@@ -2051,6 +2063,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "9131C760-AF34-4980-910D-55EB0441DEB3";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2077,6 +2090,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				PROVISIONING_PROFILE = "9131C760-AF34-4980-910D-55EB0441DEB3";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2101,7 +2115,7 @@
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/perki/wActiv/mobile-notes/PrYv-UX-PoC/NotesApp/Vendor/TestFlightSDK2.1.4",
+					NotesApp/Vendor/TestFlightSDK2.1.4,
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2112,7 +2126,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2134,7 +2148,7 @@
 				INFOPLIST_FILE = "NotesApp/NotesApp-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/perki/wActiv/mobile-notes/PrYv-UX-PoC/NotesApp/Vendor/TestFlightSDK2.1.4",
+					NotesApp/Vendor/TestFlightSDK2.1.4,
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2145,7 +2159,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

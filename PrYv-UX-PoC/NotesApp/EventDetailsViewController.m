@@ -17,6 +17,8 @@
 #import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
+#import "JSTokenField.h"
+#import "JSTokenButton.h"
 
 #define kValueCellHeight 100
 #define kImageCellHeight 320
@@ -36,7 +38,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     DetailCellTypeStreams
 };
 
-@interface EventDetailsViewController () <StreamsPickerDelegate>
+@interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
 
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
@@ -45,6 +47,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic) BOOL shouldUpdateEvent;
 
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
+@property (nonatomic, strong) PYEvent *backupEvent;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
@@ -54,7 +57,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *tagsLabel;
+@property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
+@property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
+@property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
 
 @end
 
@@ -74,6 +81,19 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [super viewDidLoad];
     
     [self updateUIForEvent];
+    [self initTags];
+    
+    self.backupEvent = self.event;
+    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -181,10 +201,27 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 #pragma mark - Actions
 
+- (void)cancelButtonTouched:(id)sender
+{
+    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]];
+    [self updateUIForEvent];
+    self.shouldUpdateEvent = NO;
+    [self editButtonTouched:nil];
+}
+
 - (IBAction)editButtonTouched:(id)sender
 {
     if(self.isInEditMode)
     {
+        [self.navigationItem setLeftBarButtonItem:nil];
+        [self.navigationItem setHidesBackButton:NO];
+        if(! self.event.streamId)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ChooseStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+            
+            return;
+        }
         if(self.streamPickerVC)
         {
             [self streamPickerShouldClose];
@@ -194,10 +231,35 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             [self updateEvent];
         }
     }
+    else
+    {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle: @"Cancel"
+                                       style: UIBarButtonItemStyleBordered
+                                       target:self action: @selector(cancelButtonTouched:)];
+        
+        [self.navigationItem setLeftBarButtonItem:backButton];
+        [self.navigationItem setHidesBackButton:YES];
+    }
     self.isInEditMode = !self.isInEditMode;
     self.editButton.title = self.isInEditMode ? @"Done" : @"Edit";
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:self.isInEditMode];
+    }];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        if(self.isInEditMode)
+        {
+            self.tagsLabel.alpha = 0.0f;
+            self.tokenContainer.alpha = 1.0f;
+        }
+        else
+        {
+            self.tagsLabel.alpha = 1.0f;
+            self.tokenContainer.alpha = 0.0f;
+        }
+    } completion:^(BOOL finished) {
+        
     }];
 }
 
@@ -446,6 +508,87 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
               [self hideLoadingOverlay];
           }];
      }];
+}
+
+#pragma mark - Tags
+
+- (IBAction)tokenDoneButtonTouched:(id)sender
+{
+    [self.tokenField.textField resignFirstResponder];
+    [self.tokenField updateTokensInTextField:self.tokenField.textField];
+    NSMutableArray *tokens = [NSMutableArray array];
+    for(JSTokenButton *token in self.tokenField.tokens)
+    {
+        [tokens addObject:[token representedObject]];
+    }
+    self.event.tags = tokens;
+    self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+    self.shouldUpdateEvent = YES;
+}
+
+#pragma mark - JSTOkenFieldDelegate methods
+
+- (BOOL)tokenFieldShouldReturn:(JSTokenField *)tokenField
+{
+    [tokenField updateTokensInTextField:tokenField.textField];
+    if([tokenField.tokens count] == 0)
+    {
+        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+    }
+    else
+    {
+        self.tokenField.textField.placeholder = @"";
+    }
+    return NO;
+}
+
+- (void)tokenFieldWillBeginEditing:(JSTokenField *)tokenField
+{
+    
+}
+
+- (void)tokenFieldDidEndEditing:(JSTokenField *)tokenField
+{
+    
+}
+
+- (void)initTags
+{
+    self.tokenField.delegate = self;
+    self.tagDoneButtonConstraint.constant = 0;
+    [self.view layoutIfNeeded];
+    for(NSString *tag in self.event.tags)
+    {
+        [self.tokenField addTokenWithTitle:tag representedObject:tag];
+    }
+    if([self.event.tags count] == 0)
+    {
+        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+    }
+    
+    self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+}
+
+#pragma mark - Keyboard notifications
+
+- (void)keyboardWillShown:(NSNotification *)notification
+{
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    self.tagDoneButtonConstraint.constant = 68;
+    [self.view setNeedsLayout];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    self.tagDoneButtonConstraint.constant = 0;
+    [self.view setNeedsLayout];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end
