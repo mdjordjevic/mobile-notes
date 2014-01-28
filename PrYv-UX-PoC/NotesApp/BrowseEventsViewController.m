@@ -32,6 +32,8 @@
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
+static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
+
 @interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient>
 
 
@@ -71,6 +73,7 @@ BOOL displayNonStandardEvents;
     
     [self loadSettings];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
     
     self.navigationItem.title = @"Pryv";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
@@ -150,9 +153,9 @@ BOOL displayNonStandardEvents;
             if(streamsObject)
             {
                 self.streams = streamsObject;
-                //[UIView animateWithDuration:0.2 animations:^{
-                //    self.tableView.alpha = 1.0f;
-                //}];
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.tableView.alpha = 1.0f;
+                }];
                 [self hideLoadingOverlay];
                 [self.pullToRefreshManager tableViewReloadFinishedAnimated:YES];
             }
@@ -245,8 +248,7 @@ BOOL displayNonStandardEvents;
         [cell prepareForReuse];
         return cell;
     }
-    static NSString *CellIdentifier = @"BrowseEventsCell_ID";
-    BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
     UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
     cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
     CellStyleType cellStyleType = entry.dataType;
@@ -292,6 +294,12 @@ BOOL displayNonStandardEvents;
         EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
         eventDetailVC.event = event;
         eventDetailVC.streams = self.streams;
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle:@"Back"
+                                       style: UIBarButtonItemStyleBordered
+                                       target: nil action: nil];
+        
+        [self.navigationItem setBackBarButtonItem: backButton];
         [self.navigationController pushViewController:eventDetailVC animated:YES];
     }
 }
