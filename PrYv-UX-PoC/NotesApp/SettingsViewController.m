@@ -11,7 +11,7 @@
 #import "DataService.h"
 
 #import "AppConstants.h"
-#import "TestFlight.h"
+
 
 
 @interface SettingsViewController ()
@@ -25,10 +25,15 @@
 @property (weak, nonatomic) IBOutlet UISwitch *uiDisplayNonStandardEventsSwitch;
 - (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender;
 
+
+@property (nonatomic, strong) IBOutlet UILabel *sendMailLabel;
+
 - (void)popVC:(id)sender;
 
 - (void)loadSettings;
 - (void)loadInformations;
+
+- (void)displayFeedBackMailView ;
 
 @end
 
@@ -64,6 +69,13 @@
     [super viewDidLoad];
 	self.navigationItem.leftItemsSupplementBackButton = NO;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add_active"] target:self action:@selector(popVC:)];
+    
+    
+    self.sendMailLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayFeedBackMailView)];
+    [self.sendMailLabel addGestureRecognizer:tapGR];
+
+    
     
     PYConnection *connection = [[NotesAppController sharedInstance] connection];
     if(connection)
@@ -102,6 +114,52 @@
 - (void)popVC:(id)sender
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+#pragma mark - feedback MFMailComposeViewControllerDelegate
+
+
+- (void)displayFeedBackMailView {
+
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    [picker setSubject:@"Feedback from Pryv app"];
+    
+    [picker setToRecipients:[NSArray arrayWithObjects:@"support@pryv.com", nil]];
+    
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+
+    NSString *username = @"";
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(connection)
+    {
+        username = connection.userID;
+    }
+
+    
+    // Fill out the email body text.
+    NSString *emailBody = [NSString stringWithFormat:
+                           @"\n\n\n\n\n\n\n---------------------------------------\ntechnical info, please leave as-is\nversion:%@ build %@\nusername: %@",
+                           version, build, username];
+    [picker setMessageBody:emailBody isHTML:NO];
+    
+    // Present the mail composition interface.
+    [self presentViewController:picker animated:YES completion:nil];
+    //[picker release]; // Can safely release the controller now.
+}
+
+// The mail compose view controller delegate method
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
