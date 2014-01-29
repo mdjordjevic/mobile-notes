@@ -19,6 +19,7 @@
 #import "DataService.h"
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
+#import "DetailsBottomButtonsContainer.h"
 
 #define kValueCellHeight 100
 #define kImageCellHeight 320
@@ -64,6 +65,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
+@property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 
 @end
 
@@ -111,6 +113,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
     }
+    [self initBottomButtonsContainer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -130,7 +133,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         {
             [self performSegueWithIdentifier:kShowTextEditorSegue sender:self];
         }
-        else
+        else if(self.eventDataType == EventDataTypeValueMeasure)
         {
             [self performSegueWithIdentifier:kShowValueEditorSegue sender:self];
         }
@@ -147,6 +150,22 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         self.eventDataType = [_event eventDataType];
     }
+}
+
+- (void)initBottomButtonsContainer
+{
+    __block EventDetailsViewController *weakSelf = self;
+    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] firstObject];
+    [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
+        [weakSelf shareEvent];
+    }];
+    [self.bottomButtonsContainer setDeleteButtonTouchHandler:^(UIButton *deleteButton) {
+        [weakSelf deleteEvent];
+    }];
+    CGRect frame = self.bottomButtonsContainer.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 50;
+    self.bottomButtonsContainer.frame = frame;
+    [self.view addSubview:self.bottomButtonsContainer];
 }
 
 #pragma mark - UI update
@@ -217,6 +236,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 }
 
 #pragma mark - UITableViewDeleagate methods
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = [self heightForCellAtIndexPath:indexPath withEvent:self.event];
+    cell.alpha = height > 0 ? 1.0f : 0.0f;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -572,6 +597,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
               [self hideLoadingOverlay];
           }];
      }];
+}
+
+- (void)shareEvent
+{
+    NSLog(@"SHARE EVENT");
 }
 
 #pragma mark - Tags

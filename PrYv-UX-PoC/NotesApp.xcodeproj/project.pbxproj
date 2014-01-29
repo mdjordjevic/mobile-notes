@@ -98,6 +98,8 @@
 		B681B686185543240067DF37 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B681B685185543240067DF37 /* TextEditorViewController.m */; };
 		B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6993FD11891C07700D88127 /* BaseDetailCell.m */; };
 		B6994026189736B900D88127 /* BrowseEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6994025189736B900D88127 /* BrowseEventCell.xib */; };
+		B69940311899C41A00D88127 /* DetailsBottomButtonsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */; };
+		B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */; };
 		B6B58FC2178B5F2D0009E413 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B58FC1178B5F2D0009E413 /* BaseViewController.m */; };
 		B6B5900B178B60B60009E413 /* add_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC3178B60B60009E413 /* add_circle.png */; };
 		B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B58FC4178B60B60009E413 /* add_circle@2x.png */; };
@@ -538,6 +540,9 @@
 		B6993FD01891C07700D88127 /* BaseDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDetailCell.h; sourceTree = "<group>"; };
 		B6993FD11891C07700D88127 /* BaseDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDetailCell.m; sourceTree = "<group>"; };
 		B6994025189736B900D88127 /* BrowseEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseEventCell.xib; sourceTree = "<group>"; };
+		B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsBottomButtonsContainer.xib; sourceTree = "<group>"; };
+		B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBottomButtonsContainer.h; sourceTree = "<group>"; };
+		B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBottomButtonsContainer.m; sourceTree = "<group>"; };
 		B6B58FC0178B5F2D0009E413 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		B6B58FC1178B5F2D0009E413 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		B6B58FC3178B60B60009E413 /* add_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_circle.png; sourceTree = "<group>"; };
@@ -1258,6 +1263,7 @@
 			isa = PBXGroup;
 			children = (
 				B6994025189736B900D88127 /* BrowseEventCell.xib */,
+				B69940301899C41A00D88127 /* DetailsBottomButtonsContainer.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -1452,6 +1458,8 @@
 				B6F5AFFC173260E5000BC60A /* Cell */,
 				B6F207B3179358E6006FC5B0 /* TagView.h */,
 				B6F207B4179358E6006FC5B0 /* TagView.m */,
+				B69940351899C45A00D88127 /* DetailsBottomButtonsContainer.h */,
+				B69940361899C45A00D88127 /* DetailsBottomButtonsContainer.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1790,6 +1798,7 @@
 				B6B59024178B60B60009E413 /* icon_settings.png in Resources */,
 				B6B59025178B60B60009E413 /* icon_settings@2x.png in Resources */,
 				B6B59026178B60B60009E413 /* icon_small_audio.png in Resources */,
+				B69940311899C41A00D88127 /* DetailsBottomButtonsContainer.xib in Resources */,
 				B6B59027178B60B60009E413 /* icon_small_audio@2x.png in Resources */,
 				B6B59028178B60B60009E413 /* icon_small_browse_active.png in Resources */,
 				B6B59029178B60B60009E413 /* icon_small_browse_active@2x.png in Resources */,
@@ -1955,6 +1964,7 @@
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
+				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,
 				B6993FD21891C07700D88127 /* BaseDetailCell.m in Sources */,
 				B61AE1E2188DD845004385D6 /* PhotoNoteViewController.m in Sources */,
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,
