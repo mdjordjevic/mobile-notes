@@ -24,7 +24,6 @@
 #import "ValueCell.h"
 #import "PictureCell.h"
 #import "UnkownCell.h"
-#import "BaseDetailsViewController.h"
 #import "NSString+Utils.h"
 #import "AppConstants.h"
 #import "EventDetailsViewController.h"
@@ -42,6 +41,7 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSMutableArray *streams;
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
+@property (nonatomic, strong) PYEvent *eventToShowOnAppear;
 
 @property (nonatomic, strong) PYEventFilter *filter;
 
@@ -122,6 +122,18 @@ BOOL displayNonStandardEvents;
             [self.tableView reloadData];
         }
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(self.eventToShowOnAppear)
+    {
+        PYEvent *event = self.eventToShowOnAppear;
+        self.eventToShowOnAppear = nil;
+        [self showEventDetailsForEvent:event withEventIsNewFlag:YES];
+    }
 }
 
 - (void)viewDidUnload
@@ -269,38 +281,12 @@ BOOL displayNonStandardEvents;
     if(IS_LRU_SECTION)
     {
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        if(entry.dataType == CellStyleTypeText)
-        {
-//            TextNoteViewController *textVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"TextNoteViewController_ID"];
-//            textVC.entry = entry;
-//            [self.navigationController pushViewController:textVC animated:YES];
-        }
-        else if(entry.dataType == CellStyleTypePhoto)
-        {
-//            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-//            photoVC.entry = entry;
-//            [self.navigationController pushViewController:photoVC animated:YES];
-        }
-        else
-        {
-            //            AddNumericalValueViewController *addNVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
-            //            addNVC.entry = entry;
-            //            [self.navigationController pushViewController:addNVC.navigationController animated:YES];
-        }
+        [self showEventDetailsWithUserHistoryEntry:entry];
     }
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
-        eventDetailVC.event = event;
-        eventDetailVC.streams = self.streams;
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                       initWithTitle:@"Back"
-                                       style: UIBarButtonItemStyleBordered
-                                       target: nil action: nil];
-        
-        [self.navigationItem setBackBarButtonItem: backButton];
-        [self.navigationController pushViewController:eventDetailVC animated:YES];
+        [self showEventDetailsForEvent:event withEventIsNewFlag:NO];
     }
 }
 
@@ -313,21 +299,13 @@ BOOL displayNonStandardEvents;
             {
                 PYEvent *event = [[PYEvent alloc] init];
                 event.type = @"note/txt";
-                UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
-                
-                BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
-                detailsVC.event = event;
-                [weakSelf.navigationController presentViewController:navVC animated:YES completion:nil];
+                [weakSelf showEventDetailsForEvent:event withEventIsNewFlag:YES];
             }
                 break;
             case 1:
             {
                 PYEvent *event = [[PYEvent alloc] init];
-                UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
-                
-                BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
-                detailsVC.event = event;
-                [weakSelf.navigationController presentViewController:navVC animated:YES completion:nil];
+                [weakSelf showEventDetailsForEvent:event withEventIsNewFlag:YES];
             }
                 break;
             case 2:
@@ -344,6 +322,44 @@ BOOL displayNonStandardEvents;
                 break;
         }
     }];
+}
+
+#pragma mark - Show details
+
+- (void)showEventDetailsForEvent:(PYEvent*)event withEventIsNewFlag:(BOOL)eventIsNew
+{
+    [self showEventDetailsForEvent:event withEventIsNewFlag:eventIsNew andUserHistoryEntry:nil];
+}
+
+- (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
+{
+    [self showEventDetailsForEvent:nil withEventIsNewFlag:YES andUserHistoryEntry:entry];
+}
+
+- (void)showEventDetailsForEvent:(PYEvent*)event
+              withEventIsNewFlag:(BOOL)eventIsNew
+             andUserHistoryEntry:(UserHistoryEntry*)entry
+{
+    EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
+    eventDetailVC.event = event;
+    if(entry && !event)
+    {
+        eventDetailVC.event = [entry reconstructEvent];
+    }
+    if(eventIsNew)
+    {
+        eventDetailVC.event.time = [[NSDate new] timeIntervalSince1970];
+    }
+    eventDetailVC.streams = self.streams;
+    eventDetailVC.isNewEvent = eventIsNew;
+    eventDetailVC.entry = entry;
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Back"
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [self.navigationController pushViewController:eventDetailVC animated:YES];
 }
 
 #pragma mark - Top menu visibility changed
@@ -433,10 +449,7 @@ BOOL displayNonStandardEvents;
     
 }
 
-
 #pragma mark - Notifications
-
-
 
 - (void)didReceiveEventAddedNotification:(NSNotification*)notification
 {
@@ -448,8 +461,6 @@ BOOL displayNonStandardEvents;
 {
     [self loadData];
 }
-
-
 
 - (void)filterEventUpdate:(NSNotification *)notification
 {
@@ -510,7 +521,7 @@ BOOL displayNonStandardEvents;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 2)
+    if(buttonIndex == actionSheet.cancelButtonIndex)
     {
         return;
     }
@@ -540,15 +551,7 @@ BOOL displayNonStandardEvents;
         NSString *imgName = [NSString randomStringWithLength:10];
         PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
         [event.attachments addObject:att];
-        UINavigationController *navVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"BaseDetailsNavigationController_ID"];
-        
-        BaseDetailsViewController *detailsVC = (BaseDetailsViewController*)navVC.topViewController;
-        detailsVC.event = event;
-        double delayInSeconds = 0.3;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.navigationController presentViewController:navVC animated:YES completion:nil];
-        });
+        self.eventToShowOnAppear = event;
     }
 }
 

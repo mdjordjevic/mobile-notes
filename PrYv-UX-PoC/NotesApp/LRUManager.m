@@ -10,7 +10,7 @@
 #import "UserHistoryEntry.h"
 #import "DataService.h"
 
-#define kLRUFileName @"LRUData.dat"
+#define kLRUFileName @"LRUData1.2.dat"
 
 @interface LRUManager ()
 

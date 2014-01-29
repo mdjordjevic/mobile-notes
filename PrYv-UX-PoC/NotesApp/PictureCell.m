@@ -40,8 +40,7 @@
     if([event.attachments count] > 0)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            PYAttachment *att = [event.attachments objectAtIndex:0];
-            UIImage *img = [UIImage imageWithData:att.fileData];
+            UIImage *img = [event attachmentAsImage];
             CGSize newSize = img.size;
             CGFloat maxSide = MAX(newSize.width, newSize.height);
             CGFloat ratio = maxSide / [self pictureView].bounds.size.width;

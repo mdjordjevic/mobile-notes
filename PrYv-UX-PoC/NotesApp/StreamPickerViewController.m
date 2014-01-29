@@ -56,7 +56,7 @@
 - (void)streamsLabelTouched:(id)sender
 {
     self.visible = !self.visible;
-    [self.delegate streamPickerShouldClose];
+    [self.delegate closeStreamPicker];
 }
 
 - (void)initStreams
