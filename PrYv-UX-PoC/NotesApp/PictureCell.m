@@ -8,6 +8,7 @@
 
 #import "PictureCell.h"
 #import "UIImage+PrYv.h"
+#import <PryvApiKit/PYEvent+Utils.h>
 
 @implementation PictureCell
 
