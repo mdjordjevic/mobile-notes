@@ -49,12 +49,7 @@
 
 - (void)updateEventDetails
 {
-    if([self.event.attachments count] > 0)
-    {
-        PYAttachment *att = [self.event.attachments objectAtIndex:0];
-        UIImage *img = [UIImage imageWithData:att.fileData];
-        self.eventImage.image = img;
-    }
+    self.eventImage.image = [self.event attachmentAsImage];
     self.eventDescriptionLabel.text = self.event.eventDescription;
 }
 

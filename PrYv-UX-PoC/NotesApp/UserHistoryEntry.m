@@ -7,12 +7,15 @@
 //
 
 #import "UserHistoryEntry.h"
+#import "PYEvent+Helper.h"
+#import <PryvApiKit/PYEventTypes.h>
 
 #define kStreamIdKey @"StreamID"
 #define kTagsKey @"TagsKey"
 #define kDataTypeKey @"DataType"
 #define kMeasurementGroupNameKey @"MeasurementGroupNameKey"
 #define kMeasurementTypeNameKey @"MeasurementTypeNameKey"
+#define kTypeStringKey @"TypeStringKey"
 
 @implementation UserHistoryEntry
 
@@ -22,6 +25,7 @@
     [encoder encodeInteger:_dataType forKey:kDataTypeKey];
     [encoder encodeObject:_measurementGroupName forKey:kMeasurementGroupNameKey];
     [encoder encodeObject:_measurementTypeName forKey:kMeasurementTypeNameKey];
+    [encoder encodeObject:_typeString forKey:kTypeStringKey];
 }
 
 - (id)initWithCoder:(NSCoder*)decoder {
@@ -33,6 +37,7 @@
         self.dataType = [decoder decodeIntegerForKey:kDataTypeKey];
         self.measurementGroupName = [decoder decodeObjectForKey:kMeasurementGroupNameKey];
         self.measurementTypeName = [decoder decodeObjectForKey:kMeasurementTypeNameKey];
+        self.typeString = [decoder decodeObjectForKey:kTypeStringKey];
     }
     return self;
 }
@@ -55,5 +60,38 @@
     }
     return toReturn;
 }
+
+- (id)initWithEvent:(PYEvent*)event
+{
+    self = [super init];
+    if(self)
+    {
+        self.streamId = event.streamId;
+        self.tags = [NSArray arrayWithArray:event.tags];
+        self.dataType = [event eventDataType];
+        self.typeString = event.type;
+        if(self.dataType == EventDataTypeValueMeasure)
+        {
+            NSArray *components = [event.type componentsSeparatedByString:@"/"];
+            if([components count] > 1)
+            {
+                self.measurementGroupName = [components objectAtIndex:0];
+                self.measurementTypeName = [components objectAtIndex:1];
+            }
+        }
+    }
+    return self;
+}
+
+- (PYEvent*)reconstructEvent
+{
+    PYEvent *event = [[PYEvent alloc] init];
+    event.streamId = self.streamId;
+    event.tags = [NSMutableArray arrayWithArray:self.tags];
+    event.type = self.typeString;
+    
+    return event;
+}
+
 
 @end

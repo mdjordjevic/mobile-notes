@@ -10,6 +10,8 @@
 
 @interface PYEvent (Helper)
 
+@property (nonatomic, readonly) UIImage *attachmentAsImage;
+
 - (NSString*)eventBreadcrumbsForStreamsList:(NSArray*)streams;
 
 - (EventDataType)eventDataType;

@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
 @property (nonatomic, strong) PYEvent *backupEvent;
+@property (nonatomic) EventDataType eventDataType;
+@property (nonatomic) BOOL initialEditorIsVisited;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
@@ -80,11 +82,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [super viewDidLoad];
     
-    [self updateUIForEvent];
+    if(self.event)
+    {
+        [self updateEventDataType];
+    }
+    
     [self initTags];
+    [self updateUIForEvent];
     
     self.backupEvent = self.event;
-    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary] onConnection:self.backupEvent.connection];
+    self.isInEditMode = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShown:)
@@ -94,6 +101,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    if(self.isNewEvent)
+    {
+        self.initialEditorIsVisited = NO;
+        [self editButtonTouched:nil];
+    }
+    else
+    {
+        self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,18 +119,49 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(self.isNewEvent && !self.initialEditorIsVisited)
+    {
+        self.initialEditorIsVisited = YES;
+        if(self.eventDataType == EventDataTypeNote)
+        {
+            [self performSegueWithIdentifier:kShowTextEditorSegue sender:self];
+        }
+        else
+        {
+            [self performSegueWithIdentifier:kShowValueEditorSegue sender:self];
+        }
+    }
+}
+
+- (void)updateEventDataType
+{
+    if(self.isNewEvent && !self.event.type)
+    {
+        self.eventDataType = EventDataTypeValueMeasure;
+    }
+    else
+    {
+        self.eventDataType = [_event eventDataType];
+    }
+}
+
+#pragma mark - UI update
+
 - (void)updateUIForEvent
 {
-    EventDataType eventDataType = [self.event eventDataType];
-    if(eventDataType == EventDataTypeImage)
+    if(self.eventDataType == EventDataTypeImage)
     {
         [self updateUIForEventImageType];
     }
-    else if(eventDataType == EventDataTypeValueMeasure)
+    else if(self.eventDataType == EventDataTypeValueMeasure)
     {
         [self updateUIForValueEventType];
     }
-    else if(eventDataType == EventDataTypeNote)
+    else if(self.eventDataType == EventDataTypeNote)
     {
         [self updateUIForNoteEventType];
     }
@@ -121,23 +169,28 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.event.time];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
-    self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+    if([self.streamsLabel.text length] < 1)
+    {
+        self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
+    }
+    [self updateTagsLabel];
     [self.tableView reloadData];
 }
 
 - (void)updateUIForEventImageType
 {
-    if([self.event.attachments count] > 0)
-    {
-        PYAttachment *att = [self.event.attachments objectAtIndex:0];
-        UIImage *img = [UIImage imageWithData:att.fileData];
-        self.imageView.image = img;
-    }
+    self.imageView.image = [self.event attachmentAsImage];
     self.descriptionLabel.text = self.event.eventDescription;
 }
 
 - (void)updateUIForValueEventType
 {
+    if(self.isNewEvent && !self.initialEditorIsVisited)
+    {
+        self.valueLabel.text = @"";
+        self.valueTypeLabel.text = @"";
+        return;
+    }
     NSString *unit = [self.event.pyType symbol];
     if (! unit) { unit = self.event.pyType.formatKey ; }
     
@@ -203,61 +256,78 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)cancelButtonTouched:(id)sender
 {
-    self.event = [PYEvent getEventFromDictionary:[self.backupEvent dictionary]  onConnection:self.backupEvent.connection];
-    [self updateUIForEvent];
-    self.shouldUpdateEvent = NO;
-    [self editButtonTouched:nil];
+    if(self.isNewEvent)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary]  onConnection:self.backupEvent.connection];
+        [self updateUIForEvent];
+        self.shouldUpdateEvent = NO;
+        [self editButtonTouched:nil];
+    }
 }
 
 - (IBAction)editButtonTouched:(id)sender
 {
     if(self.isInEditMode)
     {
-        [self.navigationItem setLeftBarButtonItem:nil];
-        [self.navigationItem setHidesBackButton:NO];
-        if(! self.event.streamId)
+        if(!self.event.streamId && sender)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ChooseStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
             
             return;
         }
-        if(self.streamPickerVC)
-        {
-            [self streamPickerShouldClose];
-        }
-        if(self.shouldUpdateEvent)
-        {
-            [self updateEvent];
-        }
+        [self switchFromEditingMode];
     }
     else
     {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                       initWithTitle: @"Cancel"
-                                       style: UIBarButtonItemStyleBordered
-                                       target:self action: @selector(cancelButtonTouched:)];
-        
-        [self.navigationItem setLeftBarButtonItem:backButton];
-        [self.navigationItem setHidesBackButton:YES];
+        [self switchToEditingMode];
     }
     self.isInEditMode = !self.isInEditMode;
-    self.editButton.title = self.isInEditMode ? @"Done" : @"Edit";
     [self.cells enumerateObjectsUsingBlock:^(BaseDetailCell *cell, NSUInteger idx, BOOL *stop) {
         [cell setIsInEditMode:self.isInEditMode];
     }];
+}
+
+- (void)switchFromEditingMode
+{
+    [self.navigationItem setLeftBarButtonItem:nil];
+    [self.navigationItem setHidesBackButton:NO];
+    if(self.streamPickerVC)
+    {
+        [self closeStreamPicker];
+    }
+    if(self.shouldUpdateEvent)
+    {
+        [self updateEvent];
+    }
+    self.editButton.title = @"Edit";
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.tagsLabel.alpha = 1.0f;
+        self.tokenContainer.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)switchToEditingMode
+{
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: @"Cancel"
+                                   style: UIBarButtonItemStyleBordered
+                                   target:self action: @selector(cancelButtonTouched:)];
+    
+    [self.navigationItem setLeftBarButtonItem:backButton];
+    [self.navigationItem setHidesBackButton:YES];
+    
+    self.editButton.title = @"Done";
     
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        if(self.isInEditMode)
-        {
-            self.tagsLabel.alpha = 0.0f;
-            self.tokenContainer.alpha = 1.0f;
-        }
-        else
-        {
-            self.tagsLabel.alpha = 1.0f;
-            self.tokenContainer.alpha = 0.0f;
-        }
+        self.tagsLabel.alpha = 0.0f;
+        self.tokenContainer.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
     }];
@@ -294,21 +364,20 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)setupTextEditorViewController:(TextEditorViewController*)textEditorVC
 {
     textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        if([self.event eventDataType] == EventDataTypeNote)
+        if(self.eventDataType == EventDataTypeNote)
         {
             if (self.event.eventContent && [text isEqualToString:self.event.eventContent]) return;
-            self.shouldUpdateEvent = YES;
             self.event.eventContent = text;
         }
         else
         {
             if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
-            self.shouldUpdateEvent = YES;
             self.event.eventDescription = text;
         }
+        self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     };
-    if([self.event eventDataType] == EventDataTypeNote)
+    if(self.eventDataType == EventDataTypeNote)
     {
         textEditorVC.text = self.event.eventContent ? self.event.eventContent : @"";
     }
@@ -331,12 +400,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-    if([self.event.attachments count] > 0)
-    {
-        PYAttachment *att = [self.event.attachments objectAtIndex:0];
-        UIImage *img = [UIImage imageWithData:att.fileData];
-        imagePreviewVC.image = img;
-    }
+    imagePreviewVC.image = [self.event attachmentAsImage];
     imagePreviewVC.descText = self.event.eventDescription;
 }
 
@@ -388,7 +452,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     self.shouldUpdateEvent = YES;
 }
 
-- (void)streamPickerShouldClose
+- (void)closeStreamPicker
 {
     [self updateUIForEvent];
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -406,10 +470,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (CGFloat)heightForCellAtIndexPath:(NSIndexPath*)indexPath withEvent:(PYEvent*)event
 {
-    EventDataType eventDataType = [event eventDataType];
     if(indexPath.row == 0)
     {
-        if(eventDataType == EventDataTypeValueMeasure)
+        if(self.eventDataType == EventDataTypeValueMeasure)
         {
             return kValueCellHeight;
         }
@@ -417,7 +480,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     if(indexPath.row == 1)
     {
-        if(eventDataType == EventDataTypeImage)
+        if(self.eventDataType == EventDataTypeImage)
         {
             return kImageCellHeight;
         }
@@ -429,6 +492,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         {
             return 0;
         }
+        
         CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
         CGFloat height = textSize.height + 20;
         return fmaxf(height, 54);
@@ -522,7 +586,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [tokens addObject:[token representedObject]];
     }
     self.event.tags = tokens;
-    self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+    [self updateTagsLabel];
     self.shouldUpdateEvent = YES;
 }
 
@@ -531,14 +595,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (BOOL)tokenFieldShouldReturn:(JSTokenField *)tokenField
 {
     [tokenField updateTokensInTextField:tokenField.textField];
-    if([tokenField.tokens count] == 0)
-    {
-        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
-    }
-    else
-    {
-        self.tokenField.textField.placeholder = @"";
-    }
+    [self updateTagsLabel];
     return NO;
 }
 
@@ -561,12 +618,19 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self.tokenField addTokenWithTitle:tag representedObject:tag];
     }
+    [self updateTagsLabel];
+}
+
+- (void)updateTagsLabel
+{
     if([self.event.tags count] == 0)
     {
-        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+        self.tagsLabel.text = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
     }
-    
-    self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+    else
+    {
+        self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+    }
 }
 
 #pragma mark - Keyboard notifications
@@ -583,7 +647,20 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    NSInteger rowToSelect = 0;
+    if(self.eventDataType == EventDataTypeImage)
+    {
+        rowToSelect = DetailCellTypeImage;
+    }
+    else if(self.eventDataType == EventDataTypeNote)
+    {
+        rowToSelect = DetailCellTypeDescription;
+    }
+    else
+    {
+        rowToSelect = DetailCellTypeValue;
+    }
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowToSelect inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     self.tagDoneButtonConstraint.constant = 0;
     [self.view setNeedsLayout];
     [UIView animateWithDuration:0.25 animations:^{

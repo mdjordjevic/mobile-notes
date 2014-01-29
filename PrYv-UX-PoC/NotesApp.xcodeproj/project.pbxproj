@@ -2126,7 +2126,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2161,7 +2161,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -102,19 +102,7 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 
 - (void)saveEventAsShortcut:(PYEvent *)event
 {
-    UserHistoryEntry *entry = [[UserHistoryEntry alloc] init];
-    entry.streamId = event.streamId;
-    entry.tags = [NSArray arrayWithArray:event.tags];
-    entry.dataType = [event cellStyle];
-    if(entry.dataType != CellStyleTypePhoto && entry.dataType != CellStyleTypeText)
-    {
-        NSArray *components = [event.type componentsSeparatedByString:@"/"];
-        if([components count] > 1)
-        {
-            entry.measurementGroupName = [components objectAtIndex:0];
-            entry.measurementTypeName = [components objectAtIndex:1];
-        }
-    }
+    UserHistoryEntry *entry = [[UserHistoryEntry alloc] initWithEvent:event];
     [[LRUManager sharedInstance] addUserHistoryEntry:entry];
 }
 
