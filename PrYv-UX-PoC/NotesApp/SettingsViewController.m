@@ -92,6 +92,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+     [self.navigationController.navigationBar.layer removeAllAnimations];
+}
+
 #pragma mark - UITableViewDelegate and UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,7 +120,12 @@
 
 - (void)popVC:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [UIView transitionWithView:self.navigationController.view
+                      duration:0.75
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:nil
+                    completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

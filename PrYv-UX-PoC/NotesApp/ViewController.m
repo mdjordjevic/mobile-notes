@@ -30,9 +30,7 @@
                                                object:nil];
     
     self.browseEventsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"BrowseEventsViewController_ID"];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:self.browseEventsVC];
-    navVC.navigationBar.translucent = NO;
-    [self.navigationController presentViewController:navVC animated:NO completion:nil];
+    [self.navigationController pushViewController:self.browseEventsVC animated:NO];
     [self initSignIn];
 }
 
