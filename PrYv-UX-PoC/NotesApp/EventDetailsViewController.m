@@ -155,7 +155,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)initBottomButtonsContainer
 {
     __block EventDetailsViewController *weakSelf = self;
-    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] firstObject];
+    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
     [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
         [weakSelf shareEvent];
     }];
@@ -325,6 +325,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self closeStreamPicker];
     }
+    
+    if(self.)
+    
+    
     if(self.shouldUpdateEvent)
     {
         [self updateEvent];

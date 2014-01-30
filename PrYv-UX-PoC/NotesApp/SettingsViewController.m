@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 #import <PryvApiKit/PryvApiKit.h>
 #import "DataService.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "AppConstants.h"
 
 
