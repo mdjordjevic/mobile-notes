@@ -67,6 +67,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 
+- (BOOL) shouldCreateEvent;
+
 @end
 
 @implementation EventDetailsViewController
@@ -326,10 +328,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self closeStreamPicker];
     }
     
-    if(self.)
-    
-    
-    if(self.shouldUpdateEvent)
+    if(self.shouldCreateEvent)
+    {
+        [self saveEvent];
+    } else if(self.shouldUpdateEvent)
     {
         [self updateEvent];
     }
@@ -527,6 +529,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return fmaxf(height, 54);
     }
     return 54;
+}
+
+- (BOOL) shouldCreateEvent
+{
+    return (self.event.eventId == nil);
 }
 
 - (void)saveEvent
