@@ -165,7 +165,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [weakSelf deleteEvent];
     }];
     CGRect frame = self.bottomButtonsContainer.frame;
-    frame.origin.y = self.view.frame.size.height - frame.size.height - 50;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 65;
     self.bottomButtonsContainer.frame = frame;
     [self.view addSubview:self.bottomButtonsContainer];
 }
