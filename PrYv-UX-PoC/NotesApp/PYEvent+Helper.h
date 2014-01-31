@@ -10,11 +10,14 @@
 
 @interface PYEvent (Helper)
 
-@property (nonatomic, readonly) UIImage *attachmentAsImage;
-
 - (NSString*)eventBreadcrumbsForStreamsList:(NSArray*)streams;
 
 - (EventDataType)eventDataType;
 - (NSInteger)cellStyle;
+
+- (void)firstAttachmentAsImage:(void (^) (UIImage *image))attachmentAsImage
+             errorHandler:(void(^) (NSError *error))failure;
+
+
 
 @end

@@ -200,7 +200,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForEventImageType
 {
-    self.imageView.image = [self.event attachmentAsImage];
+    
+    [self.event firstAttachmentAsImage:^(UIImage *image) {
+        self.imageView.image = image;
+    } errorHandler:nil];
     self.descriptionLabel.text = self.event.eventDescription;
 }
 
@@ -431,7 +434,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-    imagePreviewVC.image = [self.event attachmentAsImage];
+    [self.event firstAttachmentAsImage:^(UIImage *image) {
+        imagePreviewVC.image = image;
+    } errorHandler:nil];
+    
     imagePreviewVC.descText = self.event.eventDescription;
 }
 
