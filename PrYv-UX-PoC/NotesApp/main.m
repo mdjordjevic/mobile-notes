@@ -8,6 +8,7 @@
 
 #import <UI7Kit/UI7Kit.h>
 #import <UI7Kit/UI7Switch.h>
+#import <UI7Kit/UI7TableViewCell.h>
 
 #import "AppDelegate.h"
 
