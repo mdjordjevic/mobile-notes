@@ -17,4 +17,6 @@
 @property (nonatomic, strong) UserHistoryEntry *entry;
 @property (nonatomic) BOOL isNewEvent;
 
+- (BOOL)shouldAnimateViewController:(UIViewController*)vc;
+
 @end

@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 #import <PryvApiKit/PryvApiKit.h>
 #import "DataService.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "AppConstants.h"
 
 
@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *logoutLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *uiDisplayNonStandardEventsSwitch;
+@property (nonatomic, weak) IBOutlet UITableViewCell *logoutCell;
 - (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender;
 
 
@@ -67,6 +68,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = NSLocalizedString(@"Settings", nil);
 	self.navigationItem.leftItemsSupplementBackButton = NO;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add_active"] target:self action:@selector(popVC:)];
     
@@ -92,13 +94,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+     [self.navigationController.navigationBar.layer removeAllAnimations];
+}
+
 #pragma mark - UITableViewDelegate and UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if(indexPath.section == 1 && indexPath.row == 0)
+    if([self.logoutCell isEqual:[self tableView:tableView cellForRowAtIndexPath:indexPath]])
     {
         [[NotesAppController sharedInstance] setConnection:nil];
     }
@@ -113,7 +122,12 @@
 
 - (void)popVC:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [UIView transitionWithView:self.navigationController.view
+                      duration:0.75
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:nil
+                    completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

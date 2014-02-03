@@ -74,14 +74,18 @@
     return CellStyleTypeUnkown;
 }
 
-- (UIImage*)attachmentAsImage
-{
-    if([self.attachments count] > 0)
-    {
-        PYAttachment *att = [self.attachments objectAtIndex:0];
-        return [UIImage imageWithData:att.fileData];
+- (void)firstAttachmentAsImage:(void (^) (UIImage *image))attachmentAsImage
+                  errorHandler:(void(^) (NSError *error))failure {
+    if([self.attachments count] == 0) {
+         if (failure) failure(nil);
+        return;
     }
-    return nil;
-}
+    
+    [self dataForAttachment:[self.attachments objectAtIndex:0]
+             successHandler:^(NSData *data) {
+                 attachmentAsImage([UIImage imageWithData:data]);
+             } errorHandler:failure];
+    
+  }
 
 @end

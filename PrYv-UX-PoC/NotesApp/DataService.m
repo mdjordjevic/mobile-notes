@@ -56,8 +56,10 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock
 {
     [NotesAppController sharedConnectionWithID:nil
-             noConnectionCompletionBlock:nil
-                     withCompletionBlock:^(PYConnection *connection)
+                   noConnectionCompletionBlock:^{
+                       completionBlock(nil,[NSError errorWithDomain:PryvSDKDomain code:0 userInfo:nil]);
+                   }
+                           withCompletionBlock:^(PYConnection *connection)
      {
          if(self.cachedStreams && fabs([self.lastStreamsUpdateTimestamp timeIntervalSinceNow]) < kStreamListCacheTimeout)
          {

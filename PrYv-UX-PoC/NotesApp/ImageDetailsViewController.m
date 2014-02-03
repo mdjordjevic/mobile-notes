@@ -49,7 +49,9 @@
 
 - (void)updateEventDetails
 {
-    self.eventImage.image = [self.event attachmentAsImage];
+    [self.event firstAttachmentAsImage:^(UIImage *image) {
+        self.eventImage.image = image;
+    } errorHandler:nil];
     self.eventDescriptionLabel.text = self.event.eventDescription;
 }
 
