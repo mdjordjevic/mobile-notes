@@ -13,6 +13,7 @@
 
 "Camera" = "Camera";
 "Library" = "Library";
+"Settings" = "Settings";
 
 
 "YES" = "Yes";
@@ -20,6 +21,7 @@
 "Error" = "Error";
 "OK" = "OK";
 "Cancel" = "Cancel";
+"Back" = "Back";
 
 "ViewController.Streams.SelectStream" = "Select stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";

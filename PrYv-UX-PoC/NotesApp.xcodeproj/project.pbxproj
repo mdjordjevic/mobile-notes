@@ -61,6 +61,7 @@
 		B6016BCA172873D40056CD3F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BC8172873D40056CD3F /* MainStoryboard_iPhone.storyboard */; };
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
+		B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */; };
 		B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */; };
 		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
 		B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193C185A322900E9F9BE /* circle-add@2x.png */; };
@@ -227,6 +228,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B6087DA1189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A7DBCB64826415C80DF8EC1;
+			remoteInfo = "Pods-FoundationExtension";
+		};
+		B6087DA3189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 050F876D3AAE4630ACFC3188;
+			remoteInfo = "Pods-GIKPopoverBackgroundView";
+		};
+		B6087DA5189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C2FAB545BF24C71AD5E3FAE;
+			remoteInfo = "Pods-SevenSwitch";
+		};
+		B6087DA7189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90E8FF3A5D8A41FA81BD0459;
+			remoteInfo = "Pods-UI7Kit";
+		};
+		B6087DA9189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FF838F6CC60549E0AEC797D3;
+			remoteInfo = "Pods-UIKitResources";
+		};
+		B6087DAB189F084200891C75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D658EE5CFDA94379AD31EC40;
+			remoteInfo = "Pods-cdebug";
+		};
 		B6BA3E9F1734075100464C2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
@@ -477,6 +520,8 @@
 		B6016BCC172873D40056CD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B6016BCE172873D40056CD3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionallyAnimatedPushSegue.h; sourceTree = "<group>"; };
+		B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionallyAnimatedPushSegue.m; sourceTree = "<group>"; };
 		B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
 		B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
@@ -932,8 +977,14 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
+				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
+				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
 				B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
+				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
+				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
+				B6087DAA189F084200891C75 /* libPods-UIKitResources.a */,
+				B6087DAC189F084200891C75 /* libPods-cdebug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1102,6 +1153,15 @@
 				4EBE04691844D5070031724A /* Localizable.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B6087D97189F084200891C75 /* Segue */ = {
+			isa = PBXGroup;
+			children = (
+				B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */,
+				B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */,
+			);
+			name = Segue;
 			sourceTree = "<group>";
 		};
 		B617F21C188EEF5D002DEF0B /* EventDetails */ = {
@@ -1454,6 +1514,7 @@
 		B6F5AFFB173260E0000BC60A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B6087D97189F084200891C75 /* Segue */,
 				B64ACAE3175544BF00E2F6F7 /* Keyboard */,
 				B6F5AFFC173260E5000BC60A /* Cell */,
 				B6F207B3179358E6006FC5B0 /* TagView.h */,
@@ -1686,6 +1747,48 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-FoundationExtension.a";
+			remoteRef = B6087DA1189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-GIKPopoverBackgroundView.a";
+			remoteRef = B6087DA3189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-SevenSwitch.a";
+			remoteRef = B6087DA5189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B6087DA8189F084200891C75 /* libPods-UI7Kit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-UI7Kit.a";
+			remoteRef = B6087DA7189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B6087DAA189F084200891C75 /* libPods-UIKitResources.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-UIKitResources.a";
+			remoteRef = B6087DA9189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B6087DAC189F084200891C75 /* libPods-cdebug.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-cdebug.a";
+			remoteRef = B6087DAB189F084200891C75 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B6BA3EA01734075100464C2F /* PryvApiKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1962,6 +2065,7 @@
 				B678307117613D04008E6C1C /* UserHistoryEntry.m in Sources */,
 				B6F1AEB717846D0D000ECD60 /* DALinedTextView.m in Sources */,
 				B6F1AEBF17847420000ECD60 /* JSTokenField.m in Sources */,
+				B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */,
 				B6F1AEC017847420000ECD60 /* JSTokenButton.m in Sources */,
 				B6F1AEC117847420000ECD60 /* JSBackspaceReportingTextField.m in Sources */,
 				B69940371899C45A00D88127 /* DetailsBottomButtonsContainer.m in Sources */,

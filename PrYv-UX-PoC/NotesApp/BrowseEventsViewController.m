@@ -114,6 +114,7 @@ BOOL displayNonStandardEvents;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.title = @"Pryv";
     __block BrowseEventsViewController *weakSelf = self;
     [[LRUManager sharedInstance] fetchLRUEntriesWithCompletionBlock:^{
         weakSelf.shortcuts = [[LRUManager sharedInstance] lruEntries];
@@ -353,12 +354,7 @@ BOOL displayNonStandardEvents;
     eventDetailVC.streams = self.streams;
     eventDetailVC.isNewEvent = eventIsNew;
     eventDetailVC.entry = entry;
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Back"
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    
-    [self.navigationItem setBackBarButtonItem: backButton];
+    self.title = NSLocalizedString(@"Back", nil);
     [self.navigationController pushViewController:eventDetailVC animated:YES];
 }
 

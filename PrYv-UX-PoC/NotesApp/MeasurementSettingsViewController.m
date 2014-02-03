@@ -38,9 +38,6 @@
     self.clearsSelectionOnViewWillAppear = NO;
     self.measurementSets = [PYEventTypes sharedInstance].measurementSets;
     
-    self.navigationController.navigationBar.layer.masksToBounds = NO;
-    self.navigationItem.leftItemsSupplementBackButton = NO;
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_back"] target:self action:@selector(popVC:)];
 }
 
 - (void)didReceiveMemoryWarning
