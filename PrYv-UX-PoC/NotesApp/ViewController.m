@@ -77,7 +77,7 @@
     [[NotesAppController sharedInstance] setConnection:pyConnection];
 }
 
-- (void)pyWebLoginAborded:(NSString*)reason
+- (void)pyWebLoginAborted:(NSString*)reason
 {
     self.browseEventsVC.enabled = NO;
     [self.browseEventsVC hideLoadingOverlay];
