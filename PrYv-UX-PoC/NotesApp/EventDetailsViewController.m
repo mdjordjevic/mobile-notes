@@ -211,7 +211,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self updateUIForNoteEventType];
     }
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.event.time];
+    NSDate *date = [self.event eventDate];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
     if([self.streamsLabel.text length] < 1)
@@ -447,10 +447,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
 {
-    dpVC.selectedDate = [NSDate dateWithTimeIntervalSince1970:self.event.time];
+    dpVC.selectedDate = [self.event eventDate];
     [dpVC setDateDidChangeBlock:^(NSDate *newDate, DatePickerViewController *dp) {
-        if([newDate timeIntervalSince1970] == self.event.time) return;
-        self.event.time = [newDate timeIntervalSince1970];
+        if([newDate timeIntervalSince1970] == [[self.event eventDate] timeIntervalSince1970]) return;
+        [self.event setEventDate:newDate];
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     }];
@@ -618,9 +618,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
-         [connection setModifiedEventAttributesObject:self.event
-                                           forEventId:self.event.eventId
-                                          requestType:PYRequestTypeAsync successHandler:^(NSString *stoppedId)
+         [connection setModifiedEventAttributesObject:self.event successHandler:^(NSString *stoppedId)
           {
               [self.navigationController popViewControllerAnimated:YES];
               double delayInSeconds = 0.3;

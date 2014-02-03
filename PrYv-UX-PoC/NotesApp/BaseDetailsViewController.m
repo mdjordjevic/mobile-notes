@@ -180,7 +180,7 @@
 - (void)updateDateFromPickerWith:(NSDate *)date
 {
     [self.dateButton.titleLabel setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
-    self.event.time = [date timeIntervalSince1970];
+    [self.event setEventDate:date];
     self.shouldUpdateEvent = YES;
 }
 
@@ -188,11 +188,8 @@
 
 - (void)updateUI
 {
-    if(!self.isEditing)
-    {
-        self.event.time = [[NSDate new] timeIntervalSince1970];
-    }
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.event.time];
+    
+    NSDate *date = [self.event eventDate];
     [self.dateButton.titleLabel setText:[[NotesAppController sharedInstance].dateFormatter stringFromDate:date]];
     
     if (self.event.eventDescription && [self.event.eventDescription length] > 0) {
@@ -235,9 +232,7 @@
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
-         [connection setModifiedEventAttributesObject:self.event
-                                           forEventId:self.event.eventId
-                                          requestType:PYRequestTypeAsync successHandler:^(NSString *stoppedId)
+         [connection setModifiedEventAttributesObject:self.event successHandler:^(NSString *stoppedId)
           {
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];

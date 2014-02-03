@@ -347,10 +347,7 @@ BOOL displayNonStandardEvents;
     {
         eventDetailVC.event = [entry reconstructEvent];
     }
-    if(eventIsNew)
-    {
-        eventDetailVC.event.time = [[NSDate new] timeIntervalSince1970];
-    }
+   
     eventDetailVC.streams = self.streams;
     eventDetailVC.isNewEvent = eventIsNew;
     eventDetailVC.entry = entry;
@@ -409,7 +406,7 @@ BOOL displayNonStandardEvents;
     if (self.events.count > 0) {
         for (int k = 0; k < self.events.count; k++) {
             kEvent = [self.events objectAtIndex:k];
-            if (kEvent.time < eventToAdd.time) {
+            if ([kEvent getEventServerTime] < [eventToAdd getEventServerTime]) {
                 [self.events insertObject:eventToAdd atIndex:k];
                 return k;
             }
