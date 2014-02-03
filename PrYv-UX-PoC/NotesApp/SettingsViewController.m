@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *logoutLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *uiDisplayNonStandardEventsSwitch;
+@property (nonatomic, weak) IBOutlet UITableViewCell *logoutCell;
 - (IBAction)uiDisplayNonStandardEventsSwitchValueChanged:(id)sender;
 
 
@@ -67,6 +68,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = NSLocalizedString(@"Settings", nil);
 	self.navigationItem.leftItemsSupplementBackButton = NO;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_add_active"] target:self action:@selector(popVC:)];
     
@@ -105,7 +107,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if(indexPath.section == 1 && indexPath.row == 0)
+    if([self.logoutCell isEqual:[self tableView:tableView cellForRowAtIndexPath:indexPath]])
     {
         [[NotesAppController sharedInstance] setConnection:nil];
     }
