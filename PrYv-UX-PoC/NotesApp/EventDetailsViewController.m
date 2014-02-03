@@ -329,7 +329,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         if(!self.event.streamId && sender)
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.ChooseStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.SelectStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
             
             return;

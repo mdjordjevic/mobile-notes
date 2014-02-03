@@ -5,7 +5,10 @@
 #### PODS
 
 - install cocoa pods [cocoapods.org](http://cocoapods.org/)
-- update dependencies run `pod update` form `PrYv-UX-POC` folder
+
+Form `PrYv-UX-POC` folder
+- run `pod install`
+- if needed run `pod update` 
 
 
 ## License

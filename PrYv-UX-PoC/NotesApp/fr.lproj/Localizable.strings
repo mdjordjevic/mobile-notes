@@ -7,3 +7,24 @@
 */
 
 "MeasurementSetLocalizedKey" = "fr";
+
+"Alert.Message.DeleteConfirmation" = "Effacer cet évènement?";
+"Alert.Message.PhotoSource" = "Choisir une source";
+
+"Camera" = "Appareil photo";
+"Library" = "Bibliothèque";
+"Settings" = "Paramètres";
+
+
+"YES" = "Oui";
+"NO" = "Non";
+"Error" = "Erreur";
+"OK" = "OK";
+"Cancel" = "Annuler";
+"Back" = "Retour";
+
+"ViewController.Streams.SelectStream" = "Choisir un stream";
+"ViewController.Streams.AddNewStream" = "Ajouter un stream";
+"ViewController.TextContent.TapToAdd" = "Tap to add content";
+"ViewController.TextDescriptionContent.TapToAdd" = "Tap to add a description";
+"ViewController.Tags.TapToAdd" = "Tags";

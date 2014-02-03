@@ -771,6 +771,7 @@
 		4E3784D217953BBD00ED94DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				4E37853A17953BBD00ED94DF /* PSTCollectionView */,
 				4E3784D317953BBD00ED94DF /* AMSlideOutController */,
 				4E3784E317953BBD00ED94DF /* AwesomeMenu */,
 				4E3784FB17953BBD00ED94DF /* BuildHeaders */,
@@ -784,7 +785,6 @@
 				4E37853517953BBD00ED94DF /* Pods-resources.sh */,
 				4E37853617953BBD00ED94DF /* Pods.xcconfig */,
 				4E37853717953BBD00ED94DF /* Pods.xcodeproj */,
-				4E37853A17953BBD00ED94DF /* PSTCollectionView */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
