@@ -88,9 +88,4 @@
     
   }
 
-- (UIImage*)attachmentAsImage
-{
-    
-}
-
 @end
