@@ -20,7 +20,6 @@
 #import "JSTokenField.h"
 #import "JSTokenButton.h"
 #import "DetailsBottomButtonsContainer.h"
-#import "UIAlertView+PrYv.h"
 
 #define kValueCellHeight 100
 #define kImageCellHeight 320
@@ -67,6 +66,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
+
+- (BOOL) shouldCreateEvent;
 
 @end
 
@@ -141,11 +142,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
 }
 
-- (BOOL)shouldAnimateViewController:(UIViewController *)vc
-{
-    return YES;
-}
-
 - (void)updateEventDataType
 {
     if(self.isNewEvent && !self.event.type)
@@ -161,36 +157,17 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)initBottomButtonsContainer
 {
     __block EventDetailsViewController *weakSelf = self;
-    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] firstObject];
+    self.bottomButtonsContainer = [[[UINib nibWithNibName:@"DetailsBottomButtonsContainer" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil] objectAtIndex:0];
     [self.bottomButtonsContainer setShareButtonTouchHandler:^(UIButton *shareButton) {
         [weakSelf shareEvent];
     }];
     [self.bottomButtonsContainer setDeleteButtonTouchHandler:^(UIButton *deleteButton) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
-        [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if(alertView.cancelButtonIndex != buttonIndex)
-            {
-                [weakSelf deleteEvent];
-            }
-        }];
+        [weakSelf deleteEvent];
     }];
     CGRect frame = self.bottomButtonsContainer.frame;
-    frame.origin.y = self.tableView.frame.size.height - 64 - self.bottomButtonsContainer.frame.size.height;
-    if(![UIDevice isiOS7Device])
-    {
-        frame.origin.y+=20;
-    }
-    NSLog(@"frame: %f",frame.origin.y);
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 65;
     self.bottomButtonsContainer.frame = frame;
     [self.view addSubview:self.bottomButtonsContainer];
-    [self.view bringSubviewToFront:self.bottomButtonsContainer];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGRect frame = self.bottomButtonsContainer.frame;
-    frame.origin.y = scrollView.contentOffset.y + self.tableView.frame.size.height - self.bottomButtonsContainer.frame.size.height;
-    self.bottomButtonsContainer.frame = frame;
-    [self.view bringSubviewToFront:self.bottomButtonsContainer];
 }
 
 #pragma mark - UI update
@@ -223,7 +200,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForEventImageType
 {
-    self.imageView.image = [self.event attachmentAsImage];
+    
+    [self.event firstAttachmentAsImage:^(UIImage *image) {
+        self.imageView.image = image;
+    } errorHandler:nil];
     self.descriptionLabel.text = self.event.eventDescription;
 }
 
@@ -350,7 +330,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self closeStreamPicker];
     }
-    if(self.shouldUpdateEvent)
+    
+    if(self.shouldCreateEvent)
+    {
+        [self saveEvent];
+    } else if(self.shouldUpdateEvent)
     {
         [self updateEvent];
     }
@@ -450,7 +434,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-    imagePreviewVC.image = [self.event attachmentAsImage];
+    [self.event firstAttachmentAsImage:^(UIImage *image) {
+        imagePreviewVC.image = image;
+    } errorHandler:nil];
+    
     imagePreviewVC.descText = self.event.eventDescription;
 }
 
@@ -548,6 +535,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         return fmaxf(height, 54);
     }
     return 54;
+}
+
+- (BOOL) shouldCreateEvent
+{
+    return (self.event.eventId == nil);
 }
 
 - (void)saveEvent
