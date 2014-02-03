@@ -352,7 +352,31 @@ BOOL displayNonStandardEvents;
     eventDetailVC.isNewEvent = eventIsNew;
     eventDetailVC.entry = entry;
     self.title = NSLocalizedString(@"Back", nil);
-    [self.navigationController pushViewController:eventDetailVC animated:YES];
+    EventDataType eventType = [event eventDataType];
+    if(eventIsNew && eventType != EventDataTypeImage)
+    {
+        [eventDetailVC view];
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+        [viewControllers addObject:eventDetailVC];
+        if(eventType == EventDataTypeNote && event.type != nil)
+        {
+            TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
+            [eventDetailVC setupTextEditorViewController:textVC];
+            [viewControllers addObject:textVC];
+        }
+        else if(eventType == EventDataTypeValueMeasure || event.type == nil)
+        {
+            AddNumericalValueViewController *addVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
+            [eventDetailVC setupAddNumericalValueViewController:addVC];
+            [viewControllers addObject:addVC];
+        }
+        [self.navigationController setViewControllers:viewControllers animated:YES];
+    }
+    else
+    {
+        [self.navigationController pushViewController:eventDetailVC animated:YES];
+    }
+    
 }
 
 #pragma mark - Top menu visibility changed

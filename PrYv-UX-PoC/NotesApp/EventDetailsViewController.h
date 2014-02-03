@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@class PYEvent,UserHistoryEntry;
+@class PYEvent,UserHistoryEntry,TextEditorViewController,AddNumericalValueViewController;
 
 @interface EventDetailsViewController : UITableViewController
 
@@ -18,5 +18,8 @@
 @property (nonatomic) BOOL isNewEvent;
 
 - (BOOL)shouldAnimateViewController:(UIViewController*)vc;
+
+- (void)setupTextEditorViewController:(TextEditorViewController*)textEditorVC;
+- (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC;
 
 @end

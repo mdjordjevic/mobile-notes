@@ -63,6 +63,7 @@
 		B6016BCD172873D40056CD3F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6016BCB172873D40056CD3F /* MainStoryboard_iPad.storyboard */; };
 		B6016BD0172873D40056CD3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6016BCF172873D40056CD3F /* ViewController.m */; };
 		B6087DB3189F088800891C75 /* ConditionallyAnimatedPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */; };
+		B6087DD118A0494C00891C75 /* MNMPullToRefresh.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6087DD318A0494C00891C75 /* MNMPullToRefresh.strings */; };
 		B617F21F188EEF77002DEF0B /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */; };
 		B61A193B185A321000E9F9BE /* circle-add.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193A185A321000E9F9BE /* circle-add.png */; };
 		B61A193D185A322900E9F9BE /* circle-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B61A193C185A322900E9F9BE /* circle-add@2x.png */; };
@@ -524,6 +525,8 @@
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionallyAnimatedPushSegue.h; sourceTree = "<group>"; };
 		B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionallyAnimatedPushSegue.m; sourceTree = "<group>"; };
+		B6087DD218A0494C00891C75 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
+		B6087DD418A0495000891C75 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file; name = fr; path = fr.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
 		B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
 		B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
@@ -1154,6 +1157,7 @@
 				B6016BC4172873D40056CD3F /* Default@2x.png */,
 				B6016BC6172873D40056CD3F /* Default-568h@2x.png */,
 				4EBE04691844D5070031724A /* Localizable.strings */,
+				B6087DD318A0494C00891C75 /* MNMPullToRefresh.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1974,6 +1978,7 @@
 				B6B5906E178C752E0009E413 /* cell_right_1@2x.png in Resources */,
 				B6B5906F178C752E0009E413 /* cell_right_1.png in Resources */,
 				B6B59070178C752E0009E413 /* cell_left@2x.png in Resources */,
+				B6087DD118A0494C00891C75 /* MNMPullToRefresh.strings in Resources */,
 				B6B59071178C752E0009E413 /* cell_left.png in Resources */,
 				B6B59090178DE42F0009E413 /* Icon@2x.png in Resources */,
 				96088A961861F1230090ECC7 /* Icon-72@2x.png in Resources */,
@@ -2149,6 +2154,15 @@
 			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
+		B6087DD318A0494C00891C75 /* MNMPullToRefresh.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B6087DD218A0494C00891C75 /* en */,
+				B6087DD418A0495000891C75 /* fr */,
+			);
+			name = MNMPullToRefresh.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -2244,7 +2258,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2279,7 +2293,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

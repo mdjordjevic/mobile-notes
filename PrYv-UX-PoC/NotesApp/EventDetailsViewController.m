@@ -51,7 +51,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
 @property (nonatomic, strong) PYEvent *backupEvent;
 @property (nonatomic) EventDataType eventDataType;
-@property (nonatomic) BOOL initialEditorIsVisited;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
@@ -66,6 +65,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 
 - (BOOL) shouldCreateEvent;
@@ -86,6 +88,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [UI7NavigationController patchIfNeeded];
+    [UI7NavigationItem patchIfNeeded];
+    [UI7NavigationBar patchIfNeeded];
     
     if(self.event)
     {
@@ -109,7 +115,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     if(self.isNewEvent)
     {
-        self.initialEditorIsVisited = NO;
         [self editButtonTouched:nil];
     }
     else
@@ -117,6 +122,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
     }
     [self initBottomButtonsContainer];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.backBarButtonItem = self.navigationItem.backBarButtonItem;
+    self.navigationItem.rightBarButtonItem = self.navigationItem.rightBarButtonItem;
+    self.navigationItem.leftBarButtonItem = self.navigationItem.leftBarButtonItem;
 }
 
 - (BOOL)shouldAnimateViewController:(UIViewController *)vc
@@ -128,24 +141,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    if(self.isNewEvent && !self.initialEditorIsVisited)
-    {
-        self.initialEditorIsVisited = YES;
-        if(self.eventDataType == EventDataTypeNote)
-        {
-            [self performSegueWithIdentifier:kShowTextEditorSegue sender:self];
-        }
-        else if(self.eventDataType == EventDataTypeValueMeasure)
-        {
-            [self performSegueWithIdentifier:kShowValueEditorSegue sender:self];
-        }
-    }
 }
 
 - (void)updateEventDataType
@@ -233,7 +228,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForValueEventType
 {
-    if(self.isNewEvent && !self.initialEditorIsVisited)
+    if(self.isNewEvent)
     {
         self.valueLabel.text = @"";
         self.valueTypeLabel.text = @"";
@@ -556,7 +551,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         
         CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
         CGFloat height = textSize.height + 20;
-        return fmaxf(height, 54);
+        height = fmaxf(height, 54);
+        self.descriptionLabelConstraint1.constant = fmaxf(height - 10,0);
+        self.descriptionLabelConstraint2.constant = fmaxf(height - 10,0);
+        self.descriptionLabelConstraint3.constant = fmaxf(height - 20,0);
+        return height;
     }
     return 54;
 }
