@@ -36,30 +36,43 @@
     self.pictureView.image = nil;
 }
 
+
+- (void)updateWithImage:(UIImage*)img
+{
+    CGSize newSize = img.size;
+    CGFloat maxSide = MAX(newSize.width, newSize.height);
+    CGFloat ratio = maxSide / [self pictureView].bounds.size.width;
+    newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
+    img = [img imageScaledToSize:newSize];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
+            [self.pictureView setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            [self.pictureView setImage:img];
+            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
+                [self.pictureView setAlpha:1.0f];
+            } completion:^(BOOL finished) {
+                
+            }];
+        }];
+        
+    });
+}
+
 - (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
 {
-    [event preview:^(UIImage *img) {
-        CGSize newSize = img.size;
-        CGFloat maxSide = MAX(newSize.width, newSize.height);
-        CGFloat ratio = maxSide / [self pictureView].bounds.size.width;
-        newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
-        img = [img imageScaledToSize:newSize];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
-                [self.pictureView setAlpha:0.0f];
-            } completion:^(BOOL finished) {
-                [self.pictureView setImage:img];
-                [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
-                    [self.pictureView setAlpha:1.0f];
-                } completion:^(BOOL finished) {
-                    
-                }];
-            }];
-            
-        });
-    } failure:^(NSError *error) {
-        NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
-    }];
+    
+    if ([event hasFirstAttachmentFileDataInMemory]) {
+        [event firstAttachmentAsImage:^(UIImage *image) {
+            [self updateWithImage:image];
+        } errorHandler:nil];
+    } else {
+        [event preview:^(UIImage *image) {
+            [self updateWithImage:image];
+        } failure:^(NSError *error) {
+            NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
+        }];
+    }
     [super updateWithEvent:event andListOfStreams:streams];
 }
 

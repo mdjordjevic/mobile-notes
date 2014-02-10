@@ -74,6 +74,16 @@
     return CellStyleTypeUnkown;
 }
 
+- (BOOL)hasFirstAttachmentFileDataInMemory {
+    if([self.attachments count] > 0) {
+        PYAttachment *attachment = [self.attachments objectAtIndex:0];
+        return ((attachment.fileData != nil) && attachment.fileData.length > 0);
+    }
+    return false;
+}
+
+
+
 - (void)firstAttachmentAsImage:(void (^) (UIImage *image))attachmentAsImage
                   errorHandler:(void(^) (NSError *error))failure {
     if([self.attachments count] == 0) {
