@@ -11,6 +11,7 @@
 @interface PYEvent (Helper)
 
 - (NSString*)eventBreadcrumbsForStreamsList:(NSArray*)streams;
+- (NSString*)breadcrumbsForStream:(NSString*)streamId inStreamsList:(NSArray*)streams;
 
 - (EventDataType)eventDataType;
 - (NSInteger)cellStyle;

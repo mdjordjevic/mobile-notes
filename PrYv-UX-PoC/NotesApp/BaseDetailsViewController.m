@@ -400,7 +400,7 @@
     else if([segue.identifier isEqualToString:kStreamPickerSegue_ID])
     {
         StreamPickerViewController *streamPicker = (StreamPickerViewController*)segue.destinationViewController;
-        streamPicker.event = self.event;
+        streamPicker.streamId = self.event.streamId;
         self.streamPicker = streamPicker;
     }
 }

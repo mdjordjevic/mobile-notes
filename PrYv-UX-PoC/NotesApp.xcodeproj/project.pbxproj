@@ -2258,7 +2258,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "C0956159-3B73-442B-AC1E-4C6DDEDAD7D1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
