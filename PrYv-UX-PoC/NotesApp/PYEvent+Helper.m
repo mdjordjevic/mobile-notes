@@ -77,7 +77,7 @@
 - (void)firstAttachmentAsImage:(void (^) (UIImage *image))attachmentAsImage
                   errorHandler:(void(^) (NSError *error))failure {
     if([self.attachments count] == 0) {
-         if (failure) failure(nil);
+        if (failure) failure(nil);
         return;
     }
     
@@ -86,6 +86,7 @@
                  attachmentAsImage([UIImage imageWithData:data]);
              } errorHandler:failure];
     
-  }
+}
+
 
 @end

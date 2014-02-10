@@ -525,8 +525,8 @@
 		B6016BCF172873D40056CD3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B6087DB1189F088800891C75 /* ConditionallyAnimatedPushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionallyAnimatedPushSegue.h; sourceTree = "<group>"; };
 		B6087DB2189F088800891C75 /* ConditionallyAnimatedPushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionallyAnimatedPushSegue.m; sourceTree = "<group>"; };
-		B6087DD218A0494C00891C75 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
-		B6087DD418A0495000891C75 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file; name = fr; path = fr.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
+		B6087DD218A0494C00891C75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
+		B6087DD418A0495000891C75 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MNMPullToRefresh.strings; sourceTree = "<group>"; };
 		B617F21D188EEF77002DEF0B /* EventDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
 		B617F21E188EEF77002DEF0B /* EventDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B61A193A185A321000E9F9BE /* circle-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-add.png"; sourceTree = "<group>"; };
@@ -2194,7 +2194,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "9131C760-AF34-4980-910D-55EB0441DEB3";
+				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2221,7 +2221,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "9131C760-AF34-4980-910D-55EB0441DEB3";
+				PROVISIONING_PROFILE = "BBBA440E-72A9-4304-B613-0F0C6983AAD2";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2258,7 +2258,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2293,7 +2293,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "92A4744D-7CD9-4A7D-A155-0DDB472B0FC8";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

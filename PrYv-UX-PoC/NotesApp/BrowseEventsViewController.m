@@ -487,9 +487,9 @@ BOOL displayNonStandardEvents;
     
     
     
-    NSArray* toAdd = [message objectForKey:@"ADD"];
-    NSArray* toRemove = [message objectForKey:@"REMOVE"];
-    NSArray* modify = [message objectForKey:@"MODIFY"];
+    NSArray* toAdd = [message objectForKey:kPYNotificationKeyAdd];
+    NSArray* toRemove = [message objectForKey:kPYNotificationKeyDelete];
+    NSArray* modify = [message objectForKey:kPYNotificationKeyModify];
     
     // [_tableView beginUpdates];
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
@@ -568,7 +568,7 @@ BOOL displayNonStandardEvents;
     {
         NSString *imgName = [NSString randomStringWithLength:10];
         PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
-        [event.attachments addObject:att];
+        [event addAttachment:att];
         self.eventToShowOnAppear = event;
     }
 }
