@@ -11,6 +11,8 @@
 #import "PYEvent+Helper.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
+#import <PryvApiKit/PYConnection+TimeManagement.h>
+#import <PryvApiKit/PYEventTypes.h>
 #import "TextEditorViewController.h"
 #import "DatePickerViewController.h"
 #import "ImagePreviewViewController.h"
@@ -49,7 +51,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic) BOOL shouldUpdateEvent;
 
 @property (nonatomic, strong) StreamPickerViewController *streamPickerVC;
-@property (nonatomic, strong) PYEvent *backupEvent;
+@property (nonatomic, strong) NSMutableDictionary *eventDictionary;
 @property (nonatomic) EventDataType eventDataType;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
@@ -98,10 +100,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self updateEventDataType];
     }
     
+    if(self.isNewEvent)
+    {
+        [self editButtonTouched:nil];
+    }
+    else
+    {
+        self.eventDictionary = [[self.event cachingDictionary] mutableCopy];
+    }
+    
     [self initTags];
     [self updateUIForEvent];
     
-    self.backupEvent = self.event;
     self.isInEditMode = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -113,14 +123,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    if(self.isNewEvent)
-    {
-        [self editButtonTouched:nil];
-    }
-    else
-    {
-        self.event = [PYEvent eventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
-    }
     [self initBottomButtonsContainer];
 }
 
@@ -206,9 +208,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self updateUIForNoteEventType];
     }
     
-    NSDate *date = [self.event eventDate];
+    NSDate *date = [[NotesAppController sharedInstance].connection localDateFromServerTime:[self.eventDictionary[@"time"] doubleValue]];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
-    self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
+    self.streamsLabel.text = [self.event breadcrumbsForStream:self.eventDictionary[@"streamId"] inStreamsList:self.streams];
     if([self.streamsLabel.text length] < 1)
     {
         self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
@@ -223,7 +225,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.imageView.image = image;
     } errorHandler:nil];
-    self.descriptionLabel.text = self.event.eventDescription;
+    self.descriptionLabel.text = self.eventDictionary[@"description"];
 }
 
 - (void)updateUIForValueEventType
@@ -234,22 +236,24 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         self.valueTypeLabel.text = @"";
         return;
     }
-    NSString *unit = [self.event.pyType symbol];
-    if (! unit) { unit = self.event.pyType.formatKey ; }
+    NSString *type = self.eventDictionary[@"type"];
+    PYEventType *eventType = [[PYEventTypes sharedInstance] pyTypeForString:type];
+    NSString *unit = [eventType symbol];
+    if (! unit) { unit = eventType.formatKey ; }
     
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description], unit];
+    NSString *value = [NSString stringWithFormat:@"%@ %@",[self.eventDictionary[@"content"] description], unit];
     [self.valueLabel setText:value];
     
-    NSString *formatDescription = [self.event.pyType localizedName];
-    if (! formatDescription) { unit = self.event.pyType.key ; }
+    NSString *formatDescription = [eventType localizedName];
+    if (! formatDescription) { unit = eventType.key ; }
     [self.valueTypeLabel setText:formatDescription];
-    self.descriptionLabel.text = self.event.eventDescription;
+    self.descriptionLabel.text = self.eventDictionary[@"description"];
 }
 
 - (void)updateUIForNoteEventType
 {
-    self.descriptionLabel.text = self.event.eventContent;
+    self.descriptionLabel.text = self.eventDictionary[@"content"];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -311,7 +315,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else
     {
-        self.event = [PYEvent eventFromDictionary:[self.backupEvent cachingDictionary]  onConnection:self.backupEvent.connection];
+        self.eventDictionary = [[self.event cachingDictionary] mutableCopy];
         [self updateUIForEvent];
         self.shouldUpdateEvent = NO;
         [self editButtonTouched:nil];
@@ -322,7 +326,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     if(self.isInEditMode)
     {
-        if(!self.event.streamId && sender)
+        if(!self.eventDictionary[@"streamId"] && sender)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.SelectStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
@@ -419,33 +423,34 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
         if(self.eventDataType == EventDataTypeNote)
         {
-            if (self.event.eventContent && [text isEqualToString:self.event.eventContent]) return;
-            self.event.eventContent = text;
+            if (self.eventDictionary[@"content"] && [text isEqualToString:self.eventDictionary[@"content"]]) return;
+            self.eventDictionary[@"content"] = text;
         }
         else
         {
-            if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
-            self.event.eventDescription = text;
+            if (self.eventDictionary[@"description"] && [text isEqualToString:self.eventDictionary[@"description"]]) return;
+            self.eventDictionary[@"description"] = text;
         }
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     };
     if(self.eventDataType == EventDataTypeNote)
     {
-        textEditorVC.text = self.event.eventContent ? self.event.eventContent : @"";
+        textEditorVC.text = self.eventDictionary[@"content"] ? self.eventDictionary[@"content"] : @"";
     }
     else
     {
-        textEditorVC.text = self.event.eventDescription ? self.event.eventDescription : @"";
+        textEditorVC.text = self.eventDictionary[@"description"] ? self.eventDictionary[@"description"] : @"";
     }
 }
 
 - (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
 {
-    dpVC.selectedDate = [self.event eventDate];
+    NSDate *date = [[NotesAppController sharedInstance].connection localDateFromServerTime:[self.eventDictionary[@"time"] doubleValue]];
+    dpVC.selectedDate = date;
     [dpVC setDateDidChangeBlock:^(NSDate *newDate, DatePickerViewController *dp) {
-        if([newDate timeIntervalSince1970] == [[self.event eventDate] timeIntervalSince1970]) return;
-        [self.event setEventDate:newDate];
+        if([newDate timeIntervalSince1970] == [date timeIntervalSince1970]) return;
+        self.eventDictionary[@"time"] = [NSNumber numberWithDouble:[newDate timeIntervalSince1970]];
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     }];
@@ -462,19 +467,20 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC
 {
-    if(self.event.type)
+    NSString *type = self.eventDictionary[@"type"];
+    if(type)
     {
-        NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
+        NSArray *components = [type componentsSeparatedByString:@"/"];
         if([components count] > 1)
         {
-            addNumericalValueVC.value = [self.event.eventContent description];
+            addNumericalValueVC.value = [self.eventDictionary[@"content"] description];
             addNumericalValueVC.valueClass = [components objectAtIndex:0];
             addNumericalValueVC.valueType = [components objectAtIndex:1];
         }
     }
     [addNumericalValueVC setValueDidChangeBlock:^(NSString* valueClass, NSString *valueType, NSString* value, AddNumericalValueViewController *addNumericalVC) {
-        self.event.eventContent = value;
-        self.event.type = [NSString stringWithFormat:@"%@/%@",valueClass,valueType];
+        self.eventDictionary[@"content"] = value;
+        self.eventDictionary[@"type"] = [NSString stringWithFormat:@"%@/%@",valueClass,valueType];
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     }];
@@ -482,7 +488,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
-    streamPickerVC.event = self.event;
+    streamPickerVC.streamId = self.eventDictionary[@"streamId"];
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
     CGRect frame = self.view.bounds;
@@ -504,7 +510,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)streamPickerDidSelectStream:(PYStream *)stream
 {
-    self.event.streamId = stream.streamId;
+    if(stream == nil || stream.streamId == nil)
+    {
+        NSLog(@"SSSSSSS");
+    }
+    if(stream.streamId)
+    {
+        self.eventDictionary[@"streamId"] = stream.streamId;
+    }
+    else
+    {
+        [self.eventDictionary removeObjectForKey:@"streamId"];
+    }
     self.shouldUpdateEvent = YES;
 }
 
@@ -567,6 +584,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)saveEvent
 {
+    self.event = [PYEvent eventFromDictionary:self.eventDictionary onConnection:[NotesAppController sharedInstance].connection];
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection createEvent:self.event requestType:PYRequestTypeAsync
@@ -612,6 +630,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateEvent
 {
+    self.event = [PYEvent eventFromDictionary:self.eventDictionary onConnection:[NotesAppController sharedInstance].connection];
     [self showLoadingOverlay];
     [NotesAppController sharedConnectionWithID:nil
                    noConnectionCompletionBlock:nil
@@ -653,7 +672,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [tokens addObject:[token representedObject]];
     }
-    self.event.tags = tokens;
+    self.eventDictionary[@"tags"] = tokens;
     [self updateTagsLabel];
     self.shouldUpdateEvent = YES;
 }
@@ -682,7 +701,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     self.tokenField.delegate = self;
     self.tagDoneButtonConstraint.constant = 0;
     [self.view layoutIfNeeded];
-    for(NSString *tag in self.event.tags)
+    for(NSString *tag in self.eventDictionary[@"tags"])
     {
         [self.tokenField addTokenWithTitle:tag representedObject:tag];
     }
@@ -691,13 +710,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateTagsLabel
 {
-    if([self.event.tags count] == 0)
+    if([self.eventDictionary[@"tags"] count] == 0)
     {
         self.tagsLabel.text = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
     }
     else
     {
-        self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+        self.tagsLabel.text = [self.eventDictionary[@"tags"] componentsJoinedByString:@", "];
     }
 }
 

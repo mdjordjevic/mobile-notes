@@ -76,7 +76,7 @@
             }
             else
             {
-                streamID = self.event.streamId;
+                streamID = self.streamId;
             }
             for(PYStream *stream in self.streams)
             {

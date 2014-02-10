@@ -10,6 +10,12 @@
 #import "UIImage+PrYv.h"
 #import <PryvApiKit/PYEvent+Utils.h>
 
+@interface PictureCell ()
+
+@property (nonatomic, copy) NSString *currentEventId;
+
+@end
+
 @implementation PictureCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -37,8 +43,12 @@
 }
 
 
-- (void)updateWithImage:(UIImage*)img
+- (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId
 {
+    if(![eventId isEqualToString:self.currentEventId])
+    {
+        return;
+    }
     CGSize newSize = img.size;
     CGFloat maxSide = MAX(newSize.width, newSize.height);
     CGFloat ratio = maxSide / [self pictureView].bounds.size.width;
@@ -61,14 +71,14 @@
 
 - (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
 {
-    
+    self.currentEventId = event.eventId;
     if ([event hasFirstAttachmentFileDataInMemory]) {
         [event firstAttachmentAsImage:^(UIImage *image) {
-            [self updateWithImage:image];
+            [self updateWithImage:image andEventId:event.eventId];
         } errorHandler:nil];
     } else {
         [event preview:^(UIImage *image) {
-            [self updateWithImage:image];
+            [self updateWithImage:image andEventId:event.eventId];
         } failure:^(NSError *error) {
             NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
         }];

@@ -18,7 +18,11 @@
 
 - (NSString*)eventBreadcrumbsForStreamsList:(NSArray *)streams
 {
-    NSString *streamId = self.streamId;
+    return [self breadcrumbsForStream:self.streamId inStreamsList:streams];
+}
+
+- (NSString*)breadcrumbsForStream:(NSString *)streamId inStreamsList:(NSArray *)streams
+{
     if(streamId)
     {
         for(PYStream* stream in streams)

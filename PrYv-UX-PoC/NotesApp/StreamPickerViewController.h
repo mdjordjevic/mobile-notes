@@ -15,7 +15,7 @@
 @interface StreamPickerViewController : BaseViewController
 
 @property (nonatomic, weak) id<StreamsPickerDelegate> delegate;
-@property (nonatomic, weak) PYEvent *event;
+@property (nonatomic, weak) NSString *streamId;
 @property (nonatomic, weak) UserHistoryEntry *entry;
 
 @property (nonatomic, weak) IBOutlet UILabel *streamLabel;
