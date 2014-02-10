@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else
     {
-        self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
+        self.event = [PYEvent eventFromDictionary:[self.backupEvent cachingDictionary] onConnection:self.backupEvent.connection];
     }
     [self initBottomButtonsContainer];
 }
@@ -311,7 +311,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else
     {
-        self.event = [PYEvent getEventFromDictionary:[self.backupEvent cachingDictionary]  onConnection:self.backupEvent.connection];
+        self.event = [PYEvent eventFromDictionary:[self.backupEvent cachingDictionary]  onConnection:self.backupEvent.connection];
         [self updateUIForEvent];
         self.shouldUpdateEvent = NO;
         [self editButtonTouched:nil];

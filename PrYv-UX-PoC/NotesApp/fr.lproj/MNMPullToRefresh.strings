@@ -1,7 +1,12 @@
-/* 
-  MNMPullToRefresh.strings
-  NotesApp
+/*
+ MNMPullToRefresh.strings
+ NotesApp
+ 
+ Created by Mladen Djordjevic on 2/3/14.
+ Copyright (c) 2014 PrYv. All rights reserved.
+ */
 
-  Created by Mladen Djordjevic on 2/3/14.
-  Copyright (c) 2014 PrYv. All rights reserved.
-*/
+"TXT_MNM_PTR_PULL" = "Tirer pour actualiser.";
+"TXT_MNM_PTR_RELEASE" = "Relacher pour actualiser.";
+"TXT_MNM_PTR_LOADING" = "Chargement";
+"TXT_MNM_PRT_LAST_UPDATE_FORMAT" = "Mise à jour: %@";

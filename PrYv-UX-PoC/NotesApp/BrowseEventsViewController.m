@@ -104,7 +104,8 @@ BOOL displayNonStandardEvents;
                                              onlyStreamsIDs:nil
                                                        tags:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:) name:@"EVENTS" object:self.filter];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
+                                                 name:kPYNotificationEvents object:self.filter];
     
     
     self.tableView.alpha = 0.0f;
