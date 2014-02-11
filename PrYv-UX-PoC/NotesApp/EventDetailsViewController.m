@@ -577,7 +577,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         case DetailCellTypeImage:
             if(self.eventDataType == EventDataTypeImage)
             {
-                
+                return 426;
+                UIImage* image = self.imageView.image;
+                CGFloat h = 0;
+                if (image.size.height > image.size.width) {
+                    h =  (image.size.height / image.size.width) * 320;
+                }
+                if (h > kImageCellHeight) return h;
        
                 return kImageCellHeight;
             }
