@@ -53,6 +53,9 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)filterEventUpdate:(NSNotification*)notification;
 - (int)addEventToList:(PYEvent*)eventToAdd;
 
+- (void)refreshFilter;
+- (void)unsetFilter;
+
 @end
 
 @implementation BrowseEventsViewController
@@ -98,15 +101,6 @@ BOOL displayNonStandardEvents;
     
     self.events = [[NSMutableArray alloc] init];
     
-    self.filter = [[PYEventFilter alloc] initWithConnection:[[NotesAppController sharedInstance] connection]
-                                                   fromTime:PYEventFilter_UNDEFINED_FROMTIME
-                                                     toTime:PYEventFilter_UNDEFINED_TOTIME
-                                                      limit:100
-                                             onlyStreamsIDs:nil
-                                                       tags:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
-                                                 name:kPYNotificationEvents object:self.filter];
     
     
     self.tableView.alpha = 0.0f;
@@ -156,6 +150,45 @@ BOOL displayNonStandardEvents;
   displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
+#pragma marl - setup
+
+- (void)refreshFilter // called be loadData
+{
+    if (self.filter == nil) {
+        [self clearCurrentData];
+        [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
+            NSLog(@"BrowserEventViewer cannot setup filter .. no connection yet");
+        } withCompletionBlock:^(PYConnection *connection) {
+            self.filter = [[PYEventFilter alloc] initWithConnection:connection
+                                                           fromTime:PYEventFilter_UNDEFINED_FROMTIME
+                                                             toTime:PYEventFilter_UNDEFINED_TOTIME
+                                                              limit:100
+                                                     onlyStreamsIDs:nil
+                                                               tags:nil];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterEventUpdate:)
+                                                         name:kPYNotificationEvents object:self.filter];
+            [self.filter update];
+            
+        }];
+        
+    } else {
+        [self.filter update];
+    }
+}
+
+- (void)unsetFilter
+{
+    if (self.filter != nil) {
+        [self clearCurrentData];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kPYNotificationEvents object:self.filter];
+        self.filter = nil;
+        
+    }
+}
+
+#pragma mark - data
+
 - (void)loadData
 {
     NSLog(@"*261");
@@ -176,10 +209,8 @@ BOOL displayNonStandardEvents;
             }
             isLoading = NO;
         }];
-        
+        [self refreshFilter];
     }
-    
-    [self.filter update];
 }
 
 
@@ -446,12 +477,7 @@ BOOL displayNonStandardEvents;
 - (void)clearCurrentData
 {
     [self.events removeAllObjects];
-    
-    NSArray* currentEvents = [self.filter currentEventsSet];
-    for (int i = 0; i < currentEvents.count; i++) {
-        [self addEventToList:[currentEvents objectAtIndex:i]];
-    }
-    
+    self.filter = nil;
     [self.tableView reloadData];
 }
 
