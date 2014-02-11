@@ -232,7 +232,7 @@
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
-         [connection setModifiedEventAttributesObject:self.event successHandler:^(NSString *stoppedId)
+         [connection updateEvent:self.event successHandler:^(NSString *stoppedId)
           {
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];

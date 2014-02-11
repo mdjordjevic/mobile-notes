@@ -208,7 +208,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self updateUIForNoteEventType];
     }
     
-    NSDate *date = [[NotesAppController sharedInstance].connection localDateFromServerTime:[self.eventDictionary[@"time"] doubleValue]];
+    NSDate *date = nil;
+    if (self.eventDictionary[@"time"] == nil) {
+        date = [NSDate date];
+    } else {
+        date =  [[NotesAppController sharedInstance].connection localDateFromServerTime:[self.eventDictionary[@"time"] doubleValue]];
+    }
+    
+   
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     self.streamsLabel.text = [self.event breadcrumbsForStream:self.eventDictionary[@"streamId"] inStreamsList:self.streams];
     if([self.streamsLabel.text length] < 1)
@@ -636,7 +643,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                    noConnectionCompletionBlock:nil
                            withCompletionBlock:^(PYConnection *connection)
      {
-         [connection setModifiedEventAttributesObject:self.event successHandler:^(NSString *stoppedId)
+         [connection updateEvent:self.event successHandler:^(NSString *stoppedId)
           {
               [self.navigationController popViewControllerAnimated:YES];
               double delayInSeconds = 0.3;
