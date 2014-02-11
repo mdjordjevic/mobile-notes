@@ -9,15 +9,20 @@
 #import "BrowseEventsCell.h"
 #import "CellStyleModel.h"
 #import "TagView.h"
+#import "PYEvent+Helper.h"
+#import "UserHistoryEntry.h"
+#import <PryvApiKit/PYEventType.h>
 
 #define kScreenSize 320
 
 @interface BrowseEventsCell ()
 
+@property (nonatomic, strong) IBOutlet UILabel *streamBreadcrumbs;
+@property (nonatomic, strong) IBOutlet UILabel *valueLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
 
-- (void)layoutForCellStyleModel:(CellStyleModel*)model;
-- (NSString*)imageNameForCellStyleModel:(CellStyleModel*)model;
+- (NSString*)imageNameForType:(EventDataType)type;
 
 @end
 
@@ -39,45 +44,38 @@
     // Configure the view for the selected state
 }
 
-- (void)updateWithCellStyleModel:(CellStyleModel *)cellStyleModel
-{    
-    [self layoutForCellStyleModel:cellStyleModel];
-    self.iconImageView.image = [UIImage imageNamed:[self imageNameForCellStyleModel:cellStyleModel]];
+- (void)setupWithUserHistroyEntry:(UserHistoryEntry *)entry withStreams:(NSArray *)streams
+{
+    PYEvent *event = [entry reconstructEvent];
+    [self updateTags:event.tags];
+    self.streamBreadcrumbs.text = [event eventBreadcrumbsForStreamsList:streams];
+    self.iconImageView.image = [UIImage imageNamed:[self imageNameForType:[event eventDataType]]];
+    self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }
 
-- (void)layoutForCellStyleModel:(CellStyleModel *)model
+- (NSString*)stringRepresentationForEventType:(PYEventType*)eventType
 {
-    if(model.cellStyleSize == CellStyleSizeBig)
-    {
-        self.channelFolderLabel.frame = CGRectMake(72, 2, 320 - 79, 30);
-        self.valueLabel.frame = CGRectMake(72, 36, 320 - 79, 24);
-        self.tagContainer.frame = CGRectMake(72, 72, 320 - 79, 16);
-        self.valueLabel.hidden = NO;
-    }
-    else
-    {
-        self.channelFolderLabel.frame = CGRectMake(72, 8, 320 - 80 - 16, 24);
-        self.valueLabel.frame = CGRectMake(72, 36, 320 - 80 - 16, 24);
-        self.tagContainer.frame = CGRectMake(72, 48, 320 - 80 - 16, 16);
-        self.valueLabel.hidden = YES;
-    }
+//    NSString *unit = [eventType symbol];
+//    if (! unit) { unit = eventType.formatKey ; }
+    
+    NSString *formatDescription = [eventType localizedName];
+//    if (! formatDescription) { unit = self.event.pyType.key ; }
+    return formatDescription;
 }
 
-- (NSString*)imageNameForCellStyleModel:(CellStyleModel *)model
+- (NSString*)imageNameForType:(EventDataType)type
 {
-    switch (model.cellStyleType) {
-        case CellStyleTypeMeasure:
+    switch (type) {
+        case EventDataTypeValueMeasure:
             return @"icon_measure";
-        case CellStyleTypeMoney:
-            return @"icon_money";
-        case CellStyleTypePhoto:
+        case EventDataTypeImage:
             return @"icon_photo";
-        case CellStyleTypeText:
+        case EventDataTypeNote:
             return @"icon_text";
         default:
             break;
     }
-    return nil;
+    return @"icon_text";
 }
 
 - (void)updateTags:(NSArray *)tags

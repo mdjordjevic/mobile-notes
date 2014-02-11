@@ -296,12 +296,7 @@ BOOL displayNonStandardEvents;
     }
     BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
     UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
-    cell.channelFolderLabel.text = [PYStream breadcrumsForStreamId:entry.streamId inStreamList:self.streams];
-    CellStyleType cellStyleType = entry.dataType;
-    CellStyleSize cellSize = CellStyleSizeSmall;
-    CellStyleModel *cellModel = [[CellStyleModel alloc] initWithCellStyleSize:cellSize andCellStyleType:cellStyleType];
-    [cell updateWithCellStyleModel:cellModel];
-    [cell updateTags:entry.tags];
+    [cell setupWithUserHistroyEntry:entry withStreams:self.streams];
     return cell;
     
 }
@@ -385,19 +380,19 @@ BOOL displayNonStandardEvents;
     eventDetailVC.isNewEvent = eventIsNew;
     eventDetailVC.entry = entry;
     self.title = NSLocalizedString(@"Back", nil);
-    EventDataType eventType = [event eventDataType];
+    EventDataType eventType = [eventDetailVC.event eventDataType];
     if(eventIsNew && eventType != EventDataTypeImage)
     {
         [eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
         [viewControllers addObject:eventDetailVC];
-        if(eventType == EventDataTypeNote && event.type != nil)
+        if(eventType == EventDataTypeNote && eventDetailVC.event.type != nil)
         {
             TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
             [eventDetailVC setupTextEditorViewController:textVC];
             [viewControllers addObject:textVC];
         }
-        else if(eventType == EventDataTypeValueMeasure || event.type == nil)
+        else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
         {
             AddNumericalValueViewController *addVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
             [eventDetailVC setupAddNumericalValueViewController:addVC];
