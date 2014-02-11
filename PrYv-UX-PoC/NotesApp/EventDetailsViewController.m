@@ -13,7 +13,6 @@
 #import <PryvApiKit/PYEventType.h>
 #import "TextEditorViewController.h"
 #import "DatePickerViewController.h"
-#import "ImagePreviewViewController.h"
 #import "AddNumericalValueViewController.h"
 #import "StreamPickerViewController.h"
 #import "DataService.h"
@@ -21,6 +20,7 @@
 #import "JSTokenButton.h"
 #import "DetailsBottomButtonsContainer.h"
 #import "UIAlertView+PrYv.h"
+#import "ImagePreviewViewController.h"
 
 #define kLineCellHeight 54
 #define kValueCellHeight 100
@@ -214,6 +214,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.tableView reloadData];
 }
 
+
+
+
 - (void)updateUIForEventImageType
 {
     
@@ -222,6 +225,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     } errorHandler:nil];
     self.descriptionLabel.text = self.event.eventDescription;
 }
+
+
+
 
 - (void)updateUIForValueEventType
 {
@@ -264,16 +270,33 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     cell.alpha = height > 0 ? 1.0f : 0.0f;
 }
 
+
+- (void)showImagePreview:(id)sender
+{
+    ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
+    imagePreviewVC.image = self.imageView.image;
+    //imagePreviewVC.descText = self.eventDescriptionLabel.text;
+    [self.navigationController pushViewController:imagePreviewVC animated:YES];
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DetailCellType cellType = indexPath.row;
+    if (cellType == DetailCellTypeImage) {
+        [self performSegueWithIdentifier:kShowImagePreviewSegue sender:nil];
+        return;
+    }
+    
+    
     if(!self.isInEditMode)
     {
         return;
     }
-    DetailCellType cellType = indexPath.row;
+    
     switch (cellType) {
         case DetailCellTypeValue:
-            
+
             break;
         case DetailCellTypeImage:
             
@@ -554,6 +577,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         case DetailCellTypeImage:
             if(self.eventDataType == EventDataTypeImage)
             {
+                
+       
                 return kImageCellHeight;
             }
             return 0;
