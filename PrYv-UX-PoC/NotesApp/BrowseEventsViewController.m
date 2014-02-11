@@ -137,6 +137,7 @@ BOOL displayNonStandardEvents;
 {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self unsetFilter];
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,7 +151,7 @@ BOOL displayNonStandardEvents;
   displayNonStandardEvents = [[NSUserDefaults standardUserDefaults] boolForKey:kPYAppSettingUIDisplayNonStandardEvents];
 }
 
-#pragma marl - setup
+#pragma mark - setup
 
 - (void)refreshFilter // called be loadData
 {
@@ -177,10 +178,9 @@ BOOL displayNonStandardEvents;
     }
 }
 
-- (void)unsetFilter
+- (void)unsetFilter // called by clearData
 {
     if (self.filter != nil) {
-        [self clearCurrentData];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kPYNotificationEvents object:self.filter];
         self.filter = nil;
         
@@ -477,7 +477,7 @@ BOOL displayNonStandardEvents;
 - (void)clearCurrentData
 {
     [self.events removeAllObjects];
-    self.filter = nil;
+    [self unsetFilter];
     [self.tableView reloadData];
 }
 
