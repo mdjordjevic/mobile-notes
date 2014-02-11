@@ -8,15 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class CellStyleModel;
+@class UserHistoryEntry;
 
 @interface BrowseEventsCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet UILabel *channelFolderLabel;
-@property (nonatomic, strong) IBOutlet UILabel *valueLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
-
-- (void)updateWithCellStyleModel:(CellStyleModel*)cellStyleModel;
-- (void)updateTags:(NSArray*)tags;
+- (void)setupWithUserHistroyEntry:(UserHistoryEntry*)entry withStreams:(NSArray*)streams;
 
 @end

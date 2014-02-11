@@ -481,7 +481,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
 {
-    dpVC.selectedDate = [self.event eventDate];
+    NSDate *date = [self.event eventDate];
+    if(!date)
+    {
+        date = [NSDate new];
+    }
+    dpVC.selectedDate = date;
     [dpVC setDateDidChangeBlock:^(NSDate *newDate, DatePickerViewController *dp) {
         if([newDate timeIntervalSince1970] == [[self.event eventDate] timeIntervalSince1970]) return;
         [self.event setEventDate:newDate];
