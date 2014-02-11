@@ -22,6 +22,7 @@
 #import "DetailsBottomButtonsContainer.h"
 #import "UIAlertView+PrYv.h"
 
+#define kLineCellHeight 54
 #define kValueCellHeight 100
 #define kImageCellHeight 320
 
@@ -34,10 +35,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     DetailCellTypeValue,
     DetailCellTypeImage,
+    DetailCellTypeNote,
     DetailCellTypeTime,
     DetailCellTypeDescription,
     DetailCellTypeTags,
-    DetailCellTypeStreams
+    DetailCellTypeStreams,
+    DetailCellTypeSpacer
 };
 
 @interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
@@ -352,7 +355,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         [self updateEvent];
     }
     self.editButton.title = @"Edit";
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.tableView
+                          duration:0.1f
+                           options:UIViewAnimationOptionBeginFromCurrentState
+                        animations:^(void) {
+                            [self.tableView reloadData];
+                        } completion:NULL];
+        
+    });
+    [UIView animateWithDuration:2.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.tagsLabel.alpha = 1.0f;
         self.tokenContainer.alpha = 0.0f;
     } completion:^(BOOL finished) {
@@ -371,7 +383,17 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self.navigationItem setHidesBackButton:YES];
     
     self.editButton.title = @"Done";
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.tableView
+                          duration:10.2f
+                           options:UIViewAnimationOptionBeginFromCurrentState
+                        animations:^(void) {
+                               [self.tableView reloadData];
+                        } completion:NULL];
+   
+    });
     
+    //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.tagsLabel.alpha = 0.0f;
         self.tokenContainer.alpha = 1.0f;
@@ -520,38 +542,62 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (CGFloat)heightForCellAtIndexPath:(NSIndexPath*)indexPath withEvent:(PYEvent*)event
 {
-    if(indexPath.row == 0)
-    {
-        if(self.eventDataType == EventDataTypeValueMeasure)
-        {
-            return kValueCellHeight;
-        }
-        return 0;
-    }
-    if(indexPath.row == 1)
-    {
-        if(self.eventDataType == EventDataTypeImage)
-        {
-            return kImageCellHeight;
-        }
-        return 0;
-    }
-    if(indexPath.row == 3)
-    {
-        if([self.descriptionLabel.text length] == 0)
-        {
+    DetailCellType cellType = indexPath.row;
+    switch (cellType) {
+        case DetailCellTypeValue:
+            if(self.eventDataType == EventDataTypeValueMeasure)
+            {
+                return kValueCellHeight;
+            }
             return 0;
-        }
-        
-        CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
-        CGFloat height = textSize.height + 20;
-        height = fmaxf(height, 54);
-        self.descriptionLabelConstraint1.constant = fmaxf(height - 10,0);
-        self.descriptionLabelConstraint2.constant = fmaxf(height - 10,0);
-        self.descriptionLabelConstraint3.constant = fmaxf(height - 20,0);
-        return height;
+            
+        case DetailCellTypeImage:
+            if(self.eventDataType == EventDataTypeImage)
+            {
+                return kImageCellHeight;
+            }
+            return 0;
+            
+        case DetailCellTypeNote:
+            if(self.eventDataType == EventDataTypeNote)
+            {
+                return kValueCellHeight;
+            }
+            return 0;
+            
+        case DetailCellTypeTime:
+            return kLineCellHeight;
+            
+        case DetailCellTypeDescription:
+            if(self.isInEditMode) {
+                return kLineCellHeight;
+            }
+            if ([self.descriptionLabel.text length] > 0)
+            {
+                CGSize textSize = [self.descriptionLabel.text sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
+                CGFloat height = textSize.height + 20;
+                height = fmaxf(height, 54);
+                self.descriptionLabelConstraint1.constant = fmaxf(height - 10,0);
+                self.descriptionLabelConstraint2.constant = fmaxf(height - 10,0);
+                self.descriptionLabelConstraint3.constant = fmaxf(height - 20,0);
+                return height;
+            }
+            return 0;
+            
+        case DetailCellTypeTags:
+            if (self.isInEditMode || (self.event.tags && self.event.tags.count > 0)) {
+                return kLineCellHeight;
+            }
+            return 0;
+            
+        case DetailCellTypeStreams:
+            return kLineCellHeight;
+            
+        default:
+            break;
     }
-    return 54;
+    
+    return kLineCellHeight;
 }
 
 - (BOOL) shouldCreateEvent
