@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) PYEvent *event;
 @property (nonatomic, strong) NSArray *streams;
-@property (nonatomic, strong) UserHistoryEntry *entry;
-@property (nonatomic) BOOL isNewEvent;
 
 - (BOOL)shouldAnimateViewController:(UIViewController*)vc;
 

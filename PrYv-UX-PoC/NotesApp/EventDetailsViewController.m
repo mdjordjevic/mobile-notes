@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    if(self.isNewEvent)
+    if(self.event.isDraft)
     {
         [self editButtonTouched:nil];
     }
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateEventDataType
 {
-    if(self.isNewEvent && !self.event.type)
+    if(self.event.isDraft && !self.event.type)
     {
         self.eventDataType = EventDataTypeValueMeasure;
     }
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForValueEventType
 {
-    if(self.isNewEvent)
+    if(self.event.isDraft)
     {
         self.numericalValue_Label.text = @"";
         self.numericalValue_TypeLabel.text = @"";
@@ -337,7 +337,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)cancelButtonTouched:(id)sender
 {
-    if(self.isNewEvent)
+    if(self.event.isDraft)
     {
         [self.navigationController popViewControllerAnimated:YES];
     }

@@ -129,7 +129,7 @@ BOOL displayNonStandardEvents;
     {
         PYEvent *event = self.eventToShowOnAppear;
         self.eventToShowOnAppear = nil;
-        [self showEventDetailsForEvent:event withEventIsNewFlag:YES];
+        [self showEventDetailsForEvent:event];
     }
 }
 
@@ -317,7 +317,7 @@ BOOL displayNonStandardEvents;
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        [self showEventDetailsForEvent:event withEventIsNewFlag:NO];
+        [self showEventDetailsForEvent:event];
     }
 }
 
@@ -330,13 +330,13 @@ BOOL displayNonStandardEvents;
             {
                 PYEvent *event = [[PYEvent alloc] init];
                 event.type = @"note/txt";
-                [weakSelf showEventDetailsForEvent:event withEventIsNewFlag:YES];
+                [weakSelf showEventDetailsForEvent:event];
             }
                 break;
             case 1:
             {
                 PYEvent *event = [[PYEvent alloc] init];
-                [weakSelf showEventDetailsForEvent:event withEventIsNewFlag:YES];
+                [weakSelf showEventDetailsForEvent:event];
             }
                 break;
             case 2:
@@ -357,30 +357,23 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - Show details
 
-- (void)showEventDetailsForEvent:(PYEvent*)event withEventIsNewFlag:(BOOL)eventIsNew
-{
-    [self showEventDetailsForEvent:event withEventIsNewFlag:eventIsNew andUserHistoryEntry:nil];
-}
 
 - (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
-    [self showEventDetailsForEvent:nil withEventIsNewFlag:YES andUserHistoryEntry:entry];
+    PYEvent *event = [entry reconstructEvent];
+    [self showEventDetailsForEvent:event];
 }
 
 - (void)showEventDetailsForEvent:(PYEvent*)event
-              withEventIsNewFlag:(BOOL)eventIsNew
-             andUserHistoryEntry:(UserHistoryEntry*)entry
 {
+    if (event == nil) {
+        [NSException raise:@"Event is nil" format:nil];
+    }
+    
     EventDetailsViewController *eventDetailVC = (EventDetailsViewController*)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"EventDetailsViewController_ID"];
     eventDetailVC.event = event;
-    if(entry && !event)
-    {
-        eventDetailVC.event = [entry reconstructEvent];
-    }
-   
     eventDetailVC.streams = self.streams;
-    eventDetailVC.isNewEvent = eventIsNew;
-    eventDetailVC.entry = entry;
+    
     self.title = NSLocalizedString(@"Back", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
@@ -390,7 +383,7 @@ BOOL displayNonStandardEvents;
     [eventDetailVC setupDescriptionEditorViewController:textVC];
     
     
-    if(eventIsNew && eventType != EventDataTypeImage)
+    if(event.isDraft && eventType != EventDataTypeImage)
     {
         [eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
