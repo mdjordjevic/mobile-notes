@@ -28,8 +28,9 @@
 
 #define kShowValueEditorSegue @"ShowValueEditorSegue_ID"
 #define kShowImagePreviewSegue @"ShowImagePreviewSegue_ID"
+#define kShowNoteEditorSegue @"ShowNoteEditorSegue_ID"
 #define kShowDatePickerSegue @"kShowDatePickerSegue_ID"
-#define kShowTextEditorSegue @"ShowTextEditorSegue_ID"
+#define kShowDescriptionEditorSegue @"ShowDescriptionEditorSegue_ID"
 
 typedef NS_ENUM(NSUInteger, DetailCellType)
 {
@@ -56,11 +57,22 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutletCollection(BaseDetailCell) NSArray *cells;
-@property (nonatomic, weak) IBOutlet UILabel *valueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *valueTypeLabel;
+
+
+// -- specific properties
+
+@property (nonatomic, weak) IBOutlet UIImageView *picture_ImageView;
+
+@property (nonatomic, weak) IBOutlet UILabel *numericalValue_Label;
+@property (nonatomic, weak) IBOutlet UILabel *numericalValue_TypeLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *note_Label;
+
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+
+// -- common properties
+
 @property (nonatomic, weak) IBOutlet UILabel *tagsLabel;
 @property (nonatomic, weak) IBOutlet JSTokenField *tokenField;
 @property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
@@ -206,6 +218,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSDate *date = [self.event eventDate];
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
+    self.descriptionLabel.text = self.event.eventDescription;
+    
     if([self.streamsLabel.text length] < 1)
     {
         self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
@@ -221,9 +235,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     
     [self.event firstAttachmentAsImage:^(UIImage *image) {
-        self.imageView.image = image;
+        self.picture_ImageView.image = image;
     } errorHandler:nil];
-    self.descriptionLabel.text = self.event.eventDescription;
 }
 
 
@@ -233,8 +246,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     if(self.isNewEvent)
     {
-        self.valueLabel.text = @"";
-        self.valueTypeLabel.text = @"";
+        self.numericalValue_Label.text = @"";
+        self.numericalValue_TypeLabel.text = @"";
         return;
     }
     NSString *unit = [self.event.pyType symbol];
@@ -242,17 +255,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     
     NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description], unit];
-    [self.valueLabel setText:value];
+    [self.numericalValue_Label setText:value];
     
     NSString *formatDescription = [self.event.pyType localizedName];
     if (! formatDescription) { unit = self.event.pyType.key ; }
-    [self.valueTypeLabel setText:formatDescription];
-    self.descriptionLabel.text = self.event.eventDescription;
+    [self.numericalValue_TypeLabel setText:formatDescription];
 }
 
 - (void)updateUIForNoteEventType
 {
-    self.descriptionLabel.text = self.event.eventContent;
+    self.note_Label.text = self.event.eventContent;
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -274,7 +286,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)showImagePreview:(id)sender
 {
     ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
-    imagePreviewVC.image = self.imageView.image;
+    imagePreviewVC.image = self.picture_ImageView.image;
     //imagePreviewVC.descText = self.eventDescriptionLabel.text;
     [self.navigationController pushViewController:imagePreviewVC animated:YES];
 }
@@ -433,9 +445,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSString *identifier = segue.identifier;
-    if([identifier isEqualToString:kShowTextEditorSegue])
+    if([identifier isEqualToString:kShowNoteEditorSegue])
     {
-        [self setupTextEditorViewController:segue.destinationViewController];
+        [self setupNoteContentEditorViewController:segue.destinationViewController];
+    }
+    else if([identifier isEqualToString:kShowDescriptionEditorSegue])
+    {
+        [self setupDescriptionEditorViewController:segue.destinationViewController];
     }
     else if([identifier isEqualToString:kShowImagePreviewSegue])
     {
@@ -453,30 +469,29 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 #pragma mark - Edit methods
 
-- (void)setupTextEditorViewController:(TextEditorViewController*)textEditorVC
+- (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC
 {
     textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        if(self.eventDataType == EventDataTypeNote)
-        {
-            if (self.event.eventContent && [text isEqualToString:self.event.eventContent]) return;
-            self.event.eventContent = text;
-        }
-        else
-        {
-            if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
-            self.event.eventDescription = text;
-        }
+        if (self.event.eventDescription && [text isEqualToString:self.event.eventDescription]) return;
+        self.event.eventDescription = text;
+        
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     };
-    if(self.eventDataType == EventDataTypeNote)
-    {
-        textEditorVC.text = self.event.eventContent ? self.event.eventContent : @"";
-    }
-    else
-    {
-        textEditorVC.text = self.event.eventDescription ? self.event.eventDescription : @"";
-    }
+    textEditorVC.text = self.event.eventDescription ? self.event.eventDescription : @"";
+}
+
+
+
+- (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC
+{
+    textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
+        if (self.event.eventContent && [text isEqualToString:self.event.eventContent]) return;
+        self.event.eventContent = text;
+        self.shouldUpdateEvent = YES;
+        [self updateUIForEvent];
+    };
+    textEditorVC.text = self.event.eventContent ? self.event.eventContent : @"";
 }
 
 - (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
@@ -583,7 +598,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             if(self.eventDataType == EventDataTypeImage)
             {
                 return 426;
-                UIImage* image = self.imageView.image;
+                UIImage* image = self.picture_ImageView.image;
                 CGFloat h = 0;
                 if (image.size.height > image.size.width) {
                     h =  (image.size.height / image.size.width) * 320;

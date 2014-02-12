@@ -19,7 +19,8 @@
 
 - (BOOL)shouldAnimateViewController:(UIViewController*)vc;
 
-- (void)setupTextEditorViewController:(TextEditorViewController*)textEditorVC;
+- (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC;
+- (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC;
 - (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC;
 
 @end

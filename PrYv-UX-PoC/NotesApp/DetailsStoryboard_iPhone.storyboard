@@ -250,38 +250,38 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPP-tf-4WE">
                                                     <rect key="frame" x="5" y="5" width="310" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Scg-SA-DkO">
+                                                            <rect key="frame" x="5" y="5" width="300" height="60"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="60" id="I2a-Ym-lNf"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="AGT-HZ-sed"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Scg-SA-DkO">
-                                                    <rect key="frame" x="10" y="10" width="300" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="I2a-Ym-lNf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="cPP-tf-4WE" secondAttribute="trailing" constant="5" id="8eH-Le-yje"/>
-                                                <constraint firstAttribute="trailing" secondItem="Scg-SA-DkO" secondAttribute="trailing" constant="10" id="EQr-KI-Rfb"/>
-                                                <constraint firstItem="Scg-SA-DkO" firstAttribute="leading" secondItem="PJq-49-nfP" secondAttribute="leading" constant="10" id="Inc-a5-yIG"/>
                                                 <constraint firstAttribute="trailing" secondItem="1GC-23-DCp" secondAttribute="trailing" constant="5" id="ODe-HS-Ilc"/>
                                                 <constraint firstItem="cPP-tf-4WE" firstAttribute="top" secondItem="PJq-49-nfP" secondAttribute="top" constant="5" id="Uk5-Tr-sIf"/>
                                                 <constraint firstItem="1GC-23-DCp" firstAttribute="top" secondItem="PJq-49-nfP" secondAttribute="top" constant="5" id="XOF-qS-Sr9"/>
                                                 <constraint firstItem="cPP-tf-4WE" firstAttribute="leading" secondItem="PJq-49-nfP" secondAttribute="leading" constant="5" id="jr7-m2-Ch2"/>
                                                 <constraint firstItem="1GC-23-DCp" firstAttribute="leading" secondItem="PJq-49-nfP" secondAttribute="leading" constant="5" id="ogt-da-bFJ"/>
-                                                <constraint firstItem="Scg-SA-DkO" firstAttribute="top" secondItem="PJq-49-nfP" secondAttribute="top" constant="10" id="yWk-e9-VwM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="borderView" destination="cPP-tf-4WE" id="izT-Sr-n3V"/>
+                                            <segue destination="njd-vn-YfY" kind="custom" identifier="ShowNoteEditorSegue_ID" customClass="ConditionallyAnimatedPushSegue" id="WFN-xA-vwS"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="54" id="fIE-Hh-FlZ" userLabel="DatePicker" customClass="BaseDetailCell">
@@ -379,7 +379,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="borderView" destination="Hpg-e6-VRU" id="Zya-Im-NMc"/>
-                                            <segue destination="njd-vn-YfY" kind="custom" identifier="ShowTextEditorSegue_ID" customClass="ConditionallyAnimatedPushSegue" id="UzJ-FG-Pk1"/>
+                                            <segue destination="njd-vn-YfY" kind="custom" identifier="ShowDescriptionEditorSegue_ID" customClass="ConditionallyAnimatedPushSegue" id="UzJ-FG-Pk1"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="54" id="Tea-4T-hA7" userLabel="Tags" customClass="BaseDetailCell">
@@ -514,13 +514,15 @@
                                             <outlet property="borderView" destination="GfM-JD-Jiw" id="6n0-fX-Cww"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Bu2-mL-5zU" userLabel="Spacer">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Bu2-mL-5zU" userLabel="Spacer">
                                         <rect key="frame" x="0.0" y="806" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bu2-mL-5zU" id="lcm-zc-Fle">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -545,7 +547,10 @@
                         <outlet property="descriptionLabelConstraint2" destination="ehU-w8-OMW" id="VhB-Pr-yYG"/>
                         <outlet property="descriptionLabelConstraint3" destination="8g4-Ic-njZ" id="rHF-Xa-CSG"/>
                         <outlet property="editButton" destination="RKy-Rw-QQS" id="gUf-WL-LyS"/>
-                        <outlet property="imageView" destination="Wbg-wf-qw1" id="LS2-CT-HLo"/>
+                        <outlet property="note_Label" destination="Scg-SA-DkO" id="epK-NF-shh"/>
+                        <outlet property="numericalValue_Label" destination="hlj-81-y6X" id="mih-Bz-7Fn"/>
+                        <outlet property="numericalValue_TypeLabel" destination="gch-JF-P4A" id="2Vy-bL-69m"/>
+                        <outlet property="picture_ImageView" destination="Wbg-wf-qw1" id="KtH-Ni-gEU"/>
                         <outlet property="streamsLabel" destination="t5e-Mm-GpT" id="uyl-cM-EnV"/>
                         <outlet property="tagDoneButtonConstraint" destination="PCt-aO-3lj" id="GZb-P2-Kc2"/>
                         <outlet property="tagsLabel" destination="Q2v-Kw-dbO" id="Mfb-WS-XaK"/>
@@ -553,8 +558,6 @@
                         <outlet property="tokenContainer" destination="30Z-on-3Pf" id="joH-e9-JRt"/>
                         <outlet property="tokenField" destination="FL3-Eu-9VR" id="Ekh-sp-3wG"/>
                         <outlet property="tokendDoneButton" destination="TC6-8H-yVX" id="lmb-tr-wlF"/>
-                        <outlet property="valueLabel" destination="hlj-81-y6X" id="y5J-Me-Wtc"/>
-                        <outlet property="valueTypeLabel" destination="gch-JF-P4A" id="mht-Te-Hd7"/>
                         <outletCollection property="cells" destination="d9c-m7-EED" id="7VY-lX-E4X"/>
                         <outletCollection property="cells" destination="fIE-Hh-FlZ" id="jMK-yZ-9ct"/>
                         <outletCollection property="cells" destination="u7L-nE-uXY" id="bhI-ZV-dcQ"/>
@@ -1124,4 +1127,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="WFN-xA-vwS"/>
+    </inferredMetricsTieBreakers>
 </document>

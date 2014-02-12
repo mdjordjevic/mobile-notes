@@ -80,7 +80,7 @@
 {
     if ([eventType isNumerical]) {
       
-        return [NSString stringWithFormat:@"%@ / %@",[[eventType klass] localizedName], [eventType localizedName]];
+        return [NSString stringWithFormat:@"%@, %@", [eventType localizedName], [[eventType klass] localizedName]];
     }
     return @"";
 

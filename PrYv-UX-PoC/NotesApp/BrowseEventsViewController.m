@@ -310,6 +310,8 @@ BOOL displayNonStandardEvents;
     if(IS_LRU_SECTION)
     {
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
+        
+        
         [self showEventDetailsWithUserHistoryEntry:entry];
     }
     else
@@ -381,6 +383,13 @@ BOOL displayNonStandardEvents;
     eventDetailVC.entry = entry;
     self.title = NSLocalizedString(@"Back", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
+    
+    
+    TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
+    
+    [eventDetailVC setupDescriptionEditorViewController:textVC];
+    
+    
     if(eventIsNew && eventType != EventDataTypeImage)
     {
         [eventDetailVC view];
@@ -389,7 +398,8 @@ BOOL displayNonStandardEvents;
         if(eventType == EventDataTypeNote && eventDetailVC.event.type != nil)
         {
             TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
-            [eventDetailVC setupTextEditorViewController:textVC];
+            
+            [eventDetailVC setupDescriptionEditorViewController:textVC];
             [viewControllers addObject:textVC];
         }
         else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
