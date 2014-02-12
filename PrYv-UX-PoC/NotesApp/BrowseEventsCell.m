@@ -12,6 +12,7 @@
 #import "PYEvent+Helper.h"
 #import "UserHistoryEntry.h"
 #import <PryvApiKit/PYEventType.h>
+#import <PryvApiKit/PYEventClass.h>
 
 #define kScreenSize 320
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *valueLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
 @property (nonatomic, strong) IBOutlet UIView *tagContainer;
+@property (nonatomic, strong) IBOutlet UILabel *symbolLabel;
 
 - (NSString*)imageNameForType:(EventDataType)type;
 
@@ -49,18 +51,39 @@
     PYEvent *event = [entry reconstructEvent];
     [self updateTags:event.tags];
     self.streamBreadcrumbs.text = [event eventBreadcrumbsForStreamsList:streams];
-    self.iconImageView.image = [UIImage imageNamed:[self imageNameForType:[event eventDataType]]];
+    
+    
+    NSString* symbol = [self symbolRepresentationForEventType:event.pyType];
+    if (symbol) {
+        self.symbolLabel.text = symbol;
+    } else {
+        self.symbolLabel.text = @"";
+        UIImage* iconImage = [UIImage imageNamed:[self imageNameForType:[event eventDataType]]];
+        self.iconImageView.image = iconImage;
+    }
+    
+    
     self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }
 
+- (NSString*)symbolRepresentationForEventType:(PYEventType*)eventType
+{
+    if ([eventType isNumerical]) {
+        return [eventType symbol];
+    }
+    return nil;
+    
+}
+        
+        
 - (NSString*)stringRepresentationForEventType:(PYEventType*)eventType
 {
-//    NSString *unit = [eventType symbol];
-//    if (! unit) { unit = eventType.formatKey ; }
-    
-    NSString *formatDescription = [eventType localizedName];
-//    if (! formatDescription) { unit = self.event.pyType.key ; }
-    return formatDescription;
+    if ([eventType isNumerical]) {
+      
+        return [NSString stringWithFormat:@"%@ / %@",[[eventType klass] localizedName], [eventType localizedName]];
+    }
+    return @"";
+
 }
 
 - (NSString*)imageNameForType:(EventDataType)type
