@@ -216,6 +216,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     
     NSDate *date = [self.event eventDate];
+    if (date == nil) date = [NSDate date]; // now
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
     self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
     self.descriptionLabel.text = self.event.eventDescription;
@@ -499,7 +500,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSDate *date = [self.event eventDate];
     if(!date)
     {
-        date = [NSDate new];
+        date = [NSDate date];
     }
     dpVC.selectedDate = date;
     [dpVC setDateDidChangeBlock:^(NSDate *newDate, DatePickerViewController *dp) {
