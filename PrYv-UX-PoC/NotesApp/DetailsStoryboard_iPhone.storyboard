@@ -563,6 +563,7 @@
                         <outletCollection property="cells" destination="u7L-nE-uXY" id="bhI-ZV-dcQ"/>
                         <outletCollection property="cells" destination="Tea-4T-hA7" id="pmU-E6-F2F"/>
                         <outletCollection property="cells" destination="ffx-cN-VHz" id="ouc-mD-qqi"/>
+                        <outletCollection property="cells" destination="nrR-a9-GJd" id="qV3-kp-d86"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X65-qQ-IoE" userLabel="First Responder" sceneMemberID="firstResponder"/>

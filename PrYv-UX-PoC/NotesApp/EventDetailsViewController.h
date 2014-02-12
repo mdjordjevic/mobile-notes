@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+
+
 @class PYEvent,UserHistoryEntry,TextEditorViewController,AddNumericalValueViewController;
 
 @interface EventDetailsViewController : UITableViewController

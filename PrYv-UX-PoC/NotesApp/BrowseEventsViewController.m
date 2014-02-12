@@ -377,11 +377,11 @@ BOOL displayNonStandardEvents;
     self.title = NSLocalizedString(@"Back", nil);
     EventDataType eventType = [eventDetailVC.event eventDataType];
     
-    
+    /**
     TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
     
     [eventDetailVC setupDescriptionEditorViewController:textVC];
-    
+    **/
     
     if(event.isDraft && eventType != EventDataTypeImage)
     {
@@ -392,7 +392,7 @@ BOOL displayNonStandardEvents;
         {
             TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
             
-            [eventDetailVC setupDescriptionEditorViewController:textVC];
+            [eventDetailVC setupNoteContentEditorViewController:textVC];
             [viewControllers addObject:textVC];
         }
         else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
