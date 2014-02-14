@@ -17,5 +17,6 @@
 + (LRUManager*)sharedInstance;
 - (void)addUserHistoryEntry:(UserHistoryEntry*)entry;
 - (void)fetchLRUEntriesWithCompletionBlock:(void (^)(void))block;
+- (void)clearAllLRUEntries;
 
 @end

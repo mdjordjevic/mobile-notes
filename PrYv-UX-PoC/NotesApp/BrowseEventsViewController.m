@@ -201,6 +201,7 @@ BOOL displayNonStandardEvents;
             if(streamsObject)
             {
                 self.streams = streamsObject;
+                [self.tableView reloadData];
                 [UIView animateWithDuration:0.2 animations:^{
                     self.tableView.alpha = 1.0f;
                 }];

@@ -38,9 +38,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     DetailCellTypeImage,
     DetailCellTypeNote,
     DetailCellTypeTime,
-    DetailCellTypeDescription,
-    DetailCellTypeTags,
     DetailCellTypeStreams,
+    DetailCellTypeTags,
+    DetailCellTypeDescription,
     DetailCellTypeSpacer
 };
 
@@ -78,11 +78,19 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UIButton *tokendDoneButton;
 @property (nonatomic, weak) IBOutlet UIView *tokenContainer;
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
+@property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
+
+// -- constraints
+
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
-@property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint1;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint2;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint3;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint4;
+
 
 - (BOOL) shouldCreateEvent;
 
@@ -124,6 +132,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(tokenContainerDidChangeFrameNotification:)
+                                                 name:JSTokenFieldFrameDidChangeNotification
                                                object:nil];
     
     if(self.event.isDraft)
@@ -378,6 +390,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [self.navigationItem setLeftBarButtonItem:nil];
     [self.navigationItem setHidesBackButton:NO];
+    if([self.descriptionLabel.text isEqualToString:NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil)])
+    {
+        self.descriptionLabel.text = @"";
+    }
     if(self.streamPickerVC)
     {
         [self closeStreamPicker];
@@ -417,6 +433,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self.navigationItem setLeftBarButtonItem:backButton];
     [self.navigationItem setHidesBackButton:YES];
+    
+    if([self.descriptionLabel.text length] == 0)
+    {
+        self.descriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
+    }
     
     self.editButton.title = @"Done";
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -553,7 +574,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         CGRect newFrame = self.streamPickerVC.view.frame;
-        newFrame.origin.y = 100;
+        newFrame.origin.y = 100 + self.tableView.contentOffset.y;
         self.streamPickerVC.view.frame = newFrame;
     } completion:^(BOOL finished) {
         self.tableView.scrollEnabled = NO;
@@ -637,8 +658,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             return 0;
             
         case DetailCellTypeTags:
-            if (self.isInEditMode || (self.event.tags && self.event.tags.count > 0)) {
-                return kLineCellHeight;
+            if (self.isInEditMode || (self.event.tags.count > 0)) {
+                CGFloat tagHeight = self.tokenField.frame.size.height + 18;
+                self.tagConstraint1.constant = tagHeight - 10;
+                self.tagConstraint2.constant = tagHeight - 10;
+                self.tagConstraint3.constant = tagHeight - 14;
+                self.tagConstraint4.constant = tagHeight - 33;
+                [self.view setNeedsLayout];
+                [self.view layoutIfNeeded];
+                return tagHeight;
             }
             return 0;
             
@@ -786,11 +814,20 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if([self.event.tags count] == 0)
     {
         self.tagsLabel.text = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
     }
     else
     {
         self.tagsLabel.text = [self.event.tags componentsJoinedByString:@", "];
+        self.tokenField.textField.placeholder = @"";
     }
+    [self.tokenField updateTokensInTextField:self.tokenField.textField];
+}
+
+- (void)tokenContainerDidChangeFrameNotification:(NSNotification*)note
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:DetailCellTypeTags inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Keyboard notifications

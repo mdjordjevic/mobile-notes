@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "BrowseEventsViewController.h"
 #import "DataService.h"
+#import "LRUManager.h"
 
 @interface ViewController ()
 
@@ -95,6 +96,7 @@
 {
     self.browseEventsVC.enabled = NO;
     [self.browseEventsVC clearCurrentData];
+    [[LRUManager sharedInstance] clearAllLRUEntries];
     [self.browseEventsVC dismissViewControllerAnimated:YES completion:^{
         [[DataService sharedInstance] invalidateStreamListCache];
         [self initSignIn];
