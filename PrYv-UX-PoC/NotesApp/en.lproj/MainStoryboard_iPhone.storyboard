@@ -262,7 +262,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="160" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tKO-ND-CN1">
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="160" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tKO-ND-CN1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -418,12 +418,12 @@ height=123312</string>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5v1-6q-Nqj" userLabel="tag container">
-                                                    <rect key="frame" x="158" y="22" width="155" height="16"/>
+                                                    <rect key="frame" x="6" y="132" width="306" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Comment maximum two ligne" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="xpG-iN-eAo">
-                                                    <rect key="frame" x="6" y="120" width="300" height="29"/>
+                                                    <rect key="frame" x="6" y="94" width="300" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -475,12 +475,12 @@ height=123312</string>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b9c-RJ-f76" userLabel="tag container">
-                                                    <rect key="frame" x="7" y="129" width="306" height="16"/>
+                                                    <rect key="frame" x="6" y="132" width="306" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Comment maximum two ligne Comment maximum two ligne Comment maximum two ligne Comment maximum two ligne" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="305" translatesAutoresizingMaskIntoConstraints="NO" id="GDX-xs-el0">
-                                                    <rect key="frame" x="6" y="125" width="305" height="29"/>
+                                                    <rect key="frame" x="6" y="94" width="305" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -506,6 +506,12 @@ height=123312</string>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="tKO-ND-CN1" secondAttribute="trailing" id="KwG-HD-m4e"/>
+                            <constraint firstItem="OCf-cb-bKI" firstAttribute="top" secondItem="tKO-ND-CN1" secondAttribute="bottom" id="b3y-Ax-gZW"/>
+                            <constraint firstItem="tKO-ND-CN1" firstAttribute="top" secondItem="K6W-cn-ZXt" secondAttribute="top" id="kbQ-hG-zYb"/>
+                            <constraint firstItem="tKO-ND-CN1" firstAttribute="leading" secondItem="K6W-cn-ZXt" secondAttribute="leading" id="tEH-TX-Lf1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="llC-iG-XDe">
                         <nil key="title"/>

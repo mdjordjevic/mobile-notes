@@ -93,4 +93,10 @@
     return self.lruArray;
 }
 
+- (void)clearAllLRUEntries
+{
+    [self.lruArray removeAllObjects];
+    [self saveToDisc];
+}
+
 @end
