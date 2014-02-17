@@ -197,6 +197,10 @@
 		B6B59091178DE42F0009E413 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B5908F178DE42B0009E413 /* Icon.png */; };
 		B6B59094178E01720009E413 /* navbar_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59092178E01700009E413 /* navbar_btn.png */; };
 		B6B59095178E01720009E413 /* navbar_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59093178E01710009E413 /* navbar_btn@2x.png */; };
+		B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */; };
+		B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */; };
+		B6B7CE5318B2B1830001CA28 /* TLOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B7CE5018B2B1830001CA28 /* TLOverlayView.m */; };
+		B6B7CE5418B2B1830001CA28 /* TLSwipeForOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B7CE5218B2B1830001CA28 /* TLSwipeForOptionsCell.m */; };
 		B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E711732E91000464C2F /* UIView+Frame.m */; };
 		B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */; };
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
@@ -693,6 +697,12 @@
 		B6B5908F178DE42B0009E413 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		B6B59092178E01700009E413 /* navbar_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar_btn.png; sourceTree = "<group>"; };
 		B6B59093178E01710009E413 /* navbar_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar_btn@2x.png"; sourceTree = "<group>"; };
+		B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B6B7CE4F18B2B1830001CA28 /* TLOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLOverlayView.h; sourceTree = "<group>"; };
+		B6B7CE5018B2B1830001CA28 /* TLOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLOverlayView.m; sourceTree = "<group>"; };
+		B6B7CE5118B2B1830001CA28 /* TLSwipeForOptionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSwipeForOptionsCell.h; sourceTree = "<group>"; };
+		B6B7CE5218B2B1830001CA28 /* TLSwipeForOptionsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSwipeForOptionsCell.m; sourceTree = "<group>"; };
 		B6BA3E701732E91000464C2F /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		B6BA3E711732E91000464C2F /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Main.h"; sourceTree = "<group>"; };
@@ -751,6 +761,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */,
+				B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */,
 				4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */,
 				4E713D41189661B000CDB397 /* libz.dylib in Frameworks */,
 				B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */,
@@ -1102,6 +1114,8 @@
 		B6016BAF172873D30056CD3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */,
+				B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */,
 				4EBC55951897E67800C4A136 /* MessageUI.framework */,
 				4E713D40189661B000CDB397 /* libz.dylib */,
 				B6556DE1175B7DC7008DFCC9 /* Security.framework */,
@@ -1383,6 +1397,17 @@
 			name = KSAdvancedPicker;
 			sourceTree = "<group>";
 		};
+		B6B7CE4E18B2B1770001CA28 /* TLSwipeForOptionsCell */ = {
+			isa = PBXGroup;
+			children = (
+				B6B7CE4F18B2B1830001CA28 /* TLOverlayView.h */,
+				B6B7CE5018B2B1830001CA28 /* TLOverlayView.m */,
+				B6B7CE5118B2B1830001CA28 /* TLSwipeForOptionsCell.h */,
+				B6B7CE5218B2B1830001CA28 /* TLSwipeForOptionsCell.m */,
+			);
+			name = TLSwipeForOptionsCell;
+			sourceTree = "<group>";
+		};
 		B6BA3E6F1732E8E300464C2F /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1458,6 +1483,7 @@
 		B6D8EA9F175A182000A3AA8F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B6B7CE4E18B2B1770001CA28 /* TLSwipeForOptionsCell */,
 				B6B59087178CBAF40009E413 /* KSAdvancedPicker */,
 				B6F1AEB81784740A000ECD60 /* JSTokenVIew */,
 				B6F1AEB417846CFD000ECD60 /* DALinedTextView */,
@@ -2083,6 +2109,7 @@
 				B626A3B618610F8A00AD9AA6 /* NSString+Utils.m in Sources */,
 				B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */,
 				B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */,
+				B6B7CE5418B2B1830001CA28 /* TLSwipeForOptionsCell.m in Sources */,
 				B6D0ED8B1787827400665DE8 /* BrowseEventsViewController.m in Sources */,
 				B67064B5184D489A00A0EB62 /* NoteDetailsViewController.m in Sources */,
 				B6B58FC2178B5F2D0009E413 /* BaseViewController.m in Sources */,
@@ -2101,6 +2128,7 @@
 				B61A1948185A64E100E9F9BE /* StreamCell.m in Sources */,
 				B61D55B117EC51B80016D0C4 /* PYEvent+Helper.m in Sources */,
 				B681B686185543240067DF37 /* TextEditorViewController.m in Sources */,
+				B6B7CE5318B2B1830001CA28 /* TLOverlayView.m in Sources */,
 				B61D55B517EC68C80016D0C4 /* UIAlertView+PrYv.m in Sources */,
 				B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */,
 				B61A1940185A325C00E9F9BE /* ImagePreviewViewController.m in Sources */,
