@@ -12,6 +12,7 @@
 @interface BrowseEventsViewController : BaseWithMenuViewController
 
 @property (nonatomic, strong) UIImage *pickedImage;
+@property (nonatomic, strong) NSDate *pickedImageTimestamp;
 
 - (void)clearCurrentData;
 

@@ -27,14 +27,16 @@
 #import "NSString+Utils.h"
 #import "AppConstants.h"
 #import "EventDetailsViewController.h"
+#import "TextEditorViewController.h"
 #import <PryvApiKit/PYConstants.h>
+#import "MCSwipeTableViewCell.h"
 
 #define IS_LRU_SECTION self.isMenuOpen
 #define IS_BROWSE_SECTION !self.isMenuOpen
 
 static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 
-@interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient>
+@interface BrowseEventsViewController () <UIActionSheetDelegate,MNMPullToRefreshManagerClient,MCSwipeTableViewCellDelegate>
 
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -79,6 +81,9 @@ BOOL displayNonStandardEvents;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BrowseEventCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:browseCellIdentifier];
     
+    self.tableView.allowsSelectionDuringEditing = YES;
+	self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    
     self.navigationItem.title = @"Pryv";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     
@@ -90,6 +95,10 @@ BOOL displayNonStandardEvents;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidReceiveAccessTokenNotification:)
                                                  name:kAppDidReceiveAccessTokenNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogoutNotification:)
+                                                 name:kUserDidLogoutNotification
                                                object:nil];
     // Monitor changes of option "show non standard events"
     [[NSUserDefaults standardUserDefaults] addObserver:self
@@ -111,6 +120,11 @@ BOOL displayNonStandardEvents;
 {
     [super viewWillAppear:animated];
     self.title = @"Pryv";
+    [self loadShortcuts];
+}
+
+- (void)loadShortcuts
+{
     __block BrowseEventsViewController *weakSelf = self;
     [[LRUManager sharedInstance] fetchLRUEntriesWithCompletionBlock:^{
         weakSelf.shortcuts = [[LRUManager sharedInstance] lruEntries];
@@ -297,9 +311,25 @@ BOOL displayNonStandardEvents;
     }
     BrowseEventsCell *cell = [tableView dequeueReusableCellWithIdentifier:browseCellIdentifier];
     UserHistoryEntry *entry = [_shortcuts objectAtIndex:row];
+    [self configureCell:cell forRowAtIndexPath:indexPath];
     [cell setupWithUserHistroyEntry:entry withStreams:self.streams];
     return cell;
     
+}
+
+- (void)configureCell:(MCSwipeTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIView *crossView = [self viewWithImageName:@"cross"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    [cell setDefaultColor:[UIColor lightGrayColor]];
+    [cell setDelegate:self];
+    
+    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSIndexPath *indexPathToDelete = [self.tableView indexPathForCell:cell];
+        [[LRUManager sharedInstance] removeObjectFromLruEntriesAtIndex:indexPathToDelete.row];
+        self.shortcuts = [LRUManager sharedInstance].lruEntries;
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPathToDelete] withRowAnimation:UITableViewRowAnimationFade];
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -394,12 +424,14 @@ BOOL displayNonStandardEvents;
             TextEditorViewController *textVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"TextEditorViewController_ID"];
             
             [eventDetailVC setupNoteContentEditorViewController:textVC];
+            [textVC setupCustomCancelButton];
             [viewControllers addObject:textVC];
         }
         else if(eventType == EventDataTypeValueMeasure || eventDetailVC.event.type == nil)
         {
             AddNumericalValueViewController *addVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"AddNumericalValueViewController_ID"];
             [eventDetailVC setupAddNumericalValueViewController:addVC];
+            [addVC setupCustomCancelButton];
             [viewControllers addObject:addVC];
         }
         [self.navigationController setViewControllers:viewControllers animated:YES];
@@ -503,7 +535,13 @@ BOOL displayNonStandardEvents;
 
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
+    [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
     [self loadData];
+}
+
+- (void)userDidLogoutNotification:(NSNotification *)notification
+{
+    [self.pullToRefreshManager setPullToRefreshViewVisible:NO];
 }
 
 - (void)filterEventUpdate:(NSNotification *)notification
@@ -589,6 +627,10 @@ BOOL displayNonStandardEvents;
 {
     PYEvent *event = [[PYEvent alloc] init];
     event.type = @"picture/attached";
+    if(self.pickedImageTimestamp)
+    {
+        [event setEventDate:self.pickedImageTimestamp];
+    }
     NSData *imageData = UIImageJPEGRepresentation(self.pickedImage, 0.5);
     if(imageData)
     {
@@ -597,6 +639,13 @@ BOOL displayNonStandardEvents;
         [event addAttachment:att];
         self.eventToShowOnAppear = event;
     }
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
 }
 
 #pragma mark - MNMPullToRefreshManagerClient methods

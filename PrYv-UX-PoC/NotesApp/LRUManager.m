@@ -99,4 +99,10 @@
     [self saveToDisc];
 }
 
+- (void)removeObjectFromLruEntriesAtIndex:(NSUInteger)index
+{
+    [self.lruArray removeObjectAtIndex:index];
+    [self saveToDisc];
+}
+
 @end

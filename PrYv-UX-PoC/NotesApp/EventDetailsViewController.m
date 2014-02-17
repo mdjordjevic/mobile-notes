@@ -257,7 +257,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForValueEventType
 {
-    if(self.event.isDraft)
+    if(self.event.isDraft && !self.event.type)
     {
         self.numericalValue_Label.text = @"";
         self.numericalValue_TypeLabel.text = @"";

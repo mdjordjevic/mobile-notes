@@ -21,4 +21,6 @@
 
 @property (copy) void (^valueDidChangeBlock)(NSString* valueClass, NSString *valueType, NSString* value, AddNumericalValueViewController *addNumericalVC);
 
+- (void)setupCustomCancelButton;
+
 @end
