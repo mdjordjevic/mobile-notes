@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString *text;
 @property (copy) void (^textDidChangeCallBack)(NSString* text, TextEditorViewController* textEditor);
 
+- (void)setupCustomCancelButton;
+
 @end

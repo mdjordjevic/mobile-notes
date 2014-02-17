@@ -62,7 +62,6 @@
         self.iconImageView.image = iconImage;
     }
     
-    
     self.valueLabel.text = [self stringRepresentationForEventType:event.pyType];
 }
 

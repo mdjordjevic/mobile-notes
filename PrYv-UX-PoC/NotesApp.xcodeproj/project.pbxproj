@@ -197,6 +197,10 @@
 		B6B59091178DE42F0009E413 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B5908F178DE42B0009E413 /* Icon.png */; };
 		B6B59094178E01720009E413 /* navbar_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59092178E01700009E413 /* navbar_btn.png */; };
 		B6B59095178E01720009E413 /* navbar_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B59093178E01710009E413 /* navbar_btn@2x.png */; };
+		B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */; };
+		B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */; };
+		B6B7CE5718B2BDC30001CA28 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B7CE5518B2BDC30001CA28 /* cross.png */; };
+		B6B7CE5818B2BDC30001CA28 /* cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6B7CE5618B2BDC30001CA28 /* cross@2x.png */; };
 		B6BA3E721732E91000464C2F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E711732E91000464C2F /* UIView+Frame.m */; };
 		B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */; };
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
@@ -271,6 +275,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = D658EE5CFDA94379AD31EC40;
 			remoteInfo = "Pods-cdebug";
+		};
+		B6B7CE5A18B2BDC40001CA28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25B38A1C59DA4BD9B1ABE228;
+			remoteInfo = "Pods-MCSwipeTableViewCell";
 		};
 		B6BA3E9F1734075100464C2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -693,6 +704,10 @@
 		B6B5908F178DE42B0009E413 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		B6B59092178E01700009E413 /* navbar_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar_btn.png; sourceTree = "<group>"; };
 		B6B59093178E01710009E413 /* navbar_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar_btn@2x.png"; sourceTree = "<group>"; };
+		B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B6B7CE5518B2BDC30001CA28 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
+		B6B7CE5618B2BDC30001CA28 /* cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross@2x.png"; sourceTree = "<group>"; };
 		B6BA3E701732E91000464C2F /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		B6BA3E711732E91000464C2F /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		B6BA3E861733D0A000464C2F /* UIStoryboard+Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Main.h"; sourceTree = "<group>"; };
@@ -751,6 +766,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6B7CE4D18B29D3A0001CA28 /* ImageIO.framework in Frameworks */,
+				B6B7CE4B18B29C050001CA28 /* AssetsLibrary.framework in Frameworks */,
 				4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */,
 				4E713D41189661B000CDB397 /* libz.dylib in Frameworks */,
 				B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */,
@@ -984,6 +1001,7 @@
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
+				B6B7CE5B18B2BDC40001CA28 /* libPods-MCSwipeTableViewCell.a */,
 				B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
@@ -1102,6 +1120,8 @@
 		B6016BAF172873D30056CD3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B6B7CE4C18B29D3A0001CA28 /* ImageIO.framework */,
+				B6B7CE4A18B29C050001CA28 /* AssetsLibrary.framework */,
 				4EBC55951897E67800C4A136 /* MessageUI.framework */,
 				4E713D40189661B000CDB397 /* libz.dylib */,
 				B6556DE1175B7DC7008DFCC9 /* Security.framework */,
@@ -1590,6 +1610,8 @@
 		B6F9A2551729C28F009C8BAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B6B7CE5518B2BDC30001CA28 /* cross.png */,
+				B6B7CE5618B2BDC30001CA28 /* cross@2x.png */,
 				963B8DE0186455B300F7CBF7 /* icon_picture.png */,
 				963B8DE1186455B300F7CBF7 /* icon_picture@2x.png */,
 				963B8DD218644B0F00F7CBF7 /* icon_pryv.png */,
@@ -1796,6 +1818,13 @@
 			remoteRef = B6087DAB189F084200891C75 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B6B7CE5B18B2BDC40001CA28 /* libPods-MCSwipeTableViewCell.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-MCSwipeTableViewCell.a";
+			remoteRef = B6B7CE5A18B2BDC40001CA28 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B6BA3EA01734075100464C2F /* PryvApiKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1879,6 +1908,7 @@
 				B61A194C185A665900E9F9BE /* circle-chevron-right@2x.png in Resources */,
 				963B8DD418644B0F00F7CBF7 /* icon_pryv.png in Resources */,
 				B6B5900C178B60B60009E413 /* add_circle@2x.png in Resources */,
+				B6B7CE5718B2BDC30001CA28 /* cross.png in Resources */,
 				B6B5900D178B60B60009E413 /* app_bg-h568@2x.png in Resources */,
 				B6B5900E178B60B60009E413 /* app_bg.png in Resources */,
 				B6B5900F178B60B60009E413 /* app_bg@2x.png in Resources */,
@@ -1989,6 +2019,7 @@
 				4E37857517953BBD00ED94DF /* Manifest.lock in Resources */,
 				4E37857617953BBD00ED94DF /* Pods-acknowledgements.markdown in Resources */,
 				4E37857717953BBD00ED94DF /* Pods-acknowledgements.plist in Resources */,
+				B6B7CE5818B2BDC30001CA28 /* cross@2x.png in Resources */,
 				963B8DE3186455B300F7CBF7 /* icon_picture@2x.png in Resources */,
 				4E37857917953BBD00ED94DF /* Pods-resources.sh in Resources */,
 				4E37857A17953BBD00ED94DF /* Pods.xcconfig in Resources */,

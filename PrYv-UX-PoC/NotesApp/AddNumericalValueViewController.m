@@ -325,4 +325,20 @@
     return [UIColor clearColor];
 }
 
+- (void)setupCustomCancelButton
+{
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                     initWithTitle: @"Cancel"
+                                     style: UIBarButtonItemStyleBordered
+                                     target:self action: @selector(cancelButtonTouched:)];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObject:cancelButton];
+}
+
+- (void)cancelButtonTouched:(id)sender
+{
+    UIViewController *vcToPop = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers indexOfObject:self] - 2];
+    [self.navigationController popToViewController:vcToPop animated:YES];
+}
+
 @end

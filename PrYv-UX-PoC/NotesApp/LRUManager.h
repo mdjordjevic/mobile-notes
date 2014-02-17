@@ -18,5 +18,6 @@
 - (void)addUserHistoryEntry:(UserHistoryEntry*)entry;
 - (void)fetchLRUEntriesWithCompletionBlock:(void (^)(void))block;
 - (void)clearAllLRUEntries;
+- (void)removeObjectFromLruEntriesAtIndex:(NSUInteger)index;
 
 @end

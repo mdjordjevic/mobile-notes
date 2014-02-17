@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCSwipeTableViewCell.h"
 
 @class UserHistoryEntry;
 
-@interface BrowseEventsCell : UITableViewCell
+@interface BrowseEventsCell : MCSwipeTableViewCell
 
 - (void)setupWithUserHistroyEntry:(UserHistoryEntry*)entry withStreams:(NSArray*)streams;
 
