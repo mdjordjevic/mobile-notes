@@ -91,13 +91,13 @@
         case EventDataTypeValueMeasure:
             return @"icon_measure";
         case EventDataTypeImage:
-            return @"icon_photo";
+            return @"icon_small_photo_grey";
         case EventDataTypeNote:
-            return @"icon_text";
+            return @"icon_small_text_grey";
         default:
             break;
     }
-    return @"icon_text";
+    return @"icon_small_text_grey";
 }
 
 - (void)updateTags:(NSArray *)tags
