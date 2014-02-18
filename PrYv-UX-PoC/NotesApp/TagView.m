@@ -7,9 +7,10 @@
 //
 
 #import "TagView.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kTagHeight 16.0
-#define kTagFontSize 12.0
+#define kTagFontSize 11.0
 
 @interface TagView ()
 
@@ -36,11 +37,20 @@
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, labelSize.width + 8, kTagHeight)];
         if(style == TagViewStandardStyle)
         {
-            self.backgroundView.backgroundColor = [UIColor colorWithRed:63.0f/255.0f green:91.0f/255.0f blue:107.0f/255.0f alpha:1.0];
+            self.backgroundView.backgroundColor = [UIColor whiteColor];
+            self.backgroundView.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
+            self.backgroundView.layer.borderWidth = 1.0f;
+            self.backgroundView.layer.cornerRadius = 5;
+            self.backgroundView.layer.masksToBounds = YES;
+            
         }
         else
         {
-            self.backgroundView.backgroundColor = [UIColor colorWithRed:63.0f/255.0f green:91.0f/255.0f blue:107.0f/255.0f alpha:1.0];
+            self.backgroundView.backgroundColor = [UIColor whiteColor];
+            self.backgroundView.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
+            self.backgroundView.layer.borderWidth = 1.0f;
+            self.backgroundView.layer.cornerRadius = 5;
+            self.backgroundView.layer.masksToBounds = YES;
         }
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.backgroundView];
@@ -57,11 +67,11 @@
     [tagLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:kTagFontSize]];
     if(style == TagViewStandardStyle)
     {
-        [tagLabel setTextColor:[UIColor whiteColor]];
+        [tagLabel setTextColor:[UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1]];
     }
     else
     {
-        [tagLabel setTextColor:[UIColor whiteColor]];
+        [tagLabel setTextColor:[UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1]];
     }
     [tagLabel setAlpha:1];
     return tagLabel;

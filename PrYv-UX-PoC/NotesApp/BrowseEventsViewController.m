@@ -84,7 +84,7 @@ BOOL displayNonStandardEvents;
     self.tableView.allowsSelectionDuringEditing = YES;
 	self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
-    self.navigationItem.title = @"Pryv";
+    //self.navigationItem.title = @"Pryv";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem flatBarItemWithImage:[UIImage imageNamed:@"icon_pryv"] target:self action:@selector(settingButtonTouched:)];
     
 
@@ -267,7 +267,7 @@ BOOL displayNonStandardEvents;
     }
     if(IS_LRU_SECTION)
     {
-        return 72;
+        return 70;
     }
     return 0;
 }
