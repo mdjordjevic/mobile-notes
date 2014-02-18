@@ -23,17 +23,17 @@
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         self.backgroundView = nil;
         [self setBackgroundColor:[UIColor clearColor]];
-        self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
+        self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 1, 56, 56)];
         self.imageView.image = [UIImage imageNamed:@"add_circle"];
-        [self.imgView setBackgroundColor:[UIColor clearColor]];
+        [self.imgView setBackgroundColor:[UIColor colorWithRed:32.0f/255.0f green:169.0f/255.0f blue:215.0f/255.0f alpha:1]];
         [self addSubview:self.imgView];
         if([UIDevice isiOS7Device])
         {
-            self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 20, 16, 16)];
+            self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 10, 32, 32)];
         }
         else
         {
-            self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(18, 20, 16, 16)];
+            self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 10, 32, 32)];
         }
         [self.iconImageView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.iconImageView];
