@@ -16,6 +16,7 @@
 #define kMeasurementGroupNameKey @"MeasurementGroupNameKey"
 #define kMeasurementTypeNameKey @"MeasurementTypeNameKey"
 #define kTypeStringKey @"TypeStringKey"
+#define kShouldTakeNewPhotoKey @"ShouldTakeNewPhotoKey"
 
 @implementation UserHistoryEntry
 
@@ -26,6 +27,7 @@
     [encoder encodeObject:_measurementGroupName forKey:kMeasurementGroupNameKey];
     [encoder encodeObject:_measurementTypeName forKey:kMeasurementTypeNameKey];
     [encoder encodeObject:_typeString forKey:kTypeStringKey];
+    [encoder encodeObject:_shoudTakeNewPhoto forKey:kShouldTakeNewPhotoKey];
 }
 
 - (id)initWithCoder:(NSCoder*)decoder {
@@ -38,6 +40,7 @@
         self.measurementGroupName = [decoder decodeObjectForKey:kMeasurementGroupNameKey];
         self.measurementTypeName = [decoder decodeObjectForKey:kMeasurementTypeNameKey];
         self.typeString = [decoder decodeObjectForKey:kTypeStringKey];
+        self.shoudTakeNewPhoto = [decoder decodeObjectForKey:kShouldTakeNewPhotoKey];
     }
     return self;
 }
@@ -58,6 +61,7 @@
     {
         [toReturn appendFormat:@" %@",self.measurementTypeName];
     }
+    [toReturn appendFormat:@" %d",[self.shoudTakeNewPhoto boolValue]];
     return toReturn;
 }
 

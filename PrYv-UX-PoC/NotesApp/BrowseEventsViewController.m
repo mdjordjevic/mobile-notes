@@ -143,7 +143,9 @@ BOOL displayNonStandardEvents;
     {
         PYEvent *event = self.eventToShowOnAppear;
         self.eventToShowOnAppear = nil;
-        [self showEventDetailsForEvent:event];
+        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
+        self.pickedImage = nil;
+        self.pickedImageTimestamp = nil;
     }
 }
 
@@ -348,7 +350,7 @@ BOOL displayNonStandardEvents;
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        [self showEventDetailsForEvent:event];
+        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     }
 }
 
@@ -361,13 +363,13 @@ BOOL displayNonStandardEvents;
             {
                 PYEvent *event = [[PYEvent alloc] init];
                 event.type = @"note/txt";
-                [weakSelf showEventDetailsForEvent:event];
+                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
             }
                 break;
             case 1:
             {
                 PYEvent *event = [[PYEvent alloc] init];
-                [weakSelf showEventDetailsForEvent:event];
+                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
             }
                 break;
             case 2:
@@ -392,10 +394,10 @@ BOOL displayNonStandardEvents;
 - (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
     PYEvent *event = [entry reconstructEvent];
-    [self showEventDetailsForEvent:event];
+    [self showEventDetailsForEvent:event andUserHistoryEntry:entry];
 }
 
-- (void)showEventDetailsForEvent:(PYEvent*)event
+- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
 {
     if (event == nil) {
         [NSException raise:@"Event is nil" format:nil];
@@ -414,7 +416,12 @@ BOOL displayNonStandardEvents;
     [eventDetailVC setupDescriptionEditorViewController:textVC];
     **/
     
-    if(event.isDraft && eventType != EventDataTypeImage)
+    if(eventType == EventDataTypeImage)
+    {
+        eventDetailVC.imagePickerType = self.imagePickerType;
+    }
+    
+    if(event.isDraft)
     {
         [eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -433,6 +440,29 @@ BOOL displayNonStandardEvents;
             [eventDetailVC setupAddNumericalValueViewController:addVC];
             [addVC setupCustomCancelButton];
             [viewControllers addObject:addVC];
+        }
+        else if(!self.pickedImage)
+        {
+            UIImagePickerControllerSourceType sourceType = [entry.shoudTakeNewPhoto boolValue] ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+            photoVC.sourceType = sourceType;
+            photoVC.browseVC = self;
+            photoVC.entry = entry;
+            [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
+                [eventDetailVC.event setEventDate:date];
+                NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+                if(imageData)
+                {
+                    NSString *imgName = [NSString randomStringWithLength:10];
+                    PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
+                    [eventDetailVC.event addAttachment:att];
+                }
+                self.pickedImage = nil;
+                self.pickedImageTimestamp = nil;
+                self.eventToShowOnAppear = nil;
+                [eventDetailVC updateUIForCurrentEvent];
+            }];
+            [viewControllers addObject:photoVC];
         }
         [self.navigationController setViewControllers:viewControllers animated:YES];
     }

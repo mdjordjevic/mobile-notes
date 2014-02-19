@@ -17,4 +17,6 @@
 @property (nonatomic) UIImagePickerControllerSourceType sourceType;
 @property (nonatomic, weak) BrowseEventsViewController *browseVC;
 
+@property (copy) void (^imagePickedBlock)(UIImage *image,NSDate *date, UIImagePickerControllerSourceType source);
+
 @end

@@ -145,6 +145,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [self initBottomButtonsContainer];
 }
 
+- (void)updateUIForCurrentEvent
+{
+    [self updateUIForEvent];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -692,7 +697,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
          [connection createEvent:self.event requestType:PYRequestTypeAsync
                   successHandler:^(NSString *newEventId, NSString *stoppedId)
           {
-              [[DataService sharedInstance] saveEventAsShortcut:self.event];
+              BOOL shouldTakePictureFlag = NO;
+              if(self.eventDataType == EventDataTypeImage)
+              {
+                  shouldTakePictureFlag = self.imagePickerType == UIImagePickerControllerSourceTypeCamera;
+              }
+              [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
               }];
