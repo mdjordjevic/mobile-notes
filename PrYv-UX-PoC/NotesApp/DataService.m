@@ -102,9 +102,10 @@ NSString *const kSavingEventActionFinishedNotification = @"kSavingEventActionFin
     });
 }
 
-- (void)saveEventAsShortcut:(PYEvent *)event
+- (void)saveEventAsShortcut:(PYEvent *)event andShouldTakePictureFlag:(BOOL)shouldTakePictureFlag
 {
     UserHistoryEntry *entry = [[UserHistoryEntry alloc] initWithEvent:event];
+    entry.shoudTakeNewPhoto = @(shouldTakePictureFlag);
     [[LRUManager sharedInstance] addUserHistoryEntry:entry];
 }
 

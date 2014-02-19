@@ -56,6 +56,7 @@
     NSString* symbol = [self symbolRepresentationForEventType:event.pyType];
     if (symbol) {
         self.symbolLabel.text = symbol;
+        self.iconImageView.image = nil;
     } else {
         self.symbolLabel.text = @"";
         UIImage* iconImage = [UIImage imageNamed:[self imageNameForType:[event eventDataType]]];

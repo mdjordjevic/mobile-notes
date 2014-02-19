@@ -257,7 +257,7 @@
          [connection createEvent:self.event requestType:PYRequestTypeAsync
                   successHandler:^(NSString *newEventId, NSString *stoppedId)
           {
-              [[DataService sharedInstance] saveEventAsShortcut:self.event];
+              [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:NO];
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
               }];

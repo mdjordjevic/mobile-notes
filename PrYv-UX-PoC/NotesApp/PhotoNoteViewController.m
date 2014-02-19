@@ -107,14 +107,24 @@
             }
         }
         [self dismissViewControllerAnimated:YES completion:^{
-            [self popViewController];
+            self.browseVC.imagePickerType = self.sourceType;
             self.browseVC.pickedImageTimestamp = date;
             self.browseVC.pickedImage = selectedImage;
+            if(self.imagePickedBlock)
+            {
+                self.imagePickedBlock(selectedImage,date,self.sourceType);
+            }
+            [self popViewController];
         }];
     } failureBlock:^(NSError *error) {
         [self dismissViewControllerAnimated:YES completion:^{
-            [self popViewController];
+            self.browseVC.imagePickerType = self.sourceType;
             self.browseVC.pickedImage = selectedImage;
+            if(self.imagePickedBlock)
+            {
+                self.imagePickedBlock(selectedImage,nil,self.sourceType);
+            }
+            [self popViewController];
         }];
     }];
 }
@@ -123,7 +133,15 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self popViewController];
+    if(self.entry)
+    {
+        UIViewController *vcToPop = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers indexOfObject:self] - 2];
+        [self.navigationController popToViewController:vcToPop animated:YES];
+    }
+    else
+    {
+        [self popViewController];
+    }
 }
 
 @end
