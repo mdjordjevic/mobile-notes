@@ -511,6 +511,7 @@ BOOL displayNonStandardEvents;
 
 - (BOOL)clientFilterMatchEvent:(PYEvent*)event
 {
+    if (event.trashed) return NO;
     return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
 }
 
@@ -610,6 +611,21 @@ BOOL displayNonStandardEvents;
     
     if (modify) {
         NSLog(@"*262 MODIFY %i", modify.count);
+        // remove events marked as trashed
+        PYEvent* kEvent = nil;
+        PYEvent* eventToCheck = nil;
+        for (int i = modify.count -1 ; i >= 0; i--) {
+            eventToCheck = [modify objectAtIndex:i];
+            if (eventToCheck.trashed) {
+                for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+                    kEvent = [self.events objectAtIndex:k];
+                    if ([eventToCheck.eventId isEqualToString:kEvent.eventId]) {
+                        [self.events removeObjectAtIndex:k];
+                        break; // assuming an event is only represented once in the list
+                    }
+                }
+            }
+        }
     }
     
     // events are sent ordered by time
