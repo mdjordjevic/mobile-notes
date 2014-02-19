@@ -590,6 +590,13 @@ BOOL displayNonStandardEvents;
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
     // ref2 : http://stackoverflow.com/questions/4777683/how-do-i-efficiently-update-a-uitableview-with-animation
     
+    
+    // firstOfAll check event order and add them to toAdd array fo rearranging
+    [PYEventFilter sortNSMutableArrayOfPYEvents:self.events sortAscending:NO];
+    
+    
+    
+    
     // events are sent ordered by time
     if (toRemove) {
         NSLog(@"*262 REMOVE %i", toRemove.count);
@@ -638,6 +645,11 @@ BOOL displayNonStandardEvents;
         }
         
     }
+    
+    
+    
+    
+    
     // [_tableView endUpdates];
     NSLog(@"*262 END");
     [self.tableView reloadData]; // until update is implmeneted
