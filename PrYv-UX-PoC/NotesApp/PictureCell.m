@@ -45,7 +45,7 @@
 
 - (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId
 {
-    if(![eventId isEqualToString:self.currentEventId])
+    if(![eventId isEqualToString:self.currentEventId] && self.pictureView.image)
     {
         return;
     }
@@ -78,6 +78,7 @@
         } errorHandler:nil];
     } else {
         [event preview:^(UIImage *image) {
+            
             [self updateWithImage:image andEventId:event.eventId];
         } failure:^(NSError *error) {
             NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
