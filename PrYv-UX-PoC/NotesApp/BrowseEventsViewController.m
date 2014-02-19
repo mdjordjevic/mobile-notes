@@ -597,7 +597,7 @@ BOOL displayNonStandardEvents;
         PYEvent* eventToRemove = nil;
         for (int i = toRemove.count -1 ; i >= 0; i--) {
             eventToRemove = [toRemove objectAtIndex:i];
-            for (int k =  self.events.count; k >= 0 ; k--) {
+            for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
                 kEvent = [self.events objectAtIndex:k];
                 if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
                     [self.events removeObjectAtIndex:k];

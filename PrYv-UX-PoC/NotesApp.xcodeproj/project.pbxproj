@@ -239,6 +239,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4EF4B19B18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 18A6A6FF1C7143E4952DA27F;
+			remoteInfo = "Pods-AnyJSON";
+		};
+		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C5AF9C366E34997909F0C72;
+			remoteInfo = "Pods-MCSwipeTableViewCell";
+		};
+		4EF4B19F18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE8167241C984F2BA0075BF8;
+			remoteInfo = "Pods-PryvApiKit";
+		};
 		B6087DA1189F084200891C75 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -959,9 +980,12 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
+				4EF4B19C18B4A96D009C8A64 /* libPods-AnyJSON.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
+				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */,
+				4EF4B1A018B4A96D009C8A64 /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
 				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
@@ -1723,6 +1747,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4EF4B19C18B4A96D009C8A64 /* libPods-AnyJSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-AnyJSON.a";
+			remoteRef = 4EF4B19B18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-MCSwipeTableViewCell.a";
+			remoteRef = 4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EF4B1A018B4A96D009C8A64 /* libPods-PryvApiKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-PryvApiKit.a";
+			remoteRef = 4EF4B19F18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2112,7 +2157,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: PrYv sa (GNL8PH5553)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2128,7 +2173,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "998762C8-1F3B-4E7D-A153-5146643D02AB";
+				PROVISIONING_PROFILE = "896A7101-CFF9-4615-B279-4FFAFC22B76B";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2146,7 +2191,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: PrYv sa (GNL8PH5553)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2155,7 +2200,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "998762C8-1F3B-4E7D-A153-5146643D02AB";
+				PROVISIONING_PROFILE = "896A7101-CFF9-4615-B279-4FFAFC22B76B";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2166,7 +2211,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2191,7 +2235,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "C0956159-3B73-442B-AC1E-4C6DDEDAD7D1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2200,7 +2243,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2225,7 +2267,6 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "C0956159-3B73-442B-AC1E-4C6DDEDAD7D1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
