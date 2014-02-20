@@ -427,15 +427,6 @@
                                                                 <action selector="tokenDoneButtonTouched:" destination="K7t-69-qcd" eventType="touchUpInside" id="pU5-xe-zhe"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Q2v-Kw-dbO">
-                                                            <rect key="frame" x="13" y="9" width="280" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="iym-FH-IO1"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -448,16 +439,28 @@
                                                         <constraint firstAttribute="height" constant="40" id="vgV-fa-M9W"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Q2v-Kw-dbO">
+                                                    <rect key="frame" x="20" y="17" width="280" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="iym-FH-IO1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="XGh-TJ-9rm" firstAttribute="top" secondItem="WVe-El-Flh" secondAttribute="top" constant="5" id="1BV-yC-ih6"/>
                                                 <constraint firstItem="seU-LF-Scc" firstAttribute="leading" secondItem="WVe-El-Flh" secondAttribute="leading" constant="5" id="1lB-h7-xo2"/>
+                                                <constraint firstItem="Q2v-Kw-dbO" firstAttribute="leading" secondItem="WVe-El-Flh" secondAttribute="leading" constant="20" id="8Dw-A6-cQV"/>
                                                 <constraint firstItem="30Z-on-3Pf" firstAttribute="top" secondItem="WVe-El-Flh" secondAttribute="top" constant="7" id="8oF-1l-UYo"/>
                                                 <constraint firstAttribute="trailing" secondItem="30Z-on-3Pf" secondAttribute="trailing" constant="7" id="9vD-ny-hNJ"/>
+                                                <constraint firstItem="Q2v-Kw-dbO" firstAttribute="top" secondItem="WVe-El-Flh" secondAttribute="top" constant="17" id="RNt-Rw-mQ8"/>
                                                 <constraint firstItem="seU-LF-Scc" firstAttribute="top" secondItem="WVe-El-Flh" secondAttribute="top" constant="5" id="auj-No-TnN"/>
                                                 <constraint firstAttribute="trailing" secondItem="seU-LF-Scc" secondAttribute="trailing" constant="5" id="dBa-6c-9eu"/>
                                                 <constraint firstItem="30Z-on-3Pf" firstAttribute="leading" secondItem="WVe-El-Flh" secondAttribute="leading" constant="7" id="o2z-IZ-kbt"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q2v-Kw-dbO" secondAttribute="trailing" constant="20" id="p8k-OH-YuG"/>
                                                 <constraint firstItem="XGh-TJ-9rm" firstAttribute="leading" secondItem="WVe-El-Flh" secondAttribute="leading" constant="5" id="rbQ-wo-bK0"/>
                                                 <constraint firstAttribute="trailing" secondItem="XGh-TJ-9rm" secondAttribute="trailing" constant="5" id="yP4-Oi-MqO"/>
                                             </constraints>
