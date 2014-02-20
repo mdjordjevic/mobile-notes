@@ -361,6 +361,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 #pragma mark - Actions
 
+
+- (IBAction)deleteButtonTouched:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+    [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if(alertView.cancelButtonIndex != buttonIndex)
+        {
+            
+            [self deleteEvent];
+        }
+    }];
+}
+
 - (void)cancelButtonTouched:(id)sender
 {
     if(self.event.isDraft)
@@ -778,12 +790,6 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)shareEvent
 {
     NSLog(@"SHARE EVENT");
-}
-
-#pragma mark - DeleteEvent
-
-- (IBAction)deleteButtonTouched:(id)sender {
-    [self deleteEvent];
 }
 
 
