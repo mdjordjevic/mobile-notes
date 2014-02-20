@@ -15,6 +15,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        // hide
+        self.shareButton.hidden = YES;
+        
     }
     return self;
 }

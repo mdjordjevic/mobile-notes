@@ -25,4 +25,6 @@
 - (void)setupDescriptionEditorViewController:(TextEditorViewController*)textEditorVC;
 - (void)setupAddNumericalValueViewController:(AddNumericalValueViewController*)addNumericalValueVC;
 
+- (IBAction)deleteButtonTouched:(id)sender;
+
 @end

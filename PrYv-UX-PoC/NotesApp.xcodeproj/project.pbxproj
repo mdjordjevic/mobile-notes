@@ -30,6 +30,7 @@
 		4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFFA185A0EE40083DE8C /* SettingsController.m */; };
 		4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBC55951897E67800C4A136 /* MessageUI.framework */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
+		4EEBE79018B647B800199E64 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4EEBE78F18B647B800199E64 /* Podfile */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		96088A951861F1230090ECC7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 96088A8D1861F1230090ECC7 /* Icon-72.png */; };
 		96088A961861F1230090ECC7 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96088A8E1861F1230090ECC7 /* Icon-72@2x.png */; };
@@ -474,6 +475,7 @@
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEBE78F18B647B800199E64 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		96088A8D1861F1230090ECC7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		96088A8E1861F1230090ECC7 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -1083,6 +1085,7 @@
 		B6016BA4172873D30056CD3F = {
 			isa = PBXGroup;
 			children = (
+				4EEBE78F18B647B800199E64 /* Podfile */,
 				4E4D4C20189F8E3A00A81A9F /* README.md */,
 				B6016BB6172873D30056CD3F /* NotesApp */,
 				B6016BAF172873D30056CD3F /* Frameworks */,
@@ -1900,6 +1903,7 @@
 				B6B5902C178B60B60009E413 /* icon_small_lenght.png in Resources */,
 				B6B5902D178B60B60009E413 /* icon_small_lenght@2x.png in Resources */,
 				B6B5902E178B60B60009E413 /* icon_small_lru_active.png in Resources */,
+				4EEBE79018B647B800199E64 /* Podfile in Resources */,
 				B6B5902F178B60B60009E413 /* icon_small_lru_active@2x.png in Resources */,
 				B6B59030178B60B60009E413 /* icon_small_lru.png in Resources */,
 				B6B59031178B60B60009E413 /* icon_small_lru@2x.png in Resources */,
@@ -2157,7 +2161,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pierre-Mikael Legris (2N623KA49T)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2173,7 +2177,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "896A7101-CFF9-4615-B279-4FFAFC22B76B";
+				PROVISIONING_PROFILE = "998762C8-1F3B-4E7D-A153-5146643D02AB";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2191,7 +2195,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pierre-Mikael Legris (2N623KA49T)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2200,7 +2204,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "896A7101-CFF9-4615-B279-4FFAFC22B76B";
+				PROVISIONING_PROFILE = "998762C8-1F3B-4E7D-A153-5146643D02AB";
 				SDKROOT = iphoneos6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2211,6 +2215,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2235,6 +2241,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2243,6 +2250,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2267,6 +2276,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

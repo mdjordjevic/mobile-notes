@@ -80,6 +80,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 
+
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+
+
 // -- constraints
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
@@ -142,7 +146,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self editButtonTouched:nil];
     }
-    [self initBottomButtonsContainer];
+    
+    [self.deleteButton setTitle:NSLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
+    
+    // commented for now.. to be reused for share and anther actions.
+    // [self initBottomButtonsContainer];
 }
 
 - (void)updateUIForCurrentEvent
@@ -771,6 +779,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     NSLog(@"SHARE EVENT");
 }
+
+#pragma mark - DeleteEvent
+
+- (IBAction)deleteButtonTouched:(id)sender {
+    [self deleteEvent];
+}
+
 
 #pragma mark - Tags
 

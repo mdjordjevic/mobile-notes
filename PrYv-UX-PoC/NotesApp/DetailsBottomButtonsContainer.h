@@ -10,6 +10,10 @@
 
 @interface DetailsBottomButtonsContainer : UIView
 
+@property (strong, nonatomic) IBOutlet UIButton *shareButton;
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+
+
 @property (copy) void (^shareButtonTouchHandler)(UIButton *shareButton);
 @property (copy) void (^deleteButtonTouchHandler)(UIButton *deleteButton);
 
