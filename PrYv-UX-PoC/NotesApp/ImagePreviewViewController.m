@@ -10,6 +10,8 @@
 
 @interface ImagePreviewViewController () <UIScrollViewDelegate>
 
+- (void)showNavigationBar:(BOOL)showViews;
+
 @end
 
 @implementation ImagePreviewViewController
@@ -28,13 +30,14 @@
     [super viewDidLoad];
     
 	[self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavigationBar:)];
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeButtonTouched:)];
     tapGR.numberOfTapsRequired = 1;
     tapGR.numberOfTouchesRequired = 1;
     [self.scrollView addGestureRecognizer:tapGR];
     
     [self setupViewForImage:self.image];
     self.descriptionText.text = self.descText;
+    [self showNavigationBar:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -61,7 +64,14 @@
 
 - (void)toggleNavigationBar:(id)sender
 {
-    BOOL showViews = self.navigationController.navigationBarHidden;
+   BOOL showViews = self.navigationController.navigationBarHidden;
+    [self showNavigationBar:!showViews];
+    
+}
+
+
+- (void)showNavigationBar:(BOOL)showViews {
+    if (self.navigationController.navigationBarHidden == !showViews) return;
     [self.navigationController setNavigationBarHidden:!showViews animated:YES];
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         if(showViews)
@@ -121,6 +131,7 @@
 
 - (IBAction)closeButtonTouched:(id)sender
 {
+     [self showNavigationBar:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
