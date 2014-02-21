@@ -20,6 +20,6 @@ extern NSString *const kSavingEventActionFinishedNotification;
 - (void)fetchAllStreamsWithCompletionBlock:(DataServiceCompletionBlock)completionBlock;
 
 - (void)invalidateStreamListCache;
-- (void)saveEventAsShortcut:(PYEvent*)event;
+- (void)saveEventAsShortcut:(PYEvent*)event andShouldTakePictureFlag:(BOOL)shouldTakePictureFlag;
 
 @end

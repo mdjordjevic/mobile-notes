@@ -30,6 +30,7 @@
 		4E8AAFFB185A0EE40083DE8C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAFFA185A0EE40083DE8C /* SettingsController.m */; };
 		4EBC55961897E67800C4A136 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBC55951897E67800C4A136 /* MessageUI.framework */; };
 		4EBE04671844D5070031724A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EBE04691844D5070031724A /* Localizable.strings */; };
+		4EEBE79018B647B800199E64 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4EEBE78F18B647B800199E64 /* Podfile */; };
 		685CC2D7F1B84237A7D8D4DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B10024CC6440FBBB338C05 /* libPods.a */; };
 		96088A951861F1230090ECC7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 96088A8D1861F1230090ECC7 /* Icon-72.png */; };
 		96088A961861F1230090ECC7 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96088A8E1861F1230090ECC7 /* Icon-72@2x.png */; };
@@ -211,7 +212,6 @@
 		B6BA3E881733D0A000464C2F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E871733D0A000464C2F /* UIStoryboard+Main.m */; };
 		B6BA3E921733E30800464C2F /* DataGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E911733E30800464C2F /* DataGroupingManager.m */; };
 		B6BA3E961733E4F500464C2F /* StreamGroupingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */; };
-		B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BA3EA21734075100464C2F /* libPryvApiKit.a */; };
 		B6C9D468181ED7F200EB5FF9 /* UIDevice+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C9D467181ED7F200EB5FF9 /* UIDevice+Utils.m */; };
 		B6D0ED851787755900665DE8 /* UIColor+PrYv.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED841787755900665DE8 /* UIColor+PrYv.m */; };
 		B6D0ED881787804A00665DE8 /* BrowseEventsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D0ED871787804A00665DE8 /* BrowseEventsCell.m */; };
@@ -240,6 +240,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4EF4B19B18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 18A6A6FF1C7143E4952DA27F;
+			remoteInfo = "Pods-AnyJSON";
+		};
+		4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C5AF9C366E34997909F0C72;
+			remoteInfo = "Pods-MCSwipeTableViewCell";
+		};
+		4EF4B19F18B4A96D009C8A64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE8167241C984F2BA0075BF8;
+			remoteInfo = "Pods-PryvApiKit";
+		};
 		B6087DA1189F084200891C75 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
@@ -282,61 +303,12 @@
 			remoteGlobalIDString = D658EE5CFDA94379AD31EC40;
 			remoteInfo = "Pods-cdebug";
 		};
-		B6B7CE5A18B2BDC40001CA28 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25B38A1C59DA4BD9B1ABE228;
-			remoteInfo = "Pods-MCSwipeTableViewCell";
-		};
-		B6BA3E9F1734075100464C2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FBC2047A16B95B3700CB5FFB;
-			remoteInfo = PryvApiKit.framework;
-		};
-		B6BA3EA11734075100464C2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FBC2049616B95F1B00CB5FFB;
-			remoteInfo = libPryvApiKit.a;
-		};
-		B6BA3EA31734075100464C2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4E582DCE16C25378003B59DB;
-			remoteInfo = "iOs Example";
-		};
-		B6BA3EA51734075100464C2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3DAF21C9172B28E900B62416;
-			remoteInfo = "OS X example";
-		};
-		B6BA3EA71734076D00464C2F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FBC2049516B95F1B00CB5FFB;
-			remoteInfo = libPryvApiKit.a;
-		};
 		B6DC81E0181E61BC00118ED9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 6F61754FFFE247F29B3BED68;
 			remoteInfo = "Pods-MNMPullToRefresh";
-		};
-		B6F1AEAF17846C8E000ECD60 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3D48973F1778E8AC008C7B66;
-			remoteInfo = libPryvApiKitLogicTests;
 		};
 		B6F207C717954F30006FC5B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -503,6 +475,7 @@
 		4EBE04681844D5070031724A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04711844D52C0031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EBE04721844D5380031724A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EEBE78F18B647B800199E64 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		96088A8D1861F1230090ECC7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		96088A8E1861F1230090ECC7 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -728,7 +701,6 @@
 		B6BA3E911733E30800464C2F /* DataGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataGroupingManager.m; sourceTree = "<group>"; };
 		B6BA3E941733E4F500464C2F /* StreamGroupingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamGroupingManager.h; sourceTree = "<group>"; };
 		B6BA3E951733E4F500464C2F /* StreamGroupingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamGroupingManager.m; sourceTree = "<group>"; };
-		B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PryvApiKit.xcodeproj; path = ../PryvSDK/PryvApiKit.xcodeproj; sourceTree = "<group>"; };
 		B6C9D466181ED7F200EB5FF9 /* UIDevice+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Utils.h"; sourceTree = "<group>"; };
 		B6C9D467181ED7F200EB5FF9 /* UIDevice+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Utils.m"; sourceTree = "<group>"; };
 		B6D0ED831787755900665DE8 /* UIColor+PrYv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PrYv.h"; sourceTree = "<group>"; };
@@ -784,7 +756,6 @@
 				4E713D41189661B000CDB397 /* libz.dylib in Frameworks */,
 				B6556DE2175B7DC7008DFCC9 /* Security.framework in Frameworks */,
 				B6783A37174168030083AE50 /* SystemConfiguration.framework in Frameworks */,
-				B6BA3EA91734077300464C2F /* libPryvApiKit.a in Frameworks */,
 				4E713D3918965EEE00CDB397 /* libTestFlight.a in Frameworks */,
 				B6F5B0C51732A9C4000BC60A /* CoreImage.framework in Frameworks */,
 				B6F5B0C21732A780000BC60A /* CoreLocation.framework in Frameworks */,
@@ -1011,10 +982,12 @@
 			isa = PBXGroup;
 			children = (
 				B6F207CA17954F30006FC5B0 /* libPods.a */,
+				4EF4B19C18B4A96D009C8A64 /* libPods-AnyJSON.a */,
 				B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */,
 				B6087DA4189F084200891C75 /* libPods-GIKPopoverBackgroundView.a */,
-				B6B7CE5B18B2BDC40001CA28 /* libPods-MCSwipeTableViewCell.a */,
+				4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */,
 				B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */,
+				4EF4B1A018B4A96D009C8A64 /* libPods-PryvApiKit.a */,
 				B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */,
 				B6087DA6189F084200891C75 /* libPods-SevenSwitch.a */,
 				B6087DA8189F084200891C75 /* libPods-UI7Kit.a */,
@@ -1112,9 +1085,9 @@
 		B6016BA4172873D30056CD3F = {
 			isa = PBXGroup;
 			children = (
+				4EEBE78F18B647B800199E64 /* Podfile */,
 				4E4D4C20189F8E3A00A81A9F /* README.md */,
 				B6016BB6172873D30056CD3F /* NotesApp */,
-				B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */,
 				B6016BAF172873D30056CD3F /* Frameworks */,
 				B6016BAE172873D30056CD3F /* Products */,
 				91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */,
@@ -1464,18 +1437,6 @@
 			name = DataGrouping;
 			sourceTree = "<group>";
 		};
-		B6BA3E991734075000464C2F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B6BA3EA01734075100464C2F /* PryvApiKit.framework */,
-				B6BA3EA21734075100464C2F /* libPryvApiKit.a */,
-				B6BA3EA41734075100464C2F /* iOs Example.app */,
-				B6BA3EA61734075100464C2F /* OS X example.app */,
-				B6F1AEB017846C8E000ECD60 /* libPryvApiKitLogicTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		B6C9D465181ED7DF00EB5FF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1744,7 +1705,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B6BA3EA81734076D00464C2F /* PBXTargetDependency */,
 			);
 			name = NotesApp;
 			productName = NotesApp;
@@ -1781,10 +1741,6 @@
 					ProductGroup = 4E37853817953BBD00ED94DF /* Products */;
 					ProjectRef = 4E37853717953BBD00ED94DF /* Pods.xcodeproj */;
 				},
-				{
-					ProductGroup = B6BA3E991734075000464C2F /* Products */;
-					ProjectRef = B6BA3E981734075000464C2F /* PryvApiKit.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1794,6 +1750,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4EF4B19C18B4A96D009C8A64 /* libPods-AnyJSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-AnyJSON.a";
+			remoteRef = 4EF4B19B18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EF4B19E18B4A96D009C8A64 /* libPods-MCSwipeTableViewCell.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-MCSwipeTableViewCell.a";
+			remoteRef = 4EF4B19D18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4EF4B1A018B4A96D009C8A64 /* libPods-PryvApiKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-PryvApiKit.a";
+			remoteRef = 4EF4B19F18B4A96D009C8A64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B6087DA2189F084200891C75 /* libPods-FoundationExtension.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1836,53 +1813,11 @@
 			remoteRef = B6087DAB189F084200891C75 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B6B7CE5B18B2BDC40001CA28 /* libPods-MCSwipeTableViewCell.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-MCSwipeTableViewCell.a";
-			remoteRef = B6B7CE5A18B2BDC40001CA28 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6BA3EA01734075100464C2F /* PryvApiKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PryvApiKit.framework;
-			remoteRef = B6BA3E9F1734075100464C2F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6BA3EA21734075100464C2F /* libPryvApiKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPryvApiKit.a;
-			remoteRef = B6BA3EA11734075100464C2F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6BA3EA41734075100464C2F /* iOs Example.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "iOs Example.app";
-			remoteRef = B6BA3EA31734075100464C2F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6BA3EA61734075100464C2F /* OS X example.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "OS X example.app";
-			remoteRef = B6BA3EA51734075100464C2F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B6DC81E1181E61BC00118ED9 /* libPods-MNMPullToRefresh.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libPods-MNMPullToRefresh.a";
 			remoteRef = B6DC81E0181E61BC00118ED9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B6F1AEB017846C8E000ECD60 /* libPryvApiKitLogicTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = libPryvApiKitLogicTests.octest;
-			remoteRef = B6F1AEAF17846C8E000ECD60 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B6F207C817954F30006FC5B0 /* libPods-SSKeychain.a */ = {
@@ -1968,6 +1903,7 @@
 				B6B5902C178B60B60009E413 /* icon_small_lenght.png in Resources */,
 				B6B5902D178B60B60009E413 /* icon_small_lenght@2x.png in Resources */,
 				B6B5902E178B60B60009E413 /* icon_small_lru_active.png in Resources */,
+				4EEBE79018B647B800199E64 /* Podfile in Resources */,
 				B6B5902F178B60B60009E413 /* icon_small_lru_active@2x.png in Resources */,
 				B6B59030178B60B60009E413 /* icon_small_lru.png in Resources */,
 				B6B59031178B60B60009E413 /* icon_small_lru@2x.png in Resources */,
@@ -2166,14 +2102,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		B6BA3EA81734076D00464C2F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = libPryvApiKit.a;
-			targetProxy = B6BA3EA71734076D00464C2F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		4EBE04691844D5070031724A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -2233,7 +2161,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pierre-Mikael Legris (2N623KA49T)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2267,7 +2195,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pierre-Mikael Legris (2N623KA49T)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2287,7 +2215,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2312,7 +2241,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "C0956159-3B73-442B-AC1E-4C6DDEDAD7D1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2321,7 +2250,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2346,7 +2276,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "C0956159-3B73-442B-AC1E-4C6DDEDAD7D1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

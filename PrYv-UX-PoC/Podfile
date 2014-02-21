@@ -1,5 +1,13 @@
-platform :ios, '5.0'
+platform :ios, '5.1'
 pod 'SSKeychain', '~> 1.1.0'
 pod 'MNMPullToRefresh', '~> 0.0.1'
 pod 'UI7Kit', '~> 0.9.17'
 pod 'MCSwipeTableViewCell', '~> 2.1.0'
+
+# a submodule-less setup for development in both at the same time
+# pod 'PryvApiKit', :path => '../../sdk-objectivec-apple/PryvApiKit.podspec'
+
+# after PryvApiKit would appear in Pods repository
+# pod 'PryvApiKit', :head
+
+ pod 'PryvApiKit', :git => 'https://github.com/pryv/sdk-objectivec-apple.git', :commit => 'c5b1f2157c7180995d9a8648b11bddd812324137'

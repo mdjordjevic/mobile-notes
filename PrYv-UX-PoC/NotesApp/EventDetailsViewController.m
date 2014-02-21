@@ -80,6 +80,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet UILabel *streamsLabel;
 @property (nonatomic, strong) DetailsBottomButtonsContainer *bottomButtonsContainer;
 
+
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+
+
 // -- constraints
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagDoneButtonConstraint;
@@ -142,7 +146,16 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self editButtonTouched:nil];
     }
-    [self initBottomButtonsContainer];
+    
+    [self.deleteButton setTitle:NSLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
+    
+    // commented for now.. to be reused for share and anther actions.
+    // [self initBottomButtonsContainer];
+}
+
+- (void)updateUIForCurrentEvent
+{
+    [self updateUIForEvent];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -347,6 +360,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 }
 
 #pragma mark - Actions
+
+
+- (IBAction)deleteButtonTouched:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Message.DeleteConfirmation", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+    [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if(alertView.cancelButtonIndex != buttonIndex)
+        {
+            
+            [self deleteEvent];
+        }
+    }];
+}
 
 - (void)cancelButtonTouched:(id)sender
 {
@@ -692,7 +717,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
          [connection createEvent:self.event requestType:PYRequestTypeAsync
                   successHandler:^(NSString *newEventId, NSString *stoppedId)
           {
-              [[DataService sharedInstance] saveEventAsShortcut:self.event];
+              BOOL shouldTakePictureFlag = NO;
+              if(self.eventDataType == EventDataTypeImage)
+              {
+                  shouldTakePictureFlag = self.imagePickerType == UIImagePickerControllerSourceTypeCamera;
+              }
+              [[DataService sharedInstance] saveEventAsShortcut:self.event andShouldTakePictureFlag:shouldTakePictureFlag];
               [self.navigationController dismissViewControllerAnimated:YES completion:^{
                   [[NSNotificationCenter defaultCenter] postNotificationName:kEventAddedNotification object:nil];
               }];
@@ -761,6 +791,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     NSLog(@"SHARE EVENT");
 }
+
 
 #pragma mark - Tags
 

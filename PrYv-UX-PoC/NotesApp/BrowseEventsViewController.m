@@ -143,7 +143,9 @@ BOOL displayNonStandardEvents;
     {
         PYEvent *event = self.eventToShowOnAppear;
         self.eventToShowOnAppear = nil;
-        [self showEventDetailsForEvent:event];
+        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
+        self.pickedImage = nil;
+        self.pickedImageTimestamp = nil;
     }
 }
 
@@ -348,7 +350,7 @@ BOOL displayNonStandardEvents;
     else
     {
         PYEvent *event = [_events objectAtIndex:indexPath.row];
-        [self showEventDetailsForEvent:event];
+        [self showEventDetailsForEvent:event andUserHistoryEntry:nil];
     }
 }
 
@@ -361,13 +363,13 @@ BOOL displayNonStandardEvents;
             {
                 PYEvent *event = [[PYEvent alloc] init];
                 event.type = @"note/txt";
-                [weakSelf showEventDetailsForEvent:event];
+                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
             }
                 break;
             case 1:
             {
                 PYEvent *event = [[PYEvent alloc] init];
-                [weakSelf showEventDetailsForEvent:event];
+                [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:nil];
             }
                 break;
             case 2:
@@ -392,10 +394,10 @@ BOOL displayNonStandardEvents;
 - (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
     PYEvent *event = [entry reconstructEvent];
-    [self showEventDetailsForEvent:event];
+    [self showEventDetailsForEvent:event andUserHistoryEntry:entry];
 }
 
-- (void)showEventDetailsForEvent:(PYEvent*)event
+- (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry
 {
     if (event == nil) {
         [NSException raise:@"Event is nil" format:nil];
@@ -414,7 +416,12 @@ BOOL displayNonStandardEvents;
     [eventDetailVC setupDescriptionEditorViewController:textVC];
     **/
     
-    if(event.isDraft && eventType != EventDataTypeImage)
+    if(eventType == EventDataTypeImage)
+    {
+        eventDetailVC.imagePickerType = self.imagePickerType;
+    }
+    
+    if(event.isDraft)
     {
         [eventDetailVC view];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -433,6 +440,29 @@ BOOL displayNonStandardEvents;
             [eventDetailVC setupAddNumericalValueViewController:addVC];
             [addVC setupCustomCancelButton];
             [viewControllers addObject:addVC];
+        }
+        else if(!self.pickedImage)
+        {
+            UIImagePickerControllerSourceType sourceType = [entry.shoudTakeNewPhoto boolValue] ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+            PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
+            photoVC.sourceType = sourceType;
+            photoVC.browseVC = self;
+            photoVC.entry = entry;
+            [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
+                [eventDetailVC.event setEventDate:date];
+                NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+                if(imageData)
+                {
+                    NSString *imgName = [NSString randomStringWithLength:10];
+                    PYAttachment *att = [[PYAttachment alloc] initWithFileData:imageData name:imgName fileName:[NSString stringWithFormat:@"%@.jpeg",imgName]];
+                    [eventDetailVC.event addAttachment:att];
+                }
+                self.pickedImage = nil;
+                self.pickedImageTimestamp = nil;
+                self.eventToShowOnAppear = nil;
+                [eventDetailVC updateUIForCurrentEvent];
+            }];
+            [viewControllers addObject:photoVC];
         }
         [self.navigationController setViewControllers:viewControllers animated:YES];
     }
@@ -481,6 +511,7 @@ BOOL displayNonStandardEvents;
 
 - (BOOL)clientFilterMatchEvent:(PYEvent*)event
 {
+    if (event.trashed) return NO;
     return displayNonStandardEvents || ! ([event cellStyle] == CellStyleTypeUnkown );
 }
 
@@ -559,6 +590,13 @@ BOOL displayNonStandardEvents;
     // ref : http://www.nsprogrammer.com/2013/07/updating-uitableview-with-dynamic-data.html
     // ref2 : http://stackoverflow.com/questions/4777683/how-do-i-efficiently-update-a-uitableview-with-animation
     
+    
+    // firstOfAll check event order and add them to toAdd array fo rearranging
+    [PYEventFilter sortNSMutableArrayOfPYEvents:self.events sortAscending:NO];
+    
+    
+    
+    
     // events are sent ordered by time
     if (toRemove) {
         NSLog(@"*262 REMOVE %i", toRemove.count);
@@ -567,7 +605,7 @@ BOOL displayNonStandardEvents;
         PYEvent* eventToRemove = nil;
         for (int i = toRemove.count -1 ; i >= 0; i--) {
             eventToRemove = [toRemove objectAtIndex:i];
-            for (int k =  self.events.count; k >= 0 ; k--) {
+            for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
                 kEvent = [self.events objectAtIndex:k];
                 if ([eventToRemove.eventId isEqualToString:kEvent.eventId]) {
                     [self.events removeObjectAtIndex:k];
@@ -580,6 +618,21 @@ BOOL displayNonStandardEvents;
     
     if (modify) {
         NSLog(@"*262 MODIFY %i", modify.count);
+        // remove events marked as trashed
+        PYEvent* kEvent = nil;
+        PYEvent* eventToCheck = nil;
+        for (int i = modify.count -1 ; i >= 0; i--) {
+            eventToCheck = [modify objectAtIndex:i];
+            if (eventToCheck.trashed) {
+                for (int k =  (self.events.count - 1) ; k >= 0 ; k--) {
+                    kEvent = [self.events objectAtIndex:k];
+                    if ([eventToCheck.eventId isEqualToString:kEvent.eventId]) {
+                        [self.events removeObjectAtIndex:k];
+                        break; // assuming an event is only represented once in the list
+                    }
+                }
+            }
+        }
     }
     
     // events are sent ordered by time
@@ -592,6 +645,11 @@ BOOL displayNonStandardEvents;
         }
         
     }
+    
+    
+    
+    
+    
     // [_tableView endUpdates];
     NSLog(@"*262 END");
     [self.tableView reloadData]; // until update is implmeneted

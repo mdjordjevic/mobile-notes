@@ -68,6 +68,7 @@
     if(self.value)
     {
         self.valueField.text = self.value;
+        self.typeTextField.text = self.valueType;
     }
 }
 
@@ -131,20 +132,28 @@
 
 - (void)selectRightMeasurementGroupForMeasurementClassKey:(NSString *)classKey andMeasurementType:(NSString *)measurementType
 {
-    for(PYEventTypesGroup *mGroup in self.measurementGroups)
-    {
+    __block BOOL typeIsFound = NO;
+    [self.measurementGroups enumerateObjectsUsingBlock:^(PYEventTypesGroup *mGroup, NSUInteger idx1, BOOL *stop1) {
         if([mGroup.classKey isEqualToString:classKey])
         {
             [self.typePicker selectRow:[self.measurementGroups indexOfObject:mGroup] inComponent:0 animated:NO];
-            for(NSString *type in mGroup.formatKeys)
-            {
+            [mGroup.formatKeys enumerateObjectsUsingBlock:^(NSString *type, NSUInteger idx2, BOOL *stop2) {
                 if([type isEqualToString:measurementType])
                 {
                     [self.typePicker selectRow:[mGroup.formatKeys indexOfObject:type] inComponent:1 animated:NO];
-                    return;
+                    typeIsFound = YES;
+                    *stop2 = YES;
                 }
-            }
+            }];
         }
+        if(typeIsFound)
+        {
+            *stop1 = YES;
+        }
+    }];
+    if(!typeIsFound && classKey && measurementType)
+    {
+        self.typePicker.hidden = YES;
     }
 }
 
@@ -200,7 +209,14 @@
     NSString *formatKey = [group.formatKeys objectAtIndex:selectedType];
     if(self.valueDidChangeBlock)
     {
-        self.valueDidChangeBlock([group classKey],formatKey,_valueField.text,self);
+        if(self.typePicker.hidden)
+        {
+            self.valueDidChangeBlock(self.valueClass,self.valueType,_valueField.text,self);
+        }
+        else
+        {
+            self.valueDidChangeBlock([group classKey],formatKey,_valueField.text,self);
+        }
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -289,7 +305,7 @@
     if(component == 0)
     {
         [self.typePicker reloadDataInComponent:1];
-        [self selectFirstTypeAnimated:YES];
+//        [self selectFirstTypeAnimated:YES];
     }
     else if(component == 1)
     {
