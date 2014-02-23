@@ -149,6 +149,11 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     
     [self.deleteButton setTitle:NSLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
     
+    self.deleteButton.layer.borderColor = [UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1].CGColor;
+    self.deleteButton.layer.borderWidth = 1.0f;
+    self.deleteButton.layer.cornerRadius = 5;
+    self.deleteButton.layer.masksToBounds = YES;
+    
     // commented for now.. to be reused for share and anther actions.
     // [self initBottomButtonsContainer];
 }
