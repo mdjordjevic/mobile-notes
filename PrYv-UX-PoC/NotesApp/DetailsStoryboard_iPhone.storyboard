@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Base Details View Controller-->
@@ -222,11 +222,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-wf-qw1">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-wf-qw1">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="320" id="m8M-np-qps"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Wbg-wf-qw1" firstAttribute="leading" secondItem="2SS-MX-TeD" secondAttribute="leading" id="FP5-UL-6fu"/>
+                                                <constraint firstItem="Wbg-wf-qw1" firstAttribute="top" secondItem="2SS-MX-TeD" secondAttribute="top" id="Scr-e4-jXZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Wbg-wf-qw1" secondAttribute="trailing" id="iPF-iq-9Nb"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="26P-Ld-DD1" kind="custom" identifier="ShowImagePreviewSegue_ID" customClass="ConditionallyAnimatedPushSegue" id="CoG-aR-mtL"/>
@@ -599,6 +607,10 @@
                         <outlet property="descriptionLabelConstraint2" destination="ehU-w8-OMW" id="VhB-Pr-yYG"/>
                         <outlet property="descriptionLabelConstraint3" destination="8g4-Ic-njZ" id="rHF-Xa-CSG"/>
                         <outlet property="editButton" destination="RKy-Rw-QQS" id="gUf-WL-LyS"/>
+                        <outlet property="imageHeightConstraint" destination="m8M-np-qps" id="Jyu-IU-fjt"/>
+                        <outlet property="noteLabelConstraint1" destination="Lx7-kN-FsX" id="CvE-QY-blF"/>
+                        <outlet property="noteLabelConstraint2" destination="AGT-HZ-sed" id="XwL-ye-wCg"/>
+                        <outlet property="noteLabelConstraint3" destination="I2a-Ym-lNf" id="ZNf-zg-0U7"/>
                         <outlet property="note_Label" destination="Scg-SA-DkO" id="epK-NF-shh"/>
                         <outlet property="numericalValue_Label" destination="hlj-81-y6X" id="mih-Bz-7Fn"/>
                         <outlet property="numericalValue_TypeLabel" destination="gch-JF-P4A" id="2Vy-bL-69m"/>
@@ -715,12 +727,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kzs-Dh-bBN">
-                                <rect key="frame" x="15" y="16" width="290" height="317"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzs-Dh-bBN">
+                                <rect key="frame" x="15" y="16" width="290" height="248"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GfE-R9-gDz">
-                                        <rect key="frame" x="5" y="0.0" width="280" height="310"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfE-R9-gDz">
+                                        <rect key="frame" x="5" y="0.0" width="280" height="241"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="scrollIndicatorInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -730,9 +742,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="GfE-R9-gDz" secondAttribute="bottom" constant="7" id="J8X-Px-QCw"/>
+                                    <constraint firstItem="GfE-R9-gDz" firstAttribute="leading" secondItem="kzs-Dh-bBN" secondAttribute="leading" constant="5" id="Zcb-Lo-6G0"/>
+                                    <constraint firstItem="GfE-R9-gDz" firstAttribute="top" secondItem="kzs-Dh-bBN" secondAttribute="top" id="mvX-r1-MDS"/>
+                                    <constraint firstAttribute="trailing" secondItem="GfE-R9-gDz" secondAttribute="trailing" constant="5" id="wDg-Zm-Pdq"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kzs-Dh-bBN" firstAttribute="leading" secondItem="69s-S7-UnS" secondAttribute="leading" constant="15" id="CQf-Tc-4Wy"/>
+                            <constraint firstItem="kzs-Dh-bBN" firstAttribute="top" secondItem="69s-S7-UnS" secondAttribute="top" constant="16" id="EwF-9t-hn4"/>
+                            <constraint firstAttribute="trailing" secondItem="kzs-Dh-bBN" secondAttribute="trailing" constant="15" id="YJm-F7-8rv"/>
+                            <constraint firstItem="TJH-Qt-BzH" firstAttribute="top" secondItem="kzs-Dh-bBN" secondAttribute="bottom" constant="216" id="oeG-fE-hOV"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0i6-pa-Yfm">
                         <barButtonItem key="backBarButtonItem" title="Back" id="xLi-xb-dKj"/>
@@ -815,17 +839,25 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Streams / Streams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwn-gH-eim">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Streams / Streams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwn-gH-eim">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.12549019610000001" green="0.66274509800000003" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Njp-6e-EvI"/>
+                                    <constraint firstAttribute="height" constant="44" id="hb1-lr-euj"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SB1-yA-p84">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SB1-yA-p84">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="J22-x5-jNX"/>
+                                    <constraint firstAttribute="height" constant="44" id="zrW-uw-boZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="icon_back.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -834,7 +866,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="backButtonTouched:" destination="vaG-In-KGw" eventType="touchUpInside" id="Uvz-hL-inV"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bei-8M-BE1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bei-8M-BE1">
                                 <rect key="frame" x="0.0" y="47" width="320" height="433"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -871,6 +903,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SB1-yA-p84" firstAttribute="top" secondItem="L6z-om-Uw6" secondAttribute="bottom" id="5qb-sH-fzJ"/>
+                            <constraint firstItem="WnD-cd-5Q9" firstAttribute="top" secondItem="Bei-8M-BE1" secondAttribute="bottom" id="MBm-fh-UiI"/>
+                            <constraint firstItem="bwn-gH-eim" firstAttribute="leading" secondItem="S6P-C6-vrm" secondAttribute="leading" id="PJg-My-rHy"/>
+                            <constraint firstItem="bwn-gH-eim" firstAttribute="top" secondItem="L6z-om-Uw6" secondAttribute="bottom" id="asL-YF-Nbq"/>
+                            <constraint firstItem="Bei-8M-BE1" firstAttribute="top" secondItem="SB1-yA-p84" secondAttribute="bottom" constant="3" id="bMN-SW-KFS"/>
+                            <constraint firstItem="SB1-yA-p84" firstAttribute="leading" secondItem="S6P-C6-vrm" secondAttribute="leading" id="gWR-Ru-Toq"/>
+                            <constraint firstItem="Bei-8M-BE1" firstAttribute="leading" secondItem="S6P-C6-vrm" secondAttribute="leading" id="gku-Be-Drt"/>
+                            <constraint firstAttribute="trailing" secondItem="Bei-8M-BE1" secondAttribute="trailing" id="gp8-fv-9Ki"/>
+                            <constraint firstAttribute="trailing" secondItem="bwn-gH-eim" secondAttribute="trailing" id="i0S-Tm-voq"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -1177,28 +1220,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="icon_back.png" width="32" height="32"/>
         <image name="icon_stream.png" width="16" height="16"/>
         <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
-        <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="numpad_button_active.png" width="102" height="47"/>
         <image name="pickercenter.png" width="320" height="157"/>
         <image name="trash-icon.png" width="30" height="30"/>

@@ -25,6 +25,7 @@ typedef void (^SharedConnectionCompletionBlock)(PYConnection *connection);
 
 extern NSString *const kAppDidReceiveAccessTokenNotification;
 extern NSString *const kUserDidLogoutNotification;
+extern NSString *const kUserShouldLoginNotification;
 
 
 @interface NotesAppController : NSObject

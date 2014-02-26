@@ -90,10 +90,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint1;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint2;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *descriptionLabelConstraint3;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint1;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint2;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *noteLabelConstraint3;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint1;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint2;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint3;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tagConstraint4;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 
 
 - (BOOL) shouldCreateEvent;
@@ -264,9 +268,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForEventImageType
 {
-    
+    if(self.picture_ImageView.image)
+    {
+        return;
+    }
     [self.event firstAttachmentAsImage:^(UIImage *image) {
         self.picture_ImageView.image = image;
+        [self.tableView beginUpdates];
+        [self updateUIForEvent];
+        [self.tableView endUpdates];
     } errorHandler:nil];
 }
 
@@ -285,7 +295,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if (! unit) { unit = self.event.pyType.formatKey ; }
     
     
-    NSString *value = [NSString stringWithFormat:@"%@ %@",[self.event.eventContent description], unit];
+    NSString *value = [NSString stringWithFormat:@"%@ %@",self.event.eventContentAsString, unit];
     [self.numericalValue_Label setText:value];
     
     NSString *formatDescription = [self.event.pyType localizedName];
@@ -295,7 +305,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)updateUIForNoteEventType
 {
-    self.note_Label.text = self.event.eventContent;
+    self.note_Label.text = self.event.eventContentAsString;
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -538,12 +548,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 - (void)setupNoteContentEditorViewController:(TextEditorViewController*)textEditorVC
 {
     textEditorVC.textDidChangeCallBack = ^(NSString* text, TextEditorViewController* textEdit) {
-        if (self.event.eventContent && [text isEqualToString:self.event.eventContent]) return;
+        if (self.event.eventContentAsString && [text isEqualToString:self.event.eventContentAsString]) return;
         self.event.eventContent = text;
         self.shouldUpdateEvent = YES;
         [self updateUIForEvent];
     };
-    textEditorVC.text = self.event.eventContent ? self.event.eventContent : @"";
+    textEditorVC.text = self.event.eventContent ? self.event.eventContentAsString : @"";
 }
 
 - (void)setupDatePickerViewController:(DatePickerViewController *)dpVC
@@ -578,7 +588,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         NSArray *components = [self.event.type componentsSeparatedByString:@"/"];
         if([components count] > 1)
         {
-            addNumericalValueVC.value = [self.event.eventContent description];
+            addNumericalValueVC.value = self.event.eventContentAsString;
             addNumericalValueVC.valueClass = [components objectAtIndex:0];
             addNumericalValueVC.valueType = [components objectAtIndex:1];
         }
@@ -647,24 +657,38 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             return 0;
             
         case DetailCellTypeImage:
+        {
+            CGFloat height = 0;
             if(self.eventDataType == EventDataTypeImage)
             {
-                return 426;
                 UIImage* image = self.picture_ImageView.image;
-                CGFloat h = 0;
-                if (image.size.height > image.size.width) {
-                    h =  (image.size.height / image.size.width) * 320;
+                if(image)
+                {
+                    CGFloat scaleFactor = 320 / image.size.width;
+                    height = image.size.height * scaleFactor;
                 }
-                if (h > kImageCellHeight) return h;
-       
-                return kImageCellHeight;
             }
-            return 0;
+            self.imageHeightConstraint.constant = height;
+            return height;
+        }
             
         case DetailCellTypeNote:
             if(self.eventDataType == EventDataTypeNote)
             {
-                return kValueCellHeight;
+                if(self.isInEditMode && [self.note_Label.text length] == 0) {
+                    return kLineCellHeight;
+                }
+                if ([self.note_Label.text length] > 0)
+                {
+                    CGSize textSize = [self.note_Label.text sizeWithFont:self.note_Label.font constrainedToSize:CGSizeMake(300, FLT_MAX)];
+                    CGFloat height = textSize.height + 24;
+                    height = fmaxf(height, 54);
+                    self.noteLabelConstraint1.constant = fmaxf(height - 10,0);
+                    self.noteLabelConstraint2.constant = fmaxf(height - 10,0);
+                    self.noteLabelConstraint3.constant = fmaxf(height - 20,0);
+                    return height;
+                }
+                return 0;
             }
             return 0;
             
@@ -672,7 +696,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             return kLineCellHeight;
             
         case DetailCellTypeDescription:
-            if(self.isInEditMode) {
+            if(self.isInEditMode && [self.descriptionLabel.text length] == 0) {
                 return kLineCellHeight;
             }
             if ([self.descriptionLabel.text length] > 0)

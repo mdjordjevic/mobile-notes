@@ -102,5 +102,14 @@
     
 }
 
+- (NSString*)eventContentAsString
+{
+    if([self.eventContent isKindOfClass:[NSString class]])
+    {
+        return self.eventContent;
+    }
+    return [self.eventContent description];
+}
+
 
 @end

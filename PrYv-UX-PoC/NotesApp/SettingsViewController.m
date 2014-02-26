@@ -82,7 +82,11 @@
     PYConnection *connection = [[NotesAppController sharedInstance] connection];
     if(connection)
     {
-        self.logoutLabel.text = [NSString stringWithFormat:@"Logout (%@)",connection.userID];
+        self.logoutLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Settings.User.LogoutFormat", nil),connection.userID];
+    }
+    else
+    {
+        self.logoutLabel.text = NSLocalizedString(@"Settings.User.Login", nil);
     }
     [self loadSettings];
     [self loadInformations];
@@ -106,10 +110,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     if([self.logoutCell isEqual:[self tableView:tableView cellForRowAtIndexPath:indexPath]])
     {
+        [self loginOrLogoutUser];
+    }
+}
+
+- (void)loginOrLogoutUser
+{
+    PYConnection *connection = [[NotesAppController sharedInstance] connection];
+    if(connection)
+    {
         [[NotesAppController sharedInstance] setConnection:nil];
+    }
+    else
+    {
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserShouldLoginNotification object:nil];
+        }];
+        
     }
 }
 

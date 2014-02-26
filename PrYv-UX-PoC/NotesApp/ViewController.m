@@ -29,6 +29,10 @@
                                              selector:@selector(userDidLogoutNotification:)
                                                  name:kUserDidLogoutNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userShouldLoginNotification:)
+                                                 name:kUserShouldLoginNotification
+                                               object:nil];
     
     self.browseEventsVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"BrowseEventsViewController_ID"];
     [self.navigationController pushViewController:self.browseEventsVC animated:NO];
@@ -102,6 +106,13 @@
         [self initSignIn];
     }];
     
+}
+
+- (void)userShouldLoginNotification:(NSNotification*)notification
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self initSignIn];
+    });
 }
 
 

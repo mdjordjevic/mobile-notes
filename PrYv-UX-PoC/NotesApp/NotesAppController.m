@@ -19,6 +19,7 @@
 
 NSString *const kAppDidReceiveAccessTokenNotification = @"kAppDidReceiveAccessTokenNotification";
 NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
+NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
 
 @interface NotesAppController ()
 
