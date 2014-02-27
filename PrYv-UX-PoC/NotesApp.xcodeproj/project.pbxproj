@@ -2223,6 +2223,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2247,7 +2248,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "C31511FE-166C-4BA7-BC98-64B1BEABE529";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2256,6 +2257,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91A9AE26FE674D77BDFC0299 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2280,7 +2282,7 @@
 					UIKit,
 				);
 				PRODUCT_NAME = Pryv;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "C31511FE-166C-4BA7-BC98-64B1BEABE529";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

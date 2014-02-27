@@ -28,3 +28,6 @@
 "ViewController.TextContent.TapToAdd" = "Tap to add content";
 "ViewController.TextDescriptionContent.TapToAdd" = "Add description";
 "ViewController.Tags.TapToAdd" = "Add tags";
+
+"Settings.User.LogoutFormat" = "Logout (%@)";
+"Settings.User.Login" = "Login";

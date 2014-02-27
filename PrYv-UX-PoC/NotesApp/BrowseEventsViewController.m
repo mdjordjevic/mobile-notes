@@ -259,12 +259,6 @@ BOOL displayNonStandardEvents;
     }
     if(IS_BROWSE_SECTION)
     {
-        PYEvent *event = [_events objectAtIndex:indexPath.row];
-        CellStyleType cellType = [event cellStyle];
-        if(cellType == CellStyleTypePhoto)
-        {
-            return 180;
-        }
         return 160;
     }
     if(IS_LRU_SECTION)
@@ -326,7 +320,7 @@ BOOL displayNonStandardEvents;
     [cell setDefaultColor:[UIColor lightGrayColor]];
     [cell setDelegate:self];
     
-    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         NSIndexPath *indexPathToDelete = [self.tableView indexPathForCell:cell];
         [[LRUManager sharedInstance] removeObjectFromLruEntriesAtIndex:indexPathToDelete.row];
         self.shortcuts = [LRUManager sharedInstance].lruEntries;
