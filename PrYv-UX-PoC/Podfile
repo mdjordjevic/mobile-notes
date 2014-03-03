@@ -10,4 +10,4 @@ pod 'MCSwipeTableViewCell', '~> 2.1.0'
 # after PryvApiKit would appear in Pods repository
 # pod 'PryvApiKit', :head
 
- pod 'PryvApiKit', :git => 'https://github.com/pryv/sdk-objectivec-apple.git', :commit => '41eeb475807050da9cc06d2abe41205d53c0b42c'
+ pod 'PryvApiKit', :git => 'https://github.com/pryv/sdk-objectivec-apple.git', :commit => '4d9c0eef99d9cb1c25f9b6356e961d27bf4a4cc8'
