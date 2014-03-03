@@ -44,12 +44,12 @@
 {
     [super viewWillAppear:animated];
     
-    CGRect scrollViewFrame = self.scrollView.frame;
-    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
+//    CGRect scrollViewFrame = self.scrollView.frame;
+//    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
+//    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
+//    CGFloat minScale = MIN(scaleWidth, scaleHeight);
     
-    self.scrollView.minimumZoomScale = minScale;
+    self.scrollView.minimumZoomScale = 1.0f;
     self.scrollView.maximumZoomScale = 4.0f;
     self.scrollView.zoomScale = 1.0f;
     

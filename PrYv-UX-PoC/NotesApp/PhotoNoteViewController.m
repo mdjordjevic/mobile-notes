@@ -92,6 +92,17 @@
     NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
     
     ALAssetsLibrary *aLib = [[ALAssetsLibrary alloc] init];
+    
+    if(self.sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        [aLib writeImageToSavedPhotosAlbum:[selectedImage CGImage] orientation:(ALAssetOrientation)[selectedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error)
+            {
+                [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert.Error.SavingImageError", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
+            }
+        }];
+    }
+    
     [aLib assetForURL:imageURL resultBlock:^(ALAsset *asset) {
         NSDictionary *metadata = asset.defaultRepresentation.metadata;
         NSDate *date = nil;
