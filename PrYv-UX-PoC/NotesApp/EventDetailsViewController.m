@@ -364,8 +364,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
             break;
         case DetailCellTypeStreams:
         {
-            StreamPickerViewController *streamPickerVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
-            [self setupStreamPickerViewController:streamPickerVC];
+            if(self.streamPickerVC)
+            {
+                [self closeStreamPicker];
+            }
+            else
+            {
+                StreamPickerViewController *streamPickerVC = [[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"StreamPickerViewController_ID"];
+                [self setupStreamPickerViewController:streamPickerVC];
+            }
         }
             break;
             
@@ -446,6 +453,9 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self updateEvent];
     }
+    
+    [self updateLabelsTextColorForEditingMode:NO];
+    
     self.editButton.title = @"Edit";
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
@@ -479,6 +489,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         self.descriptionLabel.text = NSLocalizedString(@"ViewController.TextDescriptionContent.TapToAdd", nil);
     }
     
+    [self updateLabelsTextColorForEditingMode:YES];
+    
     self.editButton.title = @"Done";
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self.tableView
@@ -497,6 +509,21 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)updateLabelsTextColorForEditingMode:(BOOL)isEditingMode
+{
+    UIColor *textColor = [UIColor blackColor];
+    if(isEditingMode)
+    {
+        textColor = [UIColor lightGrayColor];
+    }
+    
+    self.note_Label.textColor = textColor;
+    self.timeLabel.textColor = textColor;
+    self.tagsLabel.textColor = textColor;
+    self.descriptionLabel.textColor = textColor;
+    self.streamsLabel.textColor = textColor;
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -611,11 +638,12 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     frame.size.height = frame.size.height - 100;
     self.streamPickerVC.view.frame = frame;
     [self.view addSubview:streamPickerVC.view];
-
+    
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         CGRect newFrame = self.streamPickerVC.view.frame;
         newFrame.origin.y = 100 + self.tableView.contentOffset.y;
         self.streamPickerVC.view.frame = newFrame;
+        self.streamPickerVC.arrowImageView.transform = CGAffineTransformMakeRotation(0);
     } completion:^(BOOL finished) {
         self.tableView.scrollEnabled = NO;
     }];
@@ -636,6 +664,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
         CGRect newFrame = self.streamPickerVC.view.frame;
         newFrame.origin.y = self.view.bounds.size.height;
         self.streamPickerVC.view.frame = newFrame;
+        self.streamPickerVC.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
     } completion:^(BOOL finished) {
         [self.streamPickerVC.view removeFromSuperview];
         self.streamPickerVC = nil;
@@ -874,7 +903,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     if([self.event.tags count] == 0)
     {
         self.tagsLabel.text = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
-        self.tokenField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+        UIColor *color = [UIColor lightGrayColor];
+        self.tokenField.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ViewController.Tags.TapToAdd", nil) attributes:@{NSForegroundColorAttributeName: color}];
     }
     else
     {

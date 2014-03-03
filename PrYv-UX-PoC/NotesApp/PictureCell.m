@@ -13,6 +13,7 @@
 @interface PictureCell ()
 
 @property (nonatomic, copy) NSString *currentEventId;
+@property (nonatomic, strong) NSDate *startLoadTime;
 
 @end
 
@@ -43,7 +44,7 @@
 }
 
 
-- (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId
+- (void)updateWithImage:(UIImage*)img andEventId:(NSString*)eventId animated:(BOOL)animated
 {
     if(![eventId isEqualToString:self.currentEventId] && self.pictureView.image)
     {
@@ -55,36 +56,51 @@
     newSize = CGSizeMake(floorf(newSize.width/ratio), floorf(newSize.height/ratio));
     img = [img imageScaledToSize:newSize];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
-            [self.pictureView setAlpha:0.0f];
-        } completion:^(BOOL finished) {
-            [self.pictureView setImage:img];
-            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
-                [self.pictureView setAlpha:1.0f];
+        if(animated)
+        {
+            [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn animations:^{
+                [self.pictureView setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                
+                [self.pictureView setImage:img];
+                [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
+                    [self.pictureView setAlpha:1.0f];
+                } completion:^(BOOL finished) {
+                    
+                }];
             }];
-        }];
+        }
+        else
+        {
+            [self.pictureView setAlpha:1.0f];
+            [self.pictureView setImage:img];
+        }
         
     });
+    
 }
 
 - (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
 {
+    [super updateWithEvent:event andListOfStreams:streams];
+    self.startLoadTime = [NSDate date];
     self.currentEventId = event.eventId;
     if ([event hasFirstAttachmentFileDataInMemory]) {
         [event firstAttachmentAsImage:^(UIImage *image) {
-            [self updateWithImage:image andEventId:event.eventId];
+            [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
         } errorHandler:nil];
     } else {
         [event preview:^(UIImage *image) {
             
-            [self updateWithImage:image andEventId:event.eventId];
+            [self updateWithImage:image andEventId:event.eventId animated:[PictureCell shouldAnimateImagePresentationForStartLoadTime:self.startLoadTime]];
         } failure:^(NSError *error) {
             NSLog(@"*1432 Failed loading preview for event %@ \n %@", error, event);
         }];
     }
-    [super updateWithEvent:event andListOfStreams:streams];
+}
+
++ (BOOL)shouldAnimateImagePresentationForStartLoadTime:(NSDate*)startLoadTime
+{
+    return fabs([startLoadTime timeIntervalSinceNow]) > 0.2f;
 }
 
 @end

@@ -45,8 +45,11 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 @property (nonatomic, strong) NSArray *shortcuts;
 @property (nonatomic, strong) MNMPullToRefreshManager *pullToRefreshManager;
 @property (nonatomic, strong) PYEvent *eventToShowOnAppear;
+@property (nonatomic, strong) UIWebView *welcomeWebView;
 
 @property (nonatomic, strong) PYEventFilter *filter;
+@property (nonatomic, strong) NSNumber *isSourceTypePicked;
+@property (nonatomic, strong) UserHistoryEntry *tempEntry;
 
 - (void)settingButtonTouched:(id)sender;
 - (void)loadData;
@@ -174,8 +177,14 @@ BOOL displayNonStandardEvents;
     if (self.filter == nil) {
         [self clearCurrentData];
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
-            NSLog(@"BrowserEventViewer cannot setup filter .. no connection yet");
+            if(self.welcomeWebView)
+            {
+                [self.welcomeWebView removeFromSuperview];
+                [self.view addSubview:self.welcomeWebView];
+            }
         } withCompletionBlock:^(PYConnection *connection) {
+            [self.welcomeWebView removeFromSuperview];
+            self.welcomeWebView = nil;
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
                                                            fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                              toTime:PYEventFilter_UNDEFINED_TOTIME
@@ -337,8 +346,6 @@ BOOL displayNonStandardEvents;
     if(IS_LRU_SECTION)
     {
         UserHistoryEntry *entry = [_shortcuts objectAtIndex:indexPath.row];
-        
-        
         [self showEventDetailsWithUserHistoryEntry:entry];
     }
     else
@@ -387,6 +394,8 @@ BOOL displayNonStandardEvents;
 
 - (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
+    self.tempEntry = entry;
+    [self setMenuVisible:NO animated:YES withCompletionBlock:nil];
     PYEvent *event = [entry reconstructEvent];
     [self showEventDetailsForEvent:event andUserHistoryEntry:entry];
 }
@@ -437,9 +446,15 @@ BOOL displayNonStandardEvents;
         }
         else if(!self.pickedImage)
         {
-            UIImagePickerControllerSourceType sourceType = [entry.shoudTakeNewPhoto boolValue] ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+            if(!self.isSourceTypePicked)
+            {
+                [self topMenuDidSelectOptionAtIndex:2];
+                return;
+            }
+            
             PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
-            photoVC.sourceType = sourceType;
+            photoVC.sourceType = [self.isSourceTypePicked integerValue];
+            self.isSourceTypePicked = nil;
             photoVC.browseVC = self;
             photoVC.entry = entry;
             [photoVC setImagePickedBlock:^(UIImage *image, NSDate *date, UIImagePickerControllerSourceType source) {
@@ -561,11 +576,14 @@ BOOL displayNonStandardEvents;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
+    [self.welcomeWebView removeFromSuperview];
+    self.welcomeWebView = nil;
     [self loadData];
 }
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
+    [self.view addSubview:self.welcomeWebView];
     [self.pullToRefreshManager setPullToRefreshViewVisible:NO];
 }
 
@@ -657,9 +675,19 @@ BOOL displayNonStandardEvents;
 {
     if(buttonIndex == actionSheet.cancelButtonIndex)
     {
+        self.tempEntry = nil;
+        self.isSourceTypePicked = nil;
         return;
     }
     UIImagePickerControllerSourceType sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+    if(self.tempEntry)
+    {
+        UserHistoryEntry *entry = self.tempEntry;
+        self.isSourceTypePicked = @(sourceType);
+        [self showEventDetailsWithUserHistoryEntry:entry];
+        self.tempEntry = nil;
+        return;
+    }
     PhotoNoteViewController *photoVC = [UIStoryboard instantiateViewControllerWithIdentifier:@"PhotoNoteViewController_ID"];
     photoVC.sourceType = sourceType;
     photoVC.browseVC = self;
@@ -698,6 +726,18 @@ BOOL displayNonStandardEvents;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
+}
+
+- (UIWebView*)welcomeWebView
+{
+    if(!_welcomeWebView)
+    {
+        _welcomeWebView = [[UIWebView alloc] initWithFrame:self.tableView.frame];
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"welcome" ofType:@"html"];
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        [_welcomeWebView loadHTMLString:htmlString baseURL:nil];
+    }
+    return _welcomeWebView;
 }
 
 #pragma mark - MNMPullToRefreshManagerClient methods

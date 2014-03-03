@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSString *typeString;
 @property (nonatomic, strong) NSString *measurementGroupName;
 @property (nonatomic, strong) NSString *measurementTypeName;
-@property (nonatomic, strong) NSNumber *shoudTakeNewPhoto;
 
 - (NSString*)comparableString;
 

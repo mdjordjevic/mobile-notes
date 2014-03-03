@@ -9,6 +9,12 @@
 #import "BrowseCell.h"
 #import "TagView.h"
 
+@interface BrowseCell ()
+
+@property (nonatomic, weak) PYEvent *event;
+
+@end
+
 @implementation BrowseCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -46,11 +52,30 @@
 
 - (void)updateWithEvent:(PYEvent *)event andListOfStreams:(NSArray *)streams
 {
+    self.event = event;
     self.commentLabel.text = event.eventDescription;
     self.streamLabel.text = [event eventBreadcrumbsForStreamsList:streams];
     [self updateTags:event.tags];
     NSDate *date = [event eventDate];
     self.dateLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
+- (void)layoutSubviews
+{
+    CGRect descLabelFrame = self.commentLabel.frame;
+    
+    if([self.event.tags count] > 0)
+    {
+        descLabelFrame.origin.y = 92;
+    }
+    else
+    {
+        descLabelFrame.origin.y = self.bounds.size.height - descLabelFrame.size.height;
+    }
+    
+    self.commentLabel.frame = descLabelFrame;
 }
 
 @end

@@ -144,7 +144,8 @@
     }
     if([self.event.tags count] == 0)
     {
-        self.tagsField.textField.placeholder = NSLocalizedString(@"ViewController.Tags.TapToAdd", nil);
+        UIColor *color = [UIColor lightGrayColor];
+        self.tagsField.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ViewController.Tags.TapToAdd", nil) attributes:@{NSForegroundColorAttributeName: color}];
     }
 }
 
