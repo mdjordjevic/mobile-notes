@@ -81,7 +81,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, frame.size.height)];
     [_label setBackgroundColor:[UIColor clearColor]];
     [_label setTextColor:[UIColor blackColor]];
-    [_label setFont:[UIFont fontWithName:@"Helvetica Neue-Medium" size:12.0]];
+    [_label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0]];
     
     [self addSubview:_label];
     
@@ -96,6 +96,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     [_textField setBackgroundColor:[UIColor clearColor]];
     [_textField setReturnKeyType:UIReturnKeyNext];
     [_textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_textField setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0]];
     
     [self addSubview:_textField];
     

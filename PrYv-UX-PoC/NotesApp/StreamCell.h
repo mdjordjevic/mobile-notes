@@ -12,5 +12,9 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *streamName;
 @property (nonatomic, weak) IBOutlet UIImageView *accessoryImageView;
+@property (nonatomic) NSInteger index;
+
+@property (copy) void (^streamAccessoryTappedHandler)(StreamCell *cell, NSInteger index);
+@property (copy) void (^streamCellTappedHandler)(StreamCell *cell, NSInteger index);
 
 @end

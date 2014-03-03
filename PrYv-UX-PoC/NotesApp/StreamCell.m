@@ -26,4 +26,40 @@
     // Configure the view for the selected state
 }
 
+- (void)cellTapped:(UITapGestureRecognizer *)tapGR
+{
+    CGPoint point = [tapGR locationInView:self];
+    if(self.accessoryImageView.image == nil)
+    {
+        [self realCellTapped];
+    }
+    else
+    {
+        if(CGRectContainsPoint(self.accessoryImageView.frame, point))
+        {
+            [self accessoryImageTapped];
+        }
+        else
+        {
+            [self realCellTapped];
+        }
+    }
+}
+
+- (void)accessoryImageTapped
+{
+    if(self.streamAccessoryTappedHandler)
+    {
+        self.streamAccessoryTappedHandler(self,self.index);
+    }
+}
+
+- (void)realCellTapped
+{
+    if(self.streamCellTappedHandler)
+    {
+        self.streamCellTappedHandler(self,self.index);
+    }
+}
+
 @end

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomNumericalKeyboard.h"
-#import "BaseDetailsViewController.h"
 
 @interface AddNumericalValueViewController : BaseViewController <CustomKeyboardDelegate>
 
