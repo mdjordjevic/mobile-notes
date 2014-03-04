@@ -773,7 +773,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
          [connection createEvent:self.event requestType:PYRequestTypeAsync
-                  successHandler:^(NSString *newEventId, NSString *stoppedId)
+                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
               BOOL shouldTakePictureFlag = NO;
               if(self.eventDataType == EventDataTypeImage)

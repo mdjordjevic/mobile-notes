@@ -61,6 +61,8 @@ static NSString *browseCellIdentifier = @"BrowseEventsCell_ID";
 - (void)refreshFilter;
 - (void)unsetFilter;
 
+- (void)showWelcomeWebView:(BOOL)visible;
+
 @end
 
 @implementation BrowseEventsViewController
@@ -172,19 +174,27 @@ BOOL displayNonStandardEvents;
 
 #pragma mark - setup
 
+- (void)showWelcomeWebView:(BOOL)visible {
+    if (visible) {
+        if (_welcomeWebView) return;
+        
+        [self.welcomeWebView removeFromSuperview];
+        [self.view addSubview:self.welcomeWebView];
+    } else {
+        if (_welcomeWebView == nil) return;
+        [self.welcomeWebView removeFromSuperview];
+        self.welcomeWebView = nil;
+    }
+}
+
 - (void)refreshFilter // called be loadData
 {
     if (self.filter == nil) {
         [self clearCurrentData];
         [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:^{
-            if(self.welcomeWebView)
-            {
-                [self.welcomeWebView removeFromSuperview];
-                [self.view addSubview:self.welcomeWebView];
-            }
+            [self showWelcomeWebView:YES];
         } withCompletionBlock:^(PYConnection *connection) {
-            [self.welcomeWebView removeFromSuperview];
-            self.welcomeWebView = nil;
+      
             self.filter = [[PYEventFilter alloc] initWithConnection:connection
                                                            fromTime:PYEventFilter_UNDEFINED_FROMTIME
                                                              toTime:PYEventFilter_UNDEFINED_TOTIME
@@ -251,10 +261,13 @@ BOOL displayNonStandardEvents;
     }
     if(IS_BROWSE_SECTION)
     {
-        return [self.events count];
+        int count = [self.events count];
+        [self showWelcomeWebView:(count == 0)];
+        return count;
     }
     if(IS_LRU_SECTION)
     {
+        [self showWelcomeWebView:NO];
         return [self.shortcuts count];
     }
     return 0;
@@ -576,14 +589,11 @@ BOOL displayNonStandardEvents;
 - (void)userDidReceiveAccessTokenNotification:(NSNotification *)notification
 {
     [self.pullToRefreshManager setPullToRefreshViewVisible:YES];
-    [self.welcomeWebView removeFromSuperview];
-    self.welcomeWebView = nil;
     [self loadData];
 }
 
 - (void)userDidLogoutNotification:(NSNotification *)notification
 {
-    [self.view addSubview:self.welcomeWebView];
     [self.pullToRefreshManager setPullToRefreshViewVisible:NO];
 }
 
