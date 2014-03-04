@@ -47,7 +47,7 @@ NSString *const kUserShouldLoginNotification = @"kUserShouldLoginNotification";
 
 - (void)initObject
 {
-    [PYClient setDefaultDomainStaging];
+    //[PYClient setDefaultDomainStaging];
     [PYClient setLanguageCodePrefered:kLocalizedKey];
     
     _settingController = [[SettingsController alloc] init];
