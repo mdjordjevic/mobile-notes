@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 @interface EventDetailsViewController () <StreamsPickerDelegate,JSTokenFieldDelegate>
 
+@property (nonatomic, strong) NSString *previousStreamId;
+
 @property (nonatomic) BOOL isStreamExpanded;
 @property (nonatomic) BOOL isTagExpanded;
 
@@ -102,6 +104,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (BOOL) shouldCreateEvent;
 
+- (void)closeStreamPickerAndRestorePreviousStreamId;
 @end
 
 @implementation EventDetailsViewController
@@ -397,6 +400,14 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)cancelButtonTouched:(id)sender
 {
+    // -- if streamPickerVC is opened
+    if(self.streamPickerVC)
+    {
+        [self closeStreamPickerAndRestorePreviousStreamId];
+        [self closeStreamPicker];
+        return;
+    }
+    
     if(self.event.isDraft)
     {
         [self.navigationController popViewControllerAnimated:YES];
@@ -414,6 +425,13 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     if(self.isInEditMode)
     {
+        // -- if streamPickerVC is opened
+        if(self.streamPickerVC)
+        {
+            [self closeStreamPicker];
+            return;
+        }
+    
         if(!self.event.streamId && sender)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.SelectStream", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -630,6 +648,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupStreamPickerViewController:(StreamPickerViewController*)streamPickerVC
 {
+    self.previousStreamId = [self.event.streamId copy];
     streamPickerVC.streamId = self.event.streamId;
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
@@ -649,7 +668,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }];
 }
 
+- (void)closeStreamPickerAndRestorePreviousStreamId
+{
+    if (self.previousStreamId) {
+       self.event.streamId = self.previousStreamId;
+    }
+}
+
 #pragma mark - StreamPickerDelegate methods
+
 
 - (void)streamPickerDidSelectStream:(PYStream *)stream
 {
@@ -659,6 +686,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)closeStreamPicker
 {
+    
     [self updateUIForEvent];
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         CGRect newFrame = self.streamPickerVC.view.frame;
