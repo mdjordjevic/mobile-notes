@@ -326,14 +326,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     cell.alpha = height > 0 ? 1.0f : 0.0f;
 }
 
-
+/**
 - (void)showImagePreview:(id)sender
 {
+    
     ImagePreviewViewController* imagePreviewVC = (ImagePreviewViewController *)[[UIStoryboard detailsStoryBoard] instantiateViewControllerWithIdentifier:@"ImagePreviewViewController_ID"];
     imagePreviewVC.image = self.picture_ImageView.image;
     //imagePreviewVC.descText = self.eventDescriptionLabel.text;
     [self.navigationController pushViewController:imagePreviewVC animated:YES];
-}
+}**/
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -546,6 +547,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
+    if([identifier isEqualToString:kShowImagePreviewSegue]) {
+# warning -- please explain to Perki why this does work!!!
+        return NO;
+    }
     return self.isInEditMode;
 }
 
@@ -619,10 +624,8 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 
 - (void)setupImagePreviewViewController:(ImagePreviewViewController*)imagePreviewVC
 {
-    [self.event firstAttachmentAsImage:^(UIImage *image) {
-        imagePreviewVC.image = image;
-    } errorHandler:nil];
-    
+
+    imagePreviewVC.image = self.picture_ImageView.image;
     imagePreviewVC.descText = self.event.eventDescription;
 }
 

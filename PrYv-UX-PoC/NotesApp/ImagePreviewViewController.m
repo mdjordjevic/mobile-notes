@@ -131,7 +131,7 @@
 
 - (IBAction)closeButtonTouched:(id)sender
 {
-     [self showNavigationBar:YES];
+    [self showNavigationBar:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
