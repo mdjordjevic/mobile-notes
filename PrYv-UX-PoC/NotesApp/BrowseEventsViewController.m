@@ -541,7 +541,9 @@ BOOL displayNonStandardEvents;
  * return index of event Added, -1 if not added
  */
 - (int)addEventToList:(PYEvent*) eventToAdd {
-    if (! [self clientFilterMatchEvent:eventToAdd]) return -1;
+    if (! [self clientFilterMatchEvent:eventToAdd]) {
+        return -1;
+    }
     PYEvent* kEvent = nil;
     if (self.events.count > 0) {
         for (int k = 0; k < self.events.count; k++) {
@@ -573,6 +575,7 @@ BOOL displayNonStandardEvents;
     if (keyPath == kPYAppSettingUIDisplayNonStandardEvents) {
         [self loadSettings];
         [self clearCurrentData];
+        [self refreshFilter];
     }
     
 }

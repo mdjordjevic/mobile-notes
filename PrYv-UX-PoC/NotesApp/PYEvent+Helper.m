@@ -51,7 +51,7 @@
     {
         return EventDataTypeImage;
     }
-    NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", self);
+    //NSLog(@"<WARNING> Dataservice.eventDataTypeForEvent: unkown type:  %@ ", self);
     return EventDataTypeNote;
 }
 
@@ -74,7 +74,7 @@
     else if ([self.pyType isNumerical]) {
         return CellStyleTypeMeasure;
     }
-    //NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", event);
+    NSLog(@"<WARNING> cellStyleForEvent: unkown type:  %@ ", self.pyType);
     return CellStyleTypeUnkown;
 }
 
