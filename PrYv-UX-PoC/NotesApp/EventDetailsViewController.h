@@ -15,7 +15,6 @@
 @interface EventDetailsViewController : UITableViewController
 
 @property (nonatomic, strong) PYEvent *event;
-@property (nonatomic, strong) NSArray *streams;
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerType;
 
 - (BOOL)shouldAnimateViewController:(UIViewController*)vc;

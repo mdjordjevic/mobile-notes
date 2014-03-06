@@ -255,15 +255,27 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     NSDate *date = [self.event eventDate];
     if (date == nil) date = [NSDate date]; // now
     self.timeLabel.text = [[NotesAppController sharedInstance].dateFormatter stringFromDate:date];
-    self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:self.streams];
-    self.descriptionLabel.text = self.event.eventDescription;
     
-    if([self.streamsLabel.text length] < 1)
-    {
-        self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
-    }
-    [self updateTagsLabel];
-    [self.tableView reloadData];
+    [[DataService sharedInstance] fetchAllStreamsWithCompletionBlock:^(id object, NSError *error) {
+        if(error)
+        {
+            NSLog(@"ERROR!!!!!!!");
+        }
+        else
+        {
+            
+            
+            self.streamsLabel.text = [self.event eventBreadcrumbsForStreamsList:object];
+            self.descriptionLabel.text = self.event.eventDescription;
+            
+            if([self.streamsLabel.text length] < 1)
+            {
+                self.streamsLabel.text = NSLocalizedString(@"ViewController.Streams.SelectStream", nil);
+            }
+        }
+        [self updateTagsLabel];
+        [self.tableView reloadData];
+    }];
 }
 
 
