@@ -408,9 +408,12 @@ BOOL displayNonStandardEvents;
 - (void)showEventDetailsWithUserHistoryEntry:(UserHistoryEntry*)entry
 {
     self.tempEntry = entry;
-    [self setMenuVisible:NO animated:YES withCompletionBlock:nil];
-    PYEvent *event = [entry reconstructEvent];
-    [self showEventDetailsForEvent:event andUserHistoryEntry:entry];
+    __weak typeof(self) weakSelf = self;
+    [self setMenuVisible:NO animated:YES withCompletionBlock:^{
+        PYEvent *event = [entry reconstructEvent];
+        [weakSelf showEventDetailsForEvent:event andUserHistoryEntry:entry];
+    }];
+    
 }
 
 - (void)showEventDetailsForEvent:(PYEvent*)event andUserHistoryEntry:(UserHistoryEntry*)entry

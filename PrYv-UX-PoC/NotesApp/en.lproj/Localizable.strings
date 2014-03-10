@@ -24,9 +24,11 @@
 "OK" = "OK";
 "Cancel" = "Cancel";
 "Back" = "Back";
+"Add" = "Add";
 
 "ViewController.Streams.SelectStream" = "Select a stream";
 "ViewController.Streams.AddNewStream" = "Add new Stream";
+"ViewController.Streams.StreamName" = "Stream name:";
 "ViewController.TextContent.TapToAdd" = "Tap to add content";
 "ViewController.TextDescriptionContent.TapToAdd" = "Add description";
 "ViewController.Tags.TapToAdd" = "Add tags";

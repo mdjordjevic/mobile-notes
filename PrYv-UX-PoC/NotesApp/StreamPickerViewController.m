@@ -115,6 +115,12 @@
     [self.delegate streamPickerDidSelectStream:self.stream];
 }
 
+- (IBAction)cancelButtonTouched:(id)sender
+{
+    self.visible = !self.visible;
+    [self.delegate cancelStreamPicker];
+}
+
 #pragma mark - UITableViewDataSource methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -126,55 +132,80 @@
 {
     static NSString *cellIdentifier = @"StreamCell_ID";
     StreamCell *cell = (StreamCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell.index = indexPath.row;
     if(indexPath.row == [[self parentStreamList] count])
     {
-        cell.accessoryImageView.image = [UIImage imageNamed:@"circle-add"];
-        cell.streamName.text = NSLocalizedString(@"ViewController.Streams.AddNewStream", nil);
+        [self setupAddStreamCell:cell];
     }
     else
     {
-        PYStream *stream = [[self parentStreamList] objectAtIndex:indexPath.row];
-        if([stream.children count] > 0)
-        {
-            cell.accessoryImageView.image = [UIImage imageNamed:@"circle-chevron-right"];
-        }
-        else
-        {
-            cell.accessoryImageView.image = nil;
-        }
-        cell.streamName.text = stream.name;
-        BOOL isSelected = [stream.streamId isEqualToString:self.stream.streamId];
-        [cell setSelected:isSelected animated:NO];
+        [self setupRegularCell:cell];
     }
     
     return cell;
 }
 
-#pragma mark - UITableViewDelegate methods
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)setupAddStreamCell:(StreamCell*)cell
 {
-    if(indexPath.row == [[self parentStreamList] count])
+    cell.accessoryImageView.image = [UIImage imageNamed:@"circle-add"];
+    cell.streamName.text = NSLocalizedString(@"ViewController.Streams.AddNewStream", nil);
+    [cell setStreamCellTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
+        [self showAddNewStreamDialog];
+    }];
+    [cell setStreamAccessoryTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
+        [self showAddNewStreamDialog];
+    }];
+}
+
+- (void)showAddNewStreamDialog
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ViewController.Streams.StreamName", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Add", nil), nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if(alertView.cancelButtonIndex != buttonIndex)
+        {
+            NSString *streamName = [[alertView textFieldAtIndex:0] text];
+            [self createNewStreamWithName:streamName];
+        }
+    }];
+}
+
+- (void)updateStreamCellDetails:(StreamCell *)cell withStream:(PYStream *)stream
+{
+    if([stream.children count] > 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Stream name:" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
-        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-        [alertView showWithCompletionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if(alertView.cancelButtonIndex != buttonIndex)
-            {
-                NSString *streamName = [[alertView textFieldAtIndex:0] text];
-                [self createNewStreamWithName:streamName];
-            }
-        }];
+        cell.accessoryImageView.image = [UIImage imageNamed:@"circle-chevron-right"];
     }
     else
     {
-        PYStream *stream = [[self parentStreamList] objectAtIndex:indexPath.row];
+        cell.accessoryImageView.image = nil;
+    }
+    cell.streamName.text = stream.name;
+    BOOL isSelected = [stream.streamId isEqualToString:self.stream.streamId];
+    [cell setSelected:isSelected animated:NO];
+}
+
+- (void)setupRegularCell:(StreamCell*)cell
+{
+    PYStream *stream = [[self parentStreamList] objectAtIndex:cell.index];
+    [self updateStreamCellDetails:cell withStream:stream];
+    [cell setStreamCellTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
+        PYStream *stream = [[self parentStreamList] objectAtIndex:index];
         self.stream = stream;
         [self.tableView reloadData];
         [self updateUIElements];
         [self.delegate streamPickerDidSelectStream:self.stream];
-    }
+        [self streamsLabelTouched:nil];
+    }];
+    [cell setStreamAccessoryTappedHandler:^(StreamCell *tappedCell, NSInteger index) {
+        PYStream *stream = [[self parentStreamList] objectAtIndex:index];
+        self.stream = stream;
+        [self.tableView reloadData];
+        [self updateUIElements];
+    }];
 }
+
+#pragma mark - UITableViewDelegate methods
 
 #pragma mark - Utils
 

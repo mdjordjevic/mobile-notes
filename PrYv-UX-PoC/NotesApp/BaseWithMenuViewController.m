@@ -104,13 +104,18 @@
 
 - (void)menuButtonTouched:(id)sender
 {
-    [(UIButton*)self.navigationItem.rightBarButtonItem.customView setImage:[UIImage imageNamed:self.isMenuOpen ? @"icon_add" : @"icon_add_active"] forState:UIControlStateNormal];
     [self setMenuVisible:(!self.isMenuOpen && self.enabled) animated:YES withCompletionBlock:nil];
+}
+
+- (void)updateTopButtonIsInActiveState:(BOOL)isActive
+{
+    [(UIButton*)self.navigationItem.rightBarButtonItem.customView setImage:[UIImage imageNamed:isActive ? @"icon_add_active" : @"icon_add"] forState:UIControlStateNormal];
 }
 
 - (void)setMenuVisible:(BOOL)visible animated:(BOOL)animated withCompletionBlock:(void (^)(void))completionBlock
 {
     [self topMenuVisibilityWillChange];
+    [self updateTopButtonIsInActiveState:visible];
     CGFloat pointY = visible ? 0 : -self.menuTableView.bounds.size.height;
     if(!visible)
     {

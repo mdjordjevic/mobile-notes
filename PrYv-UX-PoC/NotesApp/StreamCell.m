@@ -26,6 +26,13 @@
     // Configure the view for the selected state
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
+    [self addGestureRecognizer:tapGR];
+}
+
 - (void)cellTapped:(UITapGestureRecognizer *)tapGR
 {
     CGPoint point = [tapGR locationInView:self];
