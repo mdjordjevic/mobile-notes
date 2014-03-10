@@ -11,6 +11,7 @@
 #import "PYEvent+Helper.h"
 #import <PryvApiKit/PYEvent.h>
 #import <PryvApiKit/PYEventType.h>
+#import <PryvApiKit/PYConnection+DataManagement.h>
 #import "TextEditorViewController.h"
 #import "DatePickerViewController.h"
 #import "AddNumericalValueViewController.h"
@@ -484,6 +485,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     {
         [self updateEvent];
     }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
     [self updateLabelsTextColorForEditingMode:NO];
     
@@ -667,20 +672,18 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     streamPickerVC.streamId = self.event.streamId;
     streamPickerVC.delegate = self;
     self.streamPickerVC = streamPickerVC;
-    CGRect frame = self.view.bounds;
-    frame.origin.y = frame.size.height;
-    frame.size.height = frame.size.height - 100;
-    self.streamPickerVC.view.frame = frame;
-    [self.view addSubview:streamPickerVC.view];
-    
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        CGRect newFrame = self.streamPickerVC.view.frame;
-        newFrame.origin.y = 100 + self.tableView.contentOffset.y;
-        self.streamPickerVC.view.frame = newFrame;
-        self.streamPickerVC.arrowImageView.transform = CGAffineTransformMakeRotation(0);
-    } completion:^(BOOL finished) {
-        self.tableView.scrollEnabled = NO;
+    [self.streamPickerVC.view.subviews[0] removeFromSuperview];
+    CGPoint center = self.streamPickerVC.view.center;
+    self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [self.navigationController presentViewController:self.streamPickerVC animated:NO completion:^{
+        self.streamPickerVC.view.center = CGPointMake(self.streamPickerVC.view.center.x, self.streamPickerVC.view.center.y + self.view.bounds.size.height);
+        [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.streamPickerVC.view.center = center;
+        } completion:^(BOOL finished) {
+            
+        }];
     }];
+    
 }
 
 - (void)closeStreamPickerAndRestorePreviousStreamId
@@ -703,16 +706,15 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     
     [self updateUIForEvent];
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        CGRect newFrame = self.streamPickerVC.view.frame;
-        newFrame.origin.y = self.view.bounds.size.height;
-        self.streamPickerVC.view.frame = newFrame;
-        self.streamPickerVC.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
-    } completion:^(BOOL finished) {
-        [self.streamPickerVC.view removeFromSuperview];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
         self.streamPickerVC = nil;
-        self.tableView.scrollEnabled = YES;
     }];
+}
+
+- (void)cancelStreamPicker
+{
+    [self closeStreamPickerAndRestorePreviousStreamId];
+    [self closeStreamPicker];
 }
 
 #pragma mark - Utils
@@ -815,8 +817,10 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
 {
     [NotesAppController sharedConnectionWithID:nil noConnectionCompletionBlock:nil withCompletionBlock:^(PYConnection *connection)
      {
+#warning Something is wrong with the SDK loading. New method signature is not found (MDJ)
          [connection createEvent:self.event requestType:PYRequestTypeAsync
-                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
+          successHandler:^(NSString *newEventId, NSString *stoppedId)
+//                  successHandler:^(NSString *newEventId, NSString *stoppedId, PYEvent *event)
           {
               BOOL shouldTakePictureFlag = NO;
               if(self.eventDataType == EventDataTypeImage)
@@ -984,7 +988,7 @@ typedef NS_ENUM(NSUInteger, DetailCellType)
     }
     else if(self.eventDataType == EventDataTypeNote)
     {
-        rowToSelect = DetailCellTypeDescription;
+        rowToSelect = DetailCellTypeNote;
     }
     else
     {
